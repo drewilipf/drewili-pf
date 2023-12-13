@@ -5,10 +5,18 @@ const path = require('path');
 const { DB_URL } = process.env;
 
 const sequelize = new Sequelize(
-    {
-        logging: false, // set to console.log to see the raw SQL queries
-        native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-     }
+   DB_URL,
+   {
+      logging: false, // set to console.log to see the raw SQL queries
+      native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+      ssl: true,
+      dialectOptions: {
+         ssl: {
+            require: true,
+            rejectUnauthorized: false,
+         },
+      },
+   }
 );
 const basename = path.basename(__filename);
 
@@ -37,7 +45,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const {} = sequelize.models;
+const { } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
