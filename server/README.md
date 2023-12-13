@@ -1,0 +1,1 @@
+Para conectarse a la bd crear un archivo .env con una variable de entorno que se llame DB_URL y ahi poner la URL compartida por el canal.
