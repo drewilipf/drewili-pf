@@ -1,4 +1,5 @@
 import Searchbar from "../Searchbar/Searchbar";
+import { NavLink } from "react-router-dom"
 
 function Navbar() {
   return (
@@ -7,7 +8,13 @@ function Navbar() {
         <h1 className="mr-4">Logo</h1>
         <Searchbar className="mr-4"></Searchbar>
       </div>
-      <h1>Acá se incluirían otros botones de navegación</h1>
+      <button>
+          <NavLink to="/UserForm"> Registrate </NavLink>
+      </button>
+      <button>
+          <NavLink to="/UserLogin"> Ingresa </NavLink>
+      </button>
+      
     </div>
   );
 }
