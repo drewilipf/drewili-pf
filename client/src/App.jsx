@@ -5,6 +5,8 @@ import Shopping from './views/Shopping/Shopping';
 import UserProfile from './views/UserProfile/UserProfile';
 import About from './views/About/About';
 import { Routes, Route } from 'react-router-dom';
+import UserForm from './Components/UserForm/UserForm';
+import UserLogin from './Components/UserLogin/Userlogin';
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
         <Route path="/detail/:id" element={<ProductDetail />} />
         <Route path="/shopping" element={<Shopping />} />
         <Route path="/userprofile" element={<UserProfile />} />
+        <Route path="/userform" element={<UserForm />} />
+        <Route path="/userlogin" element={<UserLogin />} />
         <Route path="/about" element={<About />} />
       </Routes>
       </div>
