@@ -7,6 +7,7 @@ const { DB_URL } = process.env;
 const sequelize = new Sequelize(
    DB_URL,
    {
+      //comentar esta opcion para usar la DBB local.
       logging: false, // set to console.log to see the raw SQL queries
       native: false, // lets Sequelize know we can use pg-native for ~30% more speed
       ssl: true,
