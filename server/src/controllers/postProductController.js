@@ -1,24 +1,19 @@
-const { Product } = require('../db'); 
+const { Product } = require('../db');
 
-const postProductsController = async (req, res) => {
-    try {
-        const { name, description, price, specifications, stock, brand_id, category_id } = req.body;
+const postProductsController = async (data, res) => {
+    const { name, description, price, specifications, stock, brand_id, category_id } = data;
 
-        const newProduct = await Product.create({
-            name,
-            description,
-            price,
-            specifications,
-            stock,
-            brand_id,
-            category_id,
-        });
+    const newProduct = await Product.create({
+        name,
+        description,
+        price,
+        specifications,
+        stock,
+        brand_id,
+        category_id,
+    });
 
-        res.status(201).json(newProduct);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Error interno del servidor' });
-    }
+    res.status(200).json(newProduct);
 };
 
 module.exports = postProductsController;
