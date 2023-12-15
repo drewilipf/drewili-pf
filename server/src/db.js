@@ -3,6 +3,7 @@ const { Sequelize } = require('sequelize');
 const ProductModel = require('./models/products')
 const CategoryModel = require('./models/categories')
 const BrandModel = require('./models/brand')
+const UserModel = require("./models/users")
 const { DB_URL } = process.env;
 
 const sequelize = new Sequelize(
@@ -22,6 +23,7 @@ const sequelize = new Sequelize(
 const Category = CategoryModel(sequelize);
 const Product = ProductModel(sequelize);
 const Brand = BrandModel(sequelize)
+const User = UserModel(sequelize)
 
 // Aca vendrian las relaciones
 Product.belongsTo(Category, { foreignKey: 'category_id' });
@@ -41,5 +43,6 @@ module.exports = {
    Category,
    Product,
    Brand,
+   User,
    conn: sequelize, 
 };
