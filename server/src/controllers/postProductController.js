@@ -1,7 +1,6 @@
 const { Product } = require('../db');
 
-const postProductsController = async (data, res) => {
-    const { name, description, price, specifications, stock, brand_id, category_id } = data;
+const postProductsController = async (name, description, price, specifications, stock, image, brand_id, category_id) => {
 
     const newProduct = await Product.create({
         name,
@@ -9,11 +8,12 @@ const postProductsController = async (data, res) => {
         price,
         specifications,
         stock,
+        image,
         brand_id,
         category_id,
     });
 
-    res.status(200).json(newProduct);
+    return newProduct;
 };
 
 module.exports = postProductsController;
