@@ -5,7 +5,7 @@ const getUserHandler = require('../handlers/getUserHandler')
 
 const router = Router()
 
-router.get("/users", getUserHandler)
-router.post("/users", postUserHandler)
+router.get("/", getUserHandler)
+router.post("/", postUserHandler)
 
 module.exports = router

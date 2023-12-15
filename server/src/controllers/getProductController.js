@@ -1,9 +1,31 @@
-const { Product } = require('../db');
+const { Product, Category, Brand } = require('../db');
 
-const getProductsController = async (data, res) => {
-    const products = await Product.findAll();
+const getProductsController = async () => {
+    const products = await Product.findAll({
+        include: [
+            {
+                model: Category,
+                attributes: ['category']
+            },
+            {
+                model: Brand,
+                attributes: ['brand']
+            }
+        ]
+    });
 
-    res.status(200).json(products);
+    const formattedProducts = products.map(product => ({
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        specifications: product.specifications,
+        stock: product.stock,
+        image: product.image,
+        brand: product.brand.brand,
+        category: product.category.category // Extrae solo el atributo 'category'
+    }));
+    return formattedProducts
 };
 
 module.exports = getProductsController;
