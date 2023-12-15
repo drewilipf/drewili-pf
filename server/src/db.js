@@ -26,8 +26,8 @@ const Brand = BrandModel(sequelize)
 // Aca vendrian las relaciones
 Product.belongsTo(Category, { foreignKey: 'category_id' });
 Category.hasMany(Product, { foreignKey: 'category_id' });
-Product.belongsTo(Brand, { foreignKey: 'category_id' });
-Brand.hasMany(Product, { foreignKey: 'category_id' });
+Product.belongsTo(Brand, { foreignKey: 'brand_id' });
+Brand.hasMany(Product, { foreignKey: 'brand_id' });
 
 sequelize.authenticate()
    .then(() => {
