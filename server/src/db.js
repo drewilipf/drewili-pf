@@ -3,13 +3,9 @@ const { Sequelize } = require('sequelize');
 const ProductModel = require('./models/products')
 const CategoryModel = require('./models/categories')
 const BrandModel = require('./models/brand')
-<<<<<<< HEAD
-const UserModel = require("./models/users")
-=======
 const SalesCartModel = require('./models/saleCart')
 const UserModel = require('./models/users')
 
->>>>>>> 0f1bbc376c8dc930c2be8be7cca2b7294ada0776
 const { DB_URL } = process.env;
 
 const sequelize = new Sequelize(
@@ -29,10 +25,7 @@ const sequelize = new Sequelize(
 const Category = CategoryModel(sequelize);
 const Product = ProductModel(sequelize);
 const Brand = BrandModel(sequelize)
-<<<<<<< HEAD
-=======
 const SalesCart = SalesCartModel(sequelize)
->>>>>>> 0f1bbc376c8dc930c2be8be7cca2b7294ada0776
 const User = UserModel(sequelize)
 
 // Aca vendrian las relaciones
@@ -58,9 +51,6 @@ module.exports = {
    Product,
    Brand,
    User,
-<<<<<<< HEAD
-=======
    SalesCart,
->>>>>>> 0f1bbc376c8dc930c2be8be7cca2b7294ada0776
    conn: sequelize, 
 };
