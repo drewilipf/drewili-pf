@@ -4,7 +4,7 @@ const getProductsHandler = require('../handlers/getProductHandler')
 
 const router = Router()
 
-router.get("/products", getProductsHandler)
-router.post("/products", postProductsHandler)
+router.get("/", getProductsHandler)
+router.post("/", postProductsHandler)
 
 module.exports = router
