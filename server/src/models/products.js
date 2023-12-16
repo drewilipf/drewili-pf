@@ -49,6 +49,11 @@ module.exports = (sequelize) => {
                 key: 'id'
             },
         },
+        deleted:{
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+            allowNull: false
+        }
     },
         { timestamps: false })
     return Product
