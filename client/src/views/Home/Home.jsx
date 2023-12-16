@@ -1,6 +1,6 @@
-import React from 'react';
-import Navbar from '../../Components/Navbar/Navbar';
-import Productcards from '../../Components/Productcards/Productcards';
+import React from "react";
+import Navbar from "../../Components/Navbar/Navbar";
+import Productcards from "../../Components/Productcards/Productcards";
 
 function Home() {
   return (
