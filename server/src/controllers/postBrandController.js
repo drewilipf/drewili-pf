@@ -6,7 +6,7 @@ const createNewBrand = async (brand) =>
         throw Error('Debe ingresar una marca')
     }
             const newBrand = await Brand.create({
-            name: category
+            brand: brand
         })
         return newBrand;
     } 

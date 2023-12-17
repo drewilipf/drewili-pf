@@ -1,12 +1,15 @@
 const { Router } = require('express')
 const productRouter = require ('./productRouter')
 const userRouter = require ('./userRouter')
-const { postCategoryHandler } = require('../handlers/postCategoryHandler')
+const categoryRouter = require('./categoryRouter')
+const brandRouter = require('./brandRouter')
 
 
 const router = Router()
 
 router.use("/product", productRouter)
 router.use("/user", userRouter)
-router.post("/category", postCategoryHandler)
+router.use("/category", categoryRouter)
+router.use("/brand", brandRouter)
+
 module.exports = router
