@@ -1,4 +1,4 @@
-const {Category} = require("../db")
+const {Category} = require("../../db")
 
 const getCategoryController = async() =>{
     const categories = await Category.findAll();

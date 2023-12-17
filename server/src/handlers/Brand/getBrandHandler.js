@@ -1,9 +1,9 @@
-const getBrandController = require('../controllers/getBrandController')
+const getBrandController = require('../../controllers/Brand/getBrandController')
 
 const getBrandHandler = async(req, res)=>{
     try {
-        const categories = await getBrandController();
-        res.status(200).json({categories})
+        const brands = await getBrandController();
+        res.status(200).json(brands)
     } catch (error) {
         return res.status(500).json({ error: error.message })
     }

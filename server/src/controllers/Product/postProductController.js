@@ -1,4 +1,4 @@
-const { Product } = require('../db');
+const { Product } = require('../../db');
 
 const postProductsController = async (name, description, price, specifications, stock, image, brand_id, category_id) => {
 

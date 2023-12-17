@@ -1,4 +1,4 @@
-const deleteBrandController = require('../controllers/deleteBrandController')
+const deleteBrandController = require('../../controllers/Brand/deleteBrandController')
 
 const deleteBrandHandler = async(req, res) => {
     try {

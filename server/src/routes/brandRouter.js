@@ -1,7 +1,7 @@
 const {Router} = require('express')
-const postBrandHandler = require('../handlers/postBrandsHandler')
-const getBrandHandler = require('../handlers/getBrandHandler')
-const deleteBrandHandler = require('../handlers/deleteBrandHandler')
+const postBrandHandler = require('../handlers/Brand/postBrandHandler')
+const getBrandHandler = require('../handlers/Brand/getBrandHandler')
+const deleteBrandHandler = require('../handlers/Brand/deleteBrandHandler')
 
 
 const router = Router()

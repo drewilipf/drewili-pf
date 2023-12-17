@@ -1,4 +1,4 @@
-const createNewBrand = require('../controllers/postBrandController')
+const createNewBrand = require('../../controllers/Brand/postBrandController')
 
 const postBrandHandler = async (req, res) => {
     const { brand } = req.body;

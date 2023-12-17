@@ -1,6 +1,6 @@
-import React from 'react';
-import Navbar from '../../Components/Navbar/Navbar';
-import Productcards from '../../Components/Productcards/Productcards';
+import React from "react";
+import Navbar from "../../Components/Navbar/Navbar";
+import Productcards from "../../Components/Productcards/Productcards";
 
 function Home() {
   return (
@@ -8,7 +8,7 @@ function Home() {
       <Navbar />
       <h1>Drewili Home</h1>
       <div className="flex items-center mb-4">
-        <h2 className="mr-4">Productos más populares:</h2>
+        <h2 className="mr-4"></h2>
         <Productcards />
       </div>
     </>

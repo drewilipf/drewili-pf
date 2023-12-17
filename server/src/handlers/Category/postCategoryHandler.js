@@ -1,4 +1,4 @@
-const createNewCategory = require('../controllers/postCategoryController')
+const createNewCategory = require('../../controllers/Category/postCategoryController')
 
 
 const postCategoryHandler = async (req, res) => {

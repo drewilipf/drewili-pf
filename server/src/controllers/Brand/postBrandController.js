@@ -1,4 +1,4 @@
-const { Brand } = require('../db')
+const { Brand } = require('../../db')
 
 const createNewBrand = async (brand) =>
 {

@@ -1,4 +1,4 @@
-const deleteCategoryController = require('../controllers/deleteCategoryController')
+const deleteCategoryController = require('../../controllers/Category/deleteCategoryController')
 
 const deleteCategoryHandler = async(req, res) => {
     try {

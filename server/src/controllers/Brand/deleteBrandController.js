@@ -1,4 +1,4 @@
-const {Brand} = require("../db")
+const {Brand} = require("../../db")
 
 const deleteBrandController = async(id) =>{
 const deleteBrand = await Brand.destroy({

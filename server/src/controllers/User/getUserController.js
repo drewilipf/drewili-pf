@@ -1,9 +1,9 @@
-const {User} = require("../db")
+const {User} = require("../../db")
 
 const getUserController = async(data, res) =>{
     const users = await User.findAll();
 
-    res.status(200).json(users)
+    return users;
 }
 
 module.exports = getUserController;
