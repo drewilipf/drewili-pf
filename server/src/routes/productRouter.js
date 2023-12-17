@@ -1,6 +1,6 @@
 const {Router} = require('express')
-const postProductsHandler = require('../handlers/postProductHandler')
-const getProductsHandler = require('../handlers/getProductHandler')
+const postProductsHandler = require('../handlers/Product/postProductHandler')
+const getProductsHandler = require('../handlers/Product/getProductHandler')
 
 const router = Router()
 
