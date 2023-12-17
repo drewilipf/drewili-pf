@@ -19,7 +19,7 @@ function Navbar() {
           </button>
         </div>
       </div>
-      <Banners />;
+      <Banners />
     </div>
   );
 }
