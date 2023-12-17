@@ -5,15 +5,19 @@ function Productcard({
   price,
   specifications,
   stock,
-  category_id,
+  category,
   image,
-  brand_id,
+  brand,
 }) {
   return (
-    <div className="max-w-xs">
-      <img src={image} alt={name} className="w-full h-auto max-h-32" />
+    <div className="max-w-xs overflow-hidden transform transition-transform hover:scale-110">
+      <img
+        src={image}
+        alt={name}
+        className="w-full h-auto max-h-32 transform transition-transform hover:scale-125"
+      />
       <h2>{name}</h2>
-      <h3>{price}</h3>
+      <h3>S/ {price}</h3>
     </div>
   );
 }

@@ -26,8 +26,8 @@ function Productcards() {
             price={product.price}
             specifications={product.specifications}
             stock={product.stock}
-            category_id={product.category_id}
-            brand_id={product.brand_id}
+            category={product.category}
+            brand={product.brand}
           />
         ))
       ) : (
