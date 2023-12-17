@@ -24,8 +24,18 @@ const getSalesCartController = async (userId) => {
         throw new Error ("No se encontró al usuario")
     }
 
+    const formattedSalesCart = salesCarts.map((product)=>({
+        id: product.product.id,
+        name: product.product.name,
+        image: product.product.image,
+        price: product.product.price,
+        quantity: product.quantity,
+        totalPrice: product.product.price*product.quantity,
+        brand: product.product.brand.brand
+    }))
 
-    return salesCarts;
+
+    return formattedSalesCart;
 };
 
 module.exports = getSalesCartController;
