@@ -39,6 +39,8 @@ Category.hasMany(Product, { foreignKey: 'category_id' });
 Product.belongsTo(Brand, { foreignKey: 'brand_id' });
 Brand.hasMany(Product, { foreignKey: 'brand_id' });
 
+SalesCart.belongsTo(User, {foreignKey: 'user_id'})
+SalesCart.belongsTo(Product, { foreignKey: 'product_id' });
 Product.belongsToMany(User, { through: SalesCart, foreignKey: 'product_id' });
 User.belongsToMany(Product, { through: SalesCart, foreignKey: 'user_id' });
 
@@ -47,6 +49,7 @@ User.belongsToMany(Product, { through: Comments, foreignKey: 'user_id' });
 
 Product.belongsToMany(User, {through: Favorite, foreignKey: 'product_id'});
 User.belongsToMany(Product, {through: Favorite, foreignKey: 'user_id'})
+
 
 sequelize.authenticate()
    .then(() => {

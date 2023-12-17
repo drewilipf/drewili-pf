@@ -1,9 +1,9 @@
 const {Router} = require('express')
-const getSalesCartHandler = require('../handlers/getSalesCartHandler')
+const getSalesCartHandler = require('../handlers/SalesCart/getSalesCartHandler')
 
 
 const router = Router()
 
-router.get("/", getSalesCartHandler)
+router.get("/user/:userId", getSalesCartHandler)
 
 module.exports = router
