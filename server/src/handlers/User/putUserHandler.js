@@ -8,7 +8,7 @@ const putUserHandler = async(req, res) => {
 
         const updatedUserData = req.body
 
-        const res = await putUserController (id, updatedUserData)
+        await putUserController (id, updatedUserData)
 
         res.status(200).send("Usuario actualizado exitosamente")
         

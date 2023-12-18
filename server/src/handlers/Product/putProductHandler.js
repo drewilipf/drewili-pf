@@ -8,7 +8,7 @@ const putProductHandler = async(req, res) => {
 
         const updatedProductData = req.body
 
-        const res = await putProductController (id, updatedProductData)
+        await putProductController (id, updatedProductData)
 
         res.status(200).send("Producto actualizado exitosamente")
         
