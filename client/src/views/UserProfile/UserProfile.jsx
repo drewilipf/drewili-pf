@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../../reduxToolkit/Slice";
+import { setUser } from "../../reduxToolkit/userSlice";
 import axios from "axios";
 
 const UserProfile = () => {
   const styles =
-    "font-regular avant-garde-regular w-full px-8 py-1.5 text-lg text-Az4 leading-tight bg-gray-200 border rounded focus:outline-none focus:shadow-outline";
-  const styles2 = "font-black avant-garde-regular text-Az1 text-lg";
+    "font-regular avant-garde-regular w-full px-8 py-1.5 text-lg text-gray-900 leading-tight bg-orange-200 border rounded focus:outline-none focus:shadow-outline";
+  const styles2 = "font-gray-900 avant-garde-regular text-gray-900 text-lg";
 
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
   const [editable, setEditable] = useState({
-    name: user.username,
+    name: user.name,
     email: user.email,
     phone: user.phone,
     address: user.address,
@@ -62,21 +62,21 @@ const UserProfile = () => {
 
   return (
     <div>
-      <div className="bg-gray-100 bg-opacity-60 p-8 text-gray-900 rounded-lg shadow-md w-full h-full max-w-screen-md mx-auto flex flex-col">
+      <div className="bg-orange-100 bg-opacity-60 p-8 text-gray-900 rounded-lg shadow-md w-full h-full max-w-screen-md mx-auto flex flex-col">
         <div className="mb-4">
           <label className={styles2}>Nombre de Usuario</label>
           <input
             className={styles}
             id="username"
             type="text"
-            value={editable.username}
+            value={editable.name}
             onChange={(e) => handleFieldChange("username", e.target.value)}
             placeholder="Nombre de usuario"
           />
         </div>
 
         <div className="mb-4">
-          <label className={styles2}>Correo</label>
+          <label className={styles2}>Correo Electrónico</label>
           <input
             className={styles}
             id="email"
@@ -84,7 +84,6 @@ const UserProfile = () => {
             value={editable.email}
             onChange={(e) => handleFieldChange("email", e.target.value)}
             placeholder="Correo electrónico"
-            disabled
           />
         </div>
 
@@ -119,13 +118,13 @@ const UserProfile = () => {
             id="number"
             type="text"
             value={editable.document}
-            onChange={(e) => handleFieldChange("nit", e.target.value)}
-            placeholder="Nit"
+            onChange={(e) => handleFieldChange("dni", e.target.value)}
+            placeholder="DNI"
           />
         </div>
         <div className="flex items-center justify-center">
           <button
-            className="avant-garde-bold font-bold w-full text-gray px-6 py-2 rounded text-xl  bg-Az3 shadow-xl bg-opacity-70 transition duration-300 hover:bg-opacity-100"
+            className="avant-garde-bold font-bold w-full text-gray px-6 py-2 rounded text-xl  bg-orange-600 shadow-xl bg-opacity-70 transition duration-300 hover:bg-opacity-100"
             type="submit"
             onClick={handleSaveChanges}
           >
