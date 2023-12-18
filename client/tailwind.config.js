@@ -4,7 +4,7 @@ export default {
   theme: {
     colors: {
       chiliRed: "#E62F05",
-      eirieBlack: "#1A1A1A",
+      eerieBlack: "#1A1A1A",
       onyx: "#404145",
       whiteSmoke: "#F2F2F2",
     },
