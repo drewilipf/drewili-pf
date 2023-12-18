@@ -7,5 +7,6 @@ const router = Router()
 
 router.get("/", getUserHandler)
 router.post("/", postUserHandler)
+router.put("/:id", putUserHandler)
 
 module.exports = router
