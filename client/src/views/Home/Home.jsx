@@ -4,14 +4,14 @@ import Productcards from "../../Components/Productcards/Productcards";
 
 function Home() {
   return (
-    <>
+    <div>
       <Navbar />
-      <h1>Drewili Home</h1>
+
       <div className="flex items-center mb-4">
         <h2 className="mr-4"></h2>
         <Productcards />
       </div>
-    </>
+    </div>
   );
 }
 
