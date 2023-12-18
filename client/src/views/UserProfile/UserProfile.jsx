@@ -4,8 +4,7 @@ import { getUserSlice } from "../../reduxToolkit/User/userSlice";
 import axios from "axios";
 
 const UserProfile = () => {
-  const styles =
-    " w-full px-8 py-1.5 text-lg text-eerieBlack leading-tight bg-whiteSmoke border rounded focus:outline-none focus:shadow-outline";
+  const styles ="w-full px-8 py-1.5 text-lg text-eerieBlack leading-tight bg-whiteSmoke border rounded focus:outline-none focus:shadow-outline";
   const styles2 = " text-eerieBlack text-lg";
 
   const user = useSelector((state) => state.users);
@@ -20,12 +19,11 @@ const UserProfile = () => {
   });
 
   useEffect(() => {
-    
     const fetchUserData = async () => {
       try {
         const response = await axios.get("http://localhost:3001/user");
         const userData = response.data;
-        dispatch(getUserSlice(userData));
+        dispatch(getUserSlice({ users: userData }));
       } catch (error) {
         console.error("Error al obtener la información del usuario:", error);
       }
@@ -42,23 +40,15 @@ const UserProfile = () => {
   };
 
   const handleSaveChanges = () => {
-    try {
-
-      dispatch(getUserSlice(editable));
-
-      // Simula una solicitud al servidor
-      setTimeout(() => {
-        console.log("Guardando cambios en el servidor...", editable);
-
-        console.log("Cambios guardados correctamente.");
-      }, 1000);
-    } catch (error) {
-      console.error("Error al guardar cambios:", error);
-    }
+    // Simula una solicitud al servidor
+    setTimeout(() => {
+      console.log("Guardando cambios en el servidor...", editable);
+      console.log("Cambios guardados correctamente.");
+    }, 1000);
   };
 
   return (
-    <div>
+    <div className="mt-40">
       <div className="bg-chiliRed bg-opacity-10 p-8 text-eerieBlack rounded-lg shadow-md w-full h-full max-w-screen-md mx-auto flex flex-col">
         <div className="mb-4">
           <label className={styles2}>Nombre de Usuario</label>
@@ -67,7 +57,7 @@ const UserProfile = () => {
             id="username"
             type="text"
             value={editable.name}
-            onChange={(e) => handleFieldChange("username", e.target.value)}
+            onChange={(e) => handleFieldChange("name", e.target.value)}
             placeholder="Nombre de usuario"
           />
         </div>
@@ -115,13 +105,13 @@ const UserProfile = () => {
             id="number"
             type="text"
             value={editable.document}
-            onChange={(e) => handleFieldChange("dni", e.target.value)}
+            onChange={(e) => handleFieldChange("document", e.target.value)}
             placeholder="DNI"
           />
         </div>
         <div className="flex items-center justify-center">
           <button
-            className=" w-full text-eerieBlack px-6 py-2 rounded text-xl  bg-chiliRed  shadow-xl bg-opacity-20 transition duration-300 hover:bg-opacity-60"
+            className="w-full text-eerieBlack px-6 py-2 rounded text-xl bg-chiliRed shadow-xl bg-opacity-20 transition duration-300 hover:bg-opacity-60"
             type="submit"
             onClick={handleSaveChanges}
           >
