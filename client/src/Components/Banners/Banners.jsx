@@ -1,7 +1,7 @@
 function Banners() {
   return (
     <>
-      <div className=" flex m-4 ">
+      <div className=" flex m-4 shadow-xl p-8 ">
         <img
           src="/banner1.png"
           alt="banner1"

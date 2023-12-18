@@ -1,14 +1,13 @@
 import React from "react";
-import Navbar from "../../Components/Navbar/Navbar";
-import Productcards from "../../Components/Productcards/Productcards";
 
+import Productcards from "../../Components/Productcards/Productcards";
+import Banners from "../../Components/Banners/Banners";
 function Home() {
   return (
-    <div>
-      <Navbar />
+    <div className="flex flex-col items-center">
+      <Banners />
+      <div className="flex flex-col items-center mt-8">
 
-      <div className="flex items-center mb-4">
-        <h2 className="mr-4"></h2>
         <Productcards />
       </div>
     </div>
