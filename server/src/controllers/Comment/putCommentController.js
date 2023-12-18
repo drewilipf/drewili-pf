@@ -7,8 +7,13 @@ const putCommentController = async (commentId, updatedComment) => {
         throw new Error(errorMessage);
     }
 
+    //uso Date para hacer legible la fecha
+    const formattedDate = new Date().toLocaleString();
+
     const [rowsUpdated, [updatedRow]] = await Comments.update(
-        { comment: updatedComment },
+
+        //uso formattedDate para hacer legible la fecha de cuando se actualiza el comment
+        { comment: updatedComment, updatedAt: formattedDate },
         { where: { id: commentId }, returning: true }
     );
 
