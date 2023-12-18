@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserSlice } from "../../reduxToolkit/User/userSlice";
-import axios from "axios";
+import { getUser } from "../../reduxToolkit/User/userThunks";
 
 const UserProfile = () => {
-  const styles ="w-full px-8 py-1.5 text-lg text-eerieBlack leading-tight bg-whiteSmoke border rounded focus:outline-none focus:shadow-outline";
+  const styles = " w-full px-8 py-1.5 text-lg text-eerieBlack leading-tight bg-whiteSmoke border rounded focus:outline-none focus:shadow-outline";
   const styles2 = " text-eerieBlack text-lg";
 
   const user = useSelector((state) => state.users);
@@ -19,17 +18,7 @@ const UserProfile = () => {
   });
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get("http://localhost:3001/user");
-        const userData = response.data;
-        dispatch(getUserSlice({ users: userData }));
-      } catch (error) {
-        console.error("Error al obtener la información del usuario:", error);
-      }
-    };
-
-    fetchUserData();
+    dispatch(getUser());
   }, [dispatch]);
 
   const handleFieldChange = (edit, value) => {
