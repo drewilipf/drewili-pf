@@ -1,6 +1,37 @@
 import React from "react";
 
 function UserForm() {
+  const [input, setInput] = useState({
+    name: "",
+    lastname: "",
+    email: "",
+    phone: "",
+    dnitype: "",
+    DNI: "",
+  });
+  const [errors, setErrors] = useState({
+    name: "",
+    lastname: "",
+    email: "",
+    phone: "",
+    dnitype: "",
+    DNI: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setInput((prevInput) => ({
+      ...prevInput,
+      [name]: value,
+    }));
+    setErrors(
+      validation({
+        ...input,
+        [name]: value,
+      })
+    );
+  };
+
   return (
     <>
       <div className="max-w-md mx-auto mt-10">
@@ -13,17 +44,20 @@ function UserForm() {
                 type="text"
                 name="name"
                 placeholder="Ingrese su nombre"
-                className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
+                className="border rounded p-3 w-full bg-white focus:outline-none"
               />
+              <span className="text-orange-500">{errors?.name}</span>
             </div>
+
             <div className="w-1/2">
               <label className="block text-chiliRed mb-2">Apellido:</label>
               <input
                 type="text"
                 name="lastname"
                 placeholder="Ingrese su apellido"
-                className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
+                className="border rounded p-3 w-full bg-white focus:outline-none"
               />
+              <span className="text-orange-500">{errors?.lastname}</span>
             </div>
           </div>
           <div className="mt-4">
@@ -34,18 +68,20 @@ function UserForm() {
               type="text"
               name="email"
               placeholder="Ingrese su correo electrónico"
-              className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
+              className="border rounded p-3 w-full bg-white focus:outline-none"
             />
           </div>
+          <span className="text-orange-500">{errors?.email}</span>
           <div className="mt-4">
             <label className="block text-chiliRed mb-2">Teléfono:</label>
             <input
               type="text"
-              name="DNI"
+              name="phone"
               placeholder="Ingrese su teléfono de contacto"
-              className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
+              className="border rounded p-3 w-full bg-white focus:outline-none"
             />
           </div>
+          <span className="text-orange-500">{errors?.phone}</span>
           <div className="flex space-x-4 mt-4">
             <div className="w-2/5">
               <label className="block text-chiliRed mb-2">
@@ -53,13 +89,14 @@ function UserForm() {
               </label>
               <select
                 name="documento"
-                className="border rounded p-3 bg-whiteSmoke focus:outline-none w-full"
+                className="border rounded p-3 bg-white focus:outline-none w-full"
               >
                 <option value="">Selecciona un documento</option>
                 <option value="dni">DNI</option>
                 <option value="ce">CE</option>
                 <option value="pasaporte">Pasaporte</option>
               </select>
+              <span className="text-orange-500">{errors?.dnitype}</span>
             </div>
             <div className="w-3/5">
               <label className="block text-chiliRed mb-2">
@@ -69,7 +106,7 @@ function UserForm() {
                 type="text"
                 name="DNI"
                 placeholder="Ingrese su documento"
-                className="border rounded p-3 bg-whiteSmoke focus:outline-none w-full"
+                className="border rounded p-3 bg-white focus:outline-none w-full"
               />
             </div>
           </div>

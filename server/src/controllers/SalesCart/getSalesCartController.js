@@ -34,8 +34,12 @@ const getSalesCartController = async (userId) => {
         brand: product.product.brand.brand
     }))
 
+    const totalCartPrice = formattedSalesCart.reduce((total, product)=> total + product.totalPrice, 0)
 
-    return formattedSalesCart;
+    return {
+        products: formattedSalesCart,
+        totalCartPrice: totalCartPrice
+    };
 };
 
 module.exports = getSalesCartController;
