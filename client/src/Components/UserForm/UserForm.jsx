@@ -7,7 +7,7 @@ function UserForm() {
     lastname: "",
     email: "",
     phone: "",
-   dnitype: "",
+    dnitype: "",
     DNI: "",
   });
   const [errors, setErrors] = useState({
@@ -15,7 +15,7 @@ function UserForm() {
     lastname: "",
     email: "",
     phone: "",
-   dnitype: "",
+    dnitype: "",
     DNI: "",
   });
 
@@ -47,8 +47,9 @@ function UserForm() {
                 onChange={handleInputChange}
                 className="border rounded p-3 w-full bg-white focus:outline-none"
               />
+              <span className="text-orange-500">{errors?.name}</span>
             </div>
-            <span>{errors?.name}</span>
+
             <div className="w-1/2">
               <label className="block text-orange-500 mb-2">Apellido:</label>
               <input
@@ -59,8 +60,9 @@ function UserForm() {
                 onChange={handleInputChange}
                 className="border rounded p-3 w-full bg-white focus:outline-none"
               />
+              <span className="text-orange-500">{errors?.lastname}</span>
             </div>
-            <span>{errors?.lastname}</span>
+
           </div>
           <div className="mt-4">
             <label className="block text-orange-500 mb-2">Correo Electrónico:</label>
@@ -73,7 +75,7 @@ function UserForm() {
               className="border rounded p-3 w-full bg-white focus:outline-none"
             />
           </div>
-          <span>{errors?.email}</span>
+          <span className="text-orange-500" >{errors?.email}</span>
           <div className="mt-4">
             <label className="block text-orange-500 mb-2">Teléfono:</label>
             <input
@@ -82,15 +84,16 @@ function UserForm() {
               placeholder="Ingrese su teléfono de contacto"
               value={input.phone}
               onChange={handleInputChange}
-               className="border rounded p-3 w-full bg-white focus:outline-none"
+              className="border rounded p-3 w-full bg-white focus:outline-none"
             />
           </div>
-          <span>{errors?.phone}</span>
+          <span className="text-orange-500">{errors?.phone}</span>
           <div className="flex space-x-4 mt-4">
             <div className="w-2/5">
               <label className="block text-orange-500 mb-2">Tipo de documento:</label>
               <select
                 name="dnitype"
+                onChange={handleInputChange}
                 className="border rounded p-3 bg-white focus:outline-none w-full"
               >
                 <option value="">Selecciona un documento</option>
@@ -98,6 +101,7 @@ function UserForm() {
                 <option value="ce">CE</option>
                 <option value="pasaporte">Pasaporte</option>
               </select>
+              <span className="text-orange-500">{errors?.dnitype}</span>
             </div>
             <div className="w-3/5">
               <label className="block text-orange-500 mb-2">Número de documento:</label>
@@ -109,8 +113,9 @@ function UserForm() {
                 onChange={handleInputChange}
                 className="border rounded p-3 bg-white focus:outline-none w-full"
               />
-            </div> 
-            <span>{errors?.DNI}</span>
+              <span className="text-orange-500">{errors?.DNI}</span>
+            </div>
+
           </div>
           <div className="mt-4">
             <button
