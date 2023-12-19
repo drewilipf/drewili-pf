@@ -10,6 +10,8 @@ const loginController = async(username, password) =>{
     })
     if (!userLogin) {
         throw new Error('No hay ningun usuario registrado con ese nombre')
+    } else if(userLogin.deleted === true){
+        throw new Error('Su cuenta se encuentra restringida')
     }
     const confirmPassword = await bcrypt.compare(password, userLogin.password)
     if(!confirmPassword){
