@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 function Productcard({
   id,
   name,
@@ -11,6 +12,8 @@ function Productcard({
 }) {
   return (
     <div className="max-w-xs overflow-hidden transform transition-transform shadow-xl flex flex-col items-center p-4 rounded">
+      <div>
+      <NavLink to={`/detail/${id}`}>
       <img
         src={image}
         alt={name}
@@ -18,6 +21,8 @@ function Productcard({
       />
       <h2 className="text-center">{name}</h2>
       <h3 className="text-center">S/ {price}</h3>
+      </NavLink>
+      </div>
       <button className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded">
         Agregar al carrito
       </button>
