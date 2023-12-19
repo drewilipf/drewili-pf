@@ -13,7 +13,8 @@ const getProductKeyWordController = async(keyWord) => {
             where: {
                 name: {
                     [Op.iLike]: `%${keyWord}%` // Buscar coincidencias parciales sin importar mayúsculas/minúsculas
-                }
+                },
+                deleted:false
             },
             include: [
                 {
@@ -24,7 +25,8 @@ const getProductKeyWordController = async(keyWord) => {
                     model: Brand,
                     attributes: ['brand']
                 }
-            ]
+            ],
+        
         })
         
         

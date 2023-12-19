@@ -2,7 +2,9 @@ const { Product, Category, Brand } = require("../../db");
 
 const getProductById = async(id) => {
     const products = await Product.findAll({
-        where: { id: id },
+        where: { id: id,
+            deleted: false
+         },
         include: [
             {
                 model: Category,
@@ -12,8 +14,10 @@ const getProductById = async(id) => {
                 model: Brand,
                 attributes: ['brand']
             }
-        ]
+        ],
+    
     });
+    
 
     const formattedProducts = products.map(product => ({
         id: product.id,
