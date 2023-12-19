@@ -7,6 +7,7 @@ import About from "./views/About/About";
 import { Routes, Route } from "react-router-dom";
 import UserForm from "./Components/UserForm/UserForm";
 import UserLogin from "./Components/UserLogin/Userlogin";
+import Dashboard from "./views/Dashboard/Dashboard";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/userform" element={<UserForm />} />
         <Route path="/userlogin" element={<UserLogin />} />
         <Route path="/about" element={<About />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </div>
   );
