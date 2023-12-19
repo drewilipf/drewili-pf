@@ -1,13 +1,19 @@
-const deleteCategoryController = require('../../controllers/Category/deleteCategoryController')
+const deleteSoftCategoryController = require("../../controllers/Category/deleteCategoryController");
 
-const deleteCategoryHandler = async(req, res) => {
+const deleteSoftCategoryHandler = async(req, res) => {
     try {
         const { id } = req.params;
-        const result = await deleteCategoryController(id);
+
+        const category = await deleteSoftCategoryController(id);
+
+        if (!category) {
+            return res.status(404).json({ error: 'Categoria no encontrada' });
+        }
         res.status(200).send("Categoria eliminada correctamente");
-    } catch (error) {
+        
+    }   catch (error) {
         return res.status(500).json({ error: error.message })
     }
 }
 
-module.exports = deleteCategoryHandler;
+module.exports = deleteSoftCategoryHandler;

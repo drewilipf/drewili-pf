@@ -1,12 +1,14 @@
 const {Brand} = require("../../db")
 
-const deleteBrandController = async(id) =>{
-const deleteBrand = await Brand.destroy({
-    where:{
-        id:id
-    }
-})
-return deleteBrand
+const brandSoftDeleteController = async(id) =>{
+    
+    const brand = await Brand.findByPk(id);
+    
+    brand.deleted = true;
+    
+    await brand.save();
+    
+    return brand;
 }
-
-module.exports = deleteBrandController;
+    
+module.exports = brandSoftDeleteController;
