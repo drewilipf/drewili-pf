@@ -18,7 +18,7 @@ function Productcard({
       />
       <h2 className="text-center">{name}</h2>
       <h3 className="text-center">S/ {price}</h3>
-      <button className="bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded">
+      <button className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded">
         Agregar al carrito
       </button>
     </div>
