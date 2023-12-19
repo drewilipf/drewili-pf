@@ -11,7 +11,11 @@ const getProductsController = async () => {
                 model: Brand,
                 attributes: ['brand']
             }
-        ]
+        ],
+                where: {
+                deleted: false,
+        }
+
     });
 
     const formattedProducts = products.map(product => ({

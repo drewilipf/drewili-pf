@@ -1,13 +1,20 @@
-const deleteBrandController = require('../../controllers/Brand/deleteBrandController')
+const brandSoftDeleteController = require("../../controllers/Brand/deleteBrandController");
 
-const deleteBrandHandler = async(req, res) => {
+
+const brandSoftDeleteHandler = async(req, res) => {
     try {
         const { id } = req.params;
-        const result = await deleteBrandController(id);
+
+        const brand = await brandSoftDeleteController(id);
+
+        if (!brand) {
+            return res.status(404).json({ error: 'Marca no encontrado' });
+        }
         res.status(200).send("Marca eliminada correctamente");
-    } catch (error) {
+        
+    }   catch (error) {
         return res.status(500).json({ error: error.message })
     }
 }
 
-module.exports = deleteBrandHandler;
+module.exports = brandSoftDeleteHandler;
