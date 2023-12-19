@@ -8,20 +8,24 @@ import { Routes, Route } from "react-router-dom";
 import UserForm from "./Components/UserForm/UserForm";
 import UserLogin from "./Components/UserLogin/Userlogin";
 import Dashboard from "./views/Dashboard/Dashboard";
+import NavBar from "./Components/Navbar/Navbar";
 
 function App() {
   return (
     <div>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/detail/:id" element={<ProductDetail />} />
-        <Route path="/shopping" element={<Shopping />} />
-        <Route path="/userprofile" element={<UserProfile />} />
-        <Route path="/userform" element={<UserForm />} />
-        <Route path="/userlogin" element={<UserLogin />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
+      <NavBar />
+      <div className="mt-28">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/detail/:id" element={<ProductDetail />} />
+          <Route path="/shopping" element={<Shopping />} />
+          <Route path="/userprofile" element={<UserProfile />} />
+          <Route path="/userform" element={<UserForm />} />
+          <Route path="/userlogin" element={<UserLogin />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </div>
     </div>
   );
 }
