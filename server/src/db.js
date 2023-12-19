@@ -51,6 +51,12 @@ User.belongsToMany(Product, { through: Comments, foreignKey: 'user_id' });
 Product.belongsToMany(User, {through: Favorite, foreignKey: 'product_id'});
 User.belongsToMany(Product, {through: Favorite, foreignKey: 'user_id'})
 
+Comments.belongsTo(User, {foreignKey: 'user_id'});
+Comments.belongsTo(Product, {foreignKey: 'product_id'});
+
+Favorite.belongsTo(User, {foreignKey: 'user_id'})
+Favorite.belongsTo(Product, {foreignKey: 'product_id'})
+
 
 sequelize.authenticate()
    .then(() => {

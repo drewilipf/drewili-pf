@@ -10,6 +10,11 @@ module.exports = (sequelize) =>{
         },
         category:{
             type: DataTypes.STRING
+        },
+        deleted:{
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+            allowNull: false
         }
     },
     { timestamps: false })

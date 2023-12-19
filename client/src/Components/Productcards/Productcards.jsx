@@ -13,12 +13,11 @@ function Productcards() {
   }, [dispacth]);
   console.log("Products:", products);
   return (
-    <div className="flex items-center mb-4">
+    <div className="flex items-center mb-4 space-x-8 ">
       {products ? (
         products.map((product) => (
           <Productcard
             key={product.id}
-            className="mr-20"
             id={product.id}
             image={product.image}
             name={product.name}

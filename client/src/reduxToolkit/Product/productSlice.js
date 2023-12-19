@@ -25,9 +25,18 @@ export const productSlice = createSlice({
       state.error = action.payload.error;
       console.log("State after failed:", state);
     },
+    postProductsSuccess: (state, action) => {
+      state.status = "succeeded";
+      state.products = action.payload.products;
+      console.log("State after update:", state.products);
+    },
   },
 });
 
-export const { getProductsStart, getProductsSuccess, getProductsFailure } =
-  productSlice.actions;
+export const {
+  getProductsStart,
+  getProductsSuccess,
+  getProductsFailure,
+  postProductsSuccess,
+} = productSlice.actions;
 export default productSlice.reducer;

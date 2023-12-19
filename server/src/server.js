@@ -1,6 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
 const routes = require('./routes/index.js')
+const session = require('express-session')
 
 const server = express()
 
@@ -13,6 +14,17 @@ server.use((req, res, next) => {
     next();
 
 })
+
+server.use(session({
+    secret: 'secreto',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        secure: false, // Cambia a true si estás usando HTTPS
+        maxAge: 24 * 60 * 60 * 1000, // Duración de la sesión en milisegundos (1 día en este caso)
+    },
+}))
+
 server.use(express.json())
 server.use('/', routes)
 

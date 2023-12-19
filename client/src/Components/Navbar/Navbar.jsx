@@ -1,20 +1,42 @@
+import { NavLink, Routes, Route, useLocation } from "react-router-dom";
 import Searchbar from "../Searchbar/Searchbar";
-import { NavLink } from "react-router-dom"
 
 function Navbar() {
+  const location = useLocation();
+
   return (
-    <div className="flex flex-col items-start">
-      <div className="flex items-center mb-4">
-        <h1 className="mr-4">Logo</h1>
-        <Searchbar className="mr-4"></Searchbar>
+    <div className="fixed top-0 left-0 right-0 z-10 bg-white shadow-xl">
+      <div className="flex items-center justify-between text-white">
+        <NavLink to="/" className="flex items-center">
+          <div className="w-20 h-20 rounded ml-40 mt-4">
+            <img src="\logoOriginal.png" alt="drewili" />
+          </div>
+        </NavLink>
+
+        {/* Renderiza la Searchbar solo en la ruta "/" */}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              location.pathname === "/" && <Searchbar className="mx-auto" />
+            }
+          />
+        </Routes>
+
+        <div className="flex space-x-4 mr-40">
+          <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
+            <NavLink to="/userform" className="text-chiliRed hover:text-onyx">
+              Regístrate
+            </NavLink>
+          </h1>
+          <span className="text-chiliRed">|</span>
+          <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
+            <NavLink to="/userlogin" className="text-chiliRed hover:text-onyx">
+              Ingresa
+            </NavLink>
+          </h1>
+        </div>
       </div>
-      <button>
-          <NavLink to="/UserForm"> Registrate </NavLink>
-      </button>
-      <button>
-          <NavLink to="/UserLogin"> Ingresa </NavLink>
-      </button>
-      
     </div>
   );
 }
