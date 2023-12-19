@@ -8,7 +8,7 @@ function UserForm() {
     email: "",
     phone: "",
     dnitype: "",
-    DNI: "",
+    DNI: ""
   });
   const [errors, setErrors] = useState({
     name: "",
@@ -16,7 +16,7 @@ function UserForm() {
     email: "",
     phone: "",
     dnitype: "",
-    DNI: "",
+    DNI: ""
   });
 
   const handleInputChange = (e) => {
@@ -31,6 +31,44 @@ function UserForm() {
     }));
   }
 
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const validationErrors = validation(input);
+    setErrors(validationErrors);
+
+    if (validationErrors && Object.values(validationErrors).some((error) => error !== "")) {
+      return;
+    }
+
+    try {
+      dispatch(postUser(input));
+
+      setInput({
+        name: "",
+        lastname: "",
+        email: "",
+        phone: "",
+        dnitype: "",
+        DNI: ""
+      });
+
+      setErrors({
+        name: "",
+        lastname: "",
+        email: "",
+        phone: "",
+        dnitype: "",
+        DNI: ""
+      });
+
+      console.log("post correcto");
+      alert("Usuario creado con éxito")
+    } catch (error) {
+      console.error('Error al enviar el formulario:', error);
+    }
+  };
   return (
     <>
       <div className="max-w-md mx-auto mt-10">
