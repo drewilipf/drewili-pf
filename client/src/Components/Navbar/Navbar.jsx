@@ -1,6 +1,9 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Routes, Route, useLocation } from "react-router-dom";
 import Searchbar from "../Searchbar/Searchbar";
+
 function Navbar() {
+  const location = useLocation();
+
   return (
     <div className="fixed top-0 left-0 right-0 z-10 bg-white shadow-xl">
       <div className="flex items-center justify-between text-white">
@@ -9,7 +12,16 @@ function Navbar() {
             <img src="\logoOriginal.png" alt="drewili" />
           </div>
         </NavLink>
-        <Searchbar className="mx-auto" />
+
+        {/* Renderiza la Searchbar solo en la ruta "/" */}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              location.pathname === "/" && <Searchbar className="mx-auto" />
+            }
+          />
+        </Routes>
 
         <div className="flex space-x-4 mr-40">
           <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
@@ -18,7 +30,7 @@ function Navbar() {
             </NavLink>
           </h1>
           <span className="text-chiliRed">|</span>
-          <h1 className="transition duration-300 hover:text-onyx  cursor-pointer">
+          <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
             <NavLink to="/userlogin" className="text-chiliRed hover:text-onyx">
               Ingresa
             </NavLink>

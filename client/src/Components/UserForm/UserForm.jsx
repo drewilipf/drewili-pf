@@ -28,32 +28,22 @@ function UserForm() {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const validationErrors = validation(input);
-    setErrors(validationErrors);
-
-    // Verificar si hay errores antes de realizar acciones adicionales
-    if (Object.values(validationErrors).some((error) => error !== "")) {
-      // Aquí puedes realizar acciones adicionales si hay errores, como mostrar un mensaje, etc.
-      console.log("Hay errores en el formulario. No se puede enviar.");
-    } else {
-      // Aquí puedes realizar acciones adicionales si no hay errores, como enviar el formulario, etc.
-      console.log("Formulario enviado con éxito.");
-    }
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    const validationErrors = validation({ ...input, [name]: value });
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: validationErrors[name],
+    }));
   };
 
   return (
     <>
-      <div className="max-w-md mx-auto mt-40">
+      <div className="max-w-md mx-auto mt-40 ">
         <h1 className="text-2xl font-bold mb-4 flex items-center justify-center">
           Regístrate
         </h1>
-        <form
-          onSubmit={handleSubmit}
-          className="border border-chiliRed rounded p-6 text-arial text-base"
-        >
+        <form className="border border-chiliRed rounded p-6 text-arial text-base shadow-lg">
           <div className="flex space-x-4">
             <div className="w-1/2">
               <label className="block text-chiliRed mb-2">Nombre:</label>
@@ -63,6 +53,7 @@ function UserForm() {
                 placeholder="Ingrese su nombre"
                 value={input.name}
                 onChange={handleInputChange}
+                onBlur={handleBlur}
                 className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
               />
               <div className="h-8">
@@ -80,6 +71,7 @@ function UserForm() {
                 placeholder="Ingrese su apellido"
                 value={input.lastname}
                 onChange={handleInputChange}
+                onBlur={handleBlur}
                 className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
               />
               <div className="h-8">
@@ -100,6 +92,7 @@ function UserForm() {
               placeholder="Ingrese su correo electrónico"
               value={input.email}
               onChange={handleInputChange}
+              onBlur={handleBlur}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
             <div className="h-4">
@@ -117,6 +110,7 @@ function UserForm() {
               placeholder="Ingrese su teléfono de contacto"
               value={input.phone}
               onChange={handleInputChange}
+              onBlur={handleBlur}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
             <div className="h-4">
@@ -134,6 +128,7 @@ function UserForm() {
               <select
                 name="dnitype"
                 onChange={handleInputChange}
+                onBlur={handleBlur}
                 className="border rounded p-3 bg-whiteSmoke focus:outline-none w-full"
               >
                 <option value="">Selecciona un documento</option>
@@ -158,6 +153,7 @@ function UserForm() {
                 placeholder="Ingrese su documento"
                 value={input.DNI}
                 onChange={handleInputChange}
+                onBlur={handleBlur}
                 className="border rounded p-3 bg-whiteSmoke focus:outline-none w-full"
               />
               <div className="h-8">
