@@ -43,7 +43,7 @@ Product.belongsTo(Brand, { foreignKey: 'brand_id' });
 Brand.hasMany(Product, { foreignKey: 'brand_id' });
 
 Product.belongsTo(Colors,{foreignKey:'color_id'})
-Colors.belongsTo(Product,{foreignKey: 'color_id'})
+Colors.hasMany(Product,{foreignKey: 'color_id'})
 
 SalesCart.belongsTo(User, {foreignKey: 'user_id'})
 SalesCart.belongsTo(Product, { foreignKey: 'product_id' });
