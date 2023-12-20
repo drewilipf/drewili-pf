@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { postComment } from "../../reduxToolkit/Comment/commentSlice"; 
+import { postComment } from "../../reduxToolkit/Comment/commentThunks";
 
 const CommentInput = ({ user_id, product_id }) => {
   const dispatch = useDispatch();
