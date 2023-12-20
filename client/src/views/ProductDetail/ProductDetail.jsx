@@ -32,30 +32,30 @@ function ProductDetail() {
 
   return (
     <>
-      <h1>{product.name}</h1>
+      <h1>{product?.name}</h1>
       <img
-        src={product.image}
-        alt={product.name}
+        src={product?.image}
+        alt={product?.name}
       />
       <div>
         <h2>Descripción:</h2>
-        <h3>{product.description}</h3>
+        <h3>{product?.description}</h3>
       </div>
       <div>
         <h2>Especificaciones:</h2>
-        <h3>{product.specifications}</h3>
+        <h3>{product?.specifications}</h3>
       </div>
       <div>
         <h2>Marca:</h2>
-        <h3>{product.brand}</h3>
+        <h3>{product?.brand}</h3>
       </div>
       <div>
         <h2>Disponibles:</h2>
-        <h3>{product.stock}</h3>
+        <h3>{product?.stock}</h3>
       </div>
       <div>
         <h2>Precio:</h2>
-        <h3>{product.price}</h3>
+        <h3>{product?.price}</h3>
       </div>
 
       <CommentInput/>
