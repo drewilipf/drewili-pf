@@ -7,9 +7,11 @@ const salesCartRouter = require("./salesCartRouter")
 const commentRouter = require("./commentRouter")
 const loginRouter = require('./loginRouter')
 const filterRouter = require('./filterRouter')
+const colorRouter = require("./colorRouter")
 
 const router = Router()
 
+router.use("/color", colorRouter)
 router.use("/product", productRouter)
 router.use("/user", userRouter)
 router.use("/category", categoryRouter)
