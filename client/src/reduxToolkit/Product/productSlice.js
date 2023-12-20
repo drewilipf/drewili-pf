@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   products: [],
+  productsId: {},
   status: "idle", // "idle", "loading", "succeeded", "failed"
   error: null,
 };
@@ -17,12 +18,15 @@ export const productSlice = createSlice({
     getProductsSuccess: (state, action) => {
       state.status = "succeeded";
       state.products = action.payload.products;
-      
     },
     getProductsFailure: (state, action) => {
       state.status = "failed";
       state.error = action.payload.error;
-     
+    },
+    getProductsByIdslice: (state, action) => {
+      state.status = "succeded";
+      state.productsId = action.payload.productsId;
+      console.log("State after update:", state.productsId);
     },
     postProductsSuccess: (state, action) => {
       state.status = "succeeded";
@@ -37,5 +41,6 @@ export const {
   getProductsSuccess,
   getProductsFailure,
   postProductsSuccess,
+  getProductsByIdslice,
 } = productSlice.actions;
 export default productSlice.reducer;

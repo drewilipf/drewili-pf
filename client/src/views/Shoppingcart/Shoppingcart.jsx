@@ -1,4 +1,4 @@
-function Shopping() {
+function Shoppingcart() {
 
     return (
       <>
@@ -7,4 +7,4 @@ function Shopping() {
     )
   }
   
-  export default Shopping
+  export default Shoppingcart

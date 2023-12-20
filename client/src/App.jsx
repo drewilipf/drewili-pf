@@ -1,7 +1,7 @@
 import "./App.css";
 import ProductDetail from "./views/ProductDetail/ProductDetail";
 import Home from "./views/Home/Home";
-import Shopping from "./views/Shopping/Shopping";
+import Shoppingcart from "./views/Shoppingcart/Shoppingcart";
 import UserProfile from "./views/UserProfile/UserProfile";
 import About from "./views/About/About";
 import { Routes, Route } from "react-router-dom";
@@ -18,7 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/detail/:id" element={<ProductDetail />} />
-          <Route path="/shopping" element={<Shopping />} />
+          <Route path="/shoppingcart" element={<Shoppingcart />} />
           <Route path="/userprofile" element={<UserProfile />} />
           <Route path="/userform" element={<UserForm />} />
           <Route path="/userlogin" element={<UserLogin />} />

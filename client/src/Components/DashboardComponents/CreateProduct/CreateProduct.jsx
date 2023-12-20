@@ -11,8 +11,8 @@ function CreateProduct() {
     price: 0.0,
     specifications: [],
     stock: 0,
-    category: "",
-    brand: "",
+    category_id: 0,
+    brand_id: 0,
   });
 
   const { categories } = useSelector((state) => state.categories);
@@ -40,6 +40,16 @@ function CreateProduct() {
   async function handleSumit(event) {
     event.preventDefault();
     try {
+      const productData = {
+        name: input.name,
+        description: input.description,
+        price: input.price,
+        specifications: input.specifications,
+        stock: input.stock,
+        category_id: input.category,
+        brand_id: input.brand,
+      };
+      console.log(productData);
       const res = await dispatch(postProduct(productData));
       console.log(res);
 
@@ -141,7 +151,7 @@ function CreateProduct() {
               {brands?.map((element) => {
                 return (
                   <option value={element.id} key={element.id}>
-                    {element.brands}
+                    {element.brand}
                   </option>
                 );
               })}
@@ -159,7 +169,7 @@ function CreateProduct() {
               {categories?.map((element) => {
                 return (
                   <option value={element.id} key={element.id}>
-                    {element.categories}
+                    {element.category}
                   </option>
                 );
               })}
