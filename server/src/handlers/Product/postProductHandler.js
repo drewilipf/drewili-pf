@@ -2,9 +2,9 @@ const postProductsController = require("../../controllers/Product/postProductCon
 
 const postProductsHandler = async (req, res) => {
     try {
-        const { name, description, price, specifications, stock, image, brand_id, category_id } = req.body;
+        const { name, description, price, specifications, stock, image, brand_id, category_id, color_id } = req.body;
 
-        await postProductsController(name, description, price, specifications, stock, image, brand_id, category_id);
+        await postProductsController(name, description, price, specifications, stock, image, brand_id, category_id, color_id);
 
         res.status(200).send("Producto creado con éxito")
 
