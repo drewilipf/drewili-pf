@@ -6,12 +6,11 @@ import { getProducts } from "../../reduxToolkit/Product/productThunks";
 function Productcards() {
   const dispacth = useDispatch();
   const { products } = useSelector((state) => state.products);
-  console.log(products);
 
   useEffect(() => {
     dispacth(getProducts());
   }, [dispacth]);
-  console.log("Products:", products);
+
   return (
     <div className="flex items-center mb-4 space-x-8 ">
       {products ? (

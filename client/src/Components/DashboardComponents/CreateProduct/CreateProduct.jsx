@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getCategory } from "../../../reduxToolkit/Category/categoryThunks";
+import { getBrand } from "../../../reduxToolkit/Brand/brandThunks";
 
 function CreateProduct() {
   const [input, setInput] = useState({
@@ -11,20 +12,41 @@ function CreateProduct() {
     specifications: [],
     stock: 0,
     category: "",
+    brand: "",
   });
 
   const { categories } = useSelector((state) => state.categories);
-  console.log(categories);
+  const { brands } = useSelector((state) => state.brands);
+
   const dispatch = useDispatch();
   const navegate = useNavigate();
   useEffect(() => {
     dispatch(getCategory());
+    dispatch(getBrand());
   }, []);
   function handleSelect(event) {
     setInput({
-      ...state,
+      ...input,
       category: event.target.value,
+      brand: event.target.value,
     });
+  }
+  function handleChange(event) {
+    setInput({
+      ...input,
+      [event.target.name]: event.target.value,
+    });
+  }
+  async function handleSumit(event) {
+    event.preventDefault();
+    try {
+      const res = await dispatch(postProduct(productData));
+      console.log(res);
+
+      navegate("/dashboard");
+    } catch (error) {
+      alert("Error creating product. Check if the product is already created");
+    }
   }
 
   return (
@@ -32,7 +54,10 @@ function CreateProduct() {
       <h1 className="text-2xl font-bold mb-4 flex items-center justify-center">
         Crear Producto
       </h1>
-      <form className="border border-chiliRed rounded p- text-arial text-base flex-col flex items-center justify-center ">
+      <form
+        className="border border-chiliRed rounded p- text-arial text-base flex-col flex items-center justify-center "
+        onSubmit={handleSumit}
+      >
         <div>
           <div>
             <label className="block text-chiliRed mb-2">
@@ -43,7 +68,7 @@ function CreateProduct() {
               name="name"
               placeholder="Ingrese su nombre"
               value={input.name}
-              // onChange={handleInputChange}
+              onChange={handleChange}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
           </div>
@@ -54,18 +79,18 @@ function CreateProduct() {
               name="description"
               placeholder="Ingrese la descripción"
               value={input.description}
-              // onChange={handleInputChange}
+              onChange={handleChange}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
           </div>
           <div>
             <label className="block text-chiliRed mb-2">Precio:</label>
             <input
-              type="text"
+              type="number"
               name="price"
               placeholder="Ingrese el precio"
               value={input.price}
-              // onChange={handleInputChange}
+              onChange={handleChange}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
           </div>
@@ -78,18 +103,18 @@ function CreateProduct() {
               name="specifications"
               placeholder="Ingrese cada especificación"
               value={input.specifications}
-              // onChange={handleInputChange}
+              onChange={handleChange}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
           </div>
           <div>
             <label className="block text-chiliRed mb-2">Stock:</label>
             <input
-              type="text"
+              type="number"
               name="stock"
               placeholder="Ingrese la cantidad de productos"
               value={input.stock}
-              // onChange={handleInputChange}
+              onChange={handleChange}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
           </div>
@@ -100,20 +125,27 @@ function CreateProduct() {
               name="image"
               placeholder="Ingresa la url de la imagen"
               value={input.image}
-              // onChange={handleInputChange}
+              onChange={handleChange}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
           </div>
           <div>
             <label className="block text-chiliRed mb-2">Marca:</label>
-            <input
-              type="text"
+            <select
               name="brand"
-              placeholder="Ingrese su nombre"
-              value={input.brand}
-              // onChange={handleInputChange}
+              placeholder="Selecciona la marca"
+              onChange={(event) => handleSelect(event)}
+              required
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
-            />
+            >
+              {brands?.map((element) => {
+                return (
+                  <option value={element.id} key={element.id}>
+                    {element.brands}
+                  </option>
+                );
+              })}
+            </select>
           </div>
           <div>
             <label className="block text-chiliRed mb-2">Categoria:</label>
@@ -127,7 +159,7 @@ function CreateProduct() {
               {categories?.map((element) => {
                 return (
                   <option value={element.id} key={element.id}>
-                    {element.category}
+                    {element.categories}
                   </option>
                 );
               })}
