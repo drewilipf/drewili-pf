@@ -1,4 +1,4 @@
-const { Product, Category, Brand } = require("../../db");
+const { Product, Category, Brand, Colors } = require("../../db");
 
 const getProductById = async(id) => {
     const products = await Product.findAll({
@@ -13,6 +13,10 @@ const getProductById = async(id) => {
             {
                 model: Brand,
                 attributes: ['brand']
+            },
+            {
+                model: Colors,
+                attributes: ['color']
             }
         ],
     
@@ -25,6 +29,7 @@ const getProductById = async(id) => {
         description: product.description,
         price: product.price,
         specifications: product.specifications,
+        color: product.color.color,
         stock: product.stock,
         image: product.image,
         brand: product.brand.brand,
