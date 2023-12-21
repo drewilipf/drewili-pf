@@ -6,9 +6,8 @@ function Home() {
   return (
     <div className="flex flex-col items-center">
       <Banners />
-      <div className="flex flex-col items-center mt-8">
-
-        <Productcards />
+      <div className="mt-10">
+        <Productcards/>
       </div>
     </div>
   );
