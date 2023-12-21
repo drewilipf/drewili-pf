@@ -12,7 +12,7 @@ function Productcards() {
   }, [dispacth]);
 
   return (
-    <div className="flex items-center mb-4 space-x-8 ">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-center items-center">
       {products ? (
         products.map((product) => (
           <Productcard
