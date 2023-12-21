@@ -1,6 +1,17 @@
 const { Product } = require('../../db');
+const cloudinary = require('cloudinary')
 
-const postProductsController = async (name, description, price, specifications, stock, image, brand_id, category_id) => {
+cloudinary.config({
+    cloud_name: 'dpj4n40t6',
+    api_key: '664465837792261',
+    api_secret: 'FfMnHd-2tcwmzo6OZkLTcEePcWA'
+})
+
+const postProductsController = async (name, description, price, specifications, stock, image, brand_id, category_id, color_id) => {
+
+    const cloudinaryUpload = await cloudinary.uploader.upload(image)
+
+    const imageUrl = cloudinaryUpload.secure_url
 
     const newProduct = await Product.create({
         name,
@@ -8,7 +19,8 @@ const postProductsController = async (name, description, price, specifications, 
         price,
         specifications,
         stock,
-        image,
+        image: imageUrl,
+        color_id,
         brand_id,
         category_id,
     });
