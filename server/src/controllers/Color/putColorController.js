@@ -6,6 +6,8 @@ const putColorController = async (id, updatedColor) => {
 
   await color.update(updatedColor);
   return "Color actualizado con éxito";
+
+  
 };
 
 module.exports = putColorController;
