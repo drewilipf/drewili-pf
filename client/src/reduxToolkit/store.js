@@ -4,6 +4,7 @@ import userReducer from "./User/userSlice";
 import commentsReducer from "./Comment/commentSlice";
 import categoryReducer from "./Category/categorySlice";
 import brandReducer from "./Brand/brandSlice";
+import colorReducer from "./Color/colorSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     comments: commentsReducer,
     categories: categoryReducer,
     brands: brandReducer,
+    color: colorReducer,
   }, // falta definir los reducer
 });

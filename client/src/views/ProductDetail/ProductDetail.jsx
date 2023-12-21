@@ -6,15 +6,13 @@ import CommentInput from "./imputComment";
 
 function ProductDetail() {
   const { id } = useParams();
-  console.log(id);
+
   const dispatch = useDispatch();
 
   const productsId = useSelector((state) => state.products.productsId);
-  console.log("Current productsId:", productsId);
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log("Dispatching getProductsById...");
       await dispatch(getProductsById(id));
     };
 

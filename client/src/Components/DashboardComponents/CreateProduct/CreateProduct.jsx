@@ -3,32 +3,39 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getCategory } from "../../../reduxToolkit/Category/categoryThunks";
 import { getBrand } from "../../../reduxToolkit/Brand/brandThunks";
+import { getColor } from "../../../reduxToolkit/Color/colorThunks";
+import { postProducts } from "../../../reduxToolkit/Product/productThunks";
 
 function CreateProduct() {
   const [input, setInput] = useState({
     name: "",
-    image: "",
+    description: "",
     price: 0.0,
     specifications: [],
     stock: 0,
+    image: "",
+    color_id: 0,
     category_id: 0,
     brand_id: 0,
+    deleted: false,
   });
 
   const { categories } = useSelector((state) => state.categories);
   const { brands } = useSelector((state) => state.brands);
+  const { color } = useSelector((state) => state.color);
+  const [imageFile, setImageFile] = useState(null);
 
   const dispatch = useDispatch();
   const navegate = useNavigate();
   useEffect(() => {
     dispatch(getCategory());
     dispatch(getBrand());
+    dispatch(getColor());
   }, []);
   function handleSelect(event) {
     setInput({
       ...input,
-      category: event.target.value,
-      brand: event.target.value,
+      [event.target.name]: event.target.value,
     });
   }
   function handleChange(event) {
@@ -37,25 +44,65 @@ function CreateProduct() {
       [event.target.name]: event.target.value,
     });
   }
+  function handleImageChange(event) {
+    const file = event.target.files[0];
+    setImageFile(file);
+  }
   async function handleSumit(event) {
     event.preventDefault();
     try {
+      let imageUrl = "";
+
+      // Subir la imagen a Cloudinary si hay un archivo seleccionado
+      if (imageFile) {
+        const formData = new FormData();
+        formData.append("file", imageFile);
+        formData.append("upload_preset", "wagnbv9p");
+
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/dpj4n40t6/image/upload",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        const data = await response.json();
+        imageUrl = data.secure_url;
+      }
+
       const productData = {
         name: input.name,
         description: input.description,
-        price: input.price,
+        price: parseFloat(input.price),
         specifications: input.specifications,
-        stock: input.stock,
-        category_id: input.category,
-        brand_id: input.brand,
+        stock: parseInt(input.stock),
+        image: imageUrl,
+        color_id: parseInt(input.color),
+        category_id: parseInt(input.category),
+        brand_id: parseInt(input.brand),
       };
-      console.log(productData);
-      const res = await dispatch(postProduct(productData));
-      console.log(res);
+
+      await dispatch(postProducts(productData));
+
+      alert("producto creado con éxito");
+
+      setInput({
+        name: "",
+        description: "",
+        price: 0.0,
+        specifications: [],
+        stock: 0,
+        image: "",
+        color_id: 0,
+        category_id: 0,
+        brand_id: 0,
+        deleted: false,
+      });
 
       navegate("/dashboard");
     } catch (error) {
-      alert("Error creating product. Check if the product is already created");
+      alert("Error creating product");
     }
   }
 
@@ -129,15 +176,32 @@ function CreateProduct() {
             />
           </div>
           <div>
-            <label className="block text-chiliRed mb-2">imagen:</label>
+            <label className="block text-chiliRed mb-2">Imagen:</label>
             <input
-              type="text"
-              name="image"
-              placeholder="Ingresa la url de la imagen"
-              value={input.image}
-              onChange={handleChange}
+              type="file"
+              accept="image/*"
+              name="imageFile"
+              onChange={handleImageChange}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
+          </div>
+          <div>
+            <label className="block text-chiliRed mb-2">Color:</label>
+            <select
+              name="color"
+              placeholder="Selecciona el color"
+              onChange={(event) => handleSelect(event)}
+              required
+              className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
+            >
+              {color?.map((element) => {
+                return (
+                  <option value={element.id} key={element.id}>
+                    {element.color}
+                  </option>
+                );
+              })}
+            </select>
           </div>
           <div>
             <label className="block text-chiliRed mb-2">Marca:</label>

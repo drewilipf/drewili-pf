@@ -1,4 +1,8 @@
-import { getProductsSuccess, getProductsByIdslice} from "./productSlice";
+import {
+  getProductsSuccess,
+  getProductsByIdslice,
+  postProductsSuccess,
+} from "./productSlice";
 import axios from "axios";
 
 const API_URL = "http://localhost:3001/product";
@@ -19,27 +23,27 @@ export const getProducts = () => {
 export const getProductsById = (id) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${API_URL}/${id}`); 
-      console.log("API Response (getProductsById):", response.data);
-      const productsId = response.data; 
-      console.log("Product thunk (getProductsById):", productsId);
-      dispatch(getProductsByIdslice({ productsId})); 
+      const response = await axios.get(`${API_URL}/${id}`);
+
+      const productsId = response.data;
+
+      dispatch(getProductsByIdslice({ productsId }));
     } catch (error) {
       console.error("Error fetching product:", error);
     }
   };
 };
 
-export const postProducts = () => {
+export const postProducts = (productData) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(API_URL);
-      console.log("API Response:", response.data);
+      const response = await axios.post(API_URL, productData);
       const products = response.data;
-      console.log("Products thunks:", products);
+      console.log(products);
+
       dispatch(postProductsSuccess({ products }));
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error("Error create products:", error);
     }
   };
 };

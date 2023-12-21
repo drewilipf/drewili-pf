@@ -11,7 +11,7 @@ export const getBrand = () => {
 
       dispatch(getBrandSlice({ brands }));
     } catch (error) {
-      console.error("Error fetching category:", error);
+      console.error("Error fetching Brand:", error);
     }
   };
 };
@@ -24,7 +24,7 @@ export const postBrand = () => {
 
       dispatch(postBrandSlice({ brands }));
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error("Error create Brand:", error);
     }
   };
 };

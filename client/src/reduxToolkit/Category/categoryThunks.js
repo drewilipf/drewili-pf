@@ -25,7 +25,7 @@ export const postCategory = () => {
 
       dispatch(postCategorySlice({ categories }));
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error("Error create category:", error);
     }
   };
 };

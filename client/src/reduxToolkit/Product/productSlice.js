@@ -24,9 +24,8 @@ export const productSlice = createSlice({
       state.error = action.payload.error;
     },
     getProductsByIdslice: (state, action) => {
-      state.status = "succeded";
+      state.status = "succeeded";
       state.productsId = action.payload.productsId;
-      console.log("State after update:", state.productsId);
     },
     postProductsSuccess: (state, action) => {
       state.status = "succeeded";
