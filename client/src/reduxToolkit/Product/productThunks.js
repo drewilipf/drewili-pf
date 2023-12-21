@@ -2,10 +2,14 @@ import {
   getProductsSuccess,
   getProductsByIdslice,
   postProductsSuccess,
+  searchProductStart,
+  searchProductSuccess,
+  searchProductFailure,
 } from "./productSlice";
 import axios from "axios";
 
 const API_URL = "http://localhost:3001/product";
+const SEARCH_API_URL = "http://localhost:3001/product/product/";
 
 export const getProducts = () => {
   return async (dispatch) => {
@@ -44,6 +48,22 @@ export const postProducts = (productData) => {
       dispatch(postProductsSuccess({ products }));
     } catch (error) {
       console.error("Error create products:", error);
+    }
+  };
+};
+export const searchProduct = (keyword) => {
+  return async (dispatch) => {
+    try {
+      dispatch(searchProductStart());
+
+      const response = await axios.get(`${SEARCH_API_URL}?keyWord=${keyword}`);
+
+      const products = response.data;
+
+      dispatch(searchProductSuccess({ products }));
+    } catch (error) {
+      console.error("Error searching products:", error);
+      dispatch(searchProductFailure({ error }));
     }
   };
 };
