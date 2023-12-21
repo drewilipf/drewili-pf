@@ -1,13 +1,13 @@
-const { Category } = require("../../db");
+const {Category} = require("../../db")
 
-const getCategoryController = async () => {
-  const categories = await Category.findAll({
-    where: {
-      deleted: false,
-    },
-  });
+const getCategoryController = async() =>{
+    const categories = await Category.findAll({
+        where: {
+          deleted: false,
+        }
+        });
 
-  return categories;
-};
+    return categories;
+}
 
 module.exports = getCategoryController;
