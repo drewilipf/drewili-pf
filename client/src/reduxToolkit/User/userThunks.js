@@ -12,7 +12,7 @@ export const getUser = () => {
       console.log("User thunks:", users);
       dispatch(getUserSlice({ users }));
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error("Error fetching users:", error);
     }
   };
 };
@@ -23,9 +23,9 @@ export const postUser = () => {
       console.log("API Response:", response.data);
       const users = response.data;
       console.log("User thunks:", users);
-      dispatch(getUserSlice({ users }));
+      dispatch(postUserSlice({ users }));
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error("Error fetching users:", error);
     }
   };
 };
