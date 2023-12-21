@@ -1,5 +1,3 @@
-import React from "react";
-
 import Productcards from "../../Components/Productcards/Productcards";
 import Banners from "../../Components/Banners/Banners";
 function Home() {
