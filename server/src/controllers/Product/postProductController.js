@@ -1,10 +1,9 @@
+require('dotenv').config()
 const { Product } = require('../../db');
 const cloudinary = require('cloudinary')
-
+const {CLOUD_NAME, API_KEY, API_SECRET} = process.env
 cloudinary.config({
-    cloud_name: 'dpj4n40t6',
-    api_key: '664465837792261',
-    api_secret: 'FfMnHd-2tcwmzo6OZkLTcEePcWA'
+    CLOUD_NAME, API_KEY, API_SECRET
 })
 
 const postProductsController = async (name, description, price, specifications, stock, image, brand_id, category_id, color_id) => {
