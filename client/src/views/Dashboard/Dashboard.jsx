@@ -1,6 +1,5 @@
 import React from "react";
-import CreateProduct from "../../Components/DashboardComponents/createProduct/createProduct";
-
+import CreateProduct from "../../Components/DashboardComponents/CreateProduct/CreateProduct"
 function Dashboard() {
   return (
     <div>
