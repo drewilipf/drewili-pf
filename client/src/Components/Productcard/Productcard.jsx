@@ -11,7 +11,7 @@ function Productcard({
   brand,
 }) {
   return (
-    <div className="max-w-xs overflow-hidden transform transition-transform shadow-xl flex flex-col items-center p-4 rounded">
+    <div className="mb-10 max-w-xs overflow-hidden transform transition-transform shadow-xl flex flex-col items-center p-4 rounded">
       <div>
       <NavLink to={`/detail/${id}`}>
       <img
