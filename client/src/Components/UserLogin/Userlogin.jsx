@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { postLogin } from "../../reduxToolkit/Login/loginThunks";
 
 import { useNavigate } from "react-router-dom";
 
@@ -8,6 +9,8 @@ function UserLogin({}) {
     username: "",
     password: "",
   });
+  const dispatch = useDispatch();
+
   const handleChange = (event) => {
     setInput({
       ...input,
@@ -16,29 +19,33 @@ function UserLogin({}) {
   };
 
   const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    const loginData = {
+      username: input.username,
+      password: input.password,
+    };
     try {
-      const response = await axios.post("http://localhost:3001/login", input, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await dispatch(postLogin(loginData));
+      //console.log("Full Response:", response);
 
-      if (response.status === 200) {
-        alert("inicio de sesión exitoso");
-        setInput({
-          username: "",
-          password: "",
-        });
+      const { message, access, userSession } = response.data;
 
+      alert(message);
+
+      if (access && userSession && userSession.role === "admin") {
+        navigate("/dashboard");
+      } else if (access && userSession && userSession.role === "cliente") {
         navigate("/");
-      } else {
-        console.error("Error en inicio de sesión:", response.data.error);
       }
     } catch (error) {
-      console.error("Error en la solicitud:", error);
+      const userClickedOk = window.confirm(
+        "Usuario NO registrado. ¿Quieres ir a la página de registro?"
+      );
+      if (userClickedOk) {
+        navigate("/userform");
+      }
     }
   };
 

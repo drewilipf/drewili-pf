@@ -1,19 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  products: [],
-  productsId: {},
+  login: null,
 };
-export const productSlice = createSlice({
-  name: "product",
+export const loginSlice = createSlice({
+  name: "login",
   initialState,
   reducers: {
-    postProductsSuccess: (state, action) => {
-      state.status = "succeeded";
-      state.products = action.payload.products;
-      console.log("State after update:", state.products);
+    postLoginSuccess: (state, action) => {
+      state.login = action.payload;
     },
   },
 });
-export const { postProductsSuccess } = productSlice.actions;
-export default productSlice.reducer;
+export const { postLoginSuccess } = loginSlice.actions;
+export default loginSlice.reducer;
