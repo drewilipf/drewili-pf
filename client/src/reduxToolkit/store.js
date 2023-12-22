@@ -5,6 +5,8 @@ import commentsReducer from "./Comment/commentSlice";
 import categoryReducer from "./Category/categorySlice";
 import brandReducer from "./Brand/brandSlice";
 import colorReducer from "./Color/colorSlice";
+import loginReducer from "./Login/loginSlice";
+import logoutReducer from "./Logout/logoutSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +16,7 @@ export const store = configureStore({
     categories: categoryReducer,
     brands: brandReducer,
     color: colorReducer,
+    login: loginReducer,
+    logout: logoutReducer,
   }, // falta definir los reducer
 });
