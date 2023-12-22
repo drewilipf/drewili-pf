@@ -9,6 +9,7 @@ const authRouter = require('./auth')
 const filterRouter = require('./filterRouter')
 const colorRouter = require("./colorRouter")
 const favoriteRouter = require('./favoriteRouter')
+const paymentRoutes= require('./paymentRouter')
 
 const router = Router()
 
@@ -22,5 +23,6 @@ router.use("/comment", commentRouter)
 router.use("/auth", authRouter)
 router.use('/filterby', filterRouter)
 router.use('/favorites', favoriteRouter)
+router.use('/payment', paymentRoutes)
 
 module.exports = router
