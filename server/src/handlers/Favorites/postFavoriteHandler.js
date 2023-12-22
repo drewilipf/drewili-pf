@@ -2,13 +2,13 @@ const createNewFavorite = require("../../controllers/Favorites/postFavoriteContr
 
 
 const postFavoriteHandler = async (req, res) => {
-  const { favorite } = req.body;
+  const { id, product_id, user_id } = req.body;
   try {
-    await createNewFavorite(favorite);
+    await createNewFavorite(id, product_id, user_id);
     return res.status(200).json({ message: 'Creado exitosamente' })
   } catch (error) {
-    return res.status(400).send("error");
+    return res.status(400).send("Ha ocurrido un error");
   }
 }
 
-module.exports =  postFavoriteHandler;
+module.exports = postFavoriteHandler;

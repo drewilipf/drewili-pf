@@ -19,7 +19,8 @@ router.use("/category", categoryRouter)
 router.use("/brand", brandRouter)
 router.use("/salescart", salesCartRouter)
 router.use("/comment", commentRouter)
-router.use("/login", loginRouter)
+router.use("/auth", authRouter)
 router.use('/filterby', filterRouter)
+router.use('/favorites', favoriteRouter)
 
 module.exports = router

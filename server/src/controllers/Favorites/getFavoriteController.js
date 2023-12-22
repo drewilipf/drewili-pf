@@ -1,14 +1,8 @@
 const { Favorite } = require('../../db');
 
-const getFavoriteController = async (req, res) => {
+const getFavoriteController = async () => {
 
-    const { id, product_id, user_id } = req.body
-
-    const favorite = await Favorite.findOrCreate({
-            where: {
-                id, product_id, user_id
-            }
-        })
+    const favorite = await Favorite.findAll()
 
     return favorite
 }

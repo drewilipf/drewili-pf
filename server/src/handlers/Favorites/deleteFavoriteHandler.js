@@ -9,7 +9,7 @@ const favoriteDeleteHandler = async(req, res) => {
         if (!favorite) {
             return res.status(404).json({ error: 'No encontrado' });
         }
-        res.status(200).send("Eliminado");
+        res.status(200).send("Eliminado correctamente");
         
     }   catch (error) {
         return res.status(500).json({ error: error.message })

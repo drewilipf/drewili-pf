@@ -4,9 +4,9 @@ const getFavoriteController = require("../../controllers/Favorites/getFavoriteCo
 const getFavoriteHandler = async(req, res)=> {
     try {
         
-        const favorite = await getFavoriteController(id)
+        const favorite = await getFavoriteController()
 
-        if(!id)  return res.status(401).send('Faltan datos')   
+        // if(!id)  return res.status(401).send('Faltan datos')   
         
         return res.status(200).json(favorite)
 
