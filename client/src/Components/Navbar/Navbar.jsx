@@ -1,15 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { NavLink, Routes, Route, useLocation } from "react-router-dom";
 import Searchbar from "../Searchbar/Searchbar";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { postLogout } from "../../reduxToolkit/Logout/logoutThunks";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const location = useLocation();
-  const login = useSelector((state) => state.login);
-  console.log("login", login);
-  const isUserLoggedIn =
-    login && login.userSession && login.userSession.username;
-  console.log(isUserLoggedIn);
+  const { login } = useSelector((state) => state.login);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    await dispatch(postLogout());
+
+    navigate("/");
+  };
 
   return (
     <div className="fixed top-0 left-0 right-0 z-10 bg-white shadow-xl">
@@ -45,14 +56,34 @@ function Navbar() {
               </NavLink>
             </h1>
           </div>
-          <div className="flex space-x-1">
-            <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
-              {/* {login && login.userSession && login.userSession.username ? (
-                <p>Bienvenido, {login.userSession.username}!</p>
-              ) : (
-                <p>Bienvenido, Invitado!</p>
-              )} */}
-            </h1>
+          <div className="flex space-x-1 text-chiliRed">
+            <div className="relative group">
+              <h1
+                className="transition duration-300 hover:text-onyx cursor-pointer"
+                onClick={toggleDropdown}
+              >
+                {login && login.userSession && login.userSession.username ? (
+                  <p>Bienvenido, {login.userSession.username}!</p>
+                ) : (
+                  <p>Bienvenido, Invitado!</p>
+                )}
+              </h1>
+              {isDropdownOpen && (
+                <div className="absolute right-0 mt-2 bg-white border rounded shadow-md text-chiliRed">
+                  <ul className="py-1">
+                    <li className="cursor-pointer py-2 px-4 hover:bg-gray-200">
+                      Ver Perfil
+                    </li>
+                    <li
+                      className="cursor-pointer py-2 px-4 hover:bg-gray-200"
+                      onClick={handleLogout}
+                    >
+                      Cerrar Sesión
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
