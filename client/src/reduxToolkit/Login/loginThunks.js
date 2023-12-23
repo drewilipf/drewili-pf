@@ -8,9 +8,11 @@ export const postLogin = (loginData) => {
     try {
       const response = await axios.post(API_URL, loginData);
       const login = response.data;
+      console.log(login);
 
       dispatch(postLoginSuccess(login));
       return response;
+      console.log(login);
     } catch (error) {
       console.error("Error of login:", error);
       throw error;

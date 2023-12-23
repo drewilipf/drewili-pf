@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { NavLink, Routes, Route, useLocation } from "react-router-dom";
 import Searchbar from "../Searchbar/Searchbar";
 import { useSelector, useDispatch } from "react-redux";
-import { postLogout } from "../../reduxToolkit/Logout/logoutThunks";
+import { postLogout } from "../../reduxToolkit/Login/logoutThunks";
 import { useNavigate } from "react-router-dom";
+import { AiOutlineMore } from "react-icons/ai";
 
 function Navbar() {
   const location = useLocation();
@@ -17,9 +18,13 @@ function Navbar() {
   };
   const navigate = useNavigate();
   const handleLogout = async () => {
-    await dispatch(postLogout());
-
-    navigate("/");
+    const userClickedOk = window.confirm(
+      "¿Seguro de que desea cerrar sección?"
+    );
+    if (userClickedOk) {
+      await dispatch(postLogout());
+      navigate("/");
+    }
   };
 
   return (
@@ -39,52 +44,58 @@ function Navbar() {
             }
           />
         </Routes>
-        <div className="flex space-x-4 mr-5">
-          <div className="flex space-x-1">
-            <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
-              <NavLink to="/userform" className="text-chiliRed hover:text-onyx">
-                Regístrate
-              </NavLink>
-            </h1>
-            <span className="text-chiliRed">|</span>
-            <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
-              <NavLink
-                to="/userlogin"
-                className="text-chiliRed hover:text-onyx"
-              >
-                Ingresa
-              </NavLink>
-            </h1>
-          </div>
-          <div className="flex space-x-1 text-chiliRed">
-            <div className="relative group">
-              <h1
-                className="transition duration-300 hover:text-onyx cursor-pointer"
-                onClick={toggleDropdown}
-              >
-                {login && login.userSession && login.userSession.username ? (
-                  <p>Bienvenido, {login.userSession.username}!</p>
-                ) : (
-                  <p>Bienvenido, Invitado!</p>
+        <div className="flex space-x-2 mr-7">
+          {login && login.userSession ? (
+            <div className="flex space-x-3 text-chiliRed items-center">
+              {" "}
+              {/* Añadido 'items-center' */}
+              <div className="relative group">
+                <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
+                  <p onClick={toggleDropdown} className="flex items-center">
+                    {" "}
+                    {/* Añadido 'flex items-center' */}
+                    Bienvenido, {login.userSession.username}! <AiOutlineMore />
+                  </p>
+                </h1>
+
+                {isDropdownOpen && (
+                  <div className="absolute right-0 mt-2 bg-white border rounded shadow-md text-chiliRed">
+                    <ul className="py-1">
+                      <li className="cursor-pointer py-2 px-4 hover:bg-gray-200">
+                        Ver Perfil
+                      </li>
+                      <li
+                        className="cursor-pointer py-2 px-4 hover:bg-gray-200"
+                        onClick={handleLogout}
+                      >
+                        Cerrar Sesión
+                      </li>
+                    </ul>
+                  </div>
                 )}
-              </h1>
-              {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 bg-white border rounded shadow-md text-chiliRed">
-                  <ul className="py-1">
-                    <li className="cursor-pointer py-2 px-4 hover:bg-gray-200">
-                      Ver Perfil
-                    </li>
-                    <li
-                      className="cursor-pointer py-2 px-4 hover:bg-gray-200"
-                      onClick={handleLogout}
-                    >
-                      Cerrar Sesión
-                    </li>
-                  </ul>
-                </div>
-              )}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="flex space-x-1">
+              <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
+                <NavLink
+                  to="/userform"
+                  className="text-chiliRed hover:text-onyx"
+                >
+                  Regístrate
+                </NavLink>
+              </h1>
+              <span className="text-chiliRed">|</span>
+              <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
+                <NavLink
+                  to="/userlogin"
+                  className="text-chiliRed hover:text-onyx"
+                >
+                  Ingresa
+                </NavLink>
+              </h1>
+            </div>
+          )}
         </div>
       </div>
     </div>

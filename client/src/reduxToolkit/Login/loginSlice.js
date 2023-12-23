@@ -10,7 +10,10 @@ export const loginSlice = createSlice({
     postLoginSuccess: (state, action) => {
       state.login = action.payload;
     },
+    logoutSuccess: (state) => {
+      state.login = null;
+    },
   },
 });
-export const { postLoginSuccess } = loginSlice.actions;
+export const { postLoginSuccess, logoutSuccess } = loginSlice.actions;
 export default loginSlice.reducer;
