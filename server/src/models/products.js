@@ -28,10 +28,18 @@ module.exports = (sequelize) => {
         stock: {
             type: DataTypes.INTEGER,
             allowNull: true,
-        },
+        },    
         image:{
             type: DataTypes.STRING,
             allowNull: false
+        },
+        color_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'colors',
+                key: 'id'
+            },
         },
         brand_id: {
             type: DataTypes.INTEGER,

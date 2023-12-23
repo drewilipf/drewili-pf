@@ -10,7 +10,7 @@ const getCommentsController = async () => {
         ],
     });
 
-    console.log(comments);
+    
 
     const formattedComments = comments.map(comment => {
 

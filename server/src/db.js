@@ -7,6 +7,7 @@ const SalesCartModel = require('./models/saleCart')
 const UserModel = require('./models/users')
 const CommentModel = require('./models/comments')
 const FavoriteModel = require('./models/favorites')
+const ColorsModel = require('./models/colors');
 
 const { DB_URL } = process.env;
 
@@ -32,6 +33,7 @@ const SalesCart = SalesCartModel(sequelize)
 const User = UserModel(sequelize)
 const Comments = CommentModel(sequelize)
 const Favorite = FavoriteModel(sequelize)
+const Colors = ColorsModel(sequelize)
 
 // Aca vendrian las relaciones
 Product.belongsTo(Category, { foreignKey: 'category_id' });
@@ -39,6 +41,9 @@ Category.hasMany(Product, { foreignKey: 'category_id' });
 
 Product.belongsTo(Brand, { foreignKey: 'brand_id' });
 Brand.hasMany(Product, { foreignKey: 'brand_id' });
+
+Product.belongsTo(Colors,{foreignKey:'color_id'})
+Colors.hasMany(Product,{foreignKey: 'color_id'})
 
 SalesCart.belongsTo(User, {foreignKey: 'user_id'})
 SalesCart.belongsTo(Product, { foreignKey: 'product_id' });
@@ -74,5 +79,6 @@ module.exports = {
    SalesCart,
    Comments,
    Favorite,
+   Colors,
    conn: sequelize, 
 };
