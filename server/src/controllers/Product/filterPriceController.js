@@ -1,16 +1,16 @@
-const { Op } = require("sequelize")
-const { Product } = require("../../db")
+const { Op } = require("sequelize");
+const { Product } = require("../../db");
 
-const filterPriceController = (minPrice, maxPrice) => {
-    const product = Product.findAll({
+const filterPriceController = async (minPrice, maxPrice) => {
+    const products = await Product.findAll({
         where: {
-            price:{
-                [Op.between]: [minPrice, maxPrice]
+            price: {
+                [Op.between]: [minPrice, maxPrice],
             },
-            deleted: false
-        }
-    })
-    return product
-}
+            deleted: false,
+        },
+    });
+    return products;
+};
 
-module.exports = filterPriceController
+module.exports = filterPriceController;

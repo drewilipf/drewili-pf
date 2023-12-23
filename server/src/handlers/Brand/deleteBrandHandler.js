@@ -8,7 +8,7 @@ const brandSoftDeleteHandler = async(req, res) => {
         const brand = await brandSoftDeleteController(id);
 
         if (!brand) {
-            return res.status(404).json({ error: 'Marca no encontrado' });
+            return res.status(404).json({ error: 'Marca no encontrada' });
         }
         res.status(200).send("Marca eliminada correctamente");
         
