@@ -5,7 +5,7 @@ const cancelHandler = require('../handlers/Payment/cancelHandler')
 
 const router =  Router()
 
-router.get('/create-checkout-session', checkoutHandler)
+router.post('/create-checkout-session', checkoutHandler)
 router.get('/success', successlHandler)
 router.get('cancel', cancelHandler)
 

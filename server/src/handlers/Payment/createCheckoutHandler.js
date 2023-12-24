@@ -1,20 +1,14 @@
-require('dotenv').config()
-const {DB_STRIPE_TOKEN} = process.env
-const Stripe = require('stripe')
-const stripe = new Stripe(DB_STRIPE_TOKEN)
+const checkoutController = require('../../controllers/Payment/createCheckoutController')
 
 const checkoutHandler = async (req, res) => {
-    if (!req.session.user) {
-        return res.status(400).json({ error: 'usuario no autenticado' })
-    }
-    const userId = req.session.user.userId
-    console.log(userId);
-    res.status(200).json(userId)
+    const cartItems = req.body.cartItems
     try {
+        const response = await checkoutController(cartItems)
+        res.status(200).json({urlPayment:response.url})
 
     }
     catch (error) {
-
+        res.status(500).json({ error: 'Error al procesar la solicitud de pago' });
     }
 
 }
