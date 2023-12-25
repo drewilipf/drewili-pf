@@ -9,8 +9,15 @@ import UserForm from "./Components/UserForm/UserForm";
 import UserLogin from "./Components/UserLogin/Userlogin";
 import Dashboard from "./views/Dashboard/Dashboard";
 import NavBar from "./Components/Navbar/Navbar";
+import { useEffect } from "react";
+import { getProducts } from "./reduxToolkit/Product/productThunks";
+import { useDispatch } from "react-redux";
 
 function App() {
+  const dispacth = useDispatch()
+  useEffect(() => {
+    dispacth(getProducts());
+  }, [dispacth]);
   return (
     <div>
       <NavBar />
