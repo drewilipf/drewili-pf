@@ -13,10 +13,9 @@ function ProductDetail() {
   const dispatch = useDispatch();
 
   const productsId = useSelector((state) => state.products.productsId);
-
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(getProductsById(id));
+      await dispatch(getProductsById(id))
     };
 
     fetchData();
