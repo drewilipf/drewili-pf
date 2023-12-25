@@ -1,5 +1,5 @@
 
-const successlHandler = () => {
+const successlHandler = (req, res) => {
 
 }
 
