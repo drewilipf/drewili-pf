@@ -1,10 +1,12 @@
 import React from "react";
-import CreateProduct from "../../Components/DashboardComponents/CreateProduct/CreateProduct"
+import CreateProduct from "../../Components/DashboardComponents/CreateProduct/CreateProduct";
+import NavbarAdmin from "../../Components/DashboardComponents/NavbarAdmin/NavbarAdmin";
+
 function Dashboard() {
   return (
     <div>
-      <h2>panel de administrador</h2>
-      <CreateProduct />
+      <NavbarAdmin />
+      <h1 className="text-center">PANEL DE ADMINISTRADOR</h1>
     </div>
   );
 }

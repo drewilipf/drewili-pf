@@ -1,4 +1,4 @@
-import { getUserSlice, postUserSlice } from "./userSlice";
+import { getUserSlice, postUserSlice, putUserSlice } from "./userSlice";
 import axios from "axios";
 
 const API_URL = "http://localhost:3001/user";
@@ -26,6 +26,17 @@ export const postUser = () => {
       dispatch(postUserSlice({ users }));
     } catch (error) {
       console.error("Error fetching users:", error);
+    }
+  };
+};
+export const putUser = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(`${API_URL}/${id}`);
+      const userId = response.data;
+      dispatch(putUserSlice({ userId }));
+    } catch (error) {
+      console.error("Error fetching product:", error);
     }
   };
 };

@@ -5,6 +5,7 @@ import { getCategory } from "../../../reduxToolkit/Category/categoryThunks";
 import { getBrand } from "../../../reduxToolkit/Brand/brandThunks";
 import { getColor } from "../../../reduxToolkit/Color/colorThunks";
 import { postProducts } from "../../../reduxToolkit/Product/productThunks";
+import NavbarAdmin from "../NavbarAdmin/NavbarAdmin";
 
 function CreateProduct() {
   const [input, setInput] = useState({
@@ -107,7 +108,8 @@ function CreateProduct() {
   }
 
   return (
-    <div className="max-w-md mx-auto mt-40">
+    <div className="max-w-md mx-auto mt-30 mr-50">
+      <NavbarAdmin />
       <h1 className="text-2xl font-bold mb-4 flex items-center justify-center">
         Crear Producto
       </h1>
