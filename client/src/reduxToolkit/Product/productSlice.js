@@ -45,6 +45,20 @@ export const productSlice = createSlice({
       state.status = "failed";
       state.error = action.payload.error;
     },
+    filterPriceRequest: (state) => {
+      state.status = "loading";
+      state.error = null;
+    },
+    filterPriceSuccess: (state, action) => {
+      state.status = "succeeded";
+      state.products = action.payload.products;
+      state.error = null; 
+    },
+    filterPriceFailure: (state, action) => {
+      state.status = "failed";
+      state.products = [];
+      state.error = action.payload.error; 
+    },
   },
 });
 
@@ -57,5 +71,8 @@ export const {
   searchProductStart,
   searchProductSuccess,
   searchProductFailure,
+  filterPriceRequest,
+  filterPriceSuccess,
+  filterPriceFailure,
 } = productSlice.actions;
 export default productSlice.reducer;
