@@ -5,7 +5,7 @@ import Shoppingcart from "./views/Shoppingcart/Shoppingcart";
 import UserProfile from "./views/UserProfile/UserProfile";
 import EditUserProfile from "./views/UserProfile/editUserProfile";
 import About from "./views/About/About";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import UserForm from "./Components/UserForm/UserForm";
 import UserLogin from "./Components/UserLogin/Userlogin";
 import Dashboard from "./views/Dashboard/Dashboard";
@@ -13,7 +13,9 @@ import NavBar from "./Components/Navbar/Navbar";
 import CreateProduct from "./Components/DashboardComponents/CreateProduct/CreateProduct";
 
 function App() {
-  const isDashboardRoute = location.pathname === "/dashboard";
+  const location = useLocation();
+  const isDashboardRoute = location.pathname.startsWith("/dashboard");
+
   return (
     <div>
       {!isDashboardRoute && <NavBar />}

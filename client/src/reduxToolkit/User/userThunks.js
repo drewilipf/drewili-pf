@@ -29,12 +29,12 @@ export const postUser = () => {
     }
   };
 };
-export const putUser = () => {
+export const putUser = (id, userData) => {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`${API_URL}/${id}`);
+      const response = await axios.put(`${API_URL}/${id}`,userData);
       const userId = response.data;
-      dispatch(putUserSlice({ userId }));
+      dispatch(putUserSlice({ userId}));
     } catch (error) {
       console.error("Error fetching product:", error);
     }

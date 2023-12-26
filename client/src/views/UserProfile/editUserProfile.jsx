@@ -1,44 +1,65 @@
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { putUser } from "../../reduxToolkit/User/userThunks";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const EditUserProfile = () => {
   const styles =
-    " w-full px-8 py-1.5 text-lg text-eerieBlack leading-tight bg-whiteSmoke border rounded focus:outline-none focus:shadow-outline";
-  const styles2 = " text-eerieBlack text-lg";
+    "w-full px-8 py-1.5 text-lg text-eerieBlack leading-tight bg-whiteSmoke border rounded focus:outline-none focus:shadow-outline";
+  const styles2 = "text-eerieBlack text-lg";
 
   const { login } = useSelector((state) => state.login);
-
   const { id } = useParams();
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+  const userSessionFromCookies = Cookies.get("userSession");
+  const userSession = userSessionFromCookies
+    ? JSON.parse(userSessionFromCookies)
+    : null;
   const [editable, setEditable] = useState({
-    username: login.userSession.username,
-    name: login.userSession.name,
-    lastname: login.userSession.lastname,
-    email: login.userSession.email,
-    password: login.userSession.password,
-    adress: login.userSession.adress,
+    username: userSession.username || (login && login.userSession.username),
+    name: userSession.name || (login && login.userSession.name),
+    lastname: userSession.lastname || (login && login.userSession.lastname),
+    email: userSession.email || (login && login.userSession.email),
+    address: userSession.address || (login && login.userSession.address),
+
+    password: "", // Initialize with an empty string
+    newPassword: "", // New password field
   });
 
-  useEffect(async () => {
-    await dispatch(putUser(id));
-  }, [dispatch]);
+  const handleFieldChange = (event) => {
+    const { name, value } = event.target;
 
-  const handleFieldChange = (edit, value) => {
-    setEditable((prev) => ({
-      ...prev,
-      [edit]: value,
+    setEditable((prevEditable) => ({
+      ...prevEditable,
+      [name]: value,
     }));
   };
 
-  const handleSaveChanges = () => {
-    // Simula una solicitud al servidor
-    setTimeout(() => {
-      console.log("Guardando cambios en el servidor...", editable);
-      console.log("Cambios guardados correctamente.");
-    }, 1000);
+  const handleSaveChanges = async (event) => {
+    event.preventDefault();
+    try {
+      // Check if the user is changing the password
+      const isChangingPassword = editable.newPassword !== "";
+
+      const userData = {
+        username: editable.username,
+        name: editable.name,
+        lastname: editable.lastname,
+        email: editable.email,
+        password: isChangingPassword ? editable.password : undefined, // Pass undefined if not changing password
+        newPassword: isChangingPassword ? editable.newPassword : undefined, // Pass undefined if not changing password
+        address: editable.address,
+      };
+
+      await dispatch(putUser(id, userData));
+      alert("Datos actualizados correctamente");
+      navigate("/userprofile");
+    } catch (error) {
+      alert("Error al actualizar los datos");
+    }
   };
 
   return (
@@ -49,9 +70,10 @@ const EditUserProfile = () => {
           <input
             className={styles}
             id="username"
+            name="username"
             type="text"
             value={editable.username}
-            onChange={(e) => handleFieldChange("username", e.target.value)}
+            onChange={handleFieldChange}
             placeholder="Nombre de usuario"
           />
         </div>
@@ -60,9 +82,10 @@ const EditUserProfile = () => {
           <input
             className={styles}
             id="name"
+            name="name"
             type="text"
             value={editable.name}
-            onChange={(e) => handleFieldChange("name", e.target.value)}
+            onChange={handleFieldChange}
             placeholder="Nombre"
           />
         </div>
@@ -71,10 +94,11 @@ const EditUserProfile = () => {
           <input
             className={styles}
             id="lastname"
+            name="lastname"
             type="text"
             value={editable.lastname}
-            onChange={(e) => handleFieldChange("lastname", e.target.value)}
-            placeholder="apellido"
+            onChange={handleFieldChange}
+            placeholder="Apellido"
           />
         </div>
 
@@ -83,9 +107,10 @@ const EditUserProfile = () => {
           <input
             className={styles}
             id="email"
+            name="email"
             type="text"
             value={editable.email}
-            onChange={(e) => handleFieldChange("email", e.target.value)}
+            onChange={handleFieldChange}
             placeholder="Correo electrónico"
           />
         </div>
@@ -95,22 +120,37 @@ const EditUserProfile = () => {
           <input
             className={styles}
             id="address"
+            name="address"
             type="text"
-            defaultValue={editable.address}
-            onChange={(e) => handleFieldChange("address", e.target.value)}
+            value={editable.address}
+            onChange={handleFieldChange}
             placeholder="Dirección"
           />
         </div>
 
         <div className="mb-4">
-          <label className={styles2}>Contraseña</label>
+          <label className={styles2}>Contraseña Actual</label>
           <input
             className={styles}
             id="password"
+            name="password"
             type="password"
             value={editable.password}
-            onChange={(e) => handleFieldChange("password", e.target.value)}
-            placeholder="contraseña"
+            onChange={handleFieldChange}
+            placeholder="Contraseña actual"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className={styles2}>Nueva Contraseña</label>
+          <input
+            className={styles}
+            id="newPassword"
+            name="newPassword"
+            type="password"
+            value={editable.newPassword}
+            onChange={handleFieldChange}
+            placeholder="Nueva contraseña (opcional)"
           />
         </div>
 

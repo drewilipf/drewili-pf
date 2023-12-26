@@ -1,15 +1,16 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { postLogin } from "../../reduxToolkit/Login/loginThunks";
-
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
-function UserLogin({}) {
+function UserLogin() {
   const [input, setInput] = useState({
     username: "",
     password: "",
   });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setInput({
@@ -18,7 +19,11 @@ function UserLogin({}) {
     });
   };
 
-  const navigate = useNavigate();
+  const handleSuccessfulLogin = (userSession) => {
+    // Guardar información de sesión en una cookie
+    Cookies.set("userSession", JSON.stringify(userSession), { expires: 7 });
+    console.log("User session saved in cookies:", userSession);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -26,18 +31,21 @@ function UserLogin({}) {
       username: input.username,
       password: input.password,
     };
+
     try {
       const response = await dispatch(postLogin(loginData));
-      //console.log("Full Response:", response);
 
       const { message, access, userSession } = response.data;
-
       alert(message);
 
-      if (access && userSession && userSession.role === "admin") {
-        navigate("/dashboard");
-      } else if (access && userSession && userSession.role === "cliente") {
-        navigate("/");
+      if (access && userSession) {
+        handleSuccessfulLogin(userSession);
+
+        if (userSession.role === "admin") {
+          navigate("/dashboard");
+        } else if (userSession.role === "cliente") {
+          navigate("/");
+        }
       }
     } catch (error) {
       const userClickedOk = window.confirm(
