@@ -3,27 +3,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { putUser } from "../../reduxToolkit/User/userThunks";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 
 const EditUserProfile = () => {
   const styles =
     "w-full px-8 py-1.5 text-lg text-eerieBlack leading-tight bg-whiteSmoke border rounded focus:outline-none focus:shadow-outline";
   const styles2 = "text-eerieBlack text-lg";
 
-  const { login } = useSelector((state) => state.login);
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userSessionFromCookies = Cookies.get("userSession");
-  const userSession = userSessionFromCookies
-    ? JSON.parse(userSessionFromCookies)
-    : null;
+  const user = useSelector((state) => state.users.user);
+
   const [editable, setEditable] = useState({
-    username: userSession.username || (login && login.userSession.username),
-    name: userSession.name || (login && login.userSession.name),
-    lastname: userSession.lastname || (login && login.userSession.lastname),
-    email: userSession.email || (login && login.userSession.email),
-    address: userSession.address || (login && login.userSession.address),
+    username: user.username,
+    name: user.name,
+    lastname: user.lastname,
+    email: user.email,
+    address: user.address,
 
     password: "", // Initialize with an empty string
     newPassword: "", // New password field
@@ -56,7 +52,7 @@ const EditUserProfile = () => {
 
       await dispatch(putUser(id, userData));
       alert("Datos actualizados correctamente");
-      navigate("/userprofile");
+      navigate(`/userprofile/${id}`);
     } catch (error) {
       alert("Error al actualizar los datos");
     }

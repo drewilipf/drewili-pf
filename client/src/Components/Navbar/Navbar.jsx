@@ -59,6 +59,8 @@ function Navbar() {
       navigate("/");
     }
   };
+  const id =
+    (userSession && userSession.userId) || (login && login.userSession.userId);
   return (
     <div className="fixed top-0 left-0 right-0 z-10 bg-whiteSmoke shadow-xl">
       <div className="flex items-center justify-between text-onyx">
@@ -92,7 +94,7 @@ function Navbar() {
                     <ul className="py-1">
                       <li className="cursor-pointer py-2 px-4 hover:bg-gray-200">
                         <NavLink
-                          to="/userprofile"
+                          to={`/userprofile/${id}`}
                           className="text-chiliRed hover:underline"
                         >
                           Ver Perfil

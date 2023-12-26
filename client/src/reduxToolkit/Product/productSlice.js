@@ -30,7 +30,6 @@ export const productSlice = createSlice({
     postProductsSuccess: (state, action) => {
       state.status = "succeeded";
       state.products = action.payload.products;
-      console.log("State after update:", state.products);
     },
 
     searchProductStart: (state) => {
@@ -52,12 +51,12 @@ export const productSlice = createSlice({
     filterPriceSuccess: (state, action) => {
       state.status = "succeeded";
       state.products = action.payload.products;
-      state.error = null; 
+      state.error = null;
     },
     filterPriceFailure: (state, action) => {
       state.status = "failed";
       state.products = [];
-      state.error = action.payload.error; 
+      state.error = action.payload.error;
     },
   },
 });

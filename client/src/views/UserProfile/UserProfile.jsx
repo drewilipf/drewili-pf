@@ -1,36 +1,31 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { IoMdCreate } from "react-icons/io";
-import Cookies from "js-cookie";
+import { getUserId } from "../../reduxToolkit/User/userThunks";
 
 const UserProfile = () => {
-  const { login } = useSelector((state) => state.login);
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  let userSessionFromCookies = Cookies.get("userSession");
-  const userSession = userSessionFromCookies
-    ? JSON.parse(userSessionFromCookies)
-    : null;
+  const { id } = useParams();
+  const user = useSelector((state) => state.users.user);
 
-  if (!login || !login.userSession || !userSessionFromCookies) {
-    navigate("/");
+  useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(getUserId(id));
+    };
+
+    fetchData();
+  }, [dispatch, id]);
+  if (!user) {
+    console.log("Rendering loading...");
+    return <p>Cargando...</p>;
   }
-
-  const username =
-    userSession.username || (login && login.userSession.username);
-  const name = userSession.name || (login && login.userSession.name);
-  const lastname =
-    userSession.lastname || (login && login.userSession.lastname);
-  const email = userSession.email || (login && login.userSession.email);
-  const address = userSession.address || (login && login.userSession.address);
-  const id = userSession.userId || (login && login.userSession.userId);
-
   return (
     <div className="mt-16 flex items-center justify-center">
       <div className="bg-chiliRed bg-opacity-10 p-8 text-eerieBlack rounded-lg shadow-md w-full max-w-screen-md mx-auto relative">
         <div className="flex justify-between items-center mb-4">
-          <h1 className="text-3xl font-semibold">{username}</h1>
+          <h1 className="text-3xl font-semibold">{user.username}</h1>
           <div className="flex items-center gap-2">
             <NavLink
               to={`/edituserprofile/${id}`}
@@ -42,16 +37,17 @@ const UserProfile = () => {
           </div>
         </div>
         <div className="mb-4">
-          <span className="font-semibold">Nombre:</span> {name}
+          <span className="font-semibold">Nombre:</span> {user.name}
         </div>
         <div className="mb-4">
-          <span className="font-semibold">Apellido:</span> {lastname}
+          <span className="font-semibold">Apellido:</span> {user.lastname}
         </div>
         <div className="mb-4">
-          <span className="font-semibold">Correo Electrónico:</span> {email}
+          <span className="font-semibold">Correo Electrónico:</span>{" "}
+          {user.email}
         </div>
         <div className="mb-4">
-          <span className="font-semibold">Dirección:</span> {address}
+          <span className="font-semibold">Dirección:</span> {user.address}
         </div>
       </div>
     </div>
