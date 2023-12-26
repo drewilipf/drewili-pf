@@ -3,7 +3,6 @@ import Productcards from "../../Components/Productcards/Productcards";
 import Banners from "../../Components/Banners/Banners";
 import FilterPriceComponent from "../../Components/FilterComponents/priceFilterComponent";
 
-
 function Home() {
   return (
     <div className="flex flex-col items-center">
