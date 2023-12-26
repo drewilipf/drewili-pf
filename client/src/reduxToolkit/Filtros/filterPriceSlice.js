@@ -1,36 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  products: [],
-  status: "idle", // "idle", "loading", "succeeded", "failed"
-  error: null,
+  minPrice: "0",
+  maxPrice: "10000",
 };
 
-const filterPrice = createSlice({
-    name: "filterprice",
-    initialState,
-    reducers: {
-      filterPriceRequest: (state) => {
-        state.status = "loading";
-        state.error = null;
-      },
-      filterPriceSuccess: (state, action) => {
-        state.status = "succeeded";
-        state.products = action.payload.products;
-        state.error = null; // Limpiar el error
-      },
-      filterPriceFailure: (state, action) => {
-        state.status = "failed";
-        state.products = [];
-        state.error = action.payload.error; // Asegúrate de que solo contenga el mensaje de error
-      },
+export const filterSlice = createSlice({
+  name: "filter",
+  initialState,
+  reducers: {
+    setFilter: (state, action) => {
+      state.minPrice = action.payload.minPrice;
+      state.maxPrice = action.payload.maxPrice;
     },
-  });
+    clearFilter: (state) => {
+      state.minPrice = "0";
+      state.maxPrice = "10000";
+    },
+  },
+});
 
-export const {
-  filterPriceRequest,
-  filterPriceSuccess,
-  filterPriceFailure,
-} = filterPrice.actions;
-
-export default filterPrice.reducer;
+export const { setFilter, clearFilter } = filterSlice.actions;
+export default filterSlice.reducer;
