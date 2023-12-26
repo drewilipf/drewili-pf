@@ -15,6 +15,7 @@ import { getProducts } from "./reduxToolkit/Product/productThunks";
 import { useDispatch } from "react-redux";
 import CreateProduct from "./Components/DashboardComponents/CreateProduct/CreateProduct";
 import RegisteredUser from "./Components/DashboardComponents/RegisteredUser/RegisteredUser";
+import ProductList from "./Components/DashboardComponents/ProductList/ProductList";
 
 function App() {
   const dispacth = useDispatch();
@@ -43,6 +44,7 @@ function App() {
             path="/dashboard/registeredUser"
             element={<RegisteredUser />}
           />
+          <Route path="/dashboard/productList" element={<ProductList />} />
         </Routes>
       </div>
     </div>

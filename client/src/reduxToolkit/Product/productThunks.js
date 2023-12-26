@@ -67,3 +67,15 @@ export const searchProduct = (keyword) => {
     }
   };
 };
+export const deletedProduct = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.delete(`${API_URL}/${id}`);
+      const productId = response.data;
+      console.log(productId);
+      dispatch(deletedUserSlice({ productId }));
+    } catch (error) {
+      console.error("Error fetching product:", error);
+    }
+  };
+};

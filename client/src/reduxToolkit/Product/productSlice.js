@@ -58,6 +58,9 @@ export const productSlice = createSlice({
       state.products = [];
       state.error = action.payload.error;
     },
+    deletedProductSlice: (state, action) => {
+      state.products = action.payload.products;
+    },
   },
 });
 
@@ -73,5 +76,6 @@ export const {
   filterPriceRequest,
   filterPriceSuccess,
   filterPriceFailure,
+  deletedProductSlice,
 } = productSlice.actions;
 export default productSlice.reducer;
