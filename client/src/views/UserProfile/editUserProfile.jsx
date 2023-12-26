@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { putUser } from "../../reduxToolkit/User/userThunks";
+import { getUserId, putUser } from "../../reduxToolkit/User/userThunks";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const EditUserProfile = () => {
   const styles =
@@ -13,18 +14,49 @@ const EditUserProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.users.user);
+  const { login } = useSelector((state) => state.login);
+  const userSessionFromCookies = Cookies.get("userSession");
+  const userSession = userSessionFromCookies
+    ? JSON.parse(userSessionFromCookies)
+    : null;
+  const combinedUserSession =
+    userSession && userSession.role
+      ? userSession.role
+      : login && login.userSession
+      ? login.userSession.role
+      : null;
 
   const [editable, setEditable] = useState({
-    username: user.username,
-    name: user.name,
-    lastname: user.lastname,
-    email: user.email,
-    address: user.address,
-
-    password: "", // Initialize with an empty string
-    newPassword: "", // New password field
+    username: "",
+    name: "",
+    lastname: "",
+    email: "",
+    address: "",
+    password: "",
+    newPassword: "",
+    role: "",
+    deleted: user.deleted,
   });
+  useEffect(() => {
+    dispatch(getUserId(id));
+  }, [id, dispatch]);
 
+  // Actualizar el estado editable cuando cambien los datos del usuario
+  useEffect(() => {
+    if (user) {
+      setEditable({
+        username: user.username || "",
+        name: user.name || "",
+        lastname: user.lastname || "",
+        email: user.email || "",
+        address: user.address || "",
+        password: "",
+        newPassword: "",
+        role: user.role || "",
+        deleted: user.deleted || "false",
+      });
+    }
+  }, [user]);
   const handleFieldChange = (event) => {
     const { name, value } = event.target;
 
@@ -48,11 +80,28 @@ const EditUserProfile = () => {
         password: isChangingPassword ? editable.password : undefined, // Pass undefined if not changing password
         newPassword: isChangingPassword ? editable.newPassword : undefined, // Pass undefined if not changing password
         address: editable.address,
+        role: editable.role,
+        deleted: editable.deleted,
       };
 
       await dispatch(putUser(id, userData));
       alert("Datos actualizados correctamente");
-      navigate(`/userprofile/${id}`);
+      if (combinedUserSession !== "admin") {
+        navigate(`/userprofile/${id}`);
+      } else {
+        navigate(`/dashboard/registeredUser`);
+      }
+      setEditable({
+        username: user.username,
+        name: user.name,
+        lastname: user.lastname,
+        email: user.email,
+        address: user.address,
+        password: "",
+        newPassword: "",
+        role: user.role,
+        deleted: user.deleted,
+      });
     } catch (error) {
       alert("Error al actualizar los datos");
     }
@@ -124,31 +173,69 @@ const EditUserProfile = () => {
           />
         </div>
 
-        <div className="mb-4">
-          <label className={styles2}>Contraseña Actual</label>
-          <input
-            className={styles}
-            id="password"
-            name="password"
-            type="password"
-            value={editable.password}
-            onChange={handleFieldChange}
-            placeholder="Contraseña actual"
-          />
-        </div>
+        {combinedUserSession !== "admin" && (
+          <div className="mb-4">
+            <label className={styles2}>Contraseña Actual</label>
+            <input
+              className={styles}
+              id="password"
+              name="password"
+              type="password"
+              value={editable.password}
+              onChange={handleFieldChange}
+              placeholder="Contraseña actual"
+              disabled={combinedUserSession === "admin"}
+            />
+          </div>
+        )}
 
-        <div className="mb-4">
-          <label className={styles2}>Nueva Contraseña</label>
-          <input
-            className={styles}
-            id="newPassword"
-            name="newPassword"
-            type="password"
-            value={editable.newPassword}
-            onChange={handleFieldChange}
-            placeholder="Nueva contraseña (opcional)"
-          />
-        </div>
+        {combinedUserSession !== "admin" && (
+          <div className="mb-4">
+            <label className={styles2}>Nueva Contraseña</label>
+            <input
+              className={styles}
+              id="newPassword"
+              name="newPassword"
+              type="password"
+              value={editable.newPassword}
+              onChange={handleFieldChange}
+              placeholder="Nueva contraseña (opcional)"
+              disabled={combinedUserSession === "admin"}
+            />
+          </div>
+        )}
+        {combinedUserSession === "admin" && (
+          <div className="mb-4">
+            <label className={styles2}>Rol</label>
+            <select
+              className={styles}
+              id="role"
+              name="role"
+              value={editable.role}
+              onChange={handleFieldChange}
+              disabled={combinedUserSession !== "admin"}
+            >
+              <option value="admin">Administrador</option>
+              <option value="cliente">Cliente</option>
+            </select>
+          </div>
+        )}
+        {combinedUserSession === "admin" && (
+          <div className="mb-4">
+            <label className={styles2}>Estado</label>
+            <select
+              className={styles}
+              id="deleted"
+              name="deleted"
+              value={editable.deleted}
+              onChange={handleFieldChange}
+              disabled={combinedUserSession !== "admin"}
+            >
+              <option value="true">Desactivo</option>
+              <option value="false">Activo</option>
+            </select>
+          </div>
+        )}
 
         <div className="flex items-center justify-center">
           <button

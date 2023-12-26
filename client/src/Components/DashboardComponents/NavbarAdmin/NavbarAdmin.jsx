@@ -38,7 +38,7 @@ const NavbarAdmin = () => {
     }
   };
   return (
-    <div className="fixed top-0 left-0 h-screen w-[15%] bg-eerieBlack">
+    <div className="fixed top-0 left-0 h-screen w-[18%] bg-eerieBlack">
       <div className="flex flex-col items-center justify-center p-8 gap-2 h-[30vh]">
         <NavLink to="/dashboard" className="flex items-center">
           <div className="w-20 h-20 rounded  mt-2">
@@ -58,13 +58,23 @@ const NavbarAdmin = () => {
 
       <div className="bg-chiliRed p-8 rounded-tr-[100px] h-[70vh] overflow-y-auto flex-col justify-between gap-8">
         <nav className="flex flex-col gap-8">
-          <div>
-            <IoMdCreate />
+          <div className="flex items-center">
+            <IoMdCreate className="mr-2" />
             <NavLink
               to="/dashboard/createProduct"
               className="text-whiteSmoke hover:underline text-xl"
             >
-              Create Product
+              Crear Producto
+            </NavLink>
+          </div>
+
+          <div className="flex items-center">
+            <IoMdCreate className="mr-2" />
+            <NavLink
+              to="/dashboard/registeredUser"
+              className="text-whiteSmoke hover:underline text-xl"
+            >
+              Usuarios registrados
             </NavLink>
           </div>
         </nav>

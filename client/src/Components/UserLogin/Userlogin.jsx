@@ -22,7 +22,6 @@ function UserLogin() {
   const handleSuccessfulLogin = (userSession) => {
     // Guardar información de sesión en una cookie
     Cookies.set("userSession", JSON.stringify(userSession), { expires: 7 });
-    console.log("User session saved in cookies:", userSession);
   };
 
   const handleSubmit = async (event) => {
@@ -49,7 +48,7 @@ function UserLogin() {
       }
     } catch (error) {
       const userClickedOk = window.confirm(
-        "Usuario NO registrado. ¿Quieres ir a la página de registro?"
+        "Usuario NO registrado o deshabilitado. ¿Quieres ir a la página de registro?"
       );
       if (userClickedOk) {
         navigate("/userform");

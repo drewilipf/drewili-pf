@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { getProducts } from "./reduxToolkit/Product/productThunks";
 import { useDispatch } from "react-redux";
 import CreateProduct from "./Components/DashboardComponents/CreateProduct/CreateProduct";
+import RegisteredUser from "./Components/DashboardComponents/RegisteredUser/RegisteredUser";
 
 function App() {
   const dispacth = useDispatch();
@@ -38,6 +39,10 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/createProduct" element={<CreateProduct />} />
+          <Route
+            path="/dashboard/registeredUser"
+            element={<RegisteredUser />}
+          />
         </Routes>
       </div>
     </div>

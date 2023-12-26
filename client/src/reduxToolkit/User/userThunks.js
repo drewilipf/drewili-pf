@@ -3,6 +3,7 @@ import {
   postUserSlice,
   putUserSlice,
   getUserByIdSlice,
+  deletedUserSlice,
 } from "./userSlice";
 import axios from "axios";
 
@@ -12,22 +13,22 @@ export const getUser = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(API_URL);
-      console.log("API Response:", response.data);
+
       const users = response.data;
-      console.log("User thunks:", users);
+
       dispatch(getUserSlice({ users }));
     } catch (error) {
       console.error("Error fetching users:", error);
     }
   };
 };
-export const postUser = () => {
+export const postUser = (userData) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(API_URL);
-      console.log("API Response:", response.data);
+      const response = await axios.post(API_URL, userData);
+
       const users = response.data;
-      console.log("User thunks:", users);
+
       dispatch(postUserSlice({ users }));
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -51,6 +52,18 @@ export const getUserId = (id) => {
       const response = await axios.get(`${API_URL}/bypk/${id}`);
       const user = response.data;
       dispatch(getUserByIdSlice({ user }));
+    } catch (error) {
+      console.error("Error fetching product:", error);
+    }
+  };
+};
+export const deletedUser = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.delete(`${API_URL}/${id}`);
+      const userId = response.data;
+      console.log(userId);
+      dispatch(deletedUserSlice({ userId }));
     } catch (error) {
       console.error("Error fetching product:", error);
     }

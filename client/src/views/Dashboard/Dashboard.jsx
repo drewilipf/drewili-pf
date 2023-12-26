@@ -1,5 +1,5 @@
 import React from "react";
-import CreateProduct from "../../Components/DashboardComponents/CreateProduct/CreateProduct";
+
 import NavbarAdmin from "../../Components/DashboardComponents/NavbarAdmin/NavbarAdmin";
 
 function Dashboard() {
