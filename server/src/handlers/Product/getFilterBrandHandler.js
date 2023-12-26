@@ -8,7 +8,8 @@ const getFilterBrandHandler = async(req, res) =>{
 
     try {
 
-        await getFilterBrandController(brand)
+        const result = await getFilterBrandController(brand)
+        res.status(200).json(result)
                 
     } catch (error) {
 

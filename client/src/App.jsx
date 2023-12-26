@@ -10,9 +10,16 @@ import UserForm from "./Components/UserForm/UserForm";
 import UserLogin from "./Components/UserLogin/Userlogin";
 import Dashboard from "./views/Dashboard/Dashboard";
 import NavBar from "./Components/Navbar/Navbar";
+import { useEffect } from "react";
+import { getProducts } from "./reduxToolkit/Product/productThunks";
+import { useDispatch } from "react-redux";
 import CreateProduct from "./Components/DashboardComponents/CreateProduct/CreateProduct";
 
 function App() {
+  const dispacth = useDispatch();
+  useEffect(() => {
+    dispacth(getProducts());
+  }, [dispacth]);
   const location = useLocation();
   const isDashboardRoute = location.pathname.startsWith("/dashboard");
 

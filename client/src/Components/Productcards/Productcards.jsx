@@ -4,12 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../reduxToolkit/Product/productThunks";
 
 function Productcards() {
-  const dispacth = useDispatch();
   const { products } = useSelector((state) => state.products);
 
-  useEffect(() => {
-    dispacth(getProducts());
-  }, [dispacth]);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-center items-center">
