@@ -5,7 +5,7 @@
 
 // const CategoryDropdown = () => {
 //   const dispatch = useDispatch();
-//   const category = useSelector((state) => state.category.category);
+//   const category = useSelector((state) => state.category.products);
 
 //   const [selectedCategory, setSelectedCategory] = useState("");
 
