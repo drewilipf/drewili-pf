@@ -30,8 +30,8 @@ export const productSlice = createSlice({
     postProductsSuccess: (state, action) => {
       state.status = "succeeded";
       state.products = action.payload.products;
+      console.log("State after update:", state.products);
     },
-
     searchProductStart: (state) => {
       state.status = "loading";
       state.error = null;
@@ -51,12 +51,24 @@ export const productSlice = createSlice({
     filterPriceSuccess: (state, action) => {
       state.status = "succeeded";
       state.products = action.payload.products;
-      state.error = null;
+      state.error = null; 
     },
     filterPriceFailure: (state, action) => {
       state.status = "failed";
       state.products = [];
-      state.error = action.payload.error;
+      state.error = action.payload.error; 
+    },
+    filterColorRequest: (state) => {
+      state.status = "loading";
+      state.error = null;
+    },
+    filterColorSuccess: (state, action) => {
+      state.status = "succeeded";
+      state.products = action.payload.products;
+    },
+    filterColorFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload.errorMessage;
     },
     deletedProductSlice: (state, action) => {
       state.products = action.payload.products;
@@ -76,6 +88,9 @@ export const {
   filterPriceRequest,
   filterPriceSuccess,
   filterPriceFailure,
+  filterColorFailure, 
+  filterColorRequest, 
+  filterColorSuccess
   deletedProductSlice,
 } = productSlice.actions;
 export default productSlice.reducer;
