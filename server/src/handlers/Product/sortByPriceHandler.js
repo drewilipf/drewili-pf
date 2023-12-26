@@ -2,9 +2,9 @@ const sortByPriceController = require("../../controllers/Product/sortByPriceCont
 
 const sortByPriceHandler = async (req, res) => {
   try {
-    const orderDirection = req.query.order === 'DESC' ? 'DESC' : 'ASC';
+    const {order} = req.query;
 
-    const sortedProducts = await sortByPriceController(orderDirection);
+    const sortedProducts = await sortByPriceController(order);
 
     res.status(200).json(sortedProducts);
   } catch (error) {

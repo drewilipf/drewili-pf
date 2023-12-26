@@ -2,9 +2,7 @@ import {
   getProductsSuccess,
   getProductsByIdslice,
   postProductsSuccess,
-  searchProductStart,
   searchProductSuccess,
-  searchProductFailure,
 } from "./productSlice";
 import axios from "axios";
 
@@ -54,7 +52,6 @@ export const postProducts = (productData) => {
 export const searchProduct = (keyword) => {
   return async (dispatch) => {
     try {
-      dispatch(searchProductStart());
 
       const response = await axios.get(`${SEARCH_API_URL}?keyWord=${keyword}`);
 
@@ -63,7 +60,6 @@ export const searchProduct = (keyword) => {
       dispatch(searchProductSuccess({ products }));
     } catch (error) {
       console.error("Error searching products:", error);
-      dispatch(searchProductFailure({ error }));
     }
   };
 };
