@@ -177,7 +177,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterPrice } from "../../reduxToolkit/Filtros/filterPriceThunks";
 
-const FilterPriceComponent = () => {
+const FilterPriceComponent = ({setActualPage}) => {
   const dispatch = useDispatch();
   const [minPrice, setMinPrice] = useState("0");
   const [maxPrice, setMaxPrice] = useState("600");
@@ -194,12 +194,14 @@ const FilterPriceComponent = () => {
 
   const handleFilterPrice = () => {
     setFilterButtonClicked(true);
+    setActualPage(1)
   };
 
   const handleClearFilter = () => {
     setMinPrice("0");
     setMaxPrice("600");
     setFilterButtonClicked(true);
+    setActualPage(1)
   };
 
   useEffect(() => {
