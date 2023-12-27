@@ -7,7 +7,7 @@ const addToSalesCartHandler = require('../handlers/SalesCart/addToSalesCart')
 const router = Router()
 
 router.get("/user/:userId", getSalesCartHandler)
-router.post("/addtosalescart", addToSalesCartHandler)
+router.post("/addToSalesCart", addToSalesCartHandler)
 router.delete("/:id", salesCartDeleteHandler)
 
 module.exports = router

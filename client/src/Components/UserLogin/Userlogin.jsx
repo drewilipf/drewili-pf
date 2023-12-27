@@ -22,6 +22,8 @@ function UserLogin() {
   const handleSuccessfulLogin = (userSession) => {
     // Guardar información de sesión en una cookie
     Cookies.set("userSession", JSON.stringify(userSession), { expires: 7 });
+    Cookies.set('userSession', JSON.stringify({ userId: user_id }));
+
   };
 
   const handleSubmit = async (event) => {
