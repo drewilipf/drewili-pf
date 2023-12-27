@@ -6,7 +6,7 @@ import { AiOutlineMore } from "react-icons/ai";
 import Cookies from "js-cookie";
 import { useSelector, useDispatch } from "react-redux";
 import { postLogout } from "../../reduxToolkit/Login/logoutThunks";
-import cartIcon from "../../../public/carrito-de-compras.png"
+import cartIcon from "../../icons/carrito-de-compras.png"
 
 function Navbar() {
   const location = useLocation();
