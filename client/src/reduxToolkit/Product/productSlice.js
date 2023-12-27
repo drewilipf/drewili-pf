@@ -39,9 +39,9 @@ export const productSlice = createSlice({
       state.status = "succeeded";
       state.products = action.payload.products;
     },
+
     sortByPriceSuccess: (state, action) => {
       const order = action.payload.order;
-      console.log("Sorting with order:", order);
       state.status = "succeeded";
       state.products = state.products.slice().sort((a, b) => {
         if (order === "asc") {
@@ -51,7 +51,11 @@ export const productSlice = createSlice({
         }
         return 0;
       });
-      console.log("Sorted products:", state.products);
+
+    filterBrandSuccess: (state, action) => {
+      state.status = "succeeded";
+      state.products = action.payload.products;
+
     },
   },
 });
@@ -63,6 +67,10 @@ export const {
   searchProductSuccess,
   filterPriceSuccess,
   filterColorSuccess,
+
   sortByPriceSuccess
+
+  filterBrandSuccess
+
 } = productSlice.actions;
 export default productSlice.reducer;
