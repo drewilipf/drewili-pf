@@ -12,7 +12,7 @@ const Pagination = ({ totalPages, actualPage, handlePage }) => {
     const endPage = Math.min(startPage + pagesToShow - 1, totalPages);
 
     return (
-        <div className="flex items-center justify-center space-x-2 mt-4 mb-2">
+        <div className="flex items-center justify-center space-x-2 mt-4 mb-2" id="conteiner">
             {actualPage > 1 && (
                 <button
                     onClick={() => handlePage(actualPage - 1)}
