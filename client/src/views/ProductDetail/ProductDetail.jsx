@@ -5,21 +5,23 @@ import { getProductsById } from "../../reduxToolkit/Product/productThunks";
 import CommentCards from "../../Components/DetailComponents/CommentCards.jsx";
 import CommentInput from "../../Components/DetailComponents/CommentInput.jsx";
 import { AiOutlineLeft } from "react-icons/ai";
-<<<<<<< HEAD
 import axios from "axios";
 import Cookies from "js-cookie";
-=======
-import "../../../tailwind.config.js";
->>>>>>> 53f8b863d21c822aacbfa978eab3d2d6f76c058a
 
 function ProductDetail() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
-  // Leer userId desde la cookie
-  const userSessionFromCookie = Cookies.get("userSession");
-  const userId = userSessionFromCookie ? JSON.parse(userSessionFromCookie).userId : null;
+  const userSessionFromCookies = Cookies.get("userSession");
+  const userSession = userSessionFromCookies
+    ? JSON.parse(userSessionFromCookies)
+    : null;
+
+  const { login } = useSelector((state) => state.login);
+
+  const userId =
+  (userSession && userSession.userId) || (login && login.userSession.userId);
 
   const productsId = useSelector((state) => state.products.productsId);
 
@@ -38,7 +40,6 @@ function ProductDetail() {
 
   const product = productsId[0];
 
-<<<<<<< HEAD
   const handleAddToCart = async () => {
     try {
       setLoading(true);
@@ -63,8 +64,6 @@ function ProductDetail() {
     }
   };
 
-=======
->>>>>>> 53f8b863d21c822aacbfa978eab3d2d6f76c058a
   return (
     <div className="container mx-auto grid grid-cols-2 gap-3 max-h-[300px]">
       <NavLink
@@ -75,15 +74,7 @@ function ProductDetail() {
       </NavLink>
 
       <div />
-<<<<<<< HEAD
       <img src={product?.image} alt={product?.name} className="col-span-1 w-150 h-150" />
-=======
-      <img
-        src={product?.image}
-        alt={product?.name}
-        className="col-span-1 w-150 h-150"
-      />
->>>>>>> 53f8b863d21c822aacbfa978eab3d2d6f76c058a
 
       <div className="col-span-1 grid grid-cols-2 gap-4 font-arial">
         <h1 className="text-3xl font-bold ">{product?.name}</h1>
@@ -108,18 +99,12 @@ function ProductDetail() {
           <h2 className="text-xl text-chiliRed">Precio:</h2>
           <p>{product?.price}</p>
         </div>
-<<<<<<< HEAD
         <button
           onClick={handleAddToCart}
           className="bg-chiliRed text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
           disabled={loading}
         >
           {loading ? "Agregando al carrito..." : "Agregar al carrito"}
-=======
-        <button className="bg-chiliRed text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl ">
-          {" "}
-          Agregar
->>>>>>> 53f8b863d21c822aacbfa978eab3d2d6f76c058a
         </button>
       </div>
       <div>
