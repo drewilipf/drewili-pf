@@ -13,7 +13,6 @@ function ProductList() {
   const { products } = useSelector((state) => state.products);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getProducts());
@@ -91,7 +90,7 @@ function ProductList() {
                     {product.deleted ? "Desactivo" : "Activo"}
                   </td>
                   <td className="py-2 px-4 border-b">
-                    <NavLink to={`/editUserProfile/${product.id}`}>
+                    <NavLink to={`/dashboard/editProduct/${product.id}`}>
                       <IoMdCreate />
                     </NavLink>
                   </td>

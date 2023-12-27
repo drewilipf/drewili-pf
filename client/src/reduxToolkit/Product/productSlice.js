@@ -6,6 +6,7 @@ const initialState = {
   productsId: {},
   status: "idle", // "idle", "loading", "succeeded", "failed"
   error: null,
+  product: null,
 };
 
 export const productSlice = createSlice({
@@ -43,6 +44,9 @@ export const productSlice = createSlice({
     deletedProductSlice: (state, action) => {
       state.products = action.payload.products;
     },
+    putProductSlice: (state, action) => {
+      state.product = action.payload.product;
+    },
   },
 });
 
@@ -54,5 +58,6 @@ export const {
   filterPriceSuccess,
   filterColorSuccess,
   deletedProductSlice,
+  putProductSlice,
 } = productSlice.actions;
 export default productSlice.reducer;

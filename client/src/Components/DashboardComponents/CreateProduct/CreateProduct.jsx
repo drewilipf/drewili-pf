@@ -27,7 +27,7 @@ function CreateProduct() {
   const [imageFile, setImageFile] = useState(null);
 
   const dispatch = useDispatch();
-  const navegate = useNavigate();
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(getCategory());
     dispatch(getBrand());
@@ -101,7 +101,7 @@ function CreateProduct() {
         deleted: false,
       });
 
-      navegate("/dashboard");
+      navigate("/dashboard");
     } catch (error) {
       alert("Error creating product");
     }
