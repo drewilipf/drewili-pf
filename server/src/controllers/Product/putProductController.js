@@ -1,18 +1,12 @@
-const { Product } = require('../../db')
+const { Product } = require("../../db");
 
-const putProductsController = async (id, updatedProductData)=>{
+const putProductsController = async (id, updatedProductData) => {
+  const product = await Product.findByPk(id);
 
- 
+  if (!product) throw new Error("producto no encontrado");
 
-        const product = await Product.findByPk(id)
+  await product.update(updatedProductData);
 
-        if(!product) throw new Error ('producto no encontrado')
-
-        await product.update(updatedProductData)
-
-        return res.status(200).json({message:"Producto atualizado"})
-        
-    
-
-}
-module.exports = putProductsController
+  // return res.status(200).json({message:"Producto atualizado"})
+};
+module.exports = putProductsController;
