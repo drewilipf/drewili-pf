@@ -60,6 +60,12 @@ const NavbarAdmin = () => {
         <nav className="flex flex-col gap-8">
           <div className="flex items-center">
             <IoMdCreate className="mr-2" />
+            <NavLink to="/" className="text-whiteSmoke hover:underline text-xl">
+              Vista de Usuario
+            </NavLink>
+          </div>
+          <div className="flex items-center">
+            <IoMdCreate className="mr-2" />
             <NavLink
               to="/dashboard/createProduct"
               className="text-whiteSmoke hover:underline text-xl"

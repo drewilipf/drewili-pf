@@ -21,7 +21,6 @@ export const getProducts = () => {
       const products = allProducts.filter(
         (product) => product.deleted === false
       );
-      console.log(products);
 
       dispatch(getProductsSuccess({ products }));
     } catch (error) {

@@ -8,6 +8,7 @@ import {
 import { IoMdCreate } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 import { NavLink, useNavigate } from "react-router-dom";
+import Searchbar from "../../Searchbar/Searchbar";
 
 function ProductList() {
   const { products } = useSelector((state) => state.products);
@@ -39,7 +40,10 @@ function ProductList() {
   return (
     <div>
       <NavbarAdmin />
-      <div className="container mx-auto mt-2 ml-[20%]">
+      <div className=" container mx-auto mt-0 ml-[50%]">
+        <Searchbar />
+      </div>
+      <div className="container mx-auto mt-6 ml-[10%]">
         <h1 className="ml-[40%] text-2xl font-bold mb-4">
           Productos Registrados
         </h1>
@@ -50,7 +54,7 @@ function ProductList() {
           </div>
         )}
         <div className="w-[80%] mx-auto overflow-x-auto">
-          <table className="min-w-[80%] bg-whiteSmoke border border-onyx">
+          <table className="min-w-full max-w-screen-xl bg-whiteSmoke border border-onyx">
             <thead>
               <tr>
                 <th className="py-1 px-1 border-b">Nombre</th>

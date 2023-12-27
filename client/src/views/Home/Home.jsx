@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 
 function Home() {
   const { products } = useSelector((state) => state.products);
-  console.log(products);
+
   const [actualPage, setActualPage] = useState(1);
 
   const handlePageChange = (newPage) => {
