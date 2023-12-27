@@ -7,16 +7,18 @@ import brandReducer from "./Brand/brandSlice";
 import colorReducer from "./Color/colorSlice";
 import loginReducer from "./Login/loginSlice";
 import filterPriceReducer from "./Filtros/filterPriceSlice";
+import filterColorReducer from "./Color/colorSlice"; // Agrega el reducer faltante
 
 export const store = configureStore({
   reducer: {
+    brand: brandReducer,
     products: productReducer,
     users: userReducer,
     comments: commentsReducer,
     categories: categoryReducer,
-    brands: brandReducer,
     color: colorReducer,
     login: loginReducer,
     filterPrice: filterPriceReducer,
-  }, // falta definir los reducer
+    filterColor: filterColorReducer, // Agrega el reducer faltante
+  },
 });

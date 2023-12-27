@@ -1,4 +1,4 @@
-import { filterPriceRequest, filterPriceSuccess, filterPriceFailure } from "../Product/productSlice";
+import { filterPriceSuccess} from "../Product/productSlice";
 import axios from "axios";
 
 const API_URL = "http://localhost:3001/filterby/price";
@@ -6,8 +6,6 @@ const API_URL = "http://localhost:3001/filterby/price";
 export const filterPrice = ({ minPrice, maxPrice }) => {
   return async (dispatch) => {
     try {
-      dispatch(filterPriceRequest());
-
       let url = API_URL;
 
       if (minPrice !== "") {
@@ -32,8 +30,6 @@ export const filterPrice = ({ minPrice, maxPrice }) => {
       } else if (error.request) {
         console.error("Error with the request:", error.request);
       }
-
-      dispatch(filterPriceFailure({ error }));
     }
   };
 };

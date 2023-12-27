@@ -1,19 +1,9 @@
 import Productcard from "../../Components/Productcard/Productcard";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../../reduxToolkit/Product/productThunks";
 
-function Productcards() {
-  const dispacth = useDispatch();
-  const { products } = useSelector((state) => state.products);
-
-  useEffect(() => {
-    dispacth(getProducts());
-  }, [dispacth]);
-
+function Productcards({ products }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-center items-center">
-      {products ? (
+      {products && Array.isArray(products) && products.length > 0 ? (
         products.map((product) => (
           <Productcard
             key={product.id}
@@ -22,6 +12,7 @@ function Productcards() {
             name={product.name}
             description={product.description}
             price={product.price}
+            color={product.color}
             specifications={product.specifications}
             stock={product.stock}
             category={product.category}

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   products: [],
+  filterProducts:[],
   productsId: {},
   status: "idle", // "idle", "loading", "succeeded", "failed"
   error: null,
@@ -11,17 +12,10 @@ export const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
-    getProductsStart: (state) => {
-      state.status = "loading";
-      state.error = null;
-    },
     getProductsSuccess: (state, action) => {
       state.status = "succeeded";
       state.products = action.payload.products;
-    },
-    getProductsFailure: (state, action) => {
-      state.status = "failed";
-      state.error = action.payload.error;
+      state.filterProducts=action.payload.products;
     },
     getProductsByIdslice: (state, action) => {
       state.status = "succeeded";
@@ -32,32 +26,36 @@ export const productSlice = createSlice({
       state.products = action.payload.products;
       console.log("State after update:", state.products);
     },
-
-    searchProductStart: (state) => {
-      state.status = "loading";
-      state.error = null;
-    },
     searchProductSuccess: (state, action) => {
       state.status = "succeeded";
       state.products = action.payload.products;
-    },
-    searchProductFailure: (state, action) => {
-      state.status = "failed";
-      state.error = action.payload.error;
-    },
-    filterPriceRequest: (state) => {
-      state.status = "loading";
-      state.error = null;
     },
     filterPriceSuccess: (state, action) => {
       state.status = "succeeded";
       state.products = action.payload.products;
       state.error = null; 
     },
-    filterPriceFailure: (state, action) => {
-      state.status = "failed";
-      state.products = [];
-      state.error = action.payload.error; 
+    filterColorSuccess: (state, action) => {
+      state.status = "succeeded";
+      state.products = action.payload.products;
+    },
+
+    sortByPriceSuccess: (state, action) => {
+      const order = action.payload.order;
+      state.status = "succeeded";
+      state.products = state.products.slice().sort((a, b) => {
+        if (order === "asc") {
+          return a.price - b.price;
+        } else if (order === "desc") {
+          return b.price - a.price;
+        }
+        return 0;
+      })},
+
+    filterBrandSuccess: (state, action) => {
+      state.status = "succeeded";
+      state.products = action.payload.products;
+
     },
     filterCategoryRequest: (state) => {
       state.status = "loading";
@@ -66,31 +64,23 @@ export const productSlice = createSlice({
     filterCategorySuccess: (state, action) => {
       state.status = "succeeded";
       state.products = action.payload.products;
-      console.log(state.products)
       state.error = null; 
     },
-    filterCategoryFailure: (state, action) => {
-      state.status = "failed";
-      state.products = [];
-      state.error = action.payload.error; 
-    },
+  },
+  filterCategoryFailure: (state, action) => {
+    state.status = "failed";
+    state.products = [];
+    state.error = action.payload.error; 
   },
 });
 
+
 export const {
-  getProductsStart,
   getProductsSuccess,
-  getProductsFailure,
   postProductsSuccess,
   getProductsByIdslice,
-  searchProductStart,
   searchProductSuccess,
-  searchProductFailure,
-  filterPriceRequest,
   filterPriceSuccess,
   filterPriceFailure,
-  filterCategoryRequest,
-  filterCategorySuccess,
-  filterCategoryFailure,
 } = productSlice.actions;
 export default productSlice.reducer;
