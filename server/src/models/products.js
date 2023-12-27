@@ -61,8 +61,15 @@ module.exports = (sequelize) => {
             type: DataTypes.BOOLEAN,
             defaultValue: false,
             allowNull: false
-        }
+        },
+        relevance: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            defaultValue: 0, 
+        },
     },
-        { timestamps: false })
+        { timestamps: true,
+            createdAt: 'created_at',
+         })
     return Product
 }
