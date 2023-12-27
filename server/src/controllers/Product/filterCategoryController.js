@@ -5,23 +5,21 @@ const filterProductCategory = async (category) => {
     where: { category: category },
   });
   const products = await Product.findAll({
-    where:{ category_id: selectedCategory.id, deleted: false},
-    include:[
-     { model: Colors,
-      attributtes:['color']
-     },
-     {
-      model: Brand,
-      attributtes:['brand']
-     },
-     {
-      model: Category,
-      attributtes:['category']
-     }
-    ]
-});
+    where: { category_id: selectedCategory.id },
+    include: [
+      { model: Colors, attributtes: ["color"] },
+      {
+        model: Brand,
+        attributtes: ["brand"],
+      },
+      {
+        model: Category,
+        attributtes: ["category"],
+      },
+    ],
+  });
 
-const formattedProducts = products.map(product => ({
+  const formattedProducts = products.map((product) => ({
     id: product.id,
     name: product.name,
     description: product.description,
@@ -31,9 +29,9 @@ const formattedProducts = products.map(product => ({
     brand: product.brand.brand,
     category: product.category.category,
     stock: product.stock,
-    image: product.image
-}));
-return formattedProducts
+    image: product.image,
+  }));
+  return formattedProducts;
 };
 
 module.exports = filterProductCategory;
