@@ -6,7 +6,7 @@ import { filterBrand } from "../../reduxToolkit/Filtros/filterBrandThunks";
 
 const API_URL = "http://localhost:3001/brand";
 
-const BrandFilterComponent = () => {
+const BrandFilterComponent = ({ setActualPage }) => {
   const dispatch = useDispatch();
   const [selectedBrand, setSelectedBrand] = useState("");
   const brandList = useSelector((state) => state.brands.brands);
@@ -28,6 +28,8 @@ const BrandFilterComponent = () => {
         return;
       }
 
+      console.log("Filtrando por marca:", selectedBrand);
+      setActualPage(1);
       console.log("Filtrando por marca:", selectedBrand);
       dispatch(filterBrand(selectedBrand));
       console.log("Estado después del filtrado:", selectedBrand);
