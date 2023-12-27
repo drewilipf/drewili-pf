@@ -1,12 +1,38 @@
-const { Product } = require("../../db");
+const { Product, Category, Brand, Colors } = require("../../db");
 
-const sortByPriceController = async (orderDirection = 'ASC') => {
+const sortByPriceController = async (order) => {
   try {
     const products = await Product.findAll({
-      order: [['price', orderDirection.toUpperCase()]], // por default el orden sera ascendente
+      include: [
+        {
+            model: Category,
+            attributes: ['category']
+        },
+        {
+            model: Brand,
+            attributes: ['brand']
+        },
+        {
+            model: Colors,
+            attributes: ['color']
+        }
+    ],
+      order: [['price', order.toLowerCase()]], // por default el orden sera ascendente
     });
 
-    return products;
+    const formattedProducts = products.map(product => ({
+      id: product.id,
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      specifications: product.specifications,
+      color: product.color.color,
+      stock: product.stock,
+      image: product.image,
+      brand: product.brand.brand,
+      category: product.category.category // Extrae solo el atributo 'category'
+  }));
+  return formattedProducts
   } catch (error) {
     throw new Error("Error al obtener y ordenar los productos por precio.");
   }

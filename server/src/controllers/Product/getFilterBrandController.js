@@ -1,4 +1,4 @@
-const { Product,  Brand } = require("../../db")
+const { Product,  Brand, Category, Colors } = require("../../db")
 
 
 const getFilterBrandController = async(brand) => {
@@ -12,11 +12,36 @@ const getFilterBrandController = async(brand) => {
         where: {
             brand_id: selectedBrand.id,
             deleted: false,
-        }
+        },
+        include: [
+            {
+                model: Category,
+                attributes: ['category']
+            },
+            {
+                model: Brand,
+                attributes: ['brand']
+            },
+            {
+                model: Colors,
+                attributes: ['color']
+            }
+        ]
 
     })
-    
-    return products
+    const formattedProducts = products.map(product => ({
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        specifications: product.specifications,
+        color: product.color.color,
+        stock: product.stock,
+        image: product.image,
+        brand: product.brand.brand,
+        category: product.category.category // Extrae solo el atributo 'category'
+    }));
+    return formattedProducts
 }
 
 module.exports = getFilterBrandController

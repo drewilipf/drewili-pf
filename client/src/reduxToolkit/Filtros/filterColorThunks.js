@@ -1,4 +1,4 @@
-import { filterColorRequest, filterColorSuccess, filterColorFailure } from "../../reduxToolkit/Product/productSlice";
+import { filterColorSuccess } from "../../reduxToolkit/Product/productSlice";
 import axios from "axios";
 
 const API_URL = "http://localhost:3001/filterby/color";
@@ -11,9 +11,11 @@ export const filterColor = (color) => {
         return;
       }
 
-      dispatch(filterColorRequest());
-      const response = await axios.get(API_URL);
-
+      const response = await axios.get(API_URL, {
+        params: {
+          color: color,
+        },
+      });
       const products = response.data;
 
       dispatch(filterColorSuccess({ products }));
@@ -25,10 +27,8 @@ export const filterColor = (color) => {
         console.error("Response data:", error.response.data);
         console.error("Response headers:", error.response.headers);
         const errorMessage = error.response.data.message || "Error desconocido";
-        dispatch(filterColorFailure({ errorMessage }));
       } else if (error.request) {
         console.error("Error with the request:", error.request);
-        dispatch(filterColorFailure({ errorMessage: "Error de solicitud" }));
       }
     }
   };
