@@ -8,14 +8,9 @@ import SortByPriceButtons from "../../Components/FilterComponents/sortByPriceCom
 import Pagination from "../../Components/Pagination/Pagination";
 import { useSelector } from "react-redux";
 
-function Home() {
+function Home({actualPage, handlePageChange, setActualPage}) {
   const { products } = useSelector((state) => state.products);
 
-  const [actualPage, setActualPage] = useState(1);
-
-  const handlePageChange = (newPage) => {
-    setActualPage(newPage);
-  };
   if (!products) {
     return <div>Cargando...</div>;
   }
