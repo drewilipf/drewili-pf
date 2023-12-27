@@ -50,7 +50,7 @@ export const productSlice = createSlice({
           return b.price - a.price;
         }
         return 0;
-      });
+      })},
 
     filterBrandSuccess: (state, action) => {
       state.status = "succeeded";
@@ -60,6 +60,7 @@ export const productSlice = createSlice({
   },
 });
 
+
 export const {
   getProductsSuccess,
   postProductsSuccess,
@@ -67,9 +68,7 @@ export const {
   searchProductSuccess,
   filterPriceSuccess,
   filterColorSuccess,
-
-  sortByPriceSuccess
-
+  sortByPriceSuccess,
   filterBrandSuccess
 
 } = productSlice.actions;
