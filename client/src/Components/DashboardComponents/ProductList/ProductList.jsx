@@ -3,7 +3,7 @@ import NavbarAdmin from "../NavbarAdmin/NavbarAdmin";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deletedProduct,
-  getProducts,
+  getAllProducts,
 } from "../../../reduxToolkit/Product/productThunks";
 import { IoMdCreate } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
@@ -17,7 +17,7 @@ function ProductList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getAllProducts());
   }, [dispatch, showSuccessMessage]);
 
   const onClick = async (id) => {

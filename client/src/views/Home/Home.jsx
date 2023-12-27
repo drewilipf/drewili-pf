@@ -10,12 +10,15 @@ import { useSelector } from "react-redux";
 
 function Home() {
   const { products } = useSelector((state) => state.products);
+  console.log(products);
   const [actualPage, setActualPage] = useState(1);
 
   const handlePageChange = (newPage) => {
     setActualPage(newPage);
   };
-
+  if (!products) {
+    return <div>Cargando...</div>;
+  }
   const cardsXpage = 8;
   const indexOfLastCard = actualPage * cardsXpage;
   const indexOfFirstCard = indexOfLastCard - cardsXpage;
@@ -26,10 +29,10 @@ function Home() {
     <div className="flex flex-col items-center">
       <Banners />
       <div className="mt-10">
-        <BrandFilterComponent setActualPage={(num) => setActualPage(num)}/>
-        <ColorFilterComponent setActualPage={(num) => setActualPage(num)}/>
-        <FilterPriceComponent setActualPage={(num) => setActualPage(num)}/>
-        <SortByPriceButtons setActualPage={(num) => setActualPage(num)}/>
+        <BrandFilterComponent setActualPage={(num) => setActualPage(num)} />
+        <ColorFilterComponent setActualPage={(num) => setActualPage(num)} />
+        <FilterPriceComponent setActualPage={(num) => setActualPage(num)} />
+        <SortByPriceButtons setActualPage={(num) => setActualPage(num)} />
         <Productcards products={currentCards} />
         <Pagination
           handlePage={handlePageChange}

@@ -16,6 +16,24 @@ export const getProducts = () => {
     try {
       const response = await axios.get(API_URL);
 
+      const allProducts = response.data;
+
+      const products = allProducts.filter(
+        (product) => product.deleted === false
+      );
+      console.log(products);
+
+      dispatch(getProductsSuccess({ products }));
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+};
+export const getAllProducts = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(API_URL);
+
       const products = response.data;
 
       dispatch(getProductsSuccess({ products }));
