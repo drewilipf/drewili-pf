@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { filterColor } from '../../reduxToolkit/Filtros/filterColorThunks';
-import { getColor } from '../../reduxToolkit/Color/colorThunks';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { filterColor } from "../../reduxToolkit/Filtros/filterColorThunks";
+import { getColor } from "../../reduxToolkit/Color/colorThunks";
 
-const ColorFilterComponent = () => {
+const ColorFilterComponent = ({ setActualPage }) => {
   const dispatch = useDispatch();
-  const [selectedColor, setSelectedColor] = useState('');
+  const [selectedColor, setSelectedColor] = useState("");
   const colors = useSelector((state) => state.color.color); // Accede a la propiedad "color" del objeto
-  console.log(colors);
 
   const handleColorChange = (e) => {
     setSelectedColor(e.target.value);
@@ -15,6 +14,7 @@ const ColorFilterComponent = () => {
 
   const handleFilterClick = () => {
     dispatch(filterColor(selectedColor));
+    setActualPage(1);
   };
 
   return (
