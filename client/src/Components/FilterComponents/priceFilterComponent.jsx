@@ -177,7 +177,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterPrice } from "../../reduxToolkit/Filtros/filterPriceThunks";
 
-const FilterPriceComponent = ({setActualPage}) => {
+const FilterPriceComponent = ({ setActualPage }) => {
   const dispatch = useDispatch();
   const [minPrice, setMinPrice] = useState("0");
   const [maxPrice, setMaxPrice] = useState("600");
@@ -194,14 +194,14 @@ const FilterPriceComponent = ({setActualPage}) => {
 
   const handleFilterPrice = () => {
     setFilterButtonClicked(true);
-    setActualPage(1)
+    setActualPage(1);
   };
 
   const handleClearFilter = () => {
     setMinPrice("0");
     setMaxPrice("600");
     setFilterButtonClicked(true);
-    setActualPage(1)
+    setActualPage(1);
   };
 
   useEffect(() => {
@@ -228,7 +228,8 @@ const FilterPriceComponent = ({setActualPage}) => {
               setMaxPrice(newMax);
             }}
             className={`mr-2 mb-2 p-2 border rounded ${
-              minPrice === range.value.split("-")[0] && maxPrice === range.value.split("-")[1]
+              minPrice === range.value.split("-")[0] &&
+              maxPrice === range.value.split("-")[1]
                 ? "bg-blue-500 text-white"
                 : ""
             }`}
@@ -260,12 +261,17 @@ const FilterPriceComponent = ({setActualPage}) => {
       >
         Apply Filter
       </button>
-      <button onClick={handleClearFilter} className="bg-gray-300 px-4 py-2 rounded">
+      <button
+        onClick={handleClearFilter}
+        className="bg-gray-300 px-4 py-2 rounded"
+      >
         Clear Filter
       </button>
 
       {status === "loading" && <p>Loading...</p>}
-      {status === "failed" && <p className="text-red-500">Error: {error.message}</p>}
+      {status === "failed" && (
+        <p className="text-red-500">Error: {error.message}</p>
+      )}
       {status === "succeeded" && (
         <div>
           <h3 className="text-xl font-bold mt-4">Filtered Products:</h3>
@@ -289,16 +295,3 @@ const FilterPriceComponent = ({setActualPage}) => {
 };
 
 export default FilterPriceComponent;
-
-
-
-
-
-
-
-
-
-
-
-
-
