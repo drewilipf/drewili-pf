@@ -72,7 +72,6 @@ function ProductDetail() {
     }
   };
 
-=======
   if (!product) {
     return <p>Cargando...</p>;
   }
@@ -97,8 +96,6 @@ function ProductDetail() {
 
       <div />
 
-      <img src={product?.image} alt={product?.name} className="col-span-1 w-150 h-150" />
-=======
       <img
         src={product?.image}
         alt={product?.name}
@@ -136,8 +133,7 @@ function ProductDetail() {
           disabled={loading}
         >
           {loading ? "Agregando al carrito..." : "Agregar al carrito"}
-=======
-        
+
         </button>
         <div className="col-span-2 mt-4 mx-auto">
           <h1 className="text-xl text-center text-eerieBlack  font-bold mb-2">
