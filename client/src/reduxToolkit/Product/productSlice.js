@@ -2,10 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   products: [],
-  filterProducts:[],
-  productsId: {},
+  filterProducts: [],
+  productsId: [],
   status: "idle", // "idle", "loading", "succeeded", "failed"
   error: null,
+  product: null,
 };
 
 export const productSlice = createSlice({
@@ -15,7 +16,7 @@ export const productSlice = createSlice({
     getProductsSuccess: (state, action) => {
       state.status = "succeeded";
       state.products = action.payload.products;
-      state.filterProducts=action.payload.products;
+      //state.filterProducts = action.payload.products;
     },
     getProductsByIdslice: (state, action) => {
       state.status = "succeeded";
@@ -33,7 +34,7 @@ export const productSlice = createSlice({
     filterPriceSuccess: (state, action) => {
       state.status = "succeeded";
       state.products = action.payload.products;
-      state.error = null; 
+      state.error = null;
     },
     filterColorSuccess: (state, action) => {
       state.status = "succeeded";
@@ -50,12 +51,21 @@ export const productSlice = createSlice({
           return b.price - a.price;
         }
         return 0;
-      })},
+      });
+    },
 
     filterBrandSuccess: (state, action) => {
       state.status = "succeeded";
       state.products = action.payload.products;
 
+    },
+    deletedProductSlice: (state, action) => {
+      state.status = "succeeded";
+      state.products = action.payload.products;
+    },
+    putProductSlice: (state, action) => {
+      state.status = "succeeded";
+      state.product = action.payload.product;
     },
     filterCategoryRequest: (state) => {
       state.status = "loading";
@@ -74,19 +84,19 @@ export const productSlice = createSlice({
   },
 });
 
-
 export const {
   getProductsSuccess,
   postProductsSuccess,
   getProductsByIdslice,
   searchProductSuccess,
   filterPriceSuccess,
+  sortByPriceSuccess,
+  filterBrandSuccess,
   filterPriceFailure,
   filterColorSuccess,
-  filterBrandSuccess,
-  sortByPriceSuccess,
   filterCategoryFailure,
   filterCategoryRequest,
   filterCategorySuccess,
+
 } = productSlice.actions;
 export default productSlice.reducer;
