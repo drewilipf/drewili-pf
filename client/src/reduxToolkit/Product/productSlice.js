@@ -2,10 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   products: [],
-  filterProducts:[],
-  productsId: {},
+  filterProducts: [],
+  productsId: [],
   status: "idle", // "idle", "loading", "succeeded", "failed"
   error: null,
+  product: null,
 };
 
 export const productSlice = createSlice({
@@ -15,7 +16,7 @@ export const productSlice = createSlice({
     getProductsSuccess: (state, action) => {
       state.status = "succeeded";
       state.products = action.payload.products;
-      state.filterProducts=action.payload.products;
+      //state.filterProducts = action.payload.products;
     },
     getProductsByIdslice: (state, action) => {
       state.status = "succeeded";
@@ -33,15 +34,15 @@ export const productSlice = createSlice({
     filterPriceSuccess: (state, action) => {
       state.status = "succeeded";
       state.products = action.payload.products;
-      state.error = null; 
+      state.error = null;
     },
     filterColorSuccess: (state, action) => {
       state.status = "succeeded";
       state.products = action.payload.products;
     },
+
     sortByPriceSuccess: (state, action) => {
       const order = action.payload.order;
-      console.log("Sorting with order:", order);
       state.status = "succeeded";
       state.products = state.products.slice().sort((a, b) => {
         if (order === "asc") {
@@ -51,7 +52,20 @@ export const productSlice = createSlice({
         }
         return 0;
       });
-      console.log("Sorted products:", state.products);
+    },
+
+    filterBrandSuccess: (state, action) => {
+      state.status = "succeeded";
+      state.products = action.payload.products;
+    },
+
+    deletedProductSlice: (state, action) => {
+      state.status = "succeeded";
+      state.products = action.payload.products;
+    },
+    putProductSlice: (state, action) => {
+      state.status = "succeeded";
+      state.product = action.payload.product;
     },
   },
 });
@@ -62,7 +76,10 @@ export const {
   getProductsByIdslice,
   searchProductSuccess,
   filterPriceSuccess,
+  sortByPriceSuccess,
+  filterBrandSuccess,
   filterColorSuccess,
-  sortByPriceSuccess
+  deletedProductSlice,
+  putProductSlice,
 } = productSlice.actions;
 export default productSlice.reducer;
