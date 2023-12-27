@@ -15,12 +15,18 @@ import { getProducts } from "./reduxToolkit/Product/productThunks";
 import { useDispatch } from "react-redux";
 import CreateProduct from "./Components/DashboardComponents/CreateProduct/CreateProduct";
 import RegisteredUser from "./Components/DashboardComponents/RegisteredUser/RegisteredUser";
+<<<<<<< HEAD
 import ProductList from "./Components/DashboardComponents/ProductList/ProductList";
+=======
+import { getColor } from "./reduxToolkit/Color/colorThunks";
+>>>>>>> 0b36f8b42b34516a939f49fce68dda6cbc466f04
 
 function App() {
   const dispacth = useDispatch();
+  
   useEffect(() => {
     dispacth(getProducts());
+    dispacth(getColor())
   }, [dispacth]);
   const location = useLocation();
   const isDashboardRoute = location.pathname.startsWith("/dashboard");

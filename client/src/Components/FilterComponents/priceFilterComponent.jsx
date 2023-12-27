@@ -209,7 +209,7 @@ const FilterPriceComponent = () => {
     }
   }, [minPrice, maxPrice, dispatch, filterButtonClicked]);
 
-  const products = useSelector((state) => state.filterPrice.products);
+  const products = useSelector((state) => state.products);
   const status = useSelector((state) => state.filterPrice.status);
   const error = useSelector((state) => state.filterPrice.error);
 

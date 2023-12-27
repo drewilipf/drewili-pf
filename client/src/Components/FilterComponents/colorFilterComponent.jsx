@@ -6,19 +6,8 @@ import { getColor } from '../../reduxToolkit/Color/colorThunks';
 const ColorFilterComponent = () => {
   const dispatch = useDispatch();
   const [selectedColor, setSelectedColor] = useState('');
-  const [colorOptions, setColorOptions] = useState([]); // Assuming the colors are stored in the Redux store
-
-  useEffect(() => {
-    const fetchColors = async () => {
-      try {
-        await dispatch(getColor());
-      } catch (error) {
-        console.error('Error al obtener la lista de colores:', error.message);
-      }
-    };
-
-    fetchColors();
-  }, [dispatch]);
+  const colors = useSelector((state) => state.color.color); // Accede a la propiedad "color" del objeto
+  console.log(colors);
 
   const handleColorChange = (e) => {
     setSelectedColor(e.target.value);
@@ -32,13 +21,13 @@ const ColorFilterComponent = () => {
     <div>
       <label htmlFor="color">Selecciona un color:</label>
       <select id="color" onChange={handleColorChange} value={selectedColor}>
-        <option value="">Selecciona...</option>
-        {colorOptions && colorOptions.map((color) => (
-  <option key={color} value={color}>
-    {color}
-  </option>
-))}
-       
+        <option value="">Selecciona un color</option>
+        {Array.isArray(colors) &&
+          colors.map((color) => (
+            <option key={color.id} value={color.color}>
+              {color.color}
+            </option>
+          ))}
       </select>
       <button onClick={handleFilterClick}>Filtrar por color</button>
     </div>
