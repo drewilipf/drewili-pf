@@ -69,7 +69,7 @@ function ProductDetail() {
         </div>
         <button
           className="bg-chiliRed text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl "
-        > Agregar</button>
+        > Agregar al carrito</button>
 
 
       </div>
