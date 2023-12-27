@@ -39,6 +39,10 @@ export const productSlice = createSlice({
       state.status = "succeeded";
       state.products = action.payload.products;
     },
+    filterBrandSuccess: (state, action) => {
+      state.status = "succeeded";
+      state.products = action.payload.products;
+    },
   },
 });
 
@@ -48,6 +52,7 @@ export const {
   getProductsByIdslice,
   searchProductSuccess,
   filterPriceSuccess,
-  filterColorSuccess
+  filterColorSuccess,
+  filterBrandSuccess
 } = productSlice.actions;
 export default productSlice.reducer;
