@@ -30,6 +30,7 @@ function ProductDetail() {
     (userSession && userSession.userId) || (login && login.userSession.userId);
 
   const productsId = useSelector((state) => state.products.productsId);
+
   const productAll = useSelector((state) => state.products.products);
 
   useEffect(() => {

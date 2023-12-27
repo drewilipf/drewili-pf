@@ -1,4 +1,4 @@
-const { Category, Product } = require("../../db");
+const { Category, Product, Brand, Colors } = require("../../db");
 
 const filterProductCategory = async (category) => {
   const selectedCategory = await Category.findOne({
@@ -7,7 +7,8 @@ const filterProductCategory = async (category) => {
   const products = await Product.findAll({
     where: { category_id: selectedCategory.id },
     include: [
-      { model: Colors, attributtes: ["color"] },
+      { model: Colors, 
+        attributtes: ["color"] },
       {
         model: Brand,
         attributtes: ["brand"],
