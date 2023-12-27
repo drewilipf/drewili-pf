@@ -17,7 +17,6 @@ const getProductsController = async () => {
             }
         ],
                 where: {
-                deleted: false,
         }
 
     });
@@ -32,7 +31,8 @@ const getProductsController = async () => {
         stock: product.stock,
         image: product.image,
         brand: product.brand.brand,
-        category: product.category.category // Extrae solo el atributo 'category'
+        category: product.category.category,
+        delete: product.deleted
     }));
     return formattedProducts
 };
