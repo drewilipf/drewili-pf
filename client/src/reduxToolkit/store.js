@@ -11,7 +11,7 @@ import filterColorReducer from "./Color/colorSlice"; // Agrega el reducer faltan
 
 export const store = configureStore({
   reducer: {
-    brand: brandReducer,
+    brands: brandReducer,
     products: productReducer,
     users: userReducer,
     comments: commentsReducer,

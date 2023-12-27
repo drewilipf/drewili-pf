@@ -4,8 +4,11 @@ import { useParams, NavLink } from "react-router-dom";
 import { getProductsById } from "../../reduxToolkit/Product/productThunks";
 import CommentCards from "../../Components/DetailComponents/CommentCards.jsx";
 import CommentInput from "../../Components/DetailComponents/CommentInput.jsx";
-import { AiOutlineLeft } from "react-icons/ai"
-import "../../../tailwind.config.js"
+import { AiOutlineLeft } from "react-icons/ai";
+import "../../../tailwind.config.js";
+import { TiStarFullOutline } from "react-icons/ti";
+import { TiStarOutline } from "react-icons/ti";
+import { TiStarHalfOutline } from "react-icons/ti";
 
 function ProductDetail() {
   const { id } = useParams();
@@ -13,6 +16,7 @@ function ProductDetail() {
   const dispatch = useDispatch();
 
   const productsId = useSelector((state) => state.products.productsId);
+  const productAll = useSelector((state) => state.products.products);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,32 +27,44 @@ function ProductDetail() {
   }, [dispatch, id]);
 
   if (!productsId) {
-    console.log("Rendering loading...");
     return <p>Cargando...</p>;
   }
 
   const product = productsId[0];
 
-  return (
+  if (!product) {
+    return <p>Cargando...</p>;
+  }
+  const productCategory = product.category;
 
+  const recommendedProducts = productAll.filter(
+    (p) => p.category === productCategory && p.id !== product.id
+  );
+  const limitedRecommendedProducts = recommendedProducts.slice(0, 5);
+  if (!product || !productCategory) {
+    return <p>Cargando...</p>;
+  }
+  return (
     <div className="container mx-auto grid grid-cols-2 gap-3 max-h-[300px]">
-      <NavLink to="/" className="inline-block mr-2 text-onyx hover:text-chiliRed">
+      <NavLink
+        to="/"
+        className="inline-block mr-2 text-onyx hover:text-chiliRed"
+      >
         <AiOutlineLeft style={{ fontSize: "1.5rem", strokeWidth: 3 }} />
       </NavLink>
 
       <div />
       <img
-  src={product?.image}
-  alt={product?.name}
-  className="col-span-1 w-150 h-150"
-/>
+        src={product?.image}
+        alt={product?.name}
+        className="col-span-1 w-100 h-100"
+      />
 
       <div className="col-span-1 grid grid-cols-2 gap-4 font-arial">
-
         <h1 className="text-3xl font-bold ">{product?.name}</h1>
         <div />
         <div className="col-span-1 ">
-          <h2 className="text-xl text-chiliRed" >Descripción:</h2>
+          <h2 className="text-xl text-chiliRed">Descripción:</h2>
           <p>{product?.description}</p>
         </div>
         <div>
@@ -67,19 +83,48 @@ function ProductDetail() {
           <h2 className="text-xl text-chiliRed">Precio:</h2>
           <p>{product?.price}</p>
         </div>
-        <button
-          className="bg-chiliRed text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl "
-        > Agregar</button>
-
-
+        <button className="bg-chiliRed text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl ">
+          Agregar
+        </button>
+        <div className="col-span-2 mt-4 mx-auto">
+          <h1 className="text-xl text-center text-eerieBlack  font-bold mb-2">
+            Calificación general del producto
+          </h1>
+          <div className="text-chiliRed flex text-2xl">
+            <TiStarFullOutline />
+            <TiStarFullOutline />
+            <TiStarFullOutline />
+            <TiStarHalfOutline />
+            <TiStarOutline />
+          </div>
+        </div>
+      </div>
+      <div className="col-span-2 mt-4 mx-auto">
+        <h2 className="text-xl text-center text-chiliRed mb-2 font-bold">
+          Productos Recomendados
+        </h2>
+        <div className="flex  gap-4 ">
+          {limitedRecommendedProducts.map((recommendedProduct) => (
+            <div key={recommendedProduct.id} className="ml-10">
+              <NavLink
+                to={`/detail/${recommendedProduct.id}`}
+                className="text-onyx hover:text-chiliRed block"
+              >
+                <img
+                  src={recommendedProduct.image}
+                  alt={recommendedProduct.name}
+                  className="w-32 h-32 mb-2"
+                />
+                {recommendedProduct.name}
+              </NavLink>
+            </div>
+          ))}
+        </div>
       </div>
       <div>
         <CommentCards />
         <CommentInput />
       </div>
-      <h1>Calificación general del producto</h1>
-
-
     </div>
   );
 }

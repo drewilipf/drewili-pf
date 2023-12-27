@@ -35,7 +35,7 @@ const EditUserProfile = () => {
     password: "",
     newPassword: "",
     role: "",
-    deleted: user.deleted,
+    deleted: "false",
   });
   useEffect(() => {
     dispatch(getUserId(id));

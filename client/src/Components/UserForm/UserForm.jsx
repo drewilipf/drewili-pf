@@ -31,6 +31,7 @@ function UserForm() {
   };
   console.log(input);
 
+
   const handleBlur = (e) => {
     const { name, value } = e.target;
     const validationErrors = validation({ ...input, [name]: value });
@@ -39,36 +40,46 @@ function UserForm() {
       [name]: validationErrors[name],
     }));
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
+    // Verificar si hay errores en los campos
     const validationErrors = validation(input);
     setErrors(validationErrors);
-
-    try {
-      dispatch(postUser(input));
-
-      setInput({
-        name: "",
-        lastname: "",
-        email: "",
-        password: "",
-        address: "",
-        role: "cliente",
-        username: "",
-      });
-
-      setErrors({
-        name: "",
-        lastname: "",
-        email: "",
-      });
-
-      alert("Usuario creado con éxito");
-      navigate("/userlogin");
-    } catch (error) {
-      console.error("Error al enviar el formulario:", error);
+  
+    // Comprobar si hay algún error antes de enviar la solicitud
+    if (
+      Object.values(validationErrors).every((error) => error === "")
+    ) {
+      try {
+        dispatch(postUser(input));
+  
+        setInput({
+          name: "",
+          lastname: "",
+          email: "",
+          password: "",
+          address: "",
+          role: "cliente",
+          username: "",
+        });
+  
+        setErrors({
+          name: "",
+          lastname: "",
+          email: "",
+          // Agrega aquí otros campos si es necesario
+        });
+  
+        alert("Usuario creado con éxito");
+        navigate("/userlogin");
+      } catch (error) {
+        console.error("Error al enviar el formulario:", error);
+      }
+    } else {
+      // Mostrar mensajes de error si es necesario
+      console.log("Corrige los errores antes de enviar el formulario");
     }
   };
   return (
@@ -94,6 +105,11 @@ function UserForm() {
               onBlur={handleBlur}
               className="border rounded p-3 bg-whiteSmoke focus:outline-none w-full"
             />
+            <div className="h-4">
+              <span className="text-chiliRed text-opacity-60 items-center flex text-sm">
+                {errors?.username}
+              </span>
+            </div>
           </div>
 
           <div className="mb-4">
@@ -162,6 +178,11 @@ function UserForm() {
               onChange={handleInputChange}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
+            <div className="h-4">
+              <span className="text-chiliRed text-opacity-60 items-center flex text-sm">
+                {errors?.password}
+              </span>
+            </div>
           </div>
 
           <div className="mb-4">

@@ -4,13 +4,11 @@ import axios from "axios";
 const API_URL = "http://localhost:3001/brand";
 
 export const getBrand = () => {
-  console.log('Ejecutando getBrand');
   return async (dispatch) => {
     try {
       const response = await axios.get(API_URL);
       const brands = response.data;
 
-      console.log('Brands:', brands); // Agrega este console.log
       dispatch(getBrandSlice({ brands }));
     } catch (error) {
       console.error("Error fetching Brand:", error);
