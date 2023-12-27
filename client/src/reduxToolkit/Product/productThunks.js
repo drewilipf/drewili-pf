@@ -5,11 +5,15 @@ import {
   searchProductStart,
   searchProductSuccess,
   searchProductFailure,
+  filterCategoryRequest,
+  filterCategorySuccess,
+  filterCategoryFailure,
 } from "./productSlice";
 import axios from "axios";
 
 const API_URL = "http://localhost:3001/product";
 const SEARCH_API_URL = "http://localhost:3001/product/product/";
+const CATEGORY_FILTER_API_URL = "http://localhost:3001/filterby/category";
 
 export const getProducts = () => {
   return async (dispatch) => {
@@ -17,6 +21,8 @@ export const getProducts = () => {
       const response = await axios.get(API_URL);
 
       const products = response.data;
+
+      console.log(products)
 
       dispatch(getProductsSuccess({ products }));
     } catch (error) {
@@ -64,6 +70,35 @@ export const searchProduct = (keyword) => {
     } catch (error) {
       console.error("Error searching products:", error);
       dispatch(searchProductFailure({ error }));
+    }
+  };
+};
+
+
+export const filterCategory = (category) => {
+  return async (dispatch) => {
+    try {
+      dispatch(filterCategoryRequest());
+
+      const response = await axios.get(`${CATEGORY_FILTER_API_URL}?category=${category}`);
+
+      const products = response.data;
+
+      console.log(products)
+
+
+      dispatch(filterCategorySuccess({ products }));
+    } catch (error) {
+      console.error("Error filtering by category:", error);
+
+      if (error.response) {
+        console.error("Response status:", error.response.status);
+        console.error("Response headers:", error.response.headers);
+      } else if (error.request) {
+        console.error("Error with the request:", error.request);
+      }
+
+      dispatch(filterCategoryFailure({ error }));
     }
   };
 };

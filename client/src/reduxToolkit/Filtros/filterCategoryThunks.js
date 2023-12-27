@@ -12,6 +12,9 @@ export const filterCategory = (category) => {
 
       const products = response.data;
 
+      console.log(products)
+
+
       dispatch(filterCategorySuccess({ products }));
     } catch (error) {
       console.error("Error filtering by category:", error);
