@@ -101,4 +101,4 @@ export const filterCategory = (category) => {
       dispatch(filterCategoryFailure({ error }));
     }
   };
-};
+}; 

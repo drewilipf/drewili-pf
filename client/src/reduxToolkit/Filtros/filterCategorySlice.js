@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+/*import { createSlice } from "@reduxjs/toolkit";
 
- const initialState = {
+const initialState = {
    products: [], 
    status: "idle",
    error: null,
@@ -33,4 +33,4 @@ import { createSlice } from "@reduxjs/toolkit";
    filterCategoryFailure,
  } = filterCategorySlice.actions;
 
- export default filterCategorySlice.reducer;
+ export default filterCategorySlice.reducer; */

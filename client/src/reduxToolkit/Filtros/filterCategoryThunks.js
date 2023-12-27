@@ -1,4 +1,4 @@
-import { filterCategoryRequest, filterCategorySuccess, filterCategoryFailure } from "./filterCategorySlice";
+/*import { filterCategoryRequest, filterCategorySuccess, filterCategoryFailure } from "./filterCategorySlice";
 import axios from "axios";
 
 const API_URL = "http://localhost:3001/filterby/category";
@@ -29,4 +29,4 @@ export const filterCategory = (category) => {
       dispatch(filterCategoryFailure({ error }));
     }
   };
-};
+};*/

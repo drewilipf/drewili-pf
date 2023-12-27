@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { searchProduct,filterCategory } from "../../reduxToolkit/Product/productThunks";
+import { searchProduct, filterCategory} from "../../reduxToolkit/Product/productThunks";
 import { getCategory } from "../../reduxToolkit/Category/categoryThunks.js";
+
 function Searchbar() {
   const [searchKeyword, setSearchKeyword] = useState("");
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ function Searchbar() {
   const handleSearchClick = () => {
 
     dispatch(searchProduct(searchKeyword));
+    dispatch(filterCategory(category))
   };
 
   const handleFilterCategory = (e) => {
