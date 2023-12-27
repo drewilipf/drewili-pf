@@ -2,10 +2,13 @@ const express = require('express')
 const morgan = require('morgan')
 const routes = require('./routes/index.js')
 const session = require('express-session')
+const cookieParser = require("cookie-parser")
 
 const server = express()
 
 server.use(morgan('dev'))
+server.use(cookieParser())
+
 server.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Credentials', 'true')
