@@ -2,13 +2,20 @@ const addToSalesCartController = require("../../controllers/SalesCart/addToSales
 
 const addToSalesCartHandler = async (req, res) => {
   try {
-    const { productId, userId, quantity } = req.body;
+    const sessionUserId = req.session.userId;
+    console.log("sesion de usuario:", userId);
 
-    if (!productId || !userId) {
-      return res.status(400).json({ error: 'Se requieren los campos productId, userId y quantity' });
+    if (!sessionUserId) {
+      return res.status(401).json({ error: "Usuario no autenticado" });
     }
 
-    const addedCartItem = await addToSalesCartController(productId, userId, quantity);
+    const { productId, quantity } = req.body;
+
+    if (!productId || !quantity) {
+      return res.status(400).json({ error: 'Se requieren los campos productId y quantity' });
+    }
+
+    const addedCartItem = await addToSalesCartController(sessionUserId, productId, quantity);
 
     res.status(201).json(addedCartItem);
   } catch (error) {

@@ -1,16 +1,21 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
+import { useState } from "react";
 import { useParams, NavLink } from "react-router-dom";
 import { getProductsById } from "../../reduxToolkit/Product/productThunks";
 import CommentCards from "../../Components/DetailComponents/CommentCards.jsx";
 import CommentInput from "../../Components/DetailComponents/CommentInput.jsx";
 import { AiOutlineLeft } from "react-icons/ai"
 import "../../../tailwind.config.js"
+import axios from "axios";
+
 
 function ProductDetail() {
   const { id } = useParams();
 
   const dispatch = useDispatch();
+
+  const [loading, setLoading] = useState(false)
 
   const productsId = useSelector((state) => state.products.productsId);
 
@@ -28,6 +33,34 @@ function ProductDetail() {
   }
 
   const product = productsId[0];
+
+  const handleAddToCart = async () => {
+    try {
+      setLoading(true);
+
+      
+      const userId = localStorage.getItem("userId")
+
+      console.log("datos enviados al servidor:",{
+        productId: id,
+        userId,
+        quantity: 1,
+      })
+
+      
+      const response = await axios.post('http://localhost:3001/salesCart/addToSalesCart', {
+        productId: id,
+        userId,
+        quantity: 1, // Puedes ajustar la cantidad según tus necesidades
+      });
+
+      console.log('Respuesta del servidor:', response.data);
+    } catch (error) {
+      console.error('Error en la solicitud:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
 
@@ -68,8 +101,12 @@ function ProductDetail() {
           <p>{product?.price}</p>
         </div>
         <button
-          className="bg-chiliRed text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl "
-        > Agregar al carrito</button>
+        onClick={handleAddToCart}
+        className="bg-chiliRed text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl "
+        disabled={loading}
+      >
+        {loading ? 'Agregando al carrito...' : 'Agregar al carrito'}
+      </button>
 
 
       </div>
