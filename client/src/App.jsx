@@ -10,7 +10,7 @@ import UserForm from "./Components/UserForm/UserForm";
 import UserLogin from "./Components/UserLogin/Userlogin";
 import Dashboard from "./views/Dashboard/Dashboard";
 import NavBar from "./Components/Navbar/Navbar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getProducts } from "./reduxToolkit/Product/productThunks";
 import { useDispatch } from "react-redux";
 import CreateProduct from "./Components/DashboardComponents/CreateProduct/CreateProduct";
@@ -29,12 +29,18 @@ function App() {
   const location = useLocation();
   const isDashboardRoute = location.pathname.startsWith("/dashboard");
 
+  const [actualPage, setActualPage] = useState(1);
+
+  const handlePageChange = (newPage) => {
+    setActualPage(newPage);
+  };
+
   return (
     <div>
       {!isDashboardRoute && <NavBar />}
       <div className="mt-28">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home handlePageChange={handlePageChange} actualPage={actualPage} setActualPage={(num) => setActualPage(num)}/>} />
           <Route path="/detail/:id" element={<ProductDetail />} />
           <Route path="/shoppingcart" element={<Shoppingcart />} />
           <Route path="/userprofile/:id" element={<UserProfile />} />
