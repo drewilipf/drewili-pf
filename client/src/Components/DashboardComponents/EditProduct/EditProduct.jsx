@@ -18,7 +18,7 @@ const EditProduct = () => {
   const styles2 = "text-eerieBlack text-lg";
   const styles =
     "w-full px-8 py-1.5 text-lg text-eerieBlack leading-tight bg-whiteSmoke border rounded focus:outline-none focus:shadow-outline";
-
+  console.log(id);
   const [input, setInput] = useState({
     name: "",
     description: "",
@@ -36,21 +36,32 @@ const EditProduct = () => {
   const { color } = useSelector((state) => state.color);
   const [imageFile, setImageFile] = useState(null);
   const productsId = useSelector((state) => state.products.productsId);
-  const product = productsId[0];
+
+  console.log(productsId);
+  const product = productsId.length > 0 ? productsId[0] : null;
   console.log(product);
-
   useEffect(() => {
-    dispatch(getCategory());
-    dispatch(getBrand());
-    dispatch(getColor());
-    dispatch(getProductsById(id));
-  }, [id, dispatch]);
+    const fetchData = async () => {
+      await dispatch(getProductsById(id));
+      await dispatch(getCategory());
+      await dispatch(getBrand());
+      await dispatch(getColor());
+    };
 
-  const colorId = color.find((c) => c.color === product.color)?.id || 0;
-  console.log(colorId);
-  const brandId = brands.find((b) => b.brand === product.brand)?.id || 0;
-  const categoryId =
-    categories.find((cat) => cat.category === product.category)?.id || 0;
+    fetchData();
+  }, [id, dispatch]);
+  if (!product) {
+    return <p>Cargando...</p>;
+  }
+  const colorId = product?.color
+    ? color.find((c) => c.color === product.color)?.id || 0
+    : 0;
+  const brandId = product?.brand
+    ? brands.find((b) => b.brand === product.brand)?.id || 0
+    : 0;
+  const categoryId = product?.category
+    ? categories.find((cat) => cat.category === product.category)?.id || 0
+    : 0;
   useEffect(() => {
     if (product) {
       setInput({
@@ -66,7 +77,7 @@ const EditProduct = () => {
         deleted: product.deleted || "false",
       });
     }
-  }, [product, brands, color, categories]);
+  }, [product]);
   function handleColorSelect(event) {
     setInput({
       ...input,

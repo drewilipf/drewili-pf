@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   products: [],
   filterProducts: [],
-  productsId: {},
+  productsId: [],
   status: "idle", // "idle", "loading", "succeeded", "failed"
   error: null,
   product: null,
@@ -16,7 +16,7 @@ export const productSlice = createSlice({
     getProductsSuccess: (state, action) => {
       state.status = "succeeded";
       state.products = action.payload.products;
-      state.filterProducts = action.payload.products;
+      //state.filterProducts = action.payload.products;
     },
     getProductsByIdslice: (state, action) => {
       state.status = "succeeded";
@@ -51,23 +51,24 @@ export const productSlice = createSlice({
           return b.price - a.price;
         }
         return 0;
-      })},
+      });
+    },
 
     filterBrandSuccess: (state, action) => {
       state.status = "succeeded";
       state.products = action.payload.products;
-
     },
 
     deletedProductSlice: (state, action) => {
+      state.status = "succeeded";
       state.products = action.payload.products;
     },
     putProductSlice: (state, action) => {
+      state.status = "succeeded";
       state.product = action.payload.product;
     },
   },
 });
-
 
 export const {
   getProductsSuccess,
@@ -75,10 +76,8 @@ export const {
   getProductsByIdslice,
   searchProductSuccess,
   filterPriceSuccess,
-  filterColorSuccess,
   sortByPriceSuccess,
-  filterBrandSuccess
-
+  filterBrandSuccess,
   filterColorSuccess,
   deletedProductSlice,
   putProductSlice,
