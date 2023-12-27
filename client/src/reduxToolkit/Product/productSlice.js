@@ -97,6 +97,8 @@ export const {
   filterCategoryFailure,
   filterCategoryRequest,
   filterCategorySuccess,
+  putProductSlice,
+  deletedProductSlice,
 
 } = productSlice.actions;
 export default productSlice.reducer;
