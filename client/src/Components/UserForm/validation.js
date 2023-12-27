@@ -1,6 +1,15 @@
 const validation = (input) => {
     let errors = {};
 
+    // validaciones del userName
+
+    if (!input.username) {
+        errors.username = "Por favor ingrese su nombre de usuario"
+    }
+    const userNameRegex = /^[a-zA-Z\s]{4,15}$/;
+    if (!userNameRegex.test(input.username)) {
+        errors.username = "Por favor ingrese un nombre de usuario válido";
+    }
     // validaciones del nombre
 
     if (!input.name) {
@@ -29,32 +38,34 @@ const validation = (input) => {
     if (!regexEmail.test(input.email)) {
         errors.email = "Por favor ingrese un email válido";
     }
-    // validaciones del telefono
-    if (!input.phone) {
-        errors.phone = "Por favor ingrese su teléfono"
-    }
-    const peruphoneregex = /^9\d{8}$/
-    if (!peruphoneregex.test(input.phone)) {
-        errors.phone = "Por favor ingrese un número de celular válido"
+
+    // validaciones de la constraseña
+    if (!input.password) {
+        errors.password = "Por favor ingrese una constraseña"
     }
 
-    // validaciones del dni
-    if (!input.DNI) {
-        errors.DNI = "Por favor ingrese su numero de documento"
+    const regexPassword1 = /[a-z]/
+    if (!regexPassword1.test(input.password)) {
+        errors.password = "La constraseña debe tener al menos una letra minúscula ";
     }
-    const regexDNI = /^[0-9]{8}-[0-9]$/;
-    const regexCE = /^[A-Z0-9]{12}$/;
-    if (input.dnitype== "dni" && !regexDNI.test(input.DNI)) {
-        errors.DNI = "Por favor ingrese un DNI válido"
+    const regexPassword2 = /[A-Z]/
+    if (!regexPassword2.test(input.password)) {
+        errors.password = "La constraseña debe tener al menos una letra mayúscula ";
     }
-    if (input.dnitype== "ce" && !regexCE.test(input.DNI)) {
-        errors.DNI = "Por favor ingrese un CE válido"
+    const regexPassword3 = /\d/
+    if (!regexPassword3.test(input.password)) {
+        errors.password = "La constraseña debe tener al menos un díjito ";
     }
-    // validaciones del tipo de dni
+    const regexPassword4 = /[@$!%*?&]/
+    if (!regexPassword4.test(input.password)) {
+        errors.password = "La constraseña debe tener al menos un carácter especial";
+    }
+    const longitud = 8
+    if (input.password.length<longitud) {
+        errors.password = "La constraseña debe tener una logintud mínima de 8";
+    }
 
-    if(input.dnitype == ""){
-        errors.dnitype = "Por favor seleccione tipo de documento"
-    }
+    
 
 
   
