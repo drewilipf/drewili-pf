@@ -5,6 +5,7 @@ import FilterPriceComponent from "../../Components/FilterComponents/priceFilterC
 import ColorFilterComponent from "../../Components/FilterComponents/colorFilterComponent";
 import BrandFilterComponent  from "../../Components/FilterComponents/brandFilterComponent";
 // import CategoryDropdown from "../../Components/FilterComponents/categoryFilterComponent"
+import SortByPriceButtons from "../../Components/FilterComponents/sortByPriceComponent";
 
 function Home() {
   return (
@@ -14,6 +15,7 @@ function Home() {
         <BrandFilterComponent/>
         <ColorFilterComponent/>
         <FilterPriceComponent />
+        <SortByPriceButtons/>
         <Productcards />
       </div>
     </div>
