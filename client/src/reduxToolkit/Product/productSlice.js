@@ -82,5 +82,11 @@ export const {
   searchProductSuccess,
   filterPriceSuccess,
   filterPriceFailure,
+  filterColorSuccess,
+  filterBrandSuccess,
+  sortByPriceSuccess,
+  filterCategoryFailure,
+  filterCategoryRequest,
+  filterCategorySuccess,
 } = productSlice.actions;
 export default productSlice.reducer;
