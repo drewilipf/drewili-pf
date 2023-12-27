@@ -61,6 +61,8 @@ function Navbar() {
   };
   const id =
     (userSession && userSession.userId) || (login && login.userSession.userId);
+  const role =
+    (userSession && userSession.role) || (login && login.userSession.role);
   return (
     <div className="fixed top-0 left-0 right-0 z-10 bg-whiteSmoke shadow-xl">
       <div className="flex items-center justify-between text-onyx">
@@ -100,6 +102,16 @@ function Navbar() {
                           Ver Perfil
                         </NavLink>
                       </li>
+                      {role === "admin" && (
+                        <li className="cursor-pointer py-2 px-4 hover:bg-gray-200">
+                          <NavLink
+                            to="/dashboard"
+                            className="text-chiliRed hover:underline"
+                          >
+                            Dashboard
+                          </NavLink>
+                        </li>
+                      )}
                       <li
                         className="cursor-pointer py-2 px-4 hover:bg-gray-200"
                         onClick={handleclick}
