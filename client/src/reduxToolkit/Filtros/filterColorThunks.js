@@ -7,7 +7,6 @@ export const filterColor = (color) => {
   return async (dispatch) => {
     try {
       if (!color) {
-      
         return;
       }
 
