@@ -19,6 +19,7 @@ function ProductDetail() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [addedToCart, setAddedToCart] = useState(false)
 
   const userSessionFromCookies = Cookies.get("userSession");
   const userSession = userSessionFromCookies
@@ -67,6 +68,8 @@ function ProductDetail() {
       });
 
       console.log("Respuesta del servidor:", response.data);
+
+      setAddedToCart(true);
     } catch (error) {
       console.error("Error en la solicitud:", error);
     } finally {
@@ -132,9 +135,9 @@ function ProductDetail() {
         <button
           onClick={handleAddToCart}
           className="bg-chiliRed text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
-          disabled={loading}
+          disabled={loading || addedToCart}
         >
-          {loading ? "Agregando al carrito..." : "Agregar al carrito"}
+          {loading ? "Agregando al carrito..." : (addedToCart ? "Agregado con éxito!" : "Agregar al carrito")}
 
         </button>
         <div className="col-span-2 mt-4 mx-auto">
