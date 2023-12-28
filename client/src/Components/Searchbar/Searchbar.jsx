@@ -1,23 +1,33 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { searchProduct } from "../../reduxToolkit/Product/productThunks";
+import { searchProduct, getAllProducts } from "../../reduxToolkit/Product/productThunks";
 
 function Searchbar() {
   const [searchKeyword, setSearchKeyword] = useState("");
   const dispatch = useDispatch();
 
+ 
   const handleSearchInputChange = (e) => {
-    const keyword = e.target.value;
-    setSearchKeyword(keyword);
-
-    // Búsqueda en tiempo real al escribir
-    dispatch(searchProduct(keyword));
+    setSearchKeyword(e.target.value);
   };
-
+  
+  const handleInputClear = () => {
+    if (searchKeyword === "") {
+      dispatch(getAllProducts());
+    }
+  };
   const handleSearchClick = () => {
-    
+    if (searchKeyword.length >= 2) {
     dispatch(searchProduct(searchKeyword));
+  }   
   };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter" && searchKeyword.length >= 2) {
+      dispatch(searchProduct(searchKeyword));
+    }
+  };
+
 
 
 
@@ -28,6 +38,8 @@ function Searchbar() {
         placeholder="Buscar producto..."
         value={searchKeyword}
         onChange={handleSearchInputChange}
+        onKeyPress={handleKeyPress} 
+        onInput={handleInputClear}
       />
       <select className="border border-chiliRed rounded p-2 mr-2 focus:outline-none focus:border-chiliRed">
         <option value="opcion1">Opción 1</option>

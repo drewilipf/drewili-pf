@@ -1,16 +1,16 @@
-const { Product } = require('../../db')
+const { Product } = require("../../db");
 
-const sortProductController = async () => {
+const sortRecommendedController = async () => {
     
       const productRecommended = await Product.findAll({
-        order: [['relevancia', 'DESC']],  // Ordenar por relevancia de forma descendente
-        limit: 10,  // Limitar el número de productos recomendados
+        order: [['relevancia', 'DESC']],  
+        limit: 10,  
       });
   
       return productRecommended;
     
     };
 
-    module.exports = sortProductController;
+module.exports = sortRecommendedController;
   
   

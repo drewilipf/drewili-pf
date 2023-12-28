@@ -62,14 +62,14 @@ module.exports = (sequelize) => {
             defaultValue: false,
             allowNull: false
         },
-        relevance: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-            defaultValue: 0, 
-        },
+        // relevance: {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: true,
+        //     defaultValue: 0, 
+        // },
     },
-        { timestamps: true,
-            createdAt: 'created_at',
+        { timestamps: false,
+           // createdAt: 'created_at',
          })
     return Product
 }
