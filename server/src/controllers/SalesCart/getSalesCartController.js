@@ -25,6 +25,7 @@ const getSalesCartController = async (userId) => {
     }
 
     const formattedSalesCart = salesCarts.map((product)=>({
+        salesCartId: product.id,
         id: product.product.id,
         name: product.product.name,
         image: product.product.image,
