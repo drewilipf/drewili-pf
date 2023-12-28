@@ -86,18 +86,16 @@ export const searchProduct = (keyword) => {
   };
 };
 
-
 export const filterCategory = (category) => {
   return async (dispatch) => {
     try {
-      dispatch(filterCategoryRequest());
-
-      const response = await axios.get(`${CATEGORY_FILTER_API_URL}?category=${category}`);
+      const response = await axios.get(
+        `${CATEGORY_FILTER_API_URL}?category=${category}`
+      );
 
       const products = response.data;
 
-      console.log(products)
-
+      console.log(products);
 
       dispatch(filterCategorySuccess({ products }));
     } catch (error) {
@@ -137,4 +135,3 @@ export const putProduct = (id, productData) => {
     }
   };
 };
- 

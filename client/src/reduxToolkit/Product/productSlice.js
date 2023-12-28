@@ -2,7 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   products: [],
+  copiProducts: [],
   filterProducts: [],
+  filterColor: null,
   productsId: [],
   status: "idle", // "idle", "loading", "succeeded", "failed"
   error: null,
@@ -12,11 +14,14 @@ const initialState = {
 export const productSlice = createSlice({
   name: "product",
   initialState,
+
   reducers: {
     getProductsSuccess: (state, action) => {
       state.status = "succeeded";
       state.products = action.payload.products;
-      //state.filterProducts = action.payload.products;
+      state.copiProducts = action.payload.products;
+      state.filterProducts = action.payload.products;
+      console.log(state.products);
     },
     getProductsByIdslice: (state, action) => {
       state.status = "succeeded";
@@ -32,19 +37,48 @@ export const productSlice = createSlice({
       state.products = action.payload.products;
     },
     filterPriceSuccess: (state, action) => {
-      state.status = "succeeded";
-      state.products = action.payload.products;
-      state.error = null;
+      const currentFilterProducts = JSON.parse(JSON.stringify(state.products));
+      console.log(currentFilterProducts);
+      const filteredProduct = action.payload.products;
+      console.log(filteredProduct);
+      state.products = currentFilterProducts.filter((product) =>
+        filteredProduct.some((product2) => product.id === product2.id)
+      );
+
+      console.log(state.products);
     },
+
     filterColorSuccess: (state, action) => {
-      state.status = "succeeded";
-      state.products = action.payload.products;
+      const currentFilterProducts = JSON.parse(JSON.stringify(state.products));
+
+      console.log(currentFilterProducts);
+      console.log(state.filterColor);
+      if (state.filterColor === null) {
+        const filteredProduct = action.payload.products;
+        console.log(filteredProduct);
+        state.products = currentFilterProducts.filter((product) =>
+          filteredProduct.some((product2) => product.id === product2.id)
+        );
+        state.filterColor = state.products;
+
+        console.log(state.products);
+      } else {
+        const filteredProduct = action.payload.products;
+        console.log(filteredProduct);
+        const copia = JSON.parse(JSON.stringify(state.copiProducts));
+        state.products = copia.filter((product) =>
+          filteredProduct.some((product2) => product.id === product2.id)
+        );
+        state.filterColor = state.products;
+
+        console.log(state.products);
+      }
     },
 
     sortByPriceSuccess: (state, action) => {
       const order = action.payload.order;
       state.status = "succeeded";
-      state.products = state.products.slice().sort((a, b) => {
+      state.filterProducts = state.products.slice().sort((a, b) => {
         if (order === "asc") {
           return a.price - b.price;
         } else if (order === "desc") {
@@ -55,9 +89,15 @@ export const productSlice = createSlice({
     },
 
     filterBrandSuccess: (state, action) => {
-      state.status = "succeeded";
-      state.products = action.payload.products;
+      const currentFilterProducts = JSON.parse(JSON.stringify(state.products));
+      console.log(currentFilterProducts);
+      const filteredProduct = action.payload.products;
+      console.log(filteredProduct);
+      state.products = currentFilterProducts.filter((product) =>
+        filteredProduct.some((product2) => product.id === product2.id)
+      );
 
+      console.log(state.products);
     },
     deletedProductSlice: (state, action) => {
       state.status = "succeeded";
@@ -70,17 +110,26 @@ export const productSlice = createSlice({
     filterCategoryRequest: (state) => {
       state.status = "loading";
       state.error = null;
+      console.log(action.payload.products);
     },
     filterCategorySuccess: (state, action) => {
-      state.status = "succeeded";
-      state.products = action.payload.products;
-      state.error = null; 
+      const currentFilterProducts = JSON.parse(JSON.stringify(state.products));
+      console.log(currentFilterProducts);
+      const filteredProduct = action.payload.products;
+      console.log(filteredProduct);
+      state.products = currentFilterProducts.filter((product) =>
+        filteredProduct.some((product2) => product.id === product2.id)
+      );
+
+      console.log(state.products);
     },
-  },
-  filterCategoryFailure: (state, action) => {
-    state.status = "failed";
-    state.products = [];
-    state.error = action.payload.error; 
+
+    filterCategoryFailure: (state, action) => {
+      state.status = "failed";
+      state.filterProducts = [];
+      state.error = action.payload.error;
+      console.log(action.payload.products);
+    },
   },
 });
 
@@ -99,6 +148,5 @@ export const {
   filterCategorySuccess,
   putProductSlice,
   deletedProductSlice,
-
 } = productSlice.actions;
 export default productSlice.reducer;

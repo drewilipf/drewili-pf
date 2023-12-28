@@ -16,9 +16,7 @@ const BrandFilterComponent = ({ setActualPage }) => {
   }, [dispatch]);
 
   const handleBrandChange = (brand) => {
-    console.log("Seleccionando marca:", brand);
     setSelectedBrand(brand);
-    console.log("Estado después del cambio:", selectedBrand);
   };
 
   const handleFilterClick = () => {

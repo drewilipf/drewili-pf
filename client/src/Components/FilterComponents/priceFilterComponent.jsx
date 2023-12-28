@@ -201,6 +201,7 @@ const FilterPriceComponent = ({ setActualPage }) => {
     setMinPrice("0");
     setMaxPrice("600");
     setFilterButtonClicked(true);
+
     setActualPage(1);
   };
 
