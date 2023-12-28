@@ -5,9 +5,8 @@ import {
   searchProductSuccess,
   putProductSlice,
   deletedProductSlice,
-  filterCategoryRequest,
   filterCategorySuccess,
-  filterCategoryFailure,
+  clearFilterSlice,
 } from "./productSlice";
 import axios from "axios";
 
@@ -86,18 +85,16 @@ export const searchProduct = (keyword) => {
   };
 };
 
-
 export const filterCategory = (category) => {
   return async (dispatch) => {
     try {
-      dispatch(filterCategoryRequest());
-
-      const response = await axios.get(`${CATEGORY_FILTER_API_URL}?category=${category}`);
+      const response = await axios.get(
+        `${CATEGORY_FILTER_API_URL}?category=${category}`
+      );
 
       const products = response.data;
 
-      console.log(products)
-
+      console.log(products);
 
       dispatch(filterCategorySuccess({ products }));
     } catch (error) {
@@ -109,8 +106,6 @@ export const filterCategory = (category) => {
       } else if (error.request) {
         console.error("Error with the request:", error.request);
       }
-
-      dispatch(filterCategoryFailure({ error }));
     }
   };
 };
@@ -137,4 +132,12 @@ export const putProduct = (id, productData) => {
     }
   };
 };
- 
+export const clearFilter = () => {
+  return async (dispatch) => {
+    try {
+      dispatch(clearFilterSlice());
+    } catch (error) {
+      console.error("Error fetching product:", error);
+    }
+  };
+};

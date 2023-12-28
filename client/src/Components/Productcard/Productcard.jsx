@@ -12,13 +12,16 @@ function Productcard({
   brand,
 }) {
   return (
-    <div className="mb-10 max-w-xs overflow-hidden transform transition-transform shadow-xl flex flex-col items-center p-4 rounded">
+    <div
+      className="mb-10  overflow-hidden transform transition-transform  flex flex-col items-center p-4 rounded h-80 w-80
+    "
+    >
       <div>
         <NavLink to={`/detail/${id}`}>
           <img
             src={image}
             alt={name}
-            className="w-full h-auto max-h-32 transform transition-transform"
+            className="w-full h-32 transform transition-transform"
           />
           <h2 className="text-center">{name}</h2>
           <h3 className="text-center">S/ {price}</h3>

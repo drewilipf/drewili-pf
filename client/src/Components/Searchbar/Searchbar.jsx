@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { searchProduct, filterCategory } from "../../reduxToolkit/Product/productThunks";
+import {
+  searchProduct,
+  filterCategory ,
+} from "../../reduxToolkit/Product/productThunks";
 import { getCategory } from "../../reduxToolkit/Category/categoryThunks.js";
 
 function Searchbar() {
@@ -8,7 +11,7 @@ function Searchbar() {
   
   const dispatch = useDispatch();
 
-  const category = useSelector((state) => state.categories)
+  const category = useSelector((state) => state.categories);
   useEffect(() => {
     const fetchData = async () => {
       dispatch(getCategory());
@@ -61,10 +64,10 @@ function Searchbar() {
         <option value="All">Todos</option>
         {category.categories
           ? category.categories.map((categoryItem) => (
-            <option key={categoryItem.id} value={categoryItem.category}>
-              {String(categoryItem.category)}
-            </option>
-          ))
+              <option key={categoryItem.id} value={categoryItem.category}>
+                {String(categoryItem.category)}
+              </option>
+            ))
           : null}
       </select>
 

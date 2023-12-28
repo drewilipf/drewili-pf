@@ -14,12 +14,11 @@ import { TiStarFullOutline } from "react-icons/ti";
 import { TiStarOutline } from "react-icons/ti";
 import { TiStarHalfOutline } from "react-icons/ti";
 
-
 function ProductDetail() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const [addedToCart, setAddedToCart] = useState(false)
+  const [addedToCart, setAddedToCart] = useState(false);
 
   const userSessionFromCookies = Cookies.get("userSession");
   const userSession = userSessionFromCookies
@@ -29,16 +28,15 @@ function ProductDetail() {
   const { login } = useSelector((state) => state.login);
 
   const userId =
-  (userSession && userSession.userId) || (login && login.userSession.userId);
+    (userSession && userSession.userId) || (login && login.userSession.userId);
 
   const productsId = useSelector((state) => state.products.productsId);
-
 
   const productAll = useSelector((state) => state.products.products);
 
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(getProductsById(id))
+      await dispatch(getProductsById(id));
     };
 
     fetchData();
@@ -57,11 +55,8 @@ function ProductDetail() {
     };
   }, [id]);
 
-
-
   const handleAddToCart = async () => {
     try {
-
       if (!userId) {
         // Si userId es null, muestra un mensaje de alerta
         const choice = window.confirm(
@@ -76,7 +71,6 @@ function ProductDetail() {
         }
       }
 
-
       setLoading(true);
 
       console.log("datos enviados al servidor:", {
@@ -85,11 +79,14 @@ function ProductDetail() {
         quantity: 1,
       });
 
-      const response = await axios.post("http://localhost:3001/salesCart/addToSalesCart", {
-        productId: id,
-        userId,
-        quantity: 1,
-      });
+      const response = await axios.post(
+        "http://localhost:3001/salesCart/addToSalesCart",
+        {
+          productId: id,
+          userId,
+          quantity: 1,
+        }
+      );
 
       console.log("Respuesta del servidor:", response.data);
 
@@ -122,7 +119,6 @@ function ProductDetail() {
       >
         <AiOutlineLeft style={{ fontSize: "1.5rem", strokeWidth: 3 }} />
       </NavLink>
-
       <div />
 
       <img
@@ -130,8 +126,6 @@ function ProductDetail() {
         alt={product?.name}
         className="col-span-1 w-100 h-100"
       />
-
-
       <div className="col-span-1 grid grid-cols-2 gap-4 font-arial">
         <h1 className="text-3xl font-bold ">{product?.name}</h1>
         <div />
@@ -161,8 +155,12 @@ function ProductDetail() {
           className="bg-chiliRed text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
           disabled={loading || addedToCart}
         >
-          {loading ? "Agregando al carrito..." : (addedToCart ? "Agregado con éxito!" : "Agregar al carrito")}
-
+          {loading ? "Agregando al carrito..." : "Agregar al carrito"}
+          {loading
+            ? "Agregando al carrito..."
+            : addedToCart
+            ? "Agregado con éxito!"
+            : "Agregar al carrito"}
         </button>
         <div className="col-span-2 mt-4 mx-auto">
           <h1 className="text-xl text-center text-eerieBlack  font-bold mb-2">

@@ -48,7 +48,8 @@ const ShoppingCart = () => {
       <h2 className="text-2xl font-semibold mb-4">Tu Carrito de Compras</h2>
       <div className="flex items-center justify-between py-2">
         <span className="flex-1">Nombre del Producto</span>
-        <span className="w-16 text-right">Precio</span>
+        <span className="w-16 text-right mr-4">Precio</span>
+        <span className="w-16 text-left ml-2">Cantidad</span>
       </div>
       {cartItems.map((item) => (
         <div key={item.salesCartId} className="flex items-center justify-between py-2 space-y-2">
@@ -57,6 +58,7 @@ const ShoppingCart = () => {
             {item.name}
           </span>
           <span className="w-16 text-right">{`$${parseFloat(item.price).toFixed(2)}`}</span>
+          <span className="w-16 text-right">{item.quantity}</span>
           <button onClick={() => handleRemoveFromCart(item.salesCartId, item.totalPrice)} className="ml-2">
             <img src={binIcon} alt="quitar" style={{ maxWidth: '20px', maxHeight: '20px' }} />
           </button>
