@@ -31,6 +31,8 @@ const getProductsController = async () => {
     brand: product.brand.brand,
     category: product.category.category,
     deleted: product.deleted,
+    relevance: product.relevance,
+    date: product.createdAt,
   }));
   return formattedProducts;
 };
