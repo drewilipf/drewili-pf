@@ -89,6 +89,20 @@ export const productSlice = createSlice({
     },
 
     filterBrandSuccess: (state, action) => {
+      state.status = "succeeded";
+      state.products = action.payload.products;
+    },
+
+    deletedProductSlice: (state, action) => {
+      state.status = "succeeded";
+      state.products = action.payload.products;
+    },
+    putProductSlice: (state, action) => {
+      state.status = "succeeded";
+      state.product = action.payload.product;
+    },
+
+    filterBrandSuccess: (state, action) => {
       const currentFilterProducts = JSON.parse(JSON.stringify(state.products));
       console.log(currentFilterProducts);
       const filteredProduct = action.payload.products;

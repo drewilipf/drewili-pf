@@ -1,4 +1,3 @@
-// BrandFilterComponent.jsx
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBrand } from "../../reduxToolkit/Brand/brandThunks";
@@ -37,23 +36,37 @@ const BrandFilterComponent = ({ setActualPage }) => {
   };
 
   return (
-    <div>
-      <h2>Filtro de Marca</h2>
-      <select
-        value={selectedBrand}
-        onChange={(e) => handleBrandChange(e.target.value)}
+    <div className="mb-4 w-full">
+    <div style={{ marginRight: '4px' }}>
+      <h2 className="block text-sm font-bold mb-4">Brand Filter</h2>
+      <div className="mb-4">
+        <label htmlFor="brand" className="block text-sm font-medium text-gray-700">
+          Seleccionar Marca:
+        </label>
+        <select
+          id="brand"
+          value={selectedBrand}
+          onChange={(e) => handleBrandChange(e.target.value)}
+          className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        >
+          <option value="">Seleccionar Marca</option>
+          {brandList.map((brand) => (
+            <option key={brand.id} value={brand.brand}>
+              {brand.brand}
+            </option>
+          ))}
+        </select>
+      </div>
+      <button
+        onClick={handleFilterClick}
+        className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded"
       >
-        <option value="">Seleccionar Marca</option>
-        {brandList.map((brand) => (
-          <option key={brand.id} value={brand.brand}>
-            {brand.brand}
-          </option>
-        ))}
-      </select>
-
-      <button onClick={handleFilterClick}>Filtrar</button>
+        Filtrar
+      </button>
     </div>
-  );
+  </div>
+);
 };
+
 
 export default BrandFilterComponent;
