@@ -6,6 +6,7 @@ import { AiOutlineMore } from "react-icons/ai";
 import Cookies from "js-cookie";
 import { useSelector, useDispatch } from "react-redux";
 import { postLogout } from "../../reduxToolkit/Login/logoutThunks";
+import cartIcon from "../../icons/carrito-de-compras.png"
 
 function Navbar() {
   const location = useLocation();
@@ -61,6 +62,8 @@ function Navbar() {
   };
   const id =
     (userSession && userSession.userId) || (login && login.userSession.userId);
+  const role =
+    (userSession && userSession.role) || (login && login.userSession.role);
   return (
     <div className="fixed top-0 left-0 right-0 z-10 bg-whiteSmoke shadow-xl">
       <div className="flex items-center justify-between text-onyx">
@@ -81,11 +84,14 @@ function Navbar() {
           {combinedUserSession ? (
             <div className="flex space-x-3 text-chiliRed items-center">
               <div className="relative group">
-                <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
-                  <p onClick={toggleDropdown} className="flex items-center">
-                    Bienvenido, {combinedUserSession}! <AiOutlineMore />
-                  </p>
-                </h1>
+                <div className="flex items-center space-x-4">
+                  <img src={cartIcon} alt="shopping-cart-icon" className="w-6 h-6 cursor-pointer" onClick={()=>navigate("/shoppingcart")} />
+                  <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
+                    <p onClick={toggleDropdown} className="flex items-center">
+                      Bienvenido, {combinedUserSession}! <AiOutlineMore />
+                    </p>
+                  </h1>
+                </div>
                 {isDropdownOpen && (
                   <div
                     ref={dropdownRef}
@@ -100,6 +106,16 @@ function Navbar() {
                           Ver Perfil
                         </NavLink>
                       </li>
+                      {role === "admin" && (
+                        <li className="cursor-pointer py-2 px-4 hover:bg-gray-200">
+                          <NavLink
+                            to="/dashboard"
+                            className="text-chiliRed hover:underline"
+                          >
+                            Dashboard
+                          </NavLink>
+                        </li>
+                      )}
                       <li
                         className="cursor-pointer py-2 px-4 hover:bg-gray-200"
                         onClick={handleclick}

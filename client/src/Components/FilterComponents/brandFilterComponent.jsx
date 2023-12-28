@@ -1,60 +1,74 @@
-// BrandFilterComponent.jsx
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getBrand } from '../../reduxToolkit/Brand/brandThunks';
-import { filterBrand } from '../../reduxToolkit/Filtros/filterBrandThunks';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getBrand } from "../../reduxToolkit/Brand/brandThunks";
+import { filterBrand } from "../../reduxToolkit/Filtros/filterBrandThunks";
 
-const API_URL = 'http://localhost:3001/brand'; 
+const API_URL = "http://localhost:3001/brand";
 
-const BrandFilterComponent = () => {
+const BrandFilterComponent = ({ setActualPage }) => {
   const dispatch = useDispatch();
-  const [selectedBrand, setSelectedBrand] = useState('');
-  const brandList = useSelector((state) => state.brand.brands);
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const brandList = useSelector((state) => state.brands.brands);
 
   useEffect(() => {
     dispatch(getBrand());
   }, [dispatch]);
 
   const handleBrandChange = (brand) => {
-    console.log('Seleccionando marca:', brand);
+    console.log("Seleccionando marca:", brand);
     setSelectedBrand(brand);
-    console.log('Estado después del cambio:', selectedBrand);
+    console.log("Estado después del cambio:", selectedBrand);
   };
 
   const handleFilterClick = () => {
-    console.log('Clic en el botón de filtrado');
+    console.log("Clic en el botón de filtrado");
     try {
       if (!selectedBrand) {
         return;
       }
 
-      console.log('Filtrando por marca:', selectedBrand);
+      console.log("Filtrando por marca:", selectedBrand);
+      setActualPage(1);
+      console.log("Filtrando por marca:", selectedBrand);
       dispatch(filterBrand(selectedBrand));
-      console.log('Estado después del filtrado:', selectedBrand);
-      
+      console.log("Estado después del filtrado:", selectedBrand);
     } catch (error) {
-      console.error('Error filtering by brand:', error.message);
+      console.error("Error filtering by brand:", error.message);
     }
   };
 
   return (
-    <div>
-      <h2>Filtro de Marca</h2>
-      <select
-        value={selectedBrand}
-        onChange={(e) => handleBrandChange(e.target.value)}
+    <div className="mb-4 w-full">
+    <div style={{ marginRight: '4px' }}>
+      <h2 className="block text-sm font-bold mb-4">Brand Filter</h2>
+      <div className="mb-4">
+        <label htmlFor="brand" className="block text-sm font-medium text-gray-700">
+          Seleccionar Marca:
+        </label>
+        <select
+          id="brand"
+          value={selectedBrand}
+          onChange={(e) => handleBrandChange(e.target.value)}
+          className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        >
+          <option value="">Seleccionar Marca</option>
+          {brandList.map((brand) => (
+            <option key={brand.id} value={brand.brand}>
+              {brand.brand}
+            </option>
+          ))}
+        </select>
+      </div>
+      <button
+        onClick={handleFilterClick}
+        className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded"
       >
-        <option value="">Seleccionar Marca</option>
-        {brandList.map((brand) => (
-          <option key={brand.id} value={brand.brand}>
-            {brand.brand}
-          </option>
-        ))}
-      </select>
-
-      <button onClick={handleFilterClick}>Filtrar</button>
+        Filtrar
+      </button>
     </div>
-  );
+  </div>
+);
 };
+
 
 export default BrandFilterComponent;
