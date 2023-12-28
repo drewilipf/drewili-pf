@@ -11,7 +11,7 @@ const SortByPriceDropdown = () => {
 
   return (
     <div className="mb-4 w-full">
-      <div style={{ marginLeft: '4px' }}>
+      <div style={{ marginLeft: "4px" }}>
         <label htmlFor="sortByPrice" className="block text-sm font-bold mb-2">
           Ordenar por Precio:
         </label>
@@ -26,6 +26,6 @@ const SortByPriceDropdown = () => {
       </div>
     </div>
   );
-  }
+};
 
 export default SortByPriceDropdown;

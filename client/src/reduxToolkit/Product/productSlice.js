@@ -95,7 +95,7 @@ export const productSlice = createSlice({
     sortByPriceSuccess: (state, action) => {
       const order = action.payload.order;
       state.status = "succeeded";
-      state.filterProducts = state.products.slice().sort((a, b) => {
+      state.products = state.products.slice().sort((a, b) => {
         if (order === "asc") {
           return a.price - b.price;
         } else if (order === "desc") {
