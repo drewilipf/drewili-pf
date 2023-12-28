@@ -57,6 +57,20 @@ export const productSlice = createSlice({
     filterBrandSuccess: (state, action) => {
       state.status = "succeeded";
       state.products = action.payload.products;
+    },
+
+    deletedProductSlice: (state, action) => {
+      state.status = "succeeded";
+      state.products = action.payload.products;
+    },
+    putProductSlice: (state, action) => {
+      state.status = "succeeded";
+      state.product = action.payload.product;
+    },
+
+    filterBrandSuccess: (state, action) => {
+      state.status = "succeeded";
+      state.products = action.payload.products;
 
     },
     deletedProductSlice: (state, action) => {

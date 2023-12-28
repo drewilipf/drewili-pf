@@ -8,7 +8,7 @@ import SortByPriceButtons from "../../Components/FilterComponents/sortByPriceCom
 import Pagination from "../../Components/Pagination/Pagination";
 import { useSelector } from "react-redux";
 
-function Home({actualPage, handlePageChange, setActualPage}) {
+function Home({ actualPage, handlePageChange, setActualPage }) {
   const { products } = useSelector((state) => state.products);
 
   if (!products) {
@@ -21,19 +21,27 @@ function Home({actualPage, handlePageChange, setActualPage}) {
   const totalPages = Math.ceil(products.length / cardsXpage);
 
   return (
-    <div className="flex flex-col items-center">
-      <Banners />
-      <div className="mt-10">
-        <BrandFilterComponent setActualPage={(num) => setActualPage(num)} />
-        <ColorFilterComponent setActualPage={(num) => setActualPage(num)} />
-        <FilterPriceComponent setActualPage={(num) => setActualPage(num)} />
-        <SortByPriceButtons setActualPage={(num) => setActualPage(num)} />
-        <Productcards products={currentCards} />
-        <Pagination
-          handlePage={handlePageChange}
-          actualPage={actualPage}
-          totalPages={totalPages}
-        />
+    <div className="flex items-center justify-center">
+      <div className="w-4/5 p-4 mt-4 mx-auto">
+        <div className="mt-10 flex flex-col">
+          <div className="mb-2 flex flex-row-reverse">
+            <Banners className="mb-2 flex flex-row-reverse"/>
+            <div className="w-1/5 ml-4 flex flex-col items-start">
+              <BrandFilterComponent setActualPage={(num) => setActualPage(num)} />
+              <ColorFilterComponent setActualPage={(num) => setActualPage(num)} />
+              <FilterPriceComponent setActualPage={(num) => setActualPage(num)} />
+              <SortByPriceButtons setActualPage={(num) => setActualPage(num)} />
+            </div>
+          </div>
+          <div className="ml-4 mb-4">
+            <Productcards products={currentCards} />
+            <Pagination
+              handlePage={handlePageChange}
+              actualPage={actualPage}
+              totalPages={totalPages}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
