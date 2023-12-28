@@ -6,7 +6,7 @@ cloudinary.config({
     CLOUD_NAME, API_KEY, API_SECRET
 })
 
-const postProductsController = async (name, description, price, specifications, stock, image, brand_id, category_id, color_id) => {
+const postProductsController = async (name, description, price, specifications, stock, image, brand_id, category_id, color_id, relevance) => {
 
     const cloudinaryUpload = await cloudinary.uploader.upload(image)
 
@@ -22,6 +22,7 @@ const postProductsController = async (name, description, price, specifications, 
         color_id,
         brand_id,
         category_id,
+        relevance,
     });
 
     return newProduct;

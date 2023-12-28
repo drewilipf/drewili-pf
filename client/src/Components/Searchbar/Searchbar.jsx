@@ -2,40 +2,50 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   searchProduct,
-  filterCategory,
+  filterCategory ,
 } from "../../reduxToolkit/Product/productThunks";
 import { getCategory } from "../../reduxToolkit/Category/categoryThunks.js";
 
 function Searchbar() {
   const [searchKeyword, setSearchKeyword] = useState("");
+  
   const dispatch = useDispatch();
 
   const category = useSelector((state) => state.categories);
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(getCategory());
+      dispatch(getCategory());
     };
 
     fetchData();
   }, [dispatch]);
 
-  const handleSearchInputChange = (e) => {
-    const keyword = e.target.value;
-    setSearchKeyword(keyword);
 
-    // Búsqueda en tiempo real al escribir
-    dispatch(searchProduct(keyword));
+  const handleSearchInputChange = (e) => {    
+    setSearchKeyword(e.target.value);
+  };   
+    
+  
+  const handleSearchClick = () => {
+    if(searchKeyword.length < 2){ alert("Debe ingresar al menos dos caracteres")
+    return;
+  }
+    dispatch(searchProduct(searchKeyword));    
   };
 
-  const handleSearchClick = () => {
-    dispatch(searchProduct(searchKeyword));
+  const handleKeyPress = (e) => {    
+    if (e.key === "Enter" && searchKeyword.length < 2) {alert("Debe ingresar al menos dos caracteres")
+    return;
+  }
+    dispatch(searchProduct(searchKeyword));     
   };
 
   const handleFilterCategory = (e) => {
-    const category = e.target.value;
-    dispatch(filterCategory(category));
-    console.log(category);
+    const category = e.target.value
+    dispatch(filterCategory(category))
+    
   };
+
 
   return (
     <div className="flex items-center">
@@ -44,6 +54,8 @@ function Searchbar() {
         placeholder="Buscar producto..."
         value={searchKeyword}
         onChange={handleSearchInputChange}
+        onKeyPress={handleKeyPress}
+        // onInput={handleInputClear}
       />
       <select
         className="border border-chiliRed rounded p-2 mr-2 focus:outline-none focus:border-chiliRed"
@@ -65,6 +77,7 @@ function Searchbar() {
       >
         Buscar
       </button>
+      
     </div>
   );
 }
