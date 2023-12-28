@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
             allowNull: false,
         },
         description: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
         },
         price: {
@@ -22,7 +22,7 @@ module.exports = (sequelize) => {
             allowNull: true,
         },
         specifications: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: true,
         },
         stock: {

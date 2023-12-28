@@ -6,7 +6,7 @@ const validation = (input) => {
     if (!input.username) {
         errors.username = "Por favor ingrese su nombre de usuario"
     }
-    const userNameRegex = /^[a-zA-Z\s]{4,15}$/;
+    const userNameRegex = /^[a-zA-Z0-9ñÑ]+$/;
     if (!userNameRegex.test(input.username)) {
         errors.username = "Por favor ingrese un nombre de usuario válido";
     }
@@ -56,7 +56,7 @@ const validation = (input) => {
     if (!regexPassword3.test(input.password)) {
         errors.password = "La constraseña debe tener al menos un díjito ";
     }
-    const regexPassword4 = /[@$!%*?&]/
+    const regexPassword4 = /[!@#$%^&*()?¿¡\-_+=.,;:'"<>{}[\]\|\/\\`~]+/
     if (!regexPassword4.test(input.password)) {
         errors.password = "La constraseña debe tener al menos un carácter especial";
     }
