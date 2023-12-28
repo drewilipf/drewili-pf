@@ -53,6 +53,22 @@ function ProductDetail() {
 
   const handleAddToCart = async () => {
     try {
+
+      if (!userId) {
+        // Si userId es null, muestra un mensaje de alerta
+        const choice = window.confirm(
+          "Para agregar productos al carrito, por favor inicia sesión o regístrate. ¿Quieres iniciar sesión?"
+        );
+
+        if (choice) {
+          window.location.href = "/userlogin";
+          return;
+        } else {
+          return;
+        }
+      }
+
+
       setLoading(true);
 
       console.log("datos enviados al servidor:", {
