@@ -50,6 +50,14 @@ function ProductDetail() {
 
   const product = productsId[0];
 
+  // Este useEffect resetea setAddedToCart para que el boton vuelva a ser utilizable al navegar por la barra de productos recomendados:
+  useEffect(() => {
+    return () => {
+      setAddedToCart(false);
+    };
+  }, [id]);
+
+
 
   const handleAddToCart = async () => {
     try {
