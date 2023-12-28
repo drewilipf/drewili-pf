@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterPrice } from "../../reduxToolkit/Filtros/filterPriceThunks";
+import { clearFilter } from "../../reduxToolkit/Product/productThunks";
 
 const FilterPriceComponent = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,8 @@ const FilterPriceComponent = () => {
     setFilterButtonClicked(true);
   };
 
-  const handleClearFilter = () => {
+  const handleClearFilter = async () => {
+    await dispatch(clearFilter());
     setMinPrice("0");
     setMaxPrice("600");
     setFilterButtonClicked(true);

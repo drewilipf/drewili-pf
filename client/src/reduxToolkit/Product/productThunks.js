@@ -5,9 +5,8 @@ import {
   searchProductSuccess,
   putProductSlice,
   deletedProductSlice,
-  filterCategoryRequest,
   filterCategorySuccess,
-  filterCategoryFailure,
+  clearFilterSlice,
 } from "./productSlice";
 import axios from "axios";
 
@@ -107,8 +106,6 @@ export const filterCategory = (category) => {
       } else if (error.request) {
         console.error("Error with the request:", error.request);
       }
-
-      dispatch(filterCategoryFailure({ error }));
     }
   };
 };
@@ -130,6 +127,15 @@ export const putProduct = (id, productData) => {
       const response = await axios.put(`${API_URL}/${id}`, productData);
       const productId = response.data;
       dispatch(putProductSlice({ productId }));
+    } catch (error) {
+      console.error("Error fetching product:", error);
+    }
+  };
+};
+export const clearFilter = () => {
+  return async (dispatch) => {
+    try {
+      dispatch(clearFilterSlice());
     } catch (error) {
       console.error("Error fetching product:", error);
     }

@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { searchProduct, filterCategory} from "../../reduxToolkit/Product/productThunks";
+import {
+  searchProduct,
+  filterCategory,
+} from "../../reduxToolkit/Product/productThunks";
 import { getCategory } from "../../reduxToolkit/Category/categoryThunks.js";
 
 function Searchbar() {
   const [searchKeyword, setSearchKeyword] = useState("");
   const dispatch = useDispatch();
 
-  const category = useSelector((state) => state.categories)
+  const category = useSelector((state) => state.categories);
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(getCategory());
@@ -25,18 +28,14 @@ function Searchbar() {
   };
 
   const handleSearchClick = () => {
-
     dispatch(searchProduct(searchKeyword));
-    dispatch(filterCategory(category))
   };
 
   const handleFilterCategory = (e) => {
-    const category = e.target.value
-    dispatch(filterCategory(category))
+    const category = e.target.value;
+    dispatch(filterCategory(category));
     console.log(category);
   };
-
-
 
   return (
     <div className="flex items-center">
@@ -53,10 +52,10 @@ function Searchbar() {
         <option value="All">Todos</option>
         {category.categories
           ? category.categories.map((categoryItem) => (
-            <option key={categoryItem.id} value={categoryItem.category}>
-              {String(categoryItem.category)}
-            </option>
-          ))
+              <option key={categoryItem.id} value={categoryItem.category}>
+                {String(categoryItem.category)}
+              </option>
+            ))
           : null}
       </select>
 

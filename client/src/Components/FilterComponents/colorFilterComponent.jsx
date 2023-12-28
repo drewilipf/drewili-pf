@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { filterColor } from '../../reduxToolkit/Filtros/filterColorThunks';
-import { getColor } from '../../reduxToolkit/Color/colorThunks';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { filterColor } from "../../reduxToolkit/Filtros/filterColorThunks";
+import { getColor } from "../../reduxToolkit/Color/colorThunks";
 
 const ColorFilterComponent = () => {
   const dispatch = useDispatch();
-  const [selectedColor, setSelectedColor] = useState('');
+  const [selectedColor, setSelectedColor] = useState("");
   const colors = useSelector((state) => state.color.color);
-  console.log(colors);
 
   const handleColorChange = (e) => {
     setSelectedColor(e.target.value);
@@ -19,10 +18,13 @@ const ColorFilterComponent = () => {
 
   return (
     <div className="mb-4 w-full">
-      <div style={{ marginRight: '4px' }}>
+      <div style={{ marginRight: "4px" }}>
         <h2 className="block text-sm font-bold mb-4">Filter by Color</h2>
         <div className="mb-4">
-          <label htmlFor="color" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="color"
+            className="block text-sm font-medium text-gray-700"
+          >
             Selecciona un color:
           </label>
           <select

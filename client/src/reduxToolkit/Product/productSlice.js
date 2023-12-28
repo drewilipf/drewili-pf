@@ -148,11 +148,7 @@ export const productSlice = createSlice({
       state.status = "succeeded";
       state.product = action.payload.product;
     },
-    filterCategoryRequest: (state) => {
-      state.status = "loading";
-      state.error = null;
-      console.log(action.payload.products);
-    },
+
     filterCategorySuccess: (state, action) => {
       const currentFilterProducts = JSON.parse(JSON.stringify(state.products));
 
@@ -179,12 +175,9 @@ export const productSlice = createSlice({
         console.log(state.products);
       }
     },
-
-    filterCategoryFailure: (state, action) => {
-      state.status = "failed";
-      state.filterProducts = [];
-      state.error = action.payload.error;
-      console.log(action.payload.products);
+    clearFilterSlice: (state, action) => {
+      state.status = "succeeded";
+      state.product = state.copiProducts;
     },
   },
 });
@@ -199,10 +192,9 @@ export const {
   filterBrandSuccess,
   filterPriceFailure,
   filterColorSuccess,
-  filterCategoryFailure,
-  filterCategoryRequest,
   filterCategorySuccess,
   putProductSlice,
   deletedProductSlice,
+  clearFilterSlice,
 } = productSlice.actions;
 export default productSlice.reducer;
