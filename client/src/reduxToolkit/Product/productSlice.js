@@ -175,9 +175,14 @@ export const productSlice = createSlice({
         console.log(state.products);
       }
     },
-    clearFilterSlice: (state, action) => {
+    clearFilterSlice: (state) => {
       state.status = "succeeded";
-      state.product = state.copiProducts;
+      state.product = JSON.parse(JSON.stringify(state.copiProducts));
+
+      state.filterColor = null;
+      state.filterBrand = null;
+      state.filterPrice = null;
+      state.filterCategory = null;
     },
   },
 });
