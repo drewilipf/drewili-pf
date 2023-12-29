@@ -23,7 +23,7 @@ export const productSlice = createSlice({
       state.products = action.payload.products;
       state.copiProducts = action.payload.products;
 
-      console.log(state.products);
+      
     },
     getProductsByIdslice: (state, action) => {
       state.status = "succeeded";
