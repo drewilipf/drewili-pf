@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Productcards from "../../Components/Productcards/Productcards";
 import Banners from "../../Components/Banners/Banners";
 import FilterPriceComponent from "../../Components/FilterComponents/priceFilterComponent";
@@ -6,10 +6,17 @@ import ColorFilterComponent from "../../Components/FilterComponents/colorFilterC
 import BrandFilterComponent from "../../Components/FilterComponents/brandFilterComponent";
 import SortByPriceButtons from "../../Components/FilterComponents/sortByPriceComponent";
 import Pagination from "../../Components/Pagination/Pagination";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../../reduxToolkit/Product/productThunks";
 
 function Home({ actualPage, handlePageChange, setActualPage }) {
   const { products } = useSelector((state) => state.products);
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
+
+
 
   if (!products) {
     return <div>Cargando...</div>;

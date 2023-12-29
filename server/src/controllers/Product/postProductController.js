@@ -10,7 +10,7 @@ cloudinary.config({
 });
 
 const postProductsController = async (name, description, price, specifications, stock, image, brand_id, category_id, color_id, relevance) => {
-  try {
+  
     const cloudinaryUpload = await cloudinary.uploader.upload(image);
     const imageUrl = cloudinaryUpload.secure_url;
 
@@ -28,10 +28,7 @@ const postProductsController = async (name, description, price, specifications, 
     });
 
     return newProduct;
-  } catch (error) {
-    console.error('Error al cargar la imagen con Cloudinary:', error);
-    throw error; // Propaga el error para que se maneje en el controlador principal
-  }
+
 };
 
 module.exports = postProductsController;
