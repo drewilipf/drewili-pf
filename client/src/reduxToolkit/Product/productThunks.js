@@ -62,6 +62,7 @@ export const postProducts = (productData) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(API_URL, productData);
+      console.log(response);
       const products = response.data;
       console.log(products);
 
@@ -135,9 +136,10 @@ export const putProduct = (id, productData) => {
 export const clearFilter = () => {
   return async (dispatch) => {
     try {
-      dispatch(clearFilterSlice());
+      await dispatch(clearFilterSlice());
+      console.log("hecho");
     } catch (error) {
-      console.error("Error fetching product:", error);
+      console.error("Error clearing filter:", error);
     }
   };
 };
