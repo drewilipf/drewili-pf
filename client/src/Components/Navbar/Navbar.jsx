@@ -81,17 +81,24 @@ function Navbar() {
           />
         </Routes>
         <div className="flex space-x-2 mr-7">
-          {combinedUserSession ? (
-            <div className="flex space-x-3 text-chiliRed items-center">
-              <div className="relative group">
-                <div className="flex items-center space-x-4">
-                  <img src={cartIcon} alt="shopping-cart-icon" className="w-6 h-6 cursor-pointer" onClick={()=>navigate("/shoppingcart")} />
-                  <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
-                    <p onClick={toggleDropdown} className="flex items-center">
-                      Bienvenido, {combinedUserSession}! <AiOutlineMore />
-                    </p>
-                  </h1>
-                </div>
+        {combinedUserSession ? (
+    <div className="flex space-x-3 text-chiliRed items-center">
+      <div className="relative group">
+        <div className="flex items-center space-x-4">
+          <img src={cartIcon} alt="shopping-cart-icon" className="w-6 h-6 cursor-pointer" onClick={()=>navigate("/shoppingcart")} />
+          <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
+            <p onClick={toggleDropdown} className="flex items-center">
+              Bienvenido, {combinedUserSession}! <AiOutlineMore />
+            </p>
+          </h1>
+
+          {/* Botón de Favoritos */}
+          <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
+            <NavLink to="/favorites" className="text-chiliRed hover:underline">
+              Favoritos
+            </NavLink>
+          </h1>
+        </div>
                 {isDropdownOpen && (
                   <div
                     ref={dropdownRef}
