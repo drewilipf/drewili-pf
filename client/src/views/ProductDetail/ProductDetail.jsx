@@ -19,6 +19,7 @@ function ProductDetail() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [addedToCart, setAddedToCart] = useState(false);
+  const [addedToFavorites, setAddedToFavorites] = useState(false);
 
   const userSessionFromCookies = Cookies.get("userSession");
   const userSession = userSessionFromCookies
@@ -98,6 +99,48 @@ function ProductDetail() {
     }
   };
 
+  const handleAddToFavorite = async () => {
+    try {
+      if (!userId) {
+        const choice = window.confirm(
+          "Para agregar productos a favoritos, por favor inicia sesión o regístrate. ¿Quieres iniciar sesión?"
+        );
+  
+        if (choice) {
+          window.location.href = "/userlogin";
+          return;
+        } else {
+          return;
+        }
+      }
+  
+      setLoading(true);
+  
+      // Imprimir los datos antes de hacer la solicitud
+      console.log("Datos enviados en la solicitud de favoritos:", {
+        product_id: id,
+        user_id: userId,
+      });
+  
+      const response = await axios.post(
+        "http://localhost:3001/favorites",
+        {
+          product_id: id,
+          user_id: userId,
+        }
+      );
+  
+      console.log("Respuesta del servidor (favoritos):", response.data);
+  
+      setAddedToFavorites(true);
+    } catch (error) {
+      console.error("Error en la solicitud de favoritos:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  
   if (!product) {
     return <p>Cargando...</p>;
   }
@@ -162,6 +205,16 @@ function ProductDetail() {
             ? "Agregado con éxito!"
             : "Agregar al carrito"}
         </button>
+        
+        <button
+        onClick={handleAddToFavorite}
+        className="bg-chiliRed text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
+        disabled={loading || addedToFavorites}
+      >
+        {loading ? "Agregando a favoritos..." : addedToFavorites ? "Agregado a favoritos" : "Agregar a favoritos"}
+      </button>
+
+
         <div className="col-span-2 mt-4 mx-auto">
           <h1 className="text-xl text-center text-eerieBlack  font-bold mb-2">
             Calificación general del producto
