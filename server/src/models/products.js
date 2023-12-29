@@ -9,11 +9,11 @@ module.exports = (sequelize) => {
       autoIncrement: true,
     },
     name: {
-      type: DataTypes.STRING(30000),
+      type: DataTypes.STRING,
       allowNull: false,
     },
     description: {
-      type: DataTypes.STRING(30000),
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     price: {
@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
       allowNull: true,
     },
     specifications: {
-      type: DataTypes.STRING(30000),
+      type: DataTypes.TEXT,
       allowNull: true,
     },
     stock: {
@@ -29,7 +29,7 @@ module.exports = (sequelize) => {
       allowNull: true,
     },
     image: {
-      type: DataTypes.STRING(30000),
+      type: DataTypes.STRING,
       allowNull: false,
     },
     color_id: {
@@ -58,12 +58,12 @@ module.exports = (sequelize) => {
     },
     deleted: {
       type: DataTypes.BOOLEAN,
-      defaultValue: true,
+      defaultValue: false,
       allowNull: false,
     },
     relevance: {
       type: DataTypes.INTEGER,
-      allowNull: tru,
+      allowNull: true,
       defaultValue: 0,
     },
   });

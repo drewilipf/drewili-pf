@@ -34,6 +34,7 @@ const postProductsController = async (
     color_id,
     brand_id,
     category_id,
+    relevance,
   });
 
   return newProduct;
