@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import {NavLink} from "react-router-dom"
 import { useSelector } from 'react-redux';
 import Cookies from 'js-cookie';
 import binIcon from "../../icons/bin.png"
@@ -53,10 +54,10 @@ const ShoppingCart = () => {
       </div>
       {cartItems.map((item) => (
         <div key={item.salesCartId} className="flex items-center justify-between py-2 space-y-2">
-          <span className="flex items-center flex-1">
+          <NavLink to={`/detail/${item.productId}`} className="flex items-center flex-1">
             <img src={item.image} alt={item.name} className="mr-2" style={{ maxWidth: '50px', maxHeight: '50px' }} />
             {item.name}
-          </span>
+          </NavLink>
           <span className="w-16 text-right">{`$${parseFloat(item.price).toFixed(2)}`}</span>
           <span className="w-16 text-right">{item.quantity}</span>
           <button onClick={() => handleRemoveFromCart(item.salesCartId, item.totalPrice)} className="ml-2">
