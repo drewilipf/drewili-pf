@@ -21,27 +21,22 @@ const postProductsController = async (
   color_id,
   relevance
 ) => {
-  try {
-    const cloudinaryUpload = await cloudinary.uploader.upload(image);
-    const imageUrl = cloudinaryUpload.secure_url;
+  const cloudinaryUpload = await cloudinary.uploader.upload(image);
+  const imageUrl = cloudinaryUpload.secure_url;
 
-    const newProduct = await Product.create({
-      name,
-      description,
-      price,
-      specifications,
-      stock,
-      image: imageUrl,
-      color_id,
-      brand_id,
-      category_id,
-    });
+  const newProduct = await Product.create({
+    name,
+    description,
+    price,
+    specifications,
+    stock,
+    image: imageUrl,
+    color_id,
+    brand_id,
+    category_id,
+  });
 
-    return newProduct;
-  } catch (error) {
-    console.error("Error al cargar la imagen con Cloudinary:", error);
-    throw error; // Propaga el error para que se maneje en el controlador principal
-  }
+  return newProduct;
 };
 
 module.exports = postProductsController;
