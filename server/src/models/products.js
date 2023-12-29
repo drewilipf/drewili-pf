@@ -58,12 +58,12 @@ module.exports = (sequelize) => {
     },
     deleted: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      defaultValue: true,
       allowNull: false,
     },
     relevance: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: tru,
       defaultValue: 0,
     },
   });

@@ -1,13 +1,9 @@
-require('dotenv').config();
-const { Product } = require('../../db');
-const cloudinary = require('cloudinary');
+require("dotenv").config();
+const { Product } = require("../../db");
+const cloudinary = require("cloudinary");
 const { CLOUD_NAME, API_KEY, API_SECRET } = process.env;
 
 cloudinary.config({
-  CLOUD_NAME,
-  API_KEY,
-  API_SECRET,
-});
   cloud_name: CLOUD_NAME,
   api_key: API_KEY,
   api_secret: API_SECRET,
@@ -25,10 +21,6 @@ const postProductsController = async (
   color_id,
   relevance
 ) => {
-  const cloudinaryUpload = await cloudinary.uploader.upload(image);
-
-  const imageUrl = cloudinaryUpload.secure_url;
-const postProductsController = async (name, description, price, specifications, stock, image, brand_id, category_id, color_id, relevance) => {
   try {
     const cloudinaryUpload = await cloudinary.uploader.upload(image);
     const imageUrl = cloudinaryUpload.secure_url;
@@ -43,13 +35,11 @@ const postProductsController = async (name, description, price, specifications, 
       color_id,
       brand_id,
       category_id,
-      relevance,
     });
 
-  return newProduct;
     return newProduct;
   } catch (error) {
-    console.error('Error al cargar la imagen con Cloudinary:', error);
+    console.error("Error al cargar la imagen con Cloudinary:", error);
     throw error; // Propaga el error para que se maneje en el controlador principal
   }
 };
