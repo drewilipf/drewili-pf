@@ -19,8 +19,10 @@ function CreateProduct() {
     category_id: 0,
     brand_id: 0,
     deleted: false,
+    relevance: 0
   });
 
+  console.log(input, 'datos');
   const { categories } = useSelector((state) => state.categories);
   const { brands } = useSelector((state) => state.brands);
   const { color } = useSelector((state) => state.color);
@@ -99,6 +101,7 @@ function CreateProduct() {
         category_id: 0,
         brand_id: 0,
         deleted: false,
+        relevance: 0
       });
 
       navigate("/dashboard");
@@ -196,6 +199,7 @@ function CreateProduct() {
               required
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             >
+              <option value="color">Seleccione color</option>
               {color?.map((element) => {
                 return (
                   <option value={element.id} key={element.id}>
@@ -214,6 +218,7 @@ function CreateProduct() {
               required
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             >
+              <option value="brand">Seleccione marca</option>
               {brands?.map((element) => {
                 return (
                   <option value={element.id} key={element.id}>
@@ -232,6 +237,7 @@ function CreateProduct() {
               required
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             >
+              <option value="category">Seleccione una categoria</option>
               {categories?.map((element) => {
                 return (
                   <option value={element.id} key={element.id}>
