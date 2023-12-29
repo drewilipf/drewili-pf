@@ -62,6 +62,7 @@ export const postProducts = (productData) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(API_URL, productData);
+      console.log(response);
       const products = response.data;
       console.log(products);
 
