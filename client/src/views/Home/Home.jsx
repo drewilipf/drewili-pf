@@ -11,12 +11,10 @@ import { getProducts } from "../../reduxToolkit/Product/productThunks";
 
 function Home({ actualPage, handlePageChange, setActualPage }) {
   const { products } = useSelector((state) => state.products);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
-
-
 
   if (!products) {
     return <div>Cargando...</div>;
