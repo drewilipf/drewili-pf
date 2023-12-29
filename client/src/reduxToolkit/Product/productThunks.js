@@ -136,9 +136,10 @@ export const putProduct = (id, productData) => {
 export const clearFilter = () => {
   return async (dispatch) => {
     try {
-      dispatch(clearFilterSlice());
+      await dispatch(clearFilterSlice());
+      console.log("hecho");
     } catch (error) {
-      console.error("Error fetching product:", error);
+      console.error("Error clearing filter:", error);
     }
   };
 };

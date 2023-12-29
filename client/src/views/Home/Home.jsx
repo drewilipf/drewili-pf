@@ -8,6 +8,7 @@ import SortByPriceButtons from "../../Components/FilterComponents/sortByPriceCom
 import Pagination from "../../Components/Pagination/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../reduxToolkit/Product/productThunks";
+import ProductFilter from "../../Components/FilterComponents/productfilter";
 
 function Home({ actualPage, handlePageChange, setActualPage }) {
   const { products } = useSelector((state) => state.products);
@@ -29,10 +30,13 @@ function Home({ actualPage, handlePageChange, setActualPage }) {
     <div className="flex items-center justify-center">
       <div className="w-4/5 p-4 mt-4 mx-auto">
         <div className="mt-2 flex">
-          <div className="lg:w-[18%] mb-2">
+          {/* <div className="lg:w-[18%] mb-2">
             <BrandFilterComponent setActualPage={(num) => setActualPage(num)} />
             <ColorFilterComponent setActualPage={(num) => setActualPage(num)} />
             <FilterPriceComponent setActualPage={(num) => setActualPage(num)} />
+          </div> */}
+          <div>
+            <ProductFilter setActualPage={(num) => setActualPage(num)} />
           </div>
           <div>
             <div className=" ml-[70%] lg:w-[20%]">
