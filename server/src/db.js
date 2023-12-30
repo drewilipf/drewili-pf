@@ -36,14 +36,14 @@ const Favorite = FavoriteModel(sequelize)
 const Colors = ColorsModel(sequelize)
 
 // Aca vendrian las relaciones
-Product.belongsTo(Category, { foreignKey: 'category_id' });
-Category.hasMany(Product, { foreignKey: 'category_id' });
+Product.belongsTo(Category, { foreignKey: 'category_id', as: 'Category' });
+Category.hasMany(Product, { foreignKey: 'category_id', as: 'Category' });
 
-Product.belongsTo(Brand, { foreignKey: 'brand_id' });
-Brand.hasMany(Product, { foreignKey: 'brand_id' });
+Product.belongsTo(Brand, { foreignKey: 'brand_id', as: 'Brand'});
+Brand.hasMany(Product, { foreignKey: 'brand_id', as: 'Brand' });
 
-Product.belongsTo(Colors,{foreignKey:'color_id'})
-Colors.hasMany(Product,{foreignKey: 'color_id'})
+Product.belongsTo(Colors,{foreignKey:'color_id', as: 'Colors'})
+Colors.hasMany(Product,{foreignKey: 'color_id', as: 'Colors'})
 
 SalesCart.belongsTo(User, {foreignKey: 'user_id'})
 SalesCart.belongsTo(Product, { foreignKey: 'product_id' });

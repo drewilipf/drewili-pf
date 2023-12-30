@@ -1,7 +1,32 @@
-const { Product, Category, Brand, Colors } = require("../../db");
+const { Op } = require("sequelize");
+const { Category, Brand, Colors, Product } = require("../db");
 
-const sortByPriceController = async (order) => {
+
+const filterController = async (filters) => {
   try {
+    const { category, brand, color, minPrice, maxPrice } = filters;
+
+
+    const filterConditions = {};
+
+    if (category) {
+      filterConditions["$Category.category$"] = category;
+    }
+
+    if (brand) {
+      filterConditions["$Brand.brand$"] = brand;
+    }
+
+    if (color) {
+      filterConditions["$Colors.color$"] = color;
+    }
+
+    if (minPrice && maxPrice) {
+      filterConditions.price = {
+        [Op.between]: [parseFloat(minPrice), parseFloat(maxPrice)],
+      };
+    }
+
     const products = await Product.findAll({
       include: [
         {
@@ -19,8 +44,8 @@ const sortByPriceController = async (order) => {
           attributes: ["color"],
           as: "Colors", // Agrega un alias para la tabla Colors
         },
-    ],
-      order: [['price', order.toLowerCase()]], // por default el orden sera ascendente
+      ],
+      where: filterConditions
     });
 
     const formattedProducts = products.map((product) => {
@@ -43,8 +68,9 @@ const sortByPriceController = async (order) => {
 
     return formattedProducts;
   } catch (error) {
-    throw new Error("Error al obtener y ordenar los productos por precio.");
+    console.error(error);
+    throw new Error('Error obteniendo productos');
   }
 };
 
-module.exports = sortByPriceController;
+module.exports = filterController;

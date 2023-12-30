@@ -6,7 +6,7 @@ const postFavoriteHandler = require('../handlers/Favorites/postFavoriteHandler')
 
 const router = Router()
 
-router.get("/", getFavoriteHandler)
+router.get("/user", getFavoriteHandler)
 router.post("/", postFavoriteHandler)
 router.delete("/:id", favoriteDeleteHandler)
 
