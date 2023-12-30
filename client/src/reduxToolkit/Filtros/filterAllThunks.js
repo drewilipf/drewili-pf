@@ -15,14 +15,13 @@ export const filterAll = (category, brand, color, minPrice, maxPrice) => {
 
       // Construir la cadena de consulta
       const queryString = new URLSearchParams(queryParams).toString();
-      console.log(queryString);
+
       // Concatenar la cadena de consulta a la URL base
       const urlWithParams = `${API_URL}?${queryString}`;
-      console.log(urlWithParams);
+
       const response = await axios.get(urlWithParams);
-      console.log('esta es la respuesta', response);
+
       const products = response.data;
-      console.log('estos son los productos', products);
 
       dispatch(filterAllSlice({ products }));
     } catch (error) {

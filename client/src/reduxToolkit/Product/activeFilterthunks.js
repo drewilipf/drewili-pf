@@ -1,19 +1,12 @@
-// thunks.js
-
 import {
   startFiltering,
   stopFiltering,
+  setCategoryFilter,
   setBrandFilter,
   setColorFilter,
   setPriceFilter,
   clearFilters,
-} from "./path-to-activeFilters-slice";
-import {
-  filterBrand,
-  filterColor,
-  filterPrice,
-} from "./path-to-product-thunks";
-
+} from "./activeFiltersSlice";
 export const startFilteringProducts = () => (dispatch) => {
   dispatch(startFiltering());
 };
@@ -21,20 +14,19 @@ export const startFilteringProducts = () => (dispatch) => {
 export const stopFilteringProducts = () => (dispatch) => {
   dispatch(stopFiltering());
 };
-
+export const setCategoryFilterAction = (category) => (dispatch) => {
+  dispatch(setCategoryFilter(category));
+};
 export const setBrandFilterAction = (brand) => (dispatch) => {
   dispatch(setBrandFilter(brand));
-  dispatch(filterBrand(brand));
 };
 
 export const setColorFilterAction = (color) => (dispatch) => {
   dispatch(setColorFilter(color));
-  dispatch(filterColor(color));
 };
 
 export const setPriceFilterAction = (minPrice, maxPrice) => (dispatch) => {
   dispatch(setPriceFilter({ minPrice, maxPrice }));
-  dispatch(filterPrice({ minPrice, maxPrice }));
 };
 
 export const clearAllFilters = () => (dispatch) => {
