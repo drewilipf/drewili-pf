@@ -7,32 +7,39 @@ const getProductById = async (id) => {
       {
         model: Category,
         attributes: ["category"],
+        as: "Category",
       },
       {
         model: Brand,
         attributes: ["brand"],
+        as: "Brand",
       },
       {
         model: Colors,
         attributes: ["color"],
+        as: "Colors",
       },
     ],
   });
 
-  const formattedProducts = products.map((product) => ({
-    id: product.id,
-    name: product.name,
-    description: product.description,
-    price: product.price,
-    specifications: product.specifications,
-    color: product.color.color,
-    stock: product.stock,
-    image: product.image,
-    brand: product.brand.brand,
-    category: product.category.category,
-    relevance: product.relevance,
-    
-  }));
+  const formattedProducts = products.map((product) => {
+    return {
+      id: product.id,
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      specifications: product.specifications,
+      color: product.Colors.color, 
+      stock: product.stock,
+      image: product.image,
+      brand: product.Brand.brand,
+      category: product.Category.category,
+      deleted: product.deleted,
+      relevance: product.relevance,
+      date: product.createdAt,
+    };
+  });
+
   return formattedProducts;
 };
 
