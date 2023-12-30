@@ -35,7 +35,7 @@ function Home({ actualPage, handlePageChange, setActualPage }) {
             <ColorFilterComponent setActualPage={(num) => setActualPage(num)} />
             <FilterPriceComponent setActualPage={(num) => setActualPage(num)} />
           </div> */}
-          <div>
+          <div className="lg:w-[18%] mb-2">
             <ProductFilter setActualPage={(num) => setActualPage(num)} />
           </div>
           <div>
