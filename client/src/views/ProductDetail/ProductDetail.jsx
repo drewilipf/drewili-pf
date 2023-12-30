@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
 import { getProductsById } from "../../reduxToolkit/Product/productThunks";
+import { getComments } from "../../reduxToolkit/Comment/commentThunks.js";
 import CommentCards from "../../Components/DetailComponents/CommentCards.jsx";
 import CommentInput from "../../Components/DetailComponents/CommentInput.jsx";
 import { AiOutlineLeft } from "react-icons/ai";
@@ -34,10 +35,12 @@ function ProductDetail() {
   const productsId = useSelector((state) => state.products.productsId);
 
   const productAll = useSelector((state) => state.products.products);
+  const comments = useSelector((state) => state.comments.comments);
 
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(getProductsById(id));
+      await dispatch(getProductsById(id))
+      await dispatch(getComments());
     };
 
     fetchData();
@@ -251,7 +254,9 @@ function ProductDetail() {
         </div>
       </div>
       <div>
-        <CommentCards />
+      <h2 className="text-left text-chiliRed text-xl">Comentarios:</h2>
+      <br></br>
+        <CommentCards comments={comments} detailId={id} />
         <CommentInput />
       </div>
     </div>

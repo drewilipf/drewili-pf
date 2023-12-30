@@ -11,7 +11,7 @@ import {
   } from "./commentSlice";
   import axios from "axios";
   
-  const API_URL = "http://localhost:3001/comments";
+  const API_URL = "http://localhost:3001/comment";
   
   export const getComments = () => {
     return async (dispatch) => {

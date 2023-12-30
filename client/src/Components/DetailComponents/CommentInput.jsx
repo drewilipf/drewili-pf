@@ -24,7 +24,7 @@ const CommentInput = ({ user_id, product_id }) => {
   return (
     <div className="">
       <textarea
-        className=" border-chiliRed border p-4 mt-4 rounded-lg w-4/5 h-1/2 rounded-md p-2 text-black font-arial text-base"
+        className=" border-chiliRed border p-4 mt-4 rounded-lg w-3/4 h-1/2 rounded-md p-2 text-black font-arial text-base"
         rows="3"
         placeholder="Deja tu comentario..."
         value={comment}

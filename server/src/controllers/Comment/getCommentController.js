@@ -21,7 +21,9 @@ const getCommentsController = async () => {
             id: comment.id,
             userId: comment.user_id,
             username: comment.user?.username,
+            productId: comment.product_id,
             comment: comment.comment,
+
 
             //devuelvo formattedDate con la fecha y hora legibles
             createdAt: formattedDate,
