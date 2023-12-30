@@ -50,8 +50,8 @@ function Searchbar() {
         placeholder="Buscar producto..."
         value={searchKeyword}
         onChange={handleSearchInputChange}
-        onKeyPress={handleKeyPress}
-        // onInput={handleInputClear}
+        
+        
       />
       <select
         className="border border-chiliRed rounded p-2 mr-2 focus:outline-none focus:border-chiliRed"
@@ -70,6 +70,7 @@ function Searchbar() {
       <button
         className="bg-chiliRed transition duration-300 hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mr-16"
         onClick={handleSearchClick}
+        onKeyPress={handleKeyPress}
       >
         Buscar
       </button>
