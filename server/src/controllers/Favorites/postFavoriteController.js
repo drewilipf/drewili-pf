@@ -1,10 +1,10 @@
 const { Favorite } = require('../../db');
 
-const createNewFavorite = async (id, product_id, user_id) => {
+const createNewFavorite = async ( product_id, user_id) => {
 
     const newFavorite = await Favorite.create({
         
-        id,
+
         product_id,
         user_id
 
