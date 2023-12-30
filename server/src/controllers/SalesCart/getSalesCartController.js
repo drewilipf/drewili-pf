@@ -9,12 +9,14 @@ const getSalesCartController = async (userId) => {
             attributes: ['id', 'name', 'image', 'price'],
             include: [
                 {
-                    model: Brand,
-                    attributes: ['id', 'brand'],
+                  model: Category,
+                  attributes: ["category"],
+                  as: "Category", // Agrega un alias para la tabla Category
                 },
                 {
-                    model: Category,
-                    attributes: ['id', 'category'],
+                  model: Brand,
+                  attributes: ["brand"],
+                  as: "Brand", // Agrega un alias para la tabla Brand
                 },
             ],
         },
@@ -32,7 +34,7 @@ const getSalesCartController = async (userId) => {
         price: product.product.price,
         quantity: product.quantity,
         totalPrice: product.product.price*product.quantity,
-        brand: product.product.brand.brand
+        brand: product.product.Brand.brand
     }))
 
     const totalCartPrice = formattedSalesCart.reduce((total, product)=> total + product.totalPrice, 0)
