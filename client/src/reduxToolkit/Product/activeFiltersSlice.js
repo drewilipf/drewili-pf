@@ -1,13 +1,12 @@
-// activeFiltersSlice.js
-
 import { createSlice } from "@reduxjs/toolkit";
 
 const activeFiltersSlice = createSlice({
   name: "activeFilters",
   initialState: {
     isFiltering: false,
-    selectedBrand: "",
-    selectedColor: "",
+    selectedCategory: null,
+    selectedBrand: null,
+    selectedColor: null,
     minPrice: "0",
     maxPrice: "6000",
   },
@@ -17,6 +16,9 @@ const activeFiltersSlice = createSlice({
     },
     stopFiltering: (state) => {
       state.isFiltering = false;
+    },
+    setCategoryFilter: (state, action) => {
+      state.selectedCategory = action.payload;
     },
     setBrandFilter: (state, action) => {
       state.selectedBrand = action.payload;
@@ -41,6 +43,7 @@ const activeFiltersSlice = createSlice({
 export const {
   startFiltering,
   stopFiltering,
+  setCategoryFilter,
   setBrandFilter,
   setColorFilter,
   setPriceFilter,

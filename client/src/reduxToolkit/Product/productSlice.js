@@ -22,8 +22,6 @@ export const productSlice = createSlice({
       state.status = "succeeded";
       state.products = action.payload.products;
       state.copiProducts = action.payload.products;
-
-      console.log(state.products);
     },
     getProductsByIdslice: (state, action) => {
       state.status = "succeeded";
@@ -40,8 +38,6 @@ export const productSlice = createSlice({
     },
     filterPriceSuccess: (state, action) => {
       const currentFilterProducts = JSON.parse(JSON.stringify(state.products));
-
-      console.log(currentFilterProducts);
 
       const filteredProduct = action.payload.products;
       console.log(filteredProduct);
@@ -130,7 +126,8 @@ export const productSlice = createSlice({
     },
     clearFilterSlice: (state) => {
       state.status = "succeeded";
-      state.product = JSON.parse(JSON.stringify(state.copiProducts));
+      state.products = JSON.parse(JSON.stringify(state.copiProducts));
+      state.filterCategory = null;
       state.filterColor = null;
       state.filterBrand = null;
       state.filterPrice = null;
@@ -139,7 +136,6 @@ export const productSlice = createSlice({
     filterAllSlice: (state, action) => {
       state.status = "succeeded";
       state.products = action.payload.products.products;
-      console.log('este es el estado', state.products);
     },
   },
 });

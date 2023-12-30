@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import Productcards from "../../Components/Productcards/Productcards";
 import Banners from "../../Components/Banners/Banners";
-import FilterPriceComponent from "../../Components/FilterComponents/priceFilterComponent";
-import ColorFilterComponent from "../../Components/FilterComponents/colorFilterComponent";
-import BrandFilterComponent from "../../Components/FilterComponents/brandFilterComponent";
 import SortByPriceButtons from "../../Components/FilterComponents/sortByPriceComponent";
 import Pagination from "../../Components/Pagination/Pagination";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,7 +9,7 @@ import ProductFilter from "../../Components/FilterComponents/productfilter";
 
 function Home({ actualPage, handlePageChange, setActualPage }) {
   const { products } = useSelector((state) => state.products);
-  console.log('estado de los productos', products);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProducts());
@@ -35,11 +32,6 @@ function Home({ actualPage, handlePageChange, setActualPage }) {
     <div className="flex items-center justify-center">
       <div className="w-4/5 p-4 mt-4 mx-auto">
         <div className="mt-2 flex">
-          {/* <div className="lg:w-[18%] mb-2">
-            <BrandFilterComponent setActualPage={(num) => setActualPage(num)} />
-            <ColorFilterComponent setActualPage={(num) => setActualPage(num)} />
-            <FilterPriceComponent setActualPage={(num) => setActualPage(num)} />
-          </div> */}
           <div className="lg:w-[18%] mb-2">
             <ProductFilter setActualPage={(num) => setActualPage(num)} />
           </div>

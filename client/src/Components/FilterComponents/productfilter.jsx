@@ -1,41 +1,50 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBrand } from "../../reduxToolkit/Brand/brandThunks";
-
+import { getCategory } from "../../reduxToolkit/Category/categoryThunks.js";
 import { clearFilter } from "../../reduxToolkit/Product/productThunks";
 import { filterAll } from "../../reduxToolkit/Filtros/filterAllThunks";
+import {
+  setCategoryFilterAction,
+  clearAllFilters,
+} from "../../reduxToolkit/Product/activeFilterthunks.js";
 
 const ProductFilter = ({ setActualPage }) => {
   const dispatch = useDispatch();
+  let cat = "";
+  const prevCategory = useSelector(
+    (state) => state.activeFilters.selectedCategory
+  );
+  if (prevCategory) {
+    cat = prevCategory;
+  }
 
   // Estado local para los filtros
   const [filterState, setFilterState] = useState({
+    selectedCategory: cat,
     selectedBrand: "",
     selectedColor: "",
     minPrice: "0",
     maxPrice: "600",
   });
-
+  const category = useSelector((state) => state.categories);
   const brandList = useSelector((state) => state.brands.brands);
   const colors = useSelector((state) => state.color.color);
 
-  const activeFilters = useSelector((state) => state.filters);
-
   useEffect(() => {
     dispatch(getBrand());
+    dispatch(getCategory());
   }, [dispatch]);
 
-  useEffect(() => {
-    // Inicializar el estado local solo si no hay filtros activos
-    if (activeFilters && !activeFilters.isFiltering) {
+  const handleFilterCategory = (category) => {
+    if (prevCategory) {
       setFilterState({
-        selectedBrand: "",
-        selectedColor: "",
-        minPrice: "0",
-        maxPrice: "600",
+        selectedCategory: prevCategory || "",
       });
+      console.log(filterState.selectedCategory);
     }
-  }, []);
+    setFilterState((prev) => ({ ...prev, selectedCategory: category }));
+  };
 
   const handleBrandChange = (brand) => {
     setFilterState((prev) => ({ ...prev, selectedBrand: brand }));
@@ -47,20 +56,29 @@ const ProductFilter = ({ setActualPage }) => {
 
   const handleFilterClick = async () => {
     setActualPage(1);
+
+    if (!filterState.selectedCategory) {
+      cat = prevCategory;
+    } else {
+      cat = filterState.selectedCategory;
+    }
     await dispatch(
       filterAll(
-        undefined,
+        cat,
         filterState.selectedBrand,
         filterState.selectedColor,
         filterState.minPrice,
         filterState.maxPrice
       )
     );
+    await dispatch(setCategoryFilterAction(cat));
   };
 
   const handleClearFilter = async () => {
     await dispatch(clearFilter());
+    await dispatch(clearAllFilters());
     setFilterState({
+      selectedCategory: "",
       selectedBrand: "",
       selectedColor: "",
       minPrice: "0",
@@ -73,6 +91,29 @@ const ProductFilter = ({ setActualPage }) => {
     <div className="mb-4 w-full">
       <div style={{ marginRight: "4px" }}>
         <h2 className="block text-sm font-bold mb-4">Opciones de filtrados:</h2>
+        <div className="mb-4">
+          <label
+            htmlFor="category"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Selecciona una Categoría:
+          </label>
+          <select
+            id="category"
+            value={filterState.selectedCategory || ""}
+            onChange={(e) => handleFilterCategory(e.target.value)}
+            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          >
+            <option value="">Todas las categorias</option>
+            {category.categories
+              ? category.categories.map((categoryItem) => (
+                  <option key={categoryItem.id} value={categoryItem.category}>
+                    {categoryItem.category}
+                  </option>
+                ))
+              : null}
+          </select>
+        </div>
 
         <div className="mb-4">
           <label
@@ -87,7 +128,7 @@ const ProductFilter = ({ setActualPage }) => {
             onChange={(e) => handleBrandChange(e.target.value)}
             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
-            <option value="">Selecciona una Marca:</option>
+            <option value="">Todas las marcas</option>
             {brandList.map((brand) => (
               <option key={brand.id} value={brand.brand}>
                 {brand.brand}
@@ -109,7 +150,7 @@ const ProductFilter = ({ setActualPage }) => {
             value={filterState.selectedColor || ""}
             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
-            <option value="">Selecciona un Color:</option>
+            <option value="">Todos los colores</option>
             {Array.isArray(colors) &&
               colors.map((color) => (
                 <option key={color.id} value={color.color}>
