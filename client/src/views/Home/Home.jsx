@@ -12,6 +12,7 @@ import ProductFilter from "../../Components/FilterComponents/productfilter";
 
 function Home({ actualPage, handlePageChange, setActualPage }) {
   const { products } = useSelector((state) => state.products);
+  console.log('estado de los productos', products);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProducts());
@@ -19,6 +20,10 @@ function Home({ actualPage, handlePageChange, setActualPage }) {
 
   if (!products) {
     return <div>Cargando...</div>;
+  }
+  if (!Array.isArray(products)) {
+    console.error("El estado de los productos no es un array:", products);
+    return <div>Error al cargar los productos</div>;
   }
   const cardsXpage = 8;
   const indexOfLastCard = actualPage * cardsXpage;

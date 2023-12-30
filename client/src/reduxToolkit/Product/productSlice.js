@@ -3,6 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   products: [],
   copiProducts: [],
+  filterPrice: null,
+  filterColor: null,
+  filterBrand: null,
+  filterCategory: null,
   productsId: [],
   status: "idle", // "idle", "loading", "succeeded", "failed"
   error: null,
@@ -35,9 +39,7 @@ export const productSlice = createSlice({
       state.products = action.payload.products;
     },
     filterPriceSuccess: (state, action) => {
-      const currentFilterProducts = JSON.parse(
-        JSON.stringify(state.copiProducts)
-      );
+      const currentFilterProducts = JSON.parse(JSON.stringify(state.products));
 
       console.log(currentFilterProducts);
 
@@ -52,12 +54,9 @@ export const productSlice = createSlice({
     },
 
     filterColorSuccess: (state, action) => {
-      const currentFilterProducts = JSON.parse(
-        JSON.stringify(state.copiProducts)
-      );
+      const currentFilterProducts = JSON.parse(JSON.stringify(state.products));
 
       console.log(currentFilterProducts);
-      console.log(state.filterColor);
 
       const filteredProduct = action.payload.products;
       console.log(filteredProduct);
@@ -92,9 +91,7 @@ export const productSlice = createSlice({
     },
 
     filterBrandSuccess: (state, action) => {
-      const currentFilterProducts = JSON.parse(
-        JSON.stringify(state.copiProducts)
-      );
+      const currentFilterProducts = JSON.parse(JSON.stringify(state.products));
 
       console.log(currentFilterProducts);
       console.log(state.filterBrand);
@@ -118,12 +115,9 @@ export const productSlice = createSlice({
     },
 
     filterCategorySuccess: (state, action) => {
-      const currentFilterProducts = JSON.parse(
-        JSON.stringify(state.copiProducts)
-      );
+      const currentFilterProducts = JSON.parse(JSON.stringify(state.products));
 
       console.log(currentFilterProducts);
-      console.log(state.filterCategory);
 
       const filteredProduct = action.payload.products;
       console.log(filteredProduct);
@@ -142,6 +136,11 @@ export const productSlice = createSlice({
       state.filterPrice = null;
       state.filterCategory = null;
     },
+    filterAllSlice: (state, action) => {
+      state.status = "succeeded";
+      state.products = action.payload.products.products;
+      console.log('este es el estado', state.products);
+    },
   },
 });
 
@@ -159,5 +158,6 @@ export const {
   putProductSlice,
   deletedProductSlice,
   clearFilterSlice,
+  filterAllSlice,
 } = productSlice.actions;
 export default productSlice.reducer;

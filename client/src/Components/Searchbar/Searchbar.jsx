@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  searchProduct,
-  filterCategory ,
-} from "../../reduxToolkit/Product/productThunks";
+import { searchProduct } from "../../reduxToolkit/Product/productThunks";
 import { getCategory } from "../../reduxToolkit/Category/categoryThunks.js";
+import { filterAll } from "../../reduxToolkit/Filtros/filterAllThunks.js";
 
 function Searchbar() {
   const [searchKeyword, setSearchKeyword] = useState("");
-  
+
   const dispatch = useDispatch();
 
   const category = useSelector((state) => state.categories);
@@ -20,32 +18,30 @@ function Searchbar() {
     fetchData();
   }, [dispatch]);
 
-
-  const handleSearchInputChange = (e) => {    
+  const handleSearchInputChange = (e) => {
     setSearchKeyword(e.target.value);
-  };   
-    
-  
-  const handleSearchClick = () => {
-    if(searchKeyword.length < 2){ alert("Debe ingresar al menos dos caracteres")
-    return;
-  }
-    dispatch(searchProduct(searchKeyword));    
   };
 
-  const handleKeyPress = (e) => {    
-    if (e.key === "Enter" && searchKeyword.length < 2) {alert("Debe ingresar al menos dos caracteres")
-    return;
-  }
-    dispatch(searchProduct(searchKeyword));     
+  const handleSearchClick = () => {
+    if (searchKeyword.length < 2) {
+      alert("Debe ingresar al menos dos caracteres");
+      return;
+    }
+    dispatch(searchProduct(searchKeyword));
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter" && searchKeyword.length < 2) {
+      alert("Debe ingresar al menos dos caracteres");
+      return;
+    }
+    dispatch(searchProduct(searchKeyword));
   };
 
   const handleFilterCategory = (e) => {
-    const category = e.target.value
-    dispatch(filterCategory(category))
-    
+    const category = e.target.value;
+    dispatch(filterAll(category));
   };
-
 
   return (
     <div className="flex items-center">
@@ -77,7 +73,6 @@ function Searchbar() {
       >
         Buscar
       </button>
-      
     </div>
   );
 }
