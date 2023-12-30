@@ -257,7 +257,7 @@ function ProductDetail() {
       <h2 className="text-left text-chiliRed text-xl">Comentarios:</h2>
       <br></br>
         <CommentCards comments={comments} detailId={id} />
-        <CommentInput />
+        <CommentInput product_id={id} user_id={userId}/>
       </div>
     </div>
   );
