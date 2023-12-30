@@ -19,10 +19,10 @@ function CreateProduct() {
     category_id: 0,
     brand_id: 0,
     deleted: false,
-    relevance: 0
+    relevance: 0,
   });
 
-  console.log(input, 'datos');
+  console.log(input, "datos");
   const { categories } = useSelector((state) => state.categories);
   const { brands } = useSelector((state) => state.brands);
   const { color } = useSelector((state) => state.color);
@@ -86,8 +86,10 @@ function CreateProduct() {
         brand_id: parseInt(input.brand),
       };
 
+      // Intenta realizar la acción y esperar su resolución
       await dispatch(postProducts(productData));
 
+      // Si la acción se completa con éxito, entonces muestras la alerta
       alert("producto creado con éxito");
 
       setInput({
@@ -101,15 +103,15 @@ function CreateProduct() {
         category_id: 0,
         brand_id: 0,
         deleted: false,
-        relevance: 0
+        relevance: 0,
       });
 
       navigate("/dashboard");
     } catch (error) {
+      // Si hay un error en la acción, muestra una alerta de error
       alert("Error creating product");
     }
   }
-
   return (
     <div className="max-w-md mx-auto mt-30 mr-50">
       <NavbarAdmin />

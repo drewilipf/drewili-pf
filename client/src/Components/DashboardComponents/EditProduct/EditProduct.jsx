@@ -50,7 +50,7 @@ const EditProduct = () => {
 
     fetchData();
   }, [id, dispatch]);
-  if (!product) {
+  if (!product || !color) {
     return <p>Cargando...</p>;
   }
   const colorId = product?.color
