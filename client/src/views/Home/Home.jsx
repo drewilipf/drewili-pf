@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import Productcards from "../../Components/Productcards/Productcards";
 import Banners from "../../Components/Banners/Banners";
-import FilterPriceComponent from "../../Components/FilterComponents/priceFilterComponent";
-import ColorFilterComponent from "../../Components/FilterComponents/colorFilterComponent";
-import BrandFilterComponent from "../../Components/FilterComponents/brandFilterComponent";
 import SortByPriceButtons from "../../Components/FilterComponents/sortByPriceComponent";
 import Pagination from "../../Components/Pagination/Pagination";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,26 +29,31 @@ function Home({ actualPage, handlePageChange, setActualPage }) {
   const totalPages = Math.ceil(products.length / cardsXpage);
 
   return (
-    <div className="flex flex-col md:flex-row md:items-start justify-center w-full pt-8 sm:items-center">
-      <div className="mb-2 md:mr-2 md:w-56 bg-whiteSmoke border border-chiliRed flex flex-col items-center justify-center p-2">
-        <SortByPriceButtons setActualPage={(num) => setActualPage(num)} />
-        <ProductFilter setActualPage={(num) => setActualPage(num)} />
-      </div>
-
-      {/* <div className="lg:w-full mr-4 ">
-        <Banners />
-      </div> */}
-      <div className="w-full md:w-auto border border-chiliRed bg-whiteSmoke p-2 mb-2">
-        <Productcards products={currentCards} />
-        <Pagination
-          handlePage={handlePageChange}
-          actualPage={actualPage}
-          totalPages={totalPages}
-        />
+    <div className="flex items-center justify-center">
+      <div className="w-4/5 p-4 mt-4 mx-auto">
+        <div className="mt-2 flex">
+          <div className="lg:w-[18%] mb-2">
+            <ProductFilter setActualPage={(num) => setActualPage(num)} />
+          </div>
+          <div>
+            <div className=" ml-[70%] lg:w-[20%]">
+              <SortByPriceButtons setActualPage={(num) => setActualPage(num)} />
+            </div>
+            <div className="lg:w-full mr-4 ">
+              <Banners />
+            </div>
+            <div className="lg:w-full mb-4">
+              <Productcards products={currentCards} />
+              <Pagination
+                handlePage={handlePageChange}
+                actualPage={actualPage}
+                totalPages={totalPages}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
-
   );
 }
 

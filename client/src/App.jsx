@@ -37,11 +37,26 @@ function App() {
   };
 
   return (
-    <>
-      {!isDashboardRoute && <NavBar />}
-      <div className="pt-24">
+    <div>
+      {!isDashboardRoute && (
+        <NavBar
+          handlePageChange={handlePageChange}
+          actualPage={actualPage}
+          setActualPage={(num) => setActualPage(num)}
+        />
+      )}
+      <div className="mt-28">
         <Routes>
-          <Route path="/" element={<Home handlePageChange={handlePageChange} actualPage={actualPage} setActualPage={(num) => setActualPage(num)}/>} />
+          <Route
+            path="/"
+            element={
+              <Home
+                handlePageChange={handlePageChange}
+                actualPage={actualPage}
+                setActualPage={(num) => setActualPage(num)}
+              />
+            }
+          />
           <Route path="/detail/:id" element={<ProductDetail />} />
           <Route path="/shoppingcart" element={<Shoppingcart />} />
           <Route path="/favorites" element={<Favorites />} />
@@ -61,7 +76,7 @@ function App() {
           <Route path="/dashboard/productList" element={<ProductList />} />
         </Routes>
       </div>
-    </>
+    </div>
   );
 }
 
