@@ -37,9 +37,9 @@ function App() {
   };
 
   return (
-    <div>
+    <>
       {!isDashboardRoute && <NavBar />}
-      <div className="mt-28">
+      <div className="pt-24">
         <Routes>
           <Route path="/" element={<Home handlePageChange={handlePageChange} actualPage={actualPage} setActualPage={(num) => setActualPage(num)}/>} />
           <Route path="/detail/:id" element={<ProductDetail />} />
@@ -61,7 +61,7 @@ function App() {
           <Route path="/dashboard/productList" element={<ProductList />} />
         </Routes>
       </div>
-    </div>
+    </>
   );
 }
 

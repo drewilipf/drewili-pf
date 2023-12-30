@@ -57,12 +57,12 @@ function UserLogin() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-40">
+    <div className="w-96  mr-auto ml-auto">
       <h1 className="text-2xl font-bold mb-4 flex items-center justify-center">
         UserLogin
       </h1>
       <form
-        className="border border-chiliRed rounded p- text-arial text-base flex-col flex items-center justify-center "
+        className="border border-chiliRed rounded p-6 text-arial text-base"
         onSubmit={handleSubmit}
       >
         <div>

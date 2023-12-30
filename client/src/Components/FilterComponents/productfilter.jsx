@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBrand } from "../../reduxToolkit/Brand/brandThunks";
-
 import { clearFilter } from "../../reduxToolkit/Product/productThunks";
 import { filterAll } from "../../reduxToolkit/Filtros/filterAllThunks";
 
 const ProductFilter = ({ setActualPage }) => {
   const dispatch = useDispatch();
 
-  // Estado local para los filtros
+  // Estado local para los filtros y control del menú desplegable
   const [filterState, setFilterState] = useState({
     selectedBrand: "",
     selectedColor: "",
@@ -16,9 +15,10 @@ const ProductFilter = ({ setActualPage }) => {
     maxPrice: "600",
   });
 
+  const [filterMenuOpen, setFilterMenuOpen] = useState(false);
+
   const brandList = useSelector((state) => state.brands.brands);
   const colors = useSelector((state) => state.color.color);
-
   const activeFilters = useSelector((state) => state.filters);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const ProductFilter = ({ setActualPage }) => {
         maxPrice: "600",
       });
     }
-  }, []);
+  }, [activeFilters]);
 
   const handleBrandChange = (brand) => {
     setFilterState((prev) => ({ ...prev, selectedBrand: brand }));
@@ -69,12 +69,14 @@ const ProductFilter = ({ setActualPage }) => {
     setActualPage(1);
   };
 
+
   return (
     <div className="mb-4 w-full">
-      <div style={{ marginRight: "4px" }}>
-        <h2 className="block text-sm font-bold mb-4">Opciones de filtrados:</h2>
-
-        <div className="mb-4">
+      <div className="p-2">
+        {/* Mostrar filtros en pantallas grandes */}
+        <div className="hidden sm:block">
+          <h2 className="block text-sm font-bold mb-4">Opciones de filtrado:</h2>
+          {/* Resto del contenido del filtro visible en pantallas grandes */}
           <label
             htmlFor="brand"
             className="block text-sm font-medium text-gray-700"
@@ -94,12 +96,10 @@ const ProductFilter = ({ setActualPage }) => {
               </option>
             ))}
           </select>
-        </div>
 
-        <div className="mb-4">
           <label
             htmlFor="color"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-gray-700 mt-4"
           >
             Selecciona un Color:
           </label>
@@ -117,43 +117,152 @@ const ProductFilter = ({ setActualPage }) => {
                 </option>
               ))}
           </select>
+
+          <div className="">
+            <label className="mr-2 block text-sm font-medium text-gray-700">
+              Selecciona un Rango de Precios:
+            </label>
+            <input
+              type="number"
+              value={filterState.minPrice}
+              onChange={(e) =>
+                setFilterState((prev) => ({ ...prev, minPrice: e.target.value }))
+              }
+              placeholder="Min"
+              className="mr-2 mb-2 p-2 border rounded"
+            />
+            <input
+              type="number"
+              value={filterState.maxPrice}
+              onChange={(e) =>
+                setFilterState((prev) => ({ ...prev, maxPrice: e.target.value }))
+              }
+              placeholder="Max"
+              className="p-2 border rounded"
+            />
+          </div>
+              <div className="mt-2 flex p-2">
+
+          <button
+            onClick={handleFilterClick}
+            className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mr-2 mb-2"
+          >
+            Aplicar Filtros
+          </button>
+
+          <button
+            onClick={handleClearFilter}
+            className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mb-2"
+          >
+            Limpiar Filtros
+          </button>
+              </div>
         </div>
 
-        <div className="mb-4">
-          <label className="mr-2">Selecciona un Rango de Precios:</label>
-          <input
-            type="number"
-            value={filterState.minPrice}
-            onChange={(e) =>
-              setFilterState((prev) => ({ ...prev, minPrice: e.target.value }))
-            }
-            placeholder="Min"
-            className="mr-2 mb-2 p-2 border rounded"
-          />
-          <input
-            type="number"
-            value={filterState.maxPrice}
-            onChange={(e) =>
-              setFilterState((prev) => ({ ...prev, maxPrice: e.target.value }))
-            }
-            placeholder="Max"
-            className="mr-2 p-2 border rounded"
-          />
+        {/* Mostrar botón para abrir filtros en pantallas pequeñas */}
+        <div className="flex sm:hidden items-center justify-center">
+
+          <button
+            onClick={() => setFilterMenuOpen(true)}
+            className="bg-chiliRed text-whiteSmoke font-bold px-2 rounded block sm:hidden mr-1"
+          >
+            Abrir Filtros
+          </button>
+          <button
+            onClick={() => setFilterMenuOpen(false)}
+            className="bg-chiliRed text-whiteSmoke font-bold px-2 rounded ml-1"
+          >
+            Cerrar Filtros
+          </button>
         </div>
 
-        <button
-          onClick={handleFilterClick}
-          className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mr-2 mb-2"
-        >
-          Aplicar Filtros
-        </button>
+        {/* Menú desplegable para filtros en dispositivos móviles y tabletas */}
+        {filterMenuOpen && (
+          <div className="mb-4 w-full sm:hidden mt-4">
+            {/* Etiquetas y selectores para Marca, Color, y Rango de Precios */}
+            <label
+              htmlFor="brand"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Selecciona una Marca:
+            </label>
+            <select
+              id="brand"
+              value={filterState.selectedBrand || ""}
+              onChange={(e) => handleBrandChange(e.target.value)}
+              className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            >
+              <option value="">Selecciona una Marca:</option>
+              {brandList.map((brand) => (
+                <option key={brand.id} value={brand.brand}>
+                  {brand.brand}
+                </option>
+              ))}
+            </select>
 
-        <button
-          onClick={handleClearFilter}
-          className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mr-2 mb-2"
-        >
-          Limpiar Filtros
-        </button>
+            <label
+              htmlFor="color"
+              className="block text-sm font-medium text-gray-700 mt-4"
+            >
+              Selecciona un Color:
+            </label>
+            <select
+              id="color"
+              onChange={handleColorChange}
+              value={filterState.selectedColor || ""}
+              className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            >
+              <option value="">Selecciona un Color:</option>
+              {Array.isArray(colors) &&
+                colors.map((color) => (
+                  <option key={color.id} value={color.color}>
+                    {color.color}
+                  </option>
+                ))}
+            </select>
+
+            <div className="mt-4">
+              <label className="mr-2 block text-sm font-medium text-gray-700">
+                Selecciona un Rango de Precios:
+              </label>
+              <input
+                type="number"
+                value={filterState.minPrice}
+                onChange={(e) =>
+                  setFilterState((prev) => ({ ...prev, minPrice: e.target.value }))
+                }
+                placeholder="Min"
+                className="mb-2 p-2 border rounded w-full"
+              />
+              <input
+                type="number"
+                value={filterState.maxPrice}
+                onChange={(e) =>
+                  setFilterState((prev) => ({ ...prev, maxPrice: e.target.value }))
+                }
+                placeholder="Max"
+                className="p-2 border rounded w-full"
+              />
+            </div>
+
+            {/* Botones de Aplicar Filtros y Limpiar Filtros */}
+            <button
+              onClick={handleFilterClick}
+              className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mt-2"
+            >
+              Aplicar Filtros
+            </button>
+
+            <button
+              onClick={handleClearFilter}
+              className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mt-2"
+            >
+              Limpiar Filtros
+            </button>
+
+            {/* Botón para cerrar el menú desplegable */}
+          </div>
+        )}
       </div>
     </div>
   );

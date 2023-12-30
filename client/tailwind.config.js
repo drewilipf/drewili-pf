@@ -8,7 +8,14 @@ export default {
       onyx: "#404145",
       whiteSmoke: "#F2F2F2",
     },
-    extend: {},
+    extend: {
+      width: {
+        '60vw': '70vw',
+      },
+      height:{
+        '40vh':'50vh'
+      }
+    },
   },
   plugins: [],
 };
