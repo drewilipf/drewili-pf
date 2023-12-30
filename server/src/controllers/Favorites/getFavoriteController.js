@@ -11,10 +11,12 @@ const getFavoriteController = async (userId) => {
                     {
                         model: Brand,
                         attributes: ['id', 'brand'],
+                        as: "Brand"
                     },
                     {
                         model: Category,
                         attributes: ['id', 'category'],
+                        as: "Category"
                     },
                 ],
             },
@@ -29,7 +31,7 @@ const getFavoriteController = async (userId) => {
             id: favorite.product.id,
             name: favorite.product.name,
             image: favorite.product.image,
-            brand: favorite.product.brand.brand,
+            brand: favorite.product.Brand.brand,
         }));
 
         return {

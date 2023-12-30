@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBrand } from "../../reduxToolkit/Brand/brandThunks";
-import { filterBrand } from "../../reduxToolkit/Filtros/filterBrandThunks";
-import { filterColor } from "../../reduxToolkit/Filtros/filterColorThunks";
-import { filterPrice } from "../../reduxToolkit/Filtros/filterPriceThunks";
+
 import { clearFilter } from "../../reduxToolkit/Product/productThunks";
+import { filterAll } from "../../reduxToolkit/Filtros/filterAllThunks";
 
 const ProductFilter = ({ setActualPage }) => {
   const dispatch = useDispatch();
@@ -14,7 +13,7 @@ const ProductFilter = ({ setActualPage }) => {
     selectedBrand: "",
     selectedColor: "",
     minPrice: "0",
-    maxPrice: "6000",
+    maxPrice: "600",
   });
 
   const brandList = useSelector((state) => state.brands.brands);
@@ -33,7 +32,7 @@ const ProductFilter = ({ setActualPage }) => {
         selectedBrand: "",
         selectedColor: "",
         minPrice: "0",
-        maxPrice: "6000",
+        maxPrice: "600",
       });
     }
   }, []);
@@ -46,17 +45,16 @@ const ProductFilter = ({ setActualPage }) => {
     setFilterState((prev) => ({ ...prev, selectedColor: e.target.value }));
   };
 
-  const handleFilterClick = () => {
+  const handleFilterClick = async () => {
     setActualPage(1);
-    console.log(filterState.selectedBrand);
-    console.log(filterState.selectedColor);
-    dispatch(filterBrand(filterState.selectedBrand));
-    dispatch(filterColor(filterState.selectedColor));
-    dispatch(
-      filterPrice({
-        minPrice: filterState.minPrice,
-        maxPrice: filterState.maxPrice,
-      })
+    await dispatch(
+      filterAll(
+        undefined,
+        filterState.selectedBrand,
+        filterState.selectedColor,
+        filterState.minPrice,
+        filterState.maxPrice
+      )
     );
   };
 
@@ -66,7 +64,7 @@ const ProductFilter = ({ setActualPage }) => {
       selectedBrand: "",
       selectedColor: "",
       minPrice: "0",
-      maxPrice: "6000",
+      maxPrice: "600",
     });
     setActualPage(1);
   };
@@ -81,7 +79,7 @@ const ProductFilter = ({ setActualPage }) => {
             htmlFor="brand"
             className="block text-sm font-medium text-gray-700"
           >
-            Selecciones:
+            Selecciona una Marca:
           </label>
           <select
             id="brand"
