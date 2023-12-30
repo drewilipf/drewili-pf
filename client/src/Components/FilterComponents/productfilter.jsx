@@ -91,29 +91,6 @@ const ProductFilter = ({ setActualPage }) => {
     <div className="mb-4 w-full">
       <div style={{ marginRight: "4px" }}>
         <h2 className="block text-sm font-bold mb-4">Opciones de filtrados:</h2>
-        <div className="mb-4">
-          <label
-            htmlFor="category"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Selecciona una Categoría:
-          </label>
-          <select
-            id="category"
-            value={filterState.selectedCategory || ""}
-            onChange={(e) => handleFilterCategory(e.target.value)}
-            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          >
-            <option value="">Todas las categorias</option>
-            {category.categories
-              ? category.categories.map((categoryItem) => (
-                  <option key={categoryItem.id} value={categoryItem.category}>
-                    {categoryItem.category}
-                  </option>
-                ))
-              : null}
-          </select>
-        </div>
 
         <div className="mb-4">
           <label

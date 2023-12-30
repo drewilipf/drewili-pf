@@ -82,7 +82,7 @@ function Searchbar({ setActualPage }) {
         onChange={(e) => handleFilterCategory(e.target.value)}
         value={filterState.selectedCategory || ""}
       >
-        <option value="All">Todos</option>
+        <option value="All">Todas las Categorías</option>
         {category.categories
           ? category.categories.map((categoryItem) => (
               <option key={categoryItem.id} value={categoryItem.category}>
