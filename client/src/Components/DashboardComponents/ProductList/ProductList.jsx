@@ -53,7 +53,7 @@ function ProductList() {
             Producto eliminado exitosamente
           </div>
         )}
-        <div className="w-full overflow-x-auto">
+        <div className=" w-90vw overflow-x-auto">
           <table className="min-w-full bg-whiteSmoke border border-onyx">
             <thead>
               <tr>

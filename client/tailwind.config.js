@@ -7,10 +7,12 @@ export default {
       eerieBlack: "#1A1A1A",
       onyx: "#404145",
       whiteSmoke: "#F2F2F2",
+      white: '#FFF'
     },
     extend: {
       width: {
         '60vw': '70vw',
+        '90vw': '80vw'
       },
       height:{
         '40vh':'50vh'
