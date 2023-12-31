@@ -44,7 +44,7 @@ const ShoppingCart = () => {
   };
 
   return (
-    <div className="bg-gray-800 text-white p-4">
+    <div className="bg-gray-800 text-black p-4 h-90vh">
       <h2 className="text-2xl font-semibold mb-4">Tu Carrito de Compras</h2>
       <div className="flex items-center justify-between py-2">
         <span className="flex-1">Nombre del Producto</span>
@@ -69,7 +69,7 @@ const ShoppingCart = () => {
           <span className="font-semibold">Total:</span>
           <span className="text-2xl">{`$${totalCartPrice.toFixed(2)}`}</span>
         </div>
-        <button className="mt-4 bg-orange-600 hover:bg-orange-700 text-white py-2 px-4 rounded">
+        <button className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded">
           Pagar
         </button>
       </div>

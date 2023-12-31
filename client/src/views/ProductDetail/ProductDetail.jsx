@@ -19,6 +19,7 @@ function ProductDetail() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [loadingFav, setLoadingFav] = useState(false);
   const [addedToCart, setAddedToCart] = useState(false);
   const [addedToFavorites, setAddedToFavorites] = useState(false);
 
@@ -117,7 +118,7 @@ function ProductDetail() {
         }
       }
   
-      setLoading(true);
+      setLoadingFav(true);
   
       // Imprimir los datos antes de hacer la solicitud
       console.log("Datos enviados en la solicitud de favoritos:", {
@@ -139,7 +140,7 @@ function ProductDetail() {
     } catch (error) {
       console.error("Error en la solicitud de favoritos:", error);
     } finally {
-      setLoading(false);
+      setLoadingFav(false);
     }
   };
   
@@ -158,7 +159,7 @@ function ProductDetail() {
   }
 
   return (
-    <div className="container mx-auto grid grid-cols-2 gap-3 max-h-[300px]">
+    <div className="container mx-auto grid grid-cols-2 gap-3 h-auto">
       <NavLink
         to="/"
         className="inline-block mr-2 text-onyx hover:text-chiliRed"
@@ -201,7 +202,6 @@ function ProductDetail() {
           className="bg-chiliRed text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
           disabled={loading || addedToCart}
         >
-          {loading ? "Agregando al carrito..." : "Agregar al carrito"}
           {loading
             ? "Agregando al carrito..."
             : addedToCart
@@ -212,9 +212,9 @@ function ProductDetail() {
         <button
         onClick={handleAddToFavorite}
         className="bg-chiliRed text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
-        disabled={loading || addedToFavorites}
+        disabled={loadingFav || addedToFavorites}
       >
-        {loading ? "Agregando a favoritos..." : addedToFavorites ? "Agregado a favoritos" : "Agregar a favoritos"}
+        {loadingFav ? "Agregando a favoritos..." : addedToFavorites ? "Agregado a favoritos" : "Agregar a favoritos"}
       </button>
 
 
@@ -253,7 +253,7 @@ function ProductDetail() {
           ))}
         </div>
       </div>
-      <div>
+      <div className=" pb-2">
       <h2 className="text-left text-chiliRed text-xl">Comentarios:</h2>
       <br></br>
         <CommentCards comments={comments} detailId={id} />

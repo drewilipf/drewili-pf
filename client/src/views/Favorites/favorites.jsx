@@ -3,10 +3,10 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import Cookies from 'js-cookie';
 import binIcon from "../../icons/bin.png"
+import { NavLink } from 'react-router-dom';
 
 const Favorites = () => {
   const [favoriteProducts, setFavoriteProducts] = useState([]);
-
   const userSessionFromCookies = Cookies.get("userSession");
   const userSession = userSessionFromCookies
     ? JSON.parse(userSessionFromCookies)
@@ -19,7 +19,7 @@ const Favorites = () => {
   useEffect(() => {
     const fetchFavoriteProducts = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/favorites/user`,{params:{userId}});
+        const response = await axios.get(`http://localhost:3001/favorites/user`, { params: { userId } });
         setFavoriteProducts(response.data.favorites);
       } catch (error) {
         console.error('Error al obtener productos favoritos:', error);
@@ -32,7 +32,7 @@ const Favorites = () => {
   const handleRemoveFromFavorites = async (favorited) => {
     try {
       await axios.delete(`http://localhost:3001/favorites/${favorited}`);
-      
+
       setFavoriteProducts((prevFavoriteProducts) => prevFavoriteProducts.filter((item) => item.favorited !== favorited));
     } catch (error) {
       console.error('Error al quitar producto de favoritos:', error);
@@ -42,19 +42,20 @@ const Favorites = () => {
 
 
   return (
-    <div className="bg-gray-800 text-white p-4">
-      <h2 className="text-2xl font-semibold mb-4">Tus Productos Favoritos</h2>
-      <div className="flex items-center justify-between py-2">
-        <span className="flex-1">Nombre del Producto</span>
-      </div>
+    <div className="text-black p-8 rounded-lg shadow-lg h-90vh">
+      <h2 className="text-3xl font-semibold mb-6">Tus Productos Favoritos</h2>
       {favoriteProducts?.map((item) => (
-        <div key={item.favoriteId} className="flex items-center justify-between py-2 space-y-2">
-          <span className="flex items-center flex-1">
-            <img src={item.image} alt={item.name} className="mr-2" style={{ maxWidth: '50px', maxHeight: '50px' }} />
-            {item.name}
-          </span>
-          <button onClick={() => handleRemoveFromFavorites(item.favorited)} className="ml-2">
-            <img src={binIcon} alt="quitar" style={{ maxWidth: '20px', maxHeight: '20px' }} />
+        <div key={item.favorited} className="flex items-center justify-between py-3 border-b border-chiliRed">
+          <NavLink to={`/detail/${item.id}`} className="flex items-center space-x-4">
+            <img src={item.image} alt={item.name} className="w-36 h-36 rounded-md" />
+            <span className="text-lg">{item.name}</span>
+          </NavLink>
+
+          <button
+            onClick={() => handleRemoveFromFavorites(item.favorited)}
+            className="text-red-500 hover:text-red-700 transition duration-300"
+          >
+            <img src={binIcon} alt="quitar" className="w-6 h-6" />
           </button>
         </div>
       ))}
