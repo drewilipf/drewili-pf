@@ -22,38 +22,34 @@ function Home({ actualPage, handlePageChange, setActualPage }) {
     console.error("El estado de los productos no es un array:", products);
     return <div>Error al cargar los productos</div>;
   }
-  const cardsXpage = 8;
+  const cardsXpage = 9;
   const indexOfLastCard = actualPage * cardsXpage;
   const indexOfFirstCard = indexOfLastCard - cardsXpage;
   const currentCards = products.slice(indexOfFirstCard, indexOfLastCard);
   const totalPages = Math.ceil(products.length / cardsXpage);
 
   return (
-    <div className="flex items-center justify-center">
-      <div className="w-4/5 p-4 mt-4 mx-auto">
-        <div className="mt-2 flex">
-          <div className="lg:w-[18%] mb-2">
-            <ProductFilter setActualPage={(num) => setActualPage(num)} />
+    <>
+      <div className="flex flex-col md:flex-row md:items-start justify-center w-full pt-8 sm:items-center">
+        <div className="mb-2 md:mr-2 md:w-56 flex flex-col bg-white rounded items-center justify-center p-2 shadow-md  ">
+          <ProductFilter setActualPage={(num) => setActualPage(num)} />
+        </div>
+        <div className="w-full md:w-auto bg-white p-2 mb-2 rounded shadow-lg">
+          <div className="lg:w-full md:pl-[15%]">
+            <Banners />
           </div>
-          <div>
-            <div className=" ml-[70%] lg:w-[20%]">
-              <SortByPriceButtons setActualPage={(num) => setActualPage(num)} />
-            </div>
-            <div className="lg:w-full mr-4 ">
-              <Banners />
-            </div>
-            <div className="lg:w-full mb-4">
-              <Productcards products={currentCards} />
-              <Pagination
-                handlePage={handlePageChange}
-                actualPage={actualPage}
-                totalPages={totalPages}
-              />
-            </div>
+          <div className=" md:ml-[80%]">
+          <SortByPriceButtons setActualPage={(num) => setActualPage(num)} />
           </div>
+          <Productcards products={currentCards} />
+          <Pagination
+            handlePage={handlePageChange}
+            actualPage={actualPage}
+            totalPages={totalPages}
+          />
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -108,7 +108,10 @@ const EditUserProfile = () => {
   };
 
   return (
-    <div className="mt-40">
+    <div className="h-90vh pt-5">
+
+    
+    <div className="mt-42">
       <div className="bg-chiliRed bg-opacity-10 p-8 text-eerieBlack rounded-lg shadow-md w-full h-full max-w-screen-md mx-auto flex flex-col">
         <div className="mb-4">
           <label className={styles2}>Nombre de Usuario</label>
@@ -247,6 +250,7 @@ const EditUserProfile = () => {
           </button>
         </div>
       </div>
+    </div>
     </div>
   );
 };
