@@ -4,7 +4,7 @@ import NavbarAdmin from "../../Components/DashboardComponents/NavbarAdmin/Navbar
 
 function Dashboard() {
   return (
-    <div >
+    <div className="h-90vh">
       <NavbarAdmin />
       <h1 className="text-center">PANEL DE ADMINISTRADOR</h1>
     </div>

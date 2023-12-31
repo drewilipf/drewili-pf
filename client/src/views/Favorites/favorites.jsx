@@ -42,9 +42,8 @@ const Favorites = () => {
 
 
   return (
-    <div className="bg-gray-800 text-white p-8 rounded-lg shadow-lg">
+    <div className="text-black p-8 rounded-lg shadow-lg h-90vh">
       <h2 className="text-3xl font-semibold mb-6">Tus Productos Favoritos</h2>
-
       {favoriteProducts?.map((item) => (
         <div key={item.favorited} className="flex items-center justify-between py-3 border-b border-chiliRed">
           <NavLink to={`/detail/${item.id}`} className="flex items-center space-x-4">

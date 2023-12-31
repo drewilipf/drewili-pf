@@ -35,7 +35,7 @@ function Home({ actualPage, handlePageChange, setActualPage }) {
           <ProductFilter setActualPage={(num) => setActualPage(num)} />
         </div>
         <div className="w-full md:w-auto bg-white p-2 mb-2 rounded shadow-lg">
-          <div className="lg:w-full md:ml-[15%]">
+          <div className="lg:w-full md:pl-[15%]">
             <Banners />
           </div>
           <div className=" md:ml-[80%]">

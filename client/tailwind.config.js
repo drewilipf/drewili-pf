@@ -15,7 +15,8 @@ export default {
         '90vw': '80vw'
       },
       height:{
-        '40vh':'50vh'
+        '40vh':'50vh',
+        '90vh': '89.7vh'
       }
     },
   },

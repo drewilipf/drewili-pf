@@ -84,7 +84,7 @@ function UserForm() {
   };
   return (
     <>
-      <div className="w-96  mr-auto ml-auto">
+      <div className="w-96 mr-auto ml-auto">
         <h1 className="text-2xl font-bold mb-4 flex items-center justify-center">
           Regístrate
         </h1>
