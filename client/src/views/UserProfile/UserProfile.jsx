@@ -22,7 +22,7 @@ const UserProfile = () => {
     return <p>Cargando...</p>;
   }
   return (
-    <div className="mt-16 flex items-center justify-center">
+    <div className="flex items-center justify-center h-90vh">
       <div className="bg-chiliRed bg-opacity-10 p-8 text-eerieBlack rounded-lg shadow-md w-full max-w-screen-md mx-auto relative">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-3xl font-semibold">{user.username}</h1>

@@ -45,7 +45,7 @@ function App() {
           setActualPage={(num) => setActualPage(num)}
         />
       )}
-      <div className="mt-28">
+      <div className="pt-24 bg-whiteSmoke">
         <Routes>
           <Route
             path="/"
