@@ -1,6 +1,7 @@
 const { Comments, User } = require("../../db");
 
 const getCommentsController = async () => {
+
   const comments = await Comments.findAll({
     include: [
       {
@@ -27,6 +28,7 @@ const getCommentsController = async () => {
   });
 
   return formattedComments;
+
 };
 
 module.exports = getCommentsController;

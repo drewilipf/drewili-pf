@@ -11,7 +11,7 @@ import {
   } from "./commentSlice";
   import axios from "axios";
   
-  const API_URL = "http://localhost:3001/comments";
+  const API_URL = "http://localhost:3001/comment";
   
   export const getComments = () => {
     return async (dispatch) => {
@@ -29,7 +29,10 @@ import {
     return async (dispatch) => {
       try {
         dispatch(postCommentStart());
-        const response = await axios.post(API_URL, { user_id, product_id, comment });
+        
+       
+        const response = await axios.post(API_URL, {user_id, product_id, comment} );
+        
         dispatch(postCommentSuccess({ newComment: response.data }));
       } catch (error) {
         dispatch(postCommentFailure({ error: error.message }));

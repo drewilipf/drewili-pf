@@ -35,7 +35,7 @@ function RegisteredUser() {
   return (
     <div>
       <NavbarAdmin />
-      <div className="container mx-auto mt-8 ml-[20%]">
+      <div className="container mx-auto mt-8 ml-[25%] h-90vh">
         <h1 className="ml-[30%] text-2xl font-bold mb-4">
           Usuarios Registrados
         </h1>
@@ -45,7 +45,6 @@ function RegisteredUser() {
             Usuario eliminado exitosamente
           </div>
         )}
-
         <table className="min-w-[75%] bg-whiteSmoke border border-onyx">
           <thead>
             <tr>
@@ -87,8 +86,8 @@ function RegisteredUser() {
               ))}
           </tbody>
         </table>
+        </div>
       </div>
-    </div>
   );
 }
 

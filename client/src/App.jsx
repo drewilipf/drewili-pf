@@ -38,10 +38,25 @@ function App() {
 
   return (
     <div>
-      {!isDashboardRoute && <NavBar />}
-      <div className="mt-28">
+      {!isDashboardRoute && (
+        <NavBar
+          handlePageChange={handlePageChange}
+          actualPage={actualPage}
+          setActualPage={(num) => setActualPage(num)}
+        />
+      )}
+      <div className="pt-24 bg-whiteSmoke">
         <Routes>
-          <Route path="/" element={<Home handlePageChange={handlePageChange} actualPage={actualPage} setActualPage={(num) => setActualPage(num)}/>} />
+          <Route
+            path="/"
+            element={
+              <Home
+                handlePageChange={handlePageChange}
+                actualPage={actualPage}
+                setActualPage={(num) => setActualPage(num)}
+              />
+            }
+          />
           <Route path="/detail/:id" element={<ProductDetail />} />
           <Route path="/shoppingcart" element={<Shoppingcart />} />
           <Route path="/favorites" element={<Favorites />} />
