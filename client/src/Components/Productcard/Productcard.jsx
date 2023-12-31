@@ -12,7 +12,7 @@ function Productcard({
   brand,
 }) {
   return (
-<div className="m-4 p-4 rounded shadow-lg hover:shadow-xl h-40vh w-80 bg-white flex flex-col items-center justify-evenly">
+<div className="m-4 p-4 rounded shadow-lg hover:shadow-xl h-auto w-80 bg-white flex flex-col items-center justify-evenly">
   <NavLink to={`/detail/${id}`} className="flex flex-col items-center justify-center">
     <img
       src={image}
