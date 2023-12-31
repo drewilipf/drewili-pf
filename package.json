@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cloudinary": "^1.41.1",
+    "express-session": "^1.17.3",
+    "icons": "^1.0.0",
+    "js-cookie": "^3.0.5",
+    "react-icons": "^4.12.0",
+    "stripe": "^14.10.0"
+  }
+}
