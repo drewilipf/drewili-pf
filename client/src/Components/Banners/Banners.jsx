@@ -6,13 +6,13 @@ function Banners() {
           src="/banner1.png"
           alt="banner1"
           className="flex max-h-40 w-auto mr-2 mb-2"
-          style={{ width: "600px", height: "auto" }}
+          style={{ width: "500px", height: "auto" }}
         />
         <img
           src="/banner2.png"
           alt="banner2"
           className="flex max-h-40 w-auto mb-2"
-          style={{ width: "300px", height: "auto" }}
+          style={{ width: "250px", height: "auto" }}
         />
       </div>
 
