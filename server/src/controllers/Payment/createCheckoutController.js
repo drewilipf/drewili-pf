@@ -10,8 +10,8 @@ const checkoutController = async (carItems) => {
                 name: item.name,
                 images:[item.image]
             },
-            currency: item.currency,
-            unit_amount: item.amount * 100,
+            currency: 'pen',
+            unit_amount: Math.round(item.price * 100),
         },
         quantity: item.quantity,
     }));
