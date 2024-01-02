@@ -40,7 +40,7 @@ function ProductList() {
   return (
     <div>
       <NavbarAdmin />
-      <div className="container mx-auto mt-0 ml-auto pl-48">
+      <div className="container mx-auto mt-0  pl-48 ml-[20%] ">
         <Searchbar />
       </div>
       <div className="container mx-auto mt-6 pl-48">
@@ -53,7 +53,7 @@ function ProductList() {
             Producto eliminado exitosamente
           </div>
         )}
-        <div className=" w-90vw overflow-x-auto">
+        <div className=" w-90vw overflow-x-auto ml-[8%]">
           <table className="min-w-full bg-whiteSmoke border border-onyx">
             <thead>
               <tr>
