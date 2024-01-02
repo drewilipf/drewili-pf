@@ -38,12 +38,12 @@ function ProductList() {
   };
 
   return (
-    <div>
+    <div className="ml-[20%]">
       <NavbarAdmin />
-      <div className="container mx-auto mt-0  pl-48 ml-[20%] ">
+      <div className="container mx-auto mt-0">
         <Searchbar />
       </div>
-      <div className="container mx-auto mt-6 pl-48">
+      <div className="container mx-auto mt-6">
         <h1 className="text-2xl font-bold mb-4 text-center">
           Productos Registrados
         </h1>
