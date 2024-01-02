@@ -19,6 +19,7 @@ import { getColor } from "./reduxToolkit/Color/colorThunks";
 import ProductList from "./Components/DashboardComponents/ProductList/ProductList";
 import EditProduct from "./Components/DashboardComponents/EditProduct/EditProduct";
 import Favorites from "./views/Favorites/favorites";
+import PaymentSuccess from "./views/Payment/PaymentSuccess";
 
 function App() {
   const dispacth = useDispatch();
@@ -74,6 +75,7 @@ function App() {
             element={<RegisteredUser />}
           />
           <Route path="/dashboard/productList" element={<ProductList />} />
+          <Route path="/payment/success" element={<PaymentSuccess/>} />
         </Routes>
       </div>
     </div>
