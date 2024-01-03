@@ -2,8 +2,9 @@ const checkoutController = require('../../controllers/Payment/createCheckoutCont
 
 const checkoutHandler = async (req, res) => {
     const cartItems = req.body.cartItems
+    const id = req.body.id
     try {
-        const response = await checkoutController(cartItems)
+        const response = await checkoutController(cartItems, id)
         res.status(200).json({urlPayment:response.url})
 
     }

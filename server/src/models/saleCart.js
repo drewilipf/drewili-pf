@@ -30,7 +30,21 @@ module.exports = (sequelize) =>{
             defaultValue: 1
         }
     },
-    { timestamps: false })
+    { timestamps: false });
+
+    SalesCart.emptyCart = async (userId) =>{
+        try {
+            await SalesCart.destroy({
+                where:{
+                    user_id: userId
+                }
+            })
+            console.log(`Carrito del usuario ${userId} vaciado con exito`);
+        }
+        catch (error) {
+            console.error('Error al vaciar el carrito', error)
+        }
+    }
     return SalesCart
 }
 
