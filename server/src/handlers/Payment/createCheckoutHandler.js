@@ -5,7 +5,7 @@ const checkoutHandler = async (req, res) => {
     const id = req.body.id
     try {
         const response = await checkoutController(cartItems, id)
-        res.status(200).json({urlPayment:response.url})
+        res.status(200).json({ urlPayment: response.url })
 
     }
     catch (error) {
