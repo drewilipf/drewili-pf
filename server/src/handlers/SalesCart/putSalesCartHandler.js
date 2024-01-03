@@ -2,8 +2,8 @@ const salesCartController = require("../../controllers/SalesCart/putSalesCartCon
 
 const putSalesCartHandler = async(req, res) => {
     try {
-        const { quantity, idProduct, idUser} = req.body
-        const salesCart = await salesCartController(quantity, idProduct, idUser)
+        const { id, quantity } = req.body
+        const salesCart = await salesCartController(id, quantity)
         res.status(200).json(salesCart)
     } 
     catch (error) {

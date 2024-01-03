@@ -1,10 +1,9 @@
 const { SalesCart } = require("../../db")
 
-const salesCartController = async(quantity, idProduct, idUser) => {
+const salesCartController = async(id, quantity) => {
    const saleCartProduct = await SalesCart.findOne({
         where:{
-            product_id: idProduct,
-            user_id: idUser
+            id: id
         }
     })
     if (saleCartProduct) {
