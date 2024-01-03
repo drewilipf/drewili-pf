@@ -6,9 +6,9 @@ import { AiOutlineMore } from "react-icons/ai";
 import Cookies from "js-cookie";
 import { useSelector, useDispatch } from "react-redux";
 import { postLogout } from "../../reduxToolkit/Login/logoutThunks";
-import cartIcon from "../../icons/carrito-de-compras.png"
+import cartIcon from "../../icons/carrito-de-compras.png";
 
-function Navbar() {
+function Navbar({ setActualPage }) {
   const location = useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -76,7 +76,12 @@ function Navbar() {
           <Route
             path="/"
             element={
-              location.pathname === "/" && <Searchbar className="mx-auto" />
+              location.pathname === "/" && (
+                <Searchbar
+                  className="mx-auto"
+                  setActualPage={(num) => setActualPage(num)}
+                />
+              )
             }
           />
         </Routes>
@@ -85,11 +90,26 @@ function Navbar() {
             <div className="flex space-x-3 text-chiliRed items-center">
               <div className="relative group">
                 <div className="flex items-center space-x-4">
-                  <img src={cartIcon} alt="shopping-cart-icon" className="w-6 h-6 cursor-pointer" onClick={()=>navigate("/shoppingcart")} />
+                  <img
+                    src={cartIcon}
+                    alt="shopping-cart-icon"
+                    className="w-6 h-6 cursor-pointer"
+                    onClick={() => navigate("/shoppingcart")}
+                  />
                   <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
                     <p onClick={toggleDropdown} className="flex items-center">
                       Bienvenido, {combinedUserSession}! <AiOutlineMore />
                     </p>
+                  </h1>
+
+                  {/* Botón de Favoritos */}
+                  <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
+                    <NavLink
+                      to="/favorites"
+                      className="text-chiliRed hover:underline"
+                    >
+                      Favoritos
+                    </NavLink>
                   </h1>
                 </div>
                 {isDropdownOpen && (

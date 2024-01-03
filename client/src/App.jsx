@@ -18,6 +18,8 @@ import RegisteredUser from "./Components/DashboardComponents/RegisteredUser/Regi
 import { getColor } from "./reduxToolkit/Color/colorThunks";
 import ProductList from "./Components/DashboardComponents/ProductList/ProductList";
 import EditProduct from "./Components/DashboardComponents/EditProduct/EditProduct";
+import Favorites from "./views/Favorites/favorites";
+import PaymentSuccess from "./views/Payment/PaymentSuccess";
 
 function App() {
   const dispacth = useDispatch();
@@ -37,12 +39,28 @@ function App() {
 
   return (
     <div>
-      {!isDashboardRoute && <NavBar />}
-      <div className="mt-28">
+      {!isDashboardRoute && (
+        <NavBar
+          handlePageChange={handlePageChange}
+          actualPage={actualPage}
+          setActualPage={(num) => setActualPage(num)}
+        />
+      )}
+      <div className="pt-24 bg-whiteSmoke">
         <Routes>
-          <Route path="/" element={<Home handlePageChange={handlePageChange} actualPage={actualPage} setActualPage={(num) => setActualPage(num)}/>} />
+          <Route
+            path="/"
+            element={
+              <Home
+                handlePageChange={handlePageChange}
+                actualPage={actualPage}
+                setActualPage={(num) => setActualPage(num)}
+              />
+            }
+          />
           <Route path="/detail/:id" element={<ProductDetail />} />
           <Route path="/shoppingcart" element={<Shoppingcart />} />
+          <Route path="/favorites" element={<Favorites />} />
           <Route path="/userprofile/:id" element={<UserProfile />} />
           <Route path="/edituserprofile/:id" element={<EditUserProfile />} />
           <Route path="/userform" element={<UserForm />} />
@@ -57,6 +75,7 @@ function App() {
             element={<RegisteredUser />}
           />
           <Route path="/dashboard/productList" element={<ProductList />} />
+          <Route path="/payment/success" element={<PaymentSuccess/>} />
         </Routes>
       </div>
     </div>

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { postComment } from "../../reduxToolkit/Comment/commentThunks";
 
-
 const CommentInput = ({ user_id, product_id }) => {
   const dispatch = useDispatch();
   const [comment, setComment] = useState("");
@@ -16,15 +15,19 @@ const CommentInput = ({ user_id, product_id }) => {
       alert("Por favor, introduce un comentario antes de enviar.");
       return;
     }
+    user_id= String(user_id)
 
-    dispatch(postComment({ user_id, product_id, comment }));
+    // Utiliza String(user_id) para convertir user_id a cadena si no es una cadena ya
+    dispatch(postComment( user_id, product_id, comment ));
+    
+
     setComment("");
   };
 
   return (
     <div className="">
       <textarea
-        className=" border-chiliRed border p-4 mt-4 rounded-lg w-4/5 h-1/2 rounded-md p-2 text-black font-arial text-base"
+        className="border-chiliRed border mt-4 w-3/4 h-1/2 rounded-md p-2 text-black font-arial text-base"
         rows="3"
         placeholder="Deja tu comentario..."
         value={comment}
@@ -42,4 +45,5 @@ const CommentInput = ({ user_id, product_id }) => {
 };
 
 export default CommentInput;
+
 

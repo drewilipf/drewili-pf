@@ -38,23 +38,23 @@ function ProductList() {
   };
 
   return (
-    <div>
+    <div className="ml-[20%]">
       <NavbarAdmin />
-      <div className=" container mx-auto mt-0 ml-[50%]">
+      <div className="container mx-auto mt-0">
         <Searchbar />
       </div>
-      <div className="container mx-auto mt-6 ml-[10%]">
-        <h1 className="ml-[40%] text-2xl font-bold mb-4">
+      <div className="container mx-auto mt-6">
+        <h1 className="text-2xl font-bold mb-4 text-center">
           Productos Registrados
         </h1>
 
         {showSuccessMessage && (
-          <div className="bg-onyx text-onyx p-2 mb-4">
+          <div className="bg-onyx text-white p-2 mb-4 text-center">
             Producto eliminado exitosamente
           </div>
         )}
-        <div className="w-[80%] mx-auto overflow-x-auto">
-          <table className="min-w-full max-w-screen-xl bg-whiteSmoke border border-onyx">
+        <div className=" w-90vw overflow-x-auto">
+          <table className="min-w-full bg-whiteSmoke border border-onyx">
             <thead>
               <tr>
                 <th className="py-1 px-1 border-b">Nombre</th>
@@ -88,7 +88,7 @@ function ProductList() {
                       <img
                         src={product.image}
                         alt={product.name}
-                        className="max-w-[50px] max-h-[50px]"
+                        className="max-w-[50px] max-h-[50px] mx-auto"
                       />
                     </td>
                     <td className="py-2 px-4 border-b">{product.color}</td>
@@ -97,12 +97,12 @@ function ProductList() {
                     <td className="py-2 px-4 border-b">
                       {product.deleted ? "Desactivo" : "Activo"}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b text-center">
                       <NavLink to={`/dashboard/editProduct/${product.id}`}>
                         <IoMdCreate />
                       </NavLink>
                     </td>
-                    <td className="py-2 px-4 border-b cursor-pointer">
+                    <td className="py-2 px-4 border-b text-center cursor-pointer">
                       <div onClick={() => onClick(product.id)}>
                         <MdDelete />
                       </div>

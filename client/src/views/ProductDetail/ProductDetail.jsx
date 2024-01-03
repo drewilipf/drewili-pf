@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
 import { getProductsById } from "../../reduxToolkit/Product/productThunks";
+import { getComments } from "../../reduxToolkit/Comment/commentThunks.js";
 import CommentCards from "../../Components/DetailComponents/CommentCards.jsx";
 import CommentInput from "../../Components/DetailComponents/CommentInput.jsx";
 import { AiOutlineLeft } from "react-icons/ai";
@@ -18,7 +19,9 @@ function ProductDetail() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [loadingFav, setLoadingFav] = useState(false);
   const [addedToCart, setAddedToCart] = useState(false);
+  const [addedToFavorites, setAddedToFavorites] = useState(false);
 
   const userSessionFromCookies = Cookies.get("userSession");
   const userSession = userSessionFromCookies
@@ -33,10 +36,12 @@ function ProductDetail() {
   const productsId = useSelector((state) => state.products.productsId);
 
   const productAll = useSelector((state) => state.products.products);
+  const comments = useSelector((state) => state.comments.comments);
 
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(getProductsById(id));
+      await dispatch(getProductsById(id))
+      await dispatch(getComments());
     };
 
     fetchData();
@@ -98,6 +103,48 @@ function ProductDetail() {
     }
   };
 
+  const handleAddToFavorite = async () => {
+    try {
+      if (!userId) {
+        const choice = window.confirm(
+          "Para agregar productos a favoritos, por favor inicia sesión o regístrate. ¿Quieres iniciar sesión?"
+        );
+
+        if (choice) {
+          window.location.href = "/userlogin";
+          return;
+        } else {
+          return;
+        }
+      }
+
+      setLoadingFav(true);
+
+      // Imprimir los datos antes de hacer la solicitud
+      console.log("Datos enviados en la solicitud de favoritos:", {
+        product_id: id,
+        user_id: userId,
+      });
+
+      const response = await axios.post(
+        "http://localhost:3001/favorites",
+        {
+          product_id: id,
+          user_id: userId,
+        }
+      );
+
+      console.log("Respuesta del servidor (favoritos):", response.data);
+
+      setAddedToFavorites(true);
+    } catch (error) {
+      console.error("Error en la solicitud de favoritos:", error);
+    } finally {
+      setLoadingFav(false);
+    }
+  };
+
+
   if (!product) {
     return <p>Cargando...</p>;
   }
@@ -112,7 +159,7 @@ function ProductDetail() {
   }
 
   return (
-    <div className="container mx-auto grid grid-cols-2 gap-3 max-h-[300px]">
+    <div className="container mx-auto grid grid-cols-2 gap-3 h-auto">
       <NavLink
         to="/"
         className="inline-block mr-2 text-onyx hover:text-chiliRed"
@@ -149,19 +196,40 @@ function ProductDetail() {
           <h2 className="text-xl text-chiliRed">Precio:</h2>
           <p>{product?.price}</p>
         </div>
+        {
+          product?.stock === 0 ? <button
+            className="bg-onyx text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
+            disabled
+          >
+            {loading
+              ? "Agregando al carrito..."
+              : addedToCart
+                ? "Agregado con éxito!"
+                : "Agregar al carrito"}
+          </button>
+            :
+            <button
+              onClick={handleAddToCart}
+              className="bg-chiliRed text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
+              disabled={loading || addedToCart}
+            >
+              {loading
+                ? "Agregando al carrito..."
+                : addedToCart
+                  ? "Agregado con éxito!"
+                  : "Agregar al carrito"}
+            </button>
+        }
 
         <button
-          onClick={handleAddToCart}
+          onClick={handleAddToFavorite}
           className="bg-chiliRed text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
-          disabled={loading || addedToCart}
+          disabled={loadingFav || addedToFavorites}
         >
-          {loading ? "Agregando al carrito..." : "Agregar al carrito"}
-          {loading
-            ? "Agregando al carrito..."
-            : addedToCart
-            ? "Agregado con éxito!"
-            : "Agregar al carrito"}
+          {loadingFav ? "Agregando a favoritos..." : addedToFavorites ? "Agregado a favoritos" : "Agregar a favoritos"}
         </button>
+
+
         <div className="col-span-2 mt-4 mx-auto">
           <h1 className="text-xl text-center text-eerieBlack  font-bold mb-2">
             Calificación general del producto
@@ -197,9 +265,11 @@ function ProductDetail() {
           ))}
         </div>
       </div>
-      <div>
-        <CommentCards />
-        <CommentInput />
+      <div className=" pb-2">
+        <h2 className="text-left text-chiliRed text-xl">Comentarios:</h2>
+        <br></br>
+        <CommentCards comments={comments} detailId={id} />
+        <CommentInput product_id={id} user_id={userId} />
       </div>
     </div>
   );
