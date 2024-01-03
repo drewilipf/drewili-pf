@@ -7,7 +7,7 @@ import binIcon from "../../icons/bin.png"
 const ShoppingCart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [totalCartPrice, setTotalCartPrice] = useState(0);
-
+  console.log(cartItems.map((item)=>item.id));
   const userSessionFromCookies = Cookies.get("userSession");
   const userSession = userSessionFromCookies
     ? JSON.parse(userSessionFromCookies)
@@ -44,6 +44,7 @@ const ShoppingCart = () => {
   };
 
   const listItems = cartItems?.map((item) => ({
+    idProduct: item.id,
     name: item.name,
     image: item.image,
     price: item.price,
@@ -52,9 +53,9 @@ const ShoppingCart = () => {
 
   const handlePayment = async () => {
     try {
-      const response = await axios.post('http://localhost:3001/payment/create-checkout-session', { cartItems: listItems });
+      const response = await axios.post('http://localhost:3001/payment/create-checkout-session', { cartItems: listItems, id: userId, idProduct: cartItems.id });
       const { data } = response;
-      console.log(data.url);
+
       window.location.href = data.urlPayment;
     }
     catch (error) {
@@ -97,7 +98,7 @@ const ShoppingCart = () => {
             </button>
           </div> </>
            : <h2>Vacío</h2>
-
+           
       }
 
     </div>
