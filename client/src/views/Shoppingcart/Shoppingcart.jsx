@@ -3,13 +3,10 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import binIcon from "../../icons/bin.png";
-import { NavLink, useParams } from "react-router-dom";
 
 const ShoppingCart = () => {
-  const { id } = useParams();
   const [cartItems, setCartItems] = useState([]);
   const [totalCartPrice, setTotalCartPrice] = useState(0);
-  console.log(cartItems.map((item) => item.id));
 
   const userSessionFromCookies = Cookies.get("userSession");
   const userSession = userSessionFromCookies
@@ -59,11 +56,14 @@ const ShoppingCart = () => {
     quantity: item.quantity,
   }));
 
-  const idProduct = cartItems?.map((item)=>item.id)
+  const idProduct = cartItems?.map((item) => item.id);
   console.log(idProduct);
   const handlePayment = async () => {
     try {
-      const response = await axios.post('http://localhost:3001/payment/create-checkout-session', { cartItems: listItems, id: userId});
+      const response = await axios.post(
+        "http://localhost:3001/payment/create-checkout-session",
+        { cartItems: listItems, id: userId }
+      );
       const { data } = response;
 
       window.location.href = data.urlPayment;
@@ -71,35 +71,39 @@ const ShoppingCart = () => {
       console.error(error);
     }
   };
-  }
 
   const handleQuantity = async (salesCartId, newQuantity) => {
     try {
-      const response = await axios.put(`http://localhost:3001/salescart/update`, { id: salesCartId, quantity: newQuantity });
-      console.log('esta es la respuesta de la cantidad', response);
-  
+      const response = await axios.put(
+        `http://localhost:3001/salescart/update`,
+        { id: salesCartId, quantity: newQuantity }
+      );
+      console.log("esta es la respuesta de la cantidad", response);
+
       if (response.status === 200) {
         const updatedItem = response.data;
         setCartItems((prevCartItems) =>
           prevCartItems.map((item) =>
-            item.salesCartId === updatedItem.id ? { ...item, quantity: updatedItem.quantity } : item
+            item.salesCartId === updatedItem.id
+              ? { ...item, quantity: updatedItem.quantity }
+              : item
           )
         );
-  
+
         // Recalcular el precio total después de actualizar la cantidad
         setTotalCartPrice((prevTotal) => {
           const updatedTotal = cartItems.reduce((total, item) => {
             if (item.salesCartId === updatedItem.id) {
-              return total + (updatedItem.quantity * item.price); // Usar la nueva cantidad
+              return total + updatedItem.quantity * item.price; // Usar la nueva cantidad
             } else {
-              return total + (item.quantity * item.price);
+              return total + item.quantity * item.price;
             }
           }, 0);
           return updatedTotal;
         });
       }
     } catch (error) {
-      console.error('Error al actualizar la cantidad del producto:', error);
+      console.error("Error al actualizar la cantidad del producto:", error);
     }
   };
 
@@ -113,7 +117,7 @@ const ShoppingCart = () => {
             <span className="w-16 text-right mr-4">Precio</span>
             <span className="w-16 text-left ml-2">Cantidad</span>
           </div>
-          {cartItems.map((item) => (
+          {cartItems?.map((item) => (
             <div
               key={item.salesCartId}
               className="flex items-center justify-between py-2 space-y-2"
@@ -131,6 +135,20 @@ const ShoppingCart = () => {
                 item.price
               ).toFixed(2)}`}</span>
               <span className="w-16 text-right">{item.quantity}</span>
+              <button
+                onClick={() =>
+                  handleQuantity(item.salesCartId, item.quantity + 1)
+                }
+              >
+                +
+              </button>
+              <button
+                onClick={() =>
+                  handleQuantity(item.salesCartId, item.quantity - 1)
+                }
+              >
+                -
+              </button>
               <button
                 onClick={() =>
                   handleRemoveFromCart(item.salesCartId, item.totalPrice)
@@ -163,43 +181,6 @@ const ShoppingCart = () => {
       ) : (
         <h2>Vacío</h2>
       )}
-      {
-        cartItems && cartItems.length !== 0 ?
-          <>
-            <div className="flex items-center justify-between py-2">
-              <span className="flex-1">Nombre del Producto</span>
-              <span className="w-16 text-right mr-4">Precio</span>
-              <span className="w-16 text-left ml-2">Cantidad</span>
-            </div>
-
-            {cartItems?.map((item) => (
-              <div key={item.salesCartId} className="flex items-center justify-between py-2 space-y-2">
-                <span className="flex items-center flex-1">
-                  <img src={item.image} alt={item.name} className="mr-2" style={{ maxWidth: '50px', maxHeight: '50px' }} />
-                  {item.name}
-                </span>
-                <span className="w-16 text-right">{`$${parseFloat(item.price).toFixed(2)}`}</span>
-                <span className="w-16 text-right">{item.quantity}</span>
-                <button onClick={() => handleQuantity(item.salesCartId, item.quantity + 1)}>+</button>
-                <button onClick={() => handleQuantity(item.salesCartId, item.quantity - 1)}>-</button>
-                <button onClick={() => handleRemoveFromCart(item.salesCartId, item.totalPrice)} className="ml-2">
-                  <img src={binIcon} alt="quitar" style={{ maxWidth: '20px', maxHeight: '20px' }} />
-                </button>
-              </div>
-            ))}
-            <div className="mt-4">
-              <div className="flex justify-between">
-                <span className="font-semibold">Total:</span>
-                <span className="text-2xl">{`$${totalCartPrice.toFixed(2)}`}</span>
-              </div>
-              <button className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded" onClick={handlePayment}>
-                Finalizar compra
-              </button>
-            </div> </>
-          : <h2>Vacío</h2>
-
-      }
-
     </div>
   );
 };
