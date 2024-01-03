@@ -8,6 +8,13 @@ const ShippingForm = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.users.user);
+  const userSession = userSessionFromCookies
+    ? JSON.parse(userSessionFromCookies)
+    : null;
+
+  const { login } = useSelector((state) => state.login);
+  const userId =
+    (userSession && userSession.userId) || (login && login.userSession.userId);
 
   useEffect(() => {
     dispatch(getUserId(id));
