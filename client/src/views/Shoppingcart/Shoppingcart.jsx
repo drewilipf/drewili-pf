@@ -3,8 +3,10 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import binIcon from "../../icons/bin.png";
+import { NavLink, useParams } from "react-router-dom";
 
 const ShoppingCart = () => {
+  const { id } = useParams();
   const [cartItems, setCartItems] = useState([]);
   const [totalCartPrice, setTotalCartPrice] = useState(0);
   console.log(cartItems.map((item) => item.id));
@@ -119,12 +121,6 @@ const ShoppingCart = () => {
                 2
               )}`}</span>
             </div>
-            <button
-              className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
-              onClick={handlePayment}
-            >
-              Finalizar compra
-            </button>
             <button
               className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
               onClick={handlePayment}
