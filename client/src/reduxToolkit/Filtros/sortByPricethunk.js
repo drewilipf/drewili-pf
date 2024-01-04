@@ -1,6 +1,6 @@
 import { sortByPriceSuccess } from "../Product/productSlice";
 
-const API_URL = "http://localhost:3001/price";
+const API_URL = "https://drewili-pf-back.onrender.com/price";
 
 export const filterPrice = ({ minPrice, maxPrice, order }) => {
   return async (dispatch) => {
