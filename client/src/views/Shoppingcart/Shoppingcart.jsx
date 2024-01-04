@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
+import { NavLink } from "react-router-dom";
 import binIcon from "../../icons/bin.png";
 import {
   deleteSalesCart,
@@ -12,6 +13,7 @@ import {
 const ShoppingCart = () => {
   const dispatch = useDispatch();
   const { salesCart } = useSelector((state) => state.salesCart);
+
   const { priceTotal } = useSelector((state) => state.salesCart);
 
   const userSessionFromCookies = Cookies.get("userSession");
@@ -86,7 +88,7 @@ const ShoppingCart = () => {
                 />
                 {item.name}
               </span>
-              <span className="w-16 text-right">{`$${parseFloat(
+              <span className="w-16 text-right">{`S/${parseFloat(
                 item.price
               ).toFixed(2)}`}</span>
               <span className="w-16 text-right">{item.quantity}</span>
@@ -119,7 +121,7 @@ const ShoppingCart = () => {
           <div className="mt-4">
             <div className="flex justify-between">
               <span className="font-semibold">Total:</span>
-              <span className="text-2xl">{`$${priceTotal.toFixed(2)}`}</span>
+              <span className="text-2xl">{`S/${priceTotal.toFixed(2)}`}</span>
             </div>
             <button
               className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
@@ -127,7 +129,13 @@ const ShoppingCart = () => {
             >
               Continuar Compra
             </button>
-          </div>{" "}
+
+            <NavLink to={`/shippingform`}>
+              <button className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded">
+                Continuar Compra
+              </button>
+            </NavLink>
+          </div>
         </>
       ) : (
         <h2>Vacío</h2>
