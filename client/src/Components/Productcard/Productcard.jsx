@@ -106,6 +106,16 @@ function Productcard({
   </NavLink>
   
   <div className="flex gap-4 mt-4">
+    {
+      stock === 0 ?   <button className="bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline" disabled>
+      <img
+        src={addedToCart ? addedToCartIcon : addToCartIcon}
+        alt={addedToCart ? "Agregado al carrito" : "Agregar al carrito"}
+        className="w-6 h-6"
+      />
+    </button>
+    :
+
   <button
           onClick={handleAddToCart}
           className={`transition duration-300 ${
@@ -119,6 +129,7 @@ function Productcard({
             className="w-6 h-6"
           />
         </button>
+    }
 
         <button
           onClick={handleAddToFavorites}
