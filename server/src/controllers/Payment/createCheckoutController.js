@@ -1,10 +1,16 @@
 require('dotenv').config()
 const { DB_STRIPE_TOKEN } = process.env
 const Stripe = require('stripe')
-const { SalesCart } = require('../../db')
 const stripe = new Stripe(DB_STRIPE_TOKEN)
 
 const checkoutController = async (carItems, id) => {
+    const updateProduct = carItems.map((item) => (
+        {
+            cantidad: item.quantity,
+            idProd: item.idProduct
+
+        }));
+        console.log(updateProduct);
     const lineItems = carItems.map((item)=>({
         price_data: {
             product_data: {
@@ -16,7 +22,9 @@ const checkoutController = async (carItems, id) => {
         },
         quantity: item.quantity,
     }));
-    const successUrl = `http://localhost:3001/payment/success?userId=${id}`;
+
+    const queryString = `?userId=${id}&updateProduct=${encodeURIComponent(JSON.stringify(updateProduct))}`;
+    const successUrl = `http://localhost:3001/payment/success${queryString}`;
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         line_items: lineItems,

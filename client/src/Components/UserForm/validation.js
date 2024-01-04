@@ -54,7 +54,7 @@ const validation = (input) => {
     }
     const regexPassword3 = /\d/
     if (!regexPassword3.test(input.password)) {
-        errors.password = "La constraseña debe tener al menos un díjito ";
+        errors.password = "La constraseña debe tener al menos un dígito ";
     }
     const regexPassword4 = /[!@#$%^&*()?¿¡\-_+=.,;:'"<>{}[\]\|\/\\`~]+/
     if (!regexPassword4.test(input.password)) {

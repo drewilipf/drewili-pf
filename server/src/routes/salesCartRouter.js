@@ -9,7 +9,7 @@ const router = Router()
 
 router.get("/user/:userId", getSalesCartHandler)
 router.post("/addToSalesCart", addToSalesCartHandler)
-router.delete("/:id", salesCartDeleteHandler)
-router.put('/', putSalesCartHandler)
+router.delete("/delete", salesCartDeleteHandler)
+router.put('/update', putSalesCartHandler)
 
 module.exports = router
