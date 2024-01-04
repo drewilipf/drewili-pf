@@ -20,6 +20,7 @@ const getSalesCartController = async (userId) => {
                 },
             ],
         },
+        order: [['id', 'ASC']]
     });
 
     if (salesCarts.length === 0){
