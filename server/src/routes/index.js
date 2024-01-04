@@ -11,9 +11,11 @@ const colorRouter = require("./colorRouter")
 const favoriteRouter = require('./favoriteRouter')
 const paymentRoutes= require('./paymentRouter')
 const sortRouter = require("./sortRouter")
+const purchaseHistoryRouter = require("./purchaseHistoryRouter")
 
 const router = Router()
 
+router.use("/history", purchaseHistoryRouter)
 router.use("/color", colorRouter)
 router.use("/product", productRouter)
 router.use("/user", userRouter)
