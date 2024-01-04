@@ -8,7 +8,8 @@ import colorReducer from "./Color/colorSlice";
 import loginReducer from "./Login/loginSlice";
 import filterPriceReducer from "./Filtros/filterPriceSlice";
 import filterColorReducer from "./Color/colorSlice";
-import activeFiltersReducer from "./Product/activeFiltersSlice"; // Agrega el reducer faltante
+import activeFiltersReducer from "./Product/activeFiltersSlice";
+import cartSliceReducer from "./SalesCarts/salesCartsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +22,7 @@ export const store = configureStore({
     login: loginReducer,
     filterPrice: filterPriceReducer,
     filterColor: filterColorReducer,
-    activeFilters: activeFiltersReducer, // Agrega el reducer faltante
+    activeFilters: activeFiltersReducer,
+    salesCart: cartSliceReducer  // Agrega el reducer faltante
   },
 });
