@@ -1,7 +1,7 @@
 import { getCategorySlice, postCategorySlice } from "./categorySlice";
 import axios from "axios";
 
-const API_URL = "http://localhost:3001/category";
+const API_URL = "https://drewili-pf-back.onrender.com/category";
 
 export const getCategory = () => {
   return async (dispatch) => {

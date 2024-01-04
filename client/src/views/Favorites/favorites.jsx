@@ -19,7 +19,7 @@ const Favorites = () => {
   useEffect(() => {
     const fetchFavoriteProducts = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/favorites/user`, { params: { userId } });
+        const response = await axios.get(`https://drewili-pf-back.onrender.com/favorites/user`, { params: { userId } });
         setFavoriteProducts(response.data.favorites);
       } catch (error) {
         console.error('Error al obtener productos favoritos:', error);
@@ -31,7 +31,7 @@ const Favorites = () => {
 
   const handleRemoveFromFavorites = async (favorited) => {
     try {
-      await axios.delete(`http://localhost:3001/favorites/${favorited}`);
+      await axios.delete(`https://drewili-pf-back.onrender.com/favorites/${favorited}`);
 
       setFavoriteProducts((prevFavoriteProducts) => prevFavoriteProducts.filter((item) => item.favorited !== favorited));
     } catch (error) {

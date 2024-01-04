@@ -45,7 +45,7 @@ function Productcard({
 
       // Realiza la solicitud para agregar al carrito
       const response = await axios.post(
-        "http://localhost:3001/salesCart/addToSalesCart",
+        "https://drewili-pf-back.onrender.com/salesCart/addToSalesCart",
         {
           productId: id,
           userId,
@@ -67,10 +67,13 @@ function Productcard({
     try {
       setLoadingFavorites(true);
 
-      const response = await axios.post("http://localhost:3001/favorites", {
-        product_id: id,
-        user_id: userId,
-      });
+      const response = await axios.post(
+        "https://drewili-pf-back.onrender.com/favorites",
+        {
+          product_id: id,
+          user_id: userId,
+        }
+      );
 
       console.log("Respuesta del servidor (favoritos):", response.data);
 

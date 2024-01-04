@@ -11,7 +11,7 @@ import {
   } from "./commentSlice";
   import axios from "axios";
   
-  const API_URL = "http://localhost:3001/comment";
+  const API_URL = "https://drewili-pf-back.onrender.com/comment";
   
   export const getComments = () => {
     return async (dispatch) => {
