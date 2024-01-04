@@ -41,7 +41,7 @@ const ShoppingCart = () => {
 
   const handlePayment = async () => {
     try {
-      const response = await axios.post('http://localhost:3001/payment/create-checkout-session', { cartItems: listItems, id: userId });
+      const response = await axios.post('https://drewili-pf-back.onrender.com/payment/create-checkout-session', { cartItems: listItems, id: userId });
       const { data } = response;
 
       window.location.href = data.urlPayment;

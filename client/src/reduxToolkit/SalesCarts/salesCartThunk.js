@@ -4,7 +4,7 @@ import axios from 'axios'
 export const getSalesCart = (userId) => {
     return async (dispatch) => {
         try {
-            const response = await axios.get(`http://localhost:3001/salesCart/user/${userId}`);
+            const response = await axios.get(`https://drewili-pf-back.onrender.com/salesCart/user/${userId}`);
             const { products, totalCartPrice } = response.data;
             dispatch(getSalesCartSlice({ products, totalCartPrice }))
         } catch (error) {
@@ -16,7 +16,7 @@ export const getSalesCart = (userId) => {
 export const deleteSalesCart = (salesCartId, userId) => {
     return async (dispatch) => {
         try {
-            const response = await axios.delete(`http://localhost:3001/salescart/delete`, { params: { id: salesCartId, userId: userId } });
+            const response = await axios.delete(`https://drewili-pf-back.onrender.com/salescart/delete`, { params: { id: salesCartId, userId: userId } });
             const { products, totalCartPrice } = response.data
             dispatch(getSalesCartSlice({ products, totalCartPrice }))
         }
@@ -29,7 +29,7 @@ export const deleteSalesCart = (salesCartId, userId) => {
 export const updateSalesCart = (salesCartId, updatedQuantity, userId) => {
     return async (dispatch)=>{
         try {
-            const response = await axios.put(`http://localhost:3001/salescart/update`, { id: salesCartId, quantity: updatedQuantity, userId: userId });
+            const response = await axios.put(`https://drewili-pf-back.onrender.com/salescart/update`, { id: salesCartId, quantity: updatedQuantity, userId: userId });
             console.log(response, 'esta es la respuesta de la cantidad');
             const {products, totalCartPrice} = response.data
             dispatch(getSalesCartSlice({products, totalCartPrice}))

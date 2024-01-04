@@ -1,7 +1,7 @@
 import { postLoginSuccess } from "./loginSlice";
 import axios from "axios";
 
-const API_URL = "http://localhost:3001/auth/login";
+const API_URL = "https://drewili-pf-back.onrender.com/auth/login";
 
 export const postLogin = (loginData) => {
   return async (dispatch) => {

@@ -1,7 +1,7 @@
 import { filterPriceSuccess } from "../Product/productSlice";
 import axios from "axios";
 
-const API_URL = "http://localhost:3001/filterby/price";
+const API_URL = "https://drewili-pf-back.onrender.com/filterby/price";
 
 export const filterPrice = ({ minPrice, maxPrice }) => {
   return async (dispatch) => {
