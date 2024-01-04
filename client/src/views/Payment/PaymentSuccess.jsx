@@ -2,15 +2,15 @@ import React, { useEffect } from 'react';
 
 const PaymentSuccess = () => {
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const timeout = setTimeout(() => {
+  //   const timeout = setTimeout(() => {
 
-      window.location.href = '/';
-    }, 3000); 
+  //     window.location.href = '/';
+  //   }, 3000); 
 
-    return () => clearTimeout(timeout);
-  }, []);
+  //   return () => clearTimeout(timeout);
+  // }, []);
 
   return (
     <div className='h-90vh  bg-whiteSmoke flex justify-center items-center flex-col'>

@@ -9,7 +9,7 @@ const ShoppingCart = () => {
   const dispatch = useDispatch()
   const { salesCart } = useSelector((state) => state.salesCart)
   const { priceTotal } = useSelector((state) => state.salesCart)
-
+  console.log(salesCart, 'este el sales cart de shoping cart');
   const userSessionFromCookies = Cookies.get("userSession");
   const userSession = userSessionFromCookies
     ? JSON.parse(userSessionFromCookies)
@@ -75,7 +75,7 @@ const ShoppingCart = () => {
                   <img src={item.image} alt={item.name} className="mr-2" style={{ maxWidth: '50px', maxHeight: '50px' }} />
                   {item.name}
                 </span>
-                <span className="w-16 text-right">{`$${parseFloat(item.price).toFixed(2)}`}</span>
+                <span className="w-16 text-right">{`S/${parseFloat(item.price).toFixed(2)}`}</span>
                 <span className="w-16 text-right">{item.quantity}</span>
                 <button onClick={() => handleQuantity(item.salesCartId, item.quantity + 1, userId)}>+</button>
                 <button onClick={() => handleQuantity(item.salesCartId, item.quantity - 1, userId)}>-</button>

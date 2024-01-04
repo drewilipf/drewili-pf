@@ -8,6 +8,7 @@ const UserModel = require('./models/users')
 const CommentModel = require('./models/comments')
 const FavoriteModel = require('./models/favorites')
 const ColorsModel = require('./models/colors');
+const PurchaseModel = require('./models/purchaseHistory')
 
 const { DB_URL } = process.env;
 
@@ -34,6 +35,7 @@ const User = UserModel(sequelize)
 const Comments = CommentModel(sequelize)
 const Favorite = FavoriteModel(sequelize)
 const Colors = ColorsModel(sequelize)
+const PurchaseHistory = PurchaseModel(sequelize)
 
 // Aca vendrian las relaciones
 Product.belongsTo(Category, { foreignKey: 'category_id', as: 'Category' });
@@ -49,6 +51,11 @@ SalesCart.belongsTo(User, {foreignKey: 'user_id'})
 SalesCart.belongsTo(Product, { foreignKey: 'product_id' });
 Product.belongsToMany(User, { through: SalesCart, foreignKey: 'product_id' });
 User.belongsToMany(Product, { through: SalesCart, foreignKey: 'user_id' });
+
+PurchaseHistory.belongsTo(User, {foreignKey: 'user_id'})
+PurchaseHistory.belongsTo(Product, { foreignKey: 'product_id' });
+Product.belongsToMany(User, { through: PurchaseHistory, foreignKey: 'product_id' });
+User.belongsToMany(Product, { through: PurchaseHistory, foreignKey: 'user_id' });
 
 Product.belongsToMany(User, { through: Comments, foreignKey: 'product_id' });
 User.belongsToMany(Product, { through: Comments, foreignKey: 'user_id' });
@@ -80,5 +87,6 @@ module.exports = {
    Comments,
    Favorite,
    Colors,
+   PurchaseHistory,
    conn: sequelize, 
 };
