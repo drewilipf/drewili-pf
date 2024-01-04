@@ -20,6 +20,7 @@ import ProductList from "./Components/DashboardComponents/ProductList/ProductLis
 import EditProduct from "./Components/DashboardComponents/EditProduct/EditProduct";
 import Favorites from "./views/Favorites/favorites";
 import PaymentSuccess from "./views/Payment/PaymentSuccess";
+import Footer from "./Components/Footer/Footer";
 
 function App() {
   const dispacth = useDispatch();
@@ -78,6 +79,7 @@ function App() {
           <Route path="/payment/success" element={<PaymentSuccess/>} />
         </Routes>
       </div>
+      <Footer/>
     </div>
   );
 }

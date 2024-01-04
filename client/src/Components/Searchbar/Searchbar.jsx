@@ -47,15 +47,7 @@ function Searchbar({ setActualPage }) {
     if (searchKeyword.length < 2) {
       alert("Debe ingresar al menos dos caracteres");
       return;
-    }
-    dispatch(searchProduct(searchKeyword));
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter" && searchKeyword.length < 2) {
-      alert("Debe ingresar al menos dos caracteres");
-      return;
-    }
+    }    
     dispatch(searchProduct(searchKeyword));
   };
 
@@ -73,7 +65,9 @@ function Searchbar({ setActualPage }) {
         className="border border-chiliRed rounded p-2 mr-2 focus:outline-none focus:border-chiliRed"
         placeholder="Buscar producto..."
         value={searchKeyword}
+        
         onChange={handleSearchInputChange}
+        
         
         
       />
@@ -95,7 +89,7 @@ function Searchbar({ setActualPage }) {
       <button
         className="bg-chiliRed transition duration-300 hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mr-16"
         onClick={handleSearchClick}
-        onKeyPress={handleKeyPress}
+        
       >
         Buscar
       </button>
