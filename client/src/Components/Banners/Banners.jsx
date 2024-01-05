@@ -17,12 +17,12 @@ function Banners() {
       </div>
 
       <div className="flex flex-wrap">
-        <img src="/cat1.png" alt="cat1" className="max-h-35 w-auto mb-4 mr-6" />
-        <img src="/cat2.png" alt="cat2" className="max-h-35 w-auto mb-4 mr-6" />
-        <img src="/cat3.png" alt="cat3" className="max-h-35 w-auto mb-4 mr-6" />
-        <img src="/cat4.png" alt="cat4" className="max-h-35 w-auto mb-4 mr-6" />
-        <img src="/cat5.png" alt="cat5" className="max-h-35 w-auto mb-4 mr-6" />
-        <img src="/cat6.png" alt="cat6" className="max-h-35 w-auto mb-4 mr-6" />
+        <img src="/cat1.png" alt="cat1" className="max-h-35 w-auto mb-4 mr-4" />
+        <img src="/cat2.png" alt="cat2" className="max-h-35 w-auto mb-4 mr-4" />
+        <img src="/cat3.png" alt="cat3" className="max-h-35 w-auto mb-4 mr-4" />
+        <img src="/cat4.png" alt="cat4" className="max-h-35 w-auto mb-4 mr-4" />
+        <img src="/cat5.png" alt="cat5" className="max-h-35 w-auto mb-4 mr-4" />
+        <img src="/cat6.png" alt="cat6" className="max-h-35 w-auto mb-4 mr-4" />
       </div>
     </div>
   );

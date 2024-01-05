@@ -79,7 +79,9 @@ function App() {
           <Route path="/payment/success" element={<PaymentSuccess/>} />
         </Routes>
       </div>
+      {!isDashboardRoute && (
       <Footer/>
+      )}
     </div>
   );
 }
