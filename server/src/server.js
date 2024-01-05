@@ -3,7 +3,8 @@ const morgan = require('morgan');
 const routes = require('./routes/index.js');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-
+const { auth } = require('express-openid-connect');
+const { User } = require('./db.js');
 const server = express();
 
 // Middleware de registro de solicitudes (morgan)
@@ -40,6 +41,52 @@ server.use(
     })
 );
 
+const config = {
+    authRequired: false,
+    auth0Logout: true,
+    secret: 'LQs3H9MCa17POv0zIb21TY3qUqM068pdoggH4FtGmQ9w9OlgNtml9d7cdncYOMsH',
+    baseURL: 'http://localhost:3001',
+    clientID: 'kEaCI7mlY2rpa1h4q3mX8Lk0UEf4Gj3N',
+    issuerBaseURL: 'https://drewili.us.auth0.com'
+  };
+  
+
+
+server.use(auth(config));
+
+server.get('/', async (req, res) => {
+    try {
+        if (req.oidc.isAuthenticated()) {
+            const userId = req.oidc.user.sub; // ID
+            const userName = req.oidc.user.name; // Nombre
+            const userEmail = req.oidc.user.email; // Email
+            console.log(userId, userName, userEmail);
+
+            const user = await User.findOne({
+                where: { auth0UserId: userId }
+            })
+
+            if (!user) {
+                await User.create({
+                    auth0UserId: userId,
+                    auth0DisplayName: userName,
+                    auth0Email: userEmail,
+                    username: userName
+                })
+            }
+            const redirectURL = `http://localhost:5173/?userId=${userId}&userName=${userName}&userEmail=${userEmail}`;
+            res.redirect(redirectURL);
+        } else {
+        }
+    } catch (error) {
+        console.log(error);
+        if (error.name === 'BadRequestError' && error.error === 'access_denied') {
+            // Personaliza el mensaje de error y la respuesta
+            res.redirect('http://localhost:5173');
+            return
+        }
+    }
+});
 // Middleware para procesar JSON en solicitudes
 server.use(express.json());
 
