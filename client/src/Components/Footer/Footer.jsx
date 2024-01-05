@@ -1,5 +1,8 @@
 import React from "react";
 import LegalesLink from "./LinkLegales";
+import instagramIcon from "../../icons/instagram.png"
+import linkedinIcon from "../../icons/linkedin.png"
+import whatsappIcon from "../../icons/whatsapp.png"
 
 const Footer = () => {
     return (
@@ -16,13 +19,13 @@ const Footer = () => {
 
                         <a href="https://www.instagram.com/dropshipping.peru/" target="_blank" rel="noopener noreferrer">
                             <img
-                                src="/src/icons/instagram-svgrepo-com 1.png"
+                                src={instagramIcon}
                                 alt="Instagram icon"
                                 className="mt-2 w-6 h-6"
                             /></a>
                         <a href="https://www.linkedin.com/company/drewili/" target="_blank" rel="noopener noreferrer">
                             <img
-                                src="/src/icons/linkedin-svgrepo-com 1.png"
+                                src={linkedinIcon}
                                 alt="Linkedin icon"
                                 className="mt-2 w-6 h-6"
                             /></a>
@@ -40,7 +43,7 @@ const Footer = () => {
                         <div className="flex items-center">
                             <a href="https://wa.me/51971985484" target="_blank" rel="noopener noreferrer">
                                 <img
-                                    src="/src/icons/whatsapp-svgrepo-com 1.png"
+                                    src={whatsappIcon}
                                     alt="Whatsapp icon"
                                     className="mr-2 w-4 h-4"
                                 /></a>
@@ -50,7 +53,7 @@ const Footer = () => {
                         <div className="flex items-center">
                             <a href="https://wa.me/51959386167" target="_blank" rel="noopener noreferrer">
                                 <img
-                                    src="/src/icons/whatsapp-svgrepo-com 1.png"
+                                    src={whatsappIcon}
                                     alt="Whatsapp icon"
                                     className="mr-2 w-4 h-4"
                                 /></a>
