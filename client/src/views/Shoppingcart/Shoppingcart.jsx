@@ -9,6 +9,8 @@ import {
   getSalesCart,
   updateSalesCart,
 } from "../../reduxToolkit/SalesCarts/salesCartThunk";
+import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from "react-icons/io";
+
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
@@ -33,45 +35,21 @@ const ShoppingCart = () => {
     dispatch(deleteSalesCart(salesCartId, userId));
   };
 
-  //copiar desde aca
 
-  // const listItems = salesCart?.map((item) => ({
-  //   idProduct: item.id,
-  //   name: item.name,
-  //   image: item.image,
-  //   price: item.price,
-  //   quantity: item.quantity,
-  // }));
-
-  // const handlePayment = async () => {
-  //   try {
-  //     const response = await axios.post(
-  //       "https://drewili-pf-back.onrender.com/payment/create-checkout-session",
-  //       { cartItems: listItems, id: userId }
-  //     );
-  //     const { data } = response;
-
-  //     window.location.href = data.urlPayment;
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // // Hasta aca
   const handleQuantity = async (salesCartId, newQuantity, userId) => {
     const updatedQuantity = Math.max(1, newQuantity);
     dispatch(updateSalesCart(salesCartId, updatedQuantity, userId));
   };
 
   return (
-    <div className="bg-gray-800 text-black p-4 h-90vh">
+    <div className="w-60vw mx-auto bg-gray-800 text-black p-4 h-90vh">
       <h2 className="text-2xl font-semibold mb-4">Tu Carrito de Compras</h2>
       {salesCart && salesCart.length !== 0 ? (
         <>
           <div className="flex items-center justify-between py-2">
             <span className="flex-1">Nombre del Producto</span>
-            <span className="w-16 text-right mr-4">Precio</span>
-            <span className="w-16 text-left ml-2">Cantidad</span>
+            <span className="w-16 text-right mr-10">Precio</span>
+            <span className="w-16 text-left mr-16">Cantidad</span>
           </div>
           {salesCart?.map((item) => (
             <div
@@ -90,20 +68,20 @@ const ShoppingCart = () => {
               <span className="w-16 text-right">{`S/${parseFloat(
                 item.price
               ).toFixed(2)}`}</span>
-              <span className="w-16 text-right">{item.quantity}</span>
-              <button
-                onClick={() =>
-                  handleQuantity(item.salesCartId, item.quantity + 1, userId)
-                }
-              >
-                +
-              </button>
-              <button
+              <button className="ml-4 text-xl"
                 onClick={() =>
                   handleQuantity(item.salesCartId, item.quantity - 1, userId)
                 }
-              >
-                -
+              ><IoIosRemoveCircleOutline />
+
+              </button>
+              <span className="w-16 text-center">{item.quantity}</span>
+              <button className="mr-4 text-xl"
+                onClick={() =>
+                  handleQuantity(item.salesCartId, item.quantity + 1, userId)
+                }
+              ><IoIosAddCircleOutline />
+
               </button>
               <button
                 onClick={() => handleRemoveFromCart(item.salesCartId, userId)}
@@ -122,12 +100,7 @@ const ShoppingCart = () => {
               <span className="font-semibold">Total:</span>
               <span className="text-2xl">{`$${priceTotal.toFixed(2)}`}</span>
             </div>
-            {/* <button
-              className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
-              onClick={handlePayment}
-            >
-              Continuar compra
-            </button> */}
+
             <NavLink to={`/shippingform`}>
               <button className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded">
                 Continuar compra
