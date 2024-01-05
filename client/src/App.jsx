@@ -20,8 +20,10 @@ import ProductList from "./Components/DashboardComponents/ProductList/ProductLis
 import EditProduct from "./Components/DashboardComponents/EditProduct/EditProduct";
 import Favorites from "./views/Favorites/favorites";
 import PaymentSuccess from "./views/Payment/PaymentSuccess";
+import Payment from "./views/Payment/Payment";
 import ShippingForm from "./views/Shoppingcart/ShippingForm";
 import ValidateAddress from "./views/Shoppingcart/validateAddress";
+import SelectPayment from "./views/Shoppingcart/SelectPayment";
 
 function App() {
   const dispacth = useDispatch();
@@ -64,6 +66,7 @@ function App() {
           <Route path="/shoppingcart" element={<Shoppingcart />} />
           <Route path="/shippingform" element={<ShippingForm />} />
           <Route path="/validateaddress" element={<ValidateAddress />} />
+          <Route path="/selectpayment" element={<SelectPayment />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/userprofile/:id" element={<UserProfile />} />
           <Route path="/edituserprofile/:id" element={<EditUserProfile />} />
@@ -80,6 +83,7 @@ function App() {
           />
           <Route path="/dashboard/productList" element={<ProductList />} />
           <Route path="/payment/success" element={<PaymentSuccess />} />
+          <Route path="/payment/payment" element={<Payment />} />
         </Routes>
       </div>
     </div>

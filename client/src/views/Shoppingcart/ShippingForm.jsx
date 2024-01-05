@@ -1,18 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserId } from "../../reduxToolkit/User/userThunks";
-import { useParams, useNavigate } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { NavLink } from "react-router-dom";
+import {
+  setShippingInfo,
+  setDropshippingInfo,
+} from "../../reduxToolkit/ShippingInfo/shippingInfoSlice";
 
 const ShippingForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { login } = useSelector((state) => state.login);
   const { salesCart } = useSelector((state) => state.salesCart);
-  console.log(salesCart);
+
   const { priceTotal } = useSelector((state) => state.salesCart);
-  console.log(priceTotal);
 
   const userSessionFromCookies = Cookies.get("userSession");
   const userSession = userSessionFromCookies
@@ -66,10 +70,16 @@ const ShippingForm = () => {
       [event.target.name]: event.target.value,
     });
   }
-
+  const handleShippingSubmit = () => {
+    console.log(editable);
+    const shi = dispatch(setShippingInfo(editable));
+    console.log(shi);
+    dispatch(setDropshippingInfo(dropshipping));
+    navigate("/validateaddress");
+  };
   return (
-    <div className=" pt-5 flex flex-auto">
-      <div className="bg-chiliRed bg-opacity-10 p-6 text-eerieBlack rounded-lg shadow-md w-full  max-w-screen-md mx-auto flex flex-col mr-[-1rem] h-30rem">
+    <div className=" pt-5 flex flex-auto overflow-y-hidden">
+      <div className=" bg-opacity-10 p-6 text-eerieBlack rounded-lg shadow-md w-full  max-w-screen-md mx-auto flex flex-col mr-[-1rem] h-screen ">
         <h1 className="font-bold text-2xl text-center mt-2 mb-6 ">
           Confirmación de Datos de Envío
         </h1>
@@ -127,7 +137,14 @@ const ShippingForm = () => {
                   Carnet de extranjería
                 </option>
               </select>
-              <input className={styles} id="dni" name="dni" type="text" />
+              <input
+                className={styles}
+                id="dni"
+                name="dni"
+                type="text"
+                value={editable.dni}
+                onChange={handleFieldChange}
+              />
             </div>
           </div>
         ) : null}
@@ -155,8 +172,8 @@ const ShippingForm = () => {
               <label className="mr-2 font-bold">Nombre Completo</label>
               <input
                 className={styles}
-                id="nameClient"
-                name="nameClient"
+                id="name"
+                name="name"
                 type="text"
                 value={dropshipping.name}
                 onChange={handleChange}
@@ -207,11 +224,14 @@ const ShippingForm = () => {
             </div>
           </div>
         ) : null}
-        <NavLink to={`/validateaddress`}>
-          <button className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded">
-            Ir a datos de entrega
-          </button>
-        </NavLink>
+
+        <button
+          className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4  w-60 rounded"
+          onClick={handleShippingSubmit}
+        >
+          Ir a datos de entrega
+        </button>
+
         <NavLink
           to={`/shoppingcart`}
           className="text-chiliRed  hover:text-onyx underline ml-4 "
