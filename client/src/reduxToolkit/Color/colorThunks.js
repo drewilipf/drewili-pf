@@ -16,10 +16,10 @@ export const getColor = () => {
     }
   };
 };
-export const postColor = () => {
+export const postColor = (co) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(API_URL);
+      const response = await axios.post(API_URL, co);
 
       const color = response.data;
 
