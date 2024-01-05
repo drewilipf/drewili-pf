@@ -70,7 +70,7 @@ function RegisteredUser() {
                   <td className="py-2 px-4 border-b">{user.address}</td>
                   <td className="py-2 px-4 border-b">{user.role}</td>
                   <td className="py-2 px-4 border-b">
-                    {user.deleted ? "Desactivo" : "Activo"}
+                    {user.deleted ? "Inactivo" : "Activo"}
                   </td>
                   <td className="py-2 px-4 border-b">
                     <NavLink to={`/editUserProfile/${user.id}`}>

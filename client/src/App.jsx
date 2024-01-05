@@ -24,6 +24,7 @@ import Payment from "./views/Payment/Payment";
 import ShippingForm from "./views/Shoppingcart/ShippingForm";
 import ValidateAddress from "./views/Shoppingcart/validateAddress";
 import SelectPayment from "./views/Shoppingcart/SelectPayment";
+import Footer from "./Components/Footer/Footer";
 
 function App() {
   const dispacth = useDispatch();
@@ -86,6 +87,9 @@ function App() {
           <Route path="/payment/payment" element={<Payment />} />
         </Routes>
       </div>
+      {!isDashboardRoute && (
+      <Footer/>
+      )}
     </div>
   );
 }

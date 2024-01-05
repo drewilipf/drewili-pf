@@ -315,7 +315,7 @@ const EditProduct = () => {
               value={input.deleted}
               onChange={handleChange}
             >
-              <option value="true">Desactivo</option>
+              <option value="true">Inactivo</option>
               <option value="false">Activo</option>
             </select>
           </div>

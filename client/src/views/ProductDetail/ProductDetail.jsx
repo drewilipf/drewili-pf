@@ -210,7 +210,7 @@ function ProductDetail() {
             :
             <button
               onClick={handleAddToCart}
-              className="bg-chiliRed text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
+              className="bg-chiliRed text-whiteSmoke font-semibold rounded-full mb-8 py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
               disabled={loading || addedToCart}
             >
               {loading
@@ -223,7 +223,7 @@ function ProductDetail() {
 
         <button
           onClick={handleAddToFavorite}
-          className="bg-chiliRed text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
+          className="bg-chiliRed text-whiteSmoke font-semibold rounded-full mb-8 py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
           disabled={loadingFav || addedToFavorites}
         >
           {loadingFav ? "Agregando a favoritos..." : addedToFavorites ? "Agregado a favoritos" : "Agregar a favoritos"}
@@ -265,7 +265,7 @@ function ProductDetail() {
           ))}
         </div>
       </div>
-      <div className=" pb-2">
+      <div className="ml-20 mb-8 pb-2">
         <h2 className="text-left text-chiliRed text-xl">Comentarios:</h2>
         <br></br>
         <CommentCards comments={comments} detailId={id} />
