@@ -72,7 +72,7 @@ const SelectPayment = () => {
       console.error(error);
     }
   };
-  const PriceContraentrega = (priceTotal * 30) / 100;
+  const PriceContraentrega = ((priceTotal * 30) / 100).toFixed(2);
   return (
     <div className="h-screen ml-5">
       <div className="flex items-center">
@@ -208,28 +208,28 @@ const SelectPayment = () => {
           </div>
           <div className="flex mt-8">
             <span className="mr-4">
-              <div className="font-bold">nombre del banco:"BBVA"</div>
-              <div>titular: DREWILI</div>
-              <div>cta. corriente: 555-566-555-555</div>
+              <div className="font-bold">Nombre del banco:"BBVA"</div>
+              <div>Titular: DREWILI</div>
+              <div>Cta. corriente: 555-566-555-555</div>
               <div>CCI: 20.000.000</div>
             </span>
             <span className="mr-4">
-              <div className="font-bold">nombre del banco:"Diners Club"</div>
-              <div>titular: DREWILI</div>
-              <div>cta. corriente: 555-566-555-555</div>
+              <div className="font-bold">Nombre del banco:"Diners Club"</div>
+              <div>Titular: DREWILI</div>
+              <div>Cta. corriente: 555-566-555-555</div>
               <div>CCI: 20.000.000</div>
             </span>
             <span className="mr-4">
-              <div className="font-bold">nombre del banco:"BCP"</div>
-              <div>titular: DREWILI</div>
-              <div>cta. corriente: 555-566-555-555</div>
+              <div className="font-bold">Nombre del banco:"BCP"</div>
+              <div>Titular: DREWILI</div>
+              <div>Cta. corriente: 555-566-555-555</div>
               <div>CCI: 20.000.000</div>
             </span>
             <span className="mr-4">
               <div className="font-bold">
-                nombre del banco:"Dividelo Interbanck"
+                Nombre del banco:"Dividelo Interbanck"
               </div>
-              <div>titular: DREWILI</div>
+              <div>Titular: DREWILI</div>
               <div>cta. corriente: 555-566-555-555</div>
               <div>CCI: 20.000.000</div>
             </span>
@@ -241,7 +241,8 @@ const SelectPayment = () => {
             <div className="mt-4 text-5xl ml-5">
               <SiWhatsapp />
             </div>
-            <span className="ml-5"> 555-555-5555</span>
+              <a href="https://wa.me/51971985484" target="_blank" rel="noopener noreferrer">
+            <span className="hover:text-chiliRed ml-5">971 985 484</span></a>
           </div>
           <NavLink to={`/payment/payment`}>
             <button className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded">
@@ -265,7 +266,7 @@ const SelectPayment = () => {
           <span>
             Con esta opción podrás pagar a través de Yape o Plin, registra
             nuestro número de teléfono, usuando el QR, en tus contactos y
-            realiza el pago
+            realiza el pago.
           </span>
           <div
             className="
@@ -280,7 +281,8 @@ const SelectPayment = () => {
             <div className="mt-4 text-5xl ml-5">
               <SiWhatsapp />
             </div>
-            <span className="ml-5"> 555-555-5555</span>
+            <a href="https://wa.me/51971985484" target="_blank" rel="noopener noreferrer">
+            <span className="hover:text-chiliRed ml-5">971 985 484</span></a>
           </div>
           <NavLink to={`/payment/payment`}>
             <button className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded">
@@ -293,40 +295,40 @@ const SelectPayment = () => {
         <div className="mt-6">
           <span className="font-bold">Anticipo del 30% del pago</span>
           <div>
-            se confirmará el pedido por los medios de conctaco suministrado
+            Se confirmará el pedido por los medios de contacto suministrado
           </div>
           <span>
             En caso el comprador no conteste, DREWILI no procederá con el envío
             del pedido.
           </span>
           <div className="font-bold">
-            Realiza la transferencia del siguiente monto {PriceContraentrega} y
-            envia el comprobante para proceder con el envio
+            Realiza la transferencia del siguiente monto S/{PriceContraentrega} y
+            envia el comprobante para proceder con el envío.
           </div>
           <div className="flex mt-8">
             <span className="mr-4">
-              <div className="font-bold">nombre del banco:"BBVA"</div>
-              <div>titular: DREWILI</div>
-              <div>cta. corriente: 555-566-555-555</div>
+              <div className="font-bold">Nombre del banco:"BBVA"</div>
+              <div>Titular: DREWILI</div>
+              <div>Cta. corriente: 555-566-555-555</div>
               <div>CCI: 20.000.000</div>
             </span>
             <span className="mr-4">
-              <div className="font-bold">nombre del banco:"Diners Club"</div>
-              <div>titular: DREWILI</div>
-              <div>cta. corriente: 555-566-555-555</div>
+              <div className="font-bold">Nombre del banco:"Diners Club"</div>
+              <div>Titular: DREWILI</div>
+              <div>Cta. corriente: 555-566-555-555</div>
               <div>CCI: 20.000.000</div>
             </span>
             <span className="mr-4">
-              <div className="font-bold">nombre del banco:"BCP"</div>
-              <div>titular: DREWILI</div>
-              <div>cta. corriente: 555-566-555-555</div>
+              <div className="font-bold">Nombre del banco:"BCP"</div>
+              <div>Titular: DREWILI</div>
+              <div>Cta. corriente: 555-566-555-555</div>
               <div>CCI: 20.000.000</div>
             </span>
             <span className="mr-4">
               <div className="font-bold">
-                nombre del banco:"Dividelo Interbanck"
+                Nombre del banco:"Dividelo Interbanck"
               </div>
-              <div>titular: DREWILI</div>
+              <div>Titular: DREWILI</div>
               <div>cta. corriente: 555-566-555-555</div>
               <div>CCI: 20.000.000</div>
             </span>
@@ -338,7 +340,8 @@ const SelectPayment = () => {
             <div className="mt-4 text-5xl ml-5">
               <SiWhatsapp />
             </div>
-            <span className="ml-5"> 555-555-5555</span>
+            <a href="https://wa.me/51971985484" target="_blank" rel="noopener noreferrer">
+            <span className="hover:text-chiliRed ml-5">971 985 484</span></a>
           </div>
           <NavLink to={`/payment/payment`}>
             <button className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded">
