@@ -1,13 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
-import Cookies from 'js-cookie';
-import binIcon from "../../icons/bin.png"
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import Cookies from "js-cookie";
+import { NavLink } from "react-router-dom";
+import binIcon from "../../icons/bin.png";
+import {
+  deleteSalesCart,
+  getSalesCart,
+  updateSalesCart,
+} from "../../reduxToolkit/SalesCarts/salesCartThunk";
+import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from "react-icons/io";
+
 
 const ShoppingCart = () => {
-  const [cartItems, setCartItems] = useState([]);
-  const [totalCartPrice, setTotalCartPrice] = useState(0);
-
+  const dispatch = useDispatch();
+  const { salesCart } = useSelector((state) => state.salesCart);
+  const { priceTotal } = useSelector((state) => state.salesCart);
+  console.log(salesCart, "este el sales cart de shoping cart");
   const userSessionFromCookies = Cookies.get("userSession");
   const userSession = userSessionFromCookies
     ? JSON.parse(userSessionFromCookies)
@@ -15,64 +24,93 @@ const ShoppingCart = () => {
 
   const { login } = useSelector((state) => state.login);
 
-  const userId = (userSession && userSession.userId) || (login && login.userSession.userId);
+  const userId =
+    (userSession && userSession.userId) || (login && login.userSession.userId);
 
   useEffect(() => {
-    const fetchCartItems = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3001/salesCart/user/${userId}`);
-        const { products, totalCartPrice } = response.data;
-        setCartItems(products);
-        setTotalCartPrice(totalCartPrice);
-      } catch (error) {
-        console.error('Error al obtener productos del carrito:', error);
-      }
-    };
-
-    fetchCartItems();
+    dispatch(getSalesCart(userId));
   }, [userId]);
 
-  const handleRemoveFromCart = async (salesCartId, price) => {
-    try {
-      await axios.delete(`http://localhost:3001/salesCart/${salesCartId}`);
-      
-      setCartItems((prevCartItems) => prevCartItems.filter((item) => item.salesCartId !== salesCartId));
-      setTotalCartPrice((prevTotal) => prevTotal - price);
-    } catch (error) {
-      console.error('Error al quitar producto del carrito:', error);
-    }
+  const handleRemoveFromCart = async (salesCartId, userId) => {
+    dispatch(deleteSalesCart(salesCartId, userId));
+  };
+
+
+  const handleQuantity = async (salesCartId, newQuantity, userId) => {
+    const updatedQuantity = Math.max(1, newQuantity);
+    dispatch(updateSalesCart(salesCartId, updatedQuantity, userId));
   };
 
   return (
-    <div className="bg-gray-800 text-black p-4 h-90vh">
+    <div className="w-60vw mx-auto bg-gray-800 text-black p-4 h-90vh">
       <h2 className="text-2xl font-semibold mb-4">Tu Carrito de Compras</h2>
-      <div className="flex items-center justify-between py-2">
-        <span className="flex-1">Nombre del Producto</span>
-        <span className="w-16 text-right mr-4">Precio</span>
-        <span className="w-16 text-left ml-2">Cantidad</span>
-      </div>
-      {cartItems.map((item) => (
-        <div key={item.salesCartId} className="flex items-center justify-between py-2 space-y-2">
-          <span className="flex items-center flex-1">
-            <img src={item.image} alt={item.name} className="mr-2" style={{ maxWidth: '50px', maxHeight: '50px' }} />
-            {item.name}
-          </span>
-          <span className="w-16 text-right">{`$${parseFloat(item.price).toFixed(2)}`}</span>
-          <span className="w-16 text-right">{item.quantity}</span>
-          <button onClick={() => handleRemoveFromCart(item.salesCartId, item.totalPrice)} className="ml-2">
-            <img src={binIcon} alt="quitar" style={{ maxWidth: '20px', maxHeight: '20px' }} />
-          </button>
-        </div>
-      ))}
-      <div className="mt-4">
-        <div className="flex justify-between">
-          <span className="font-semibold">Total:</span>
-          <span className="text-2xl">{`$${totalCartPrice.toFixed(2)}`}</span>
-        </div>
-        <button className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded">
-          Pagar
-        </button>
-      </div>
+      {salesCart && salesCart.length !== 0 ? (
+        <>
+          <div className="flex items-center justify-between py-2">
+            <span className="flex-1">Nombre del Producto</span>
+            <span className="w-16 text-right mr-10">Precio</span>
+            <span className="w-16 text-left mr-16">Cantidad</span>
+          </div>
+          {salesCart?.map((item) => (
+            <div
+              key={item.salesCartId}
+              className="flex items-center justify-between py-2 space-y-2"
+            >
+              <span className="flex items-center flex-1">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="mr-2"
+                  style={{ maxWidth: "50px", maxHeight: "50px" }}
+                />
+                {item.name}
+              </span>
+              <span className="w-16 text-right">{`S/${parseFloat(
+                item.price
+              ).toFixed(2)}`}</span>
+              <button className="ml-4 text-xl"
+                onClick={() =>
+                  handleQuantity(item.salesCartId, item.quantity - 1, userId)
+                }
+              ><IoIosRemoveCircleOutline />
+
+              </button>
+              <span className="w-16 text-center">{item.quantity}</span>
+              <button className="mr-4 text-xl"
+                onClick={() =>
+                  handleQuantity(item.salesCartId, item.quantity + 1, userId)
+                }
+              ><IoIosAddCircleOutline />
+
+              </button>
+              <button
+                onClick={() => handleRemoveFromCart(item.salesCartId, userId)}
+                className="ml-2"
+              >
+                <img
+                  src={binIcon}
+                  alt="quitar"
+                  style={{ maxWidth: "20px", maxHeight: "20px" }}
+                />
+              </button>
+            </div>
+          ))}
+          <div className="mt-4">
+            <div className="flex justify-between">
+              <span className="font-semibold">Total:</span>
+              <span className="text-2xl">{`$${priceTotal.toFixed(2)}`}</span>
+            </div>
+
+            <NavLink to={`/shippingform`}>
+              <button className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded">
+                Continuar compra
+              </button>
+            </NavLink>
+          </div>
+        </>
+      ) : (
+        <h2>Vacío</h2>
+      )}
     </div>
   );
 };

@@ -35,8 +35,8 @@ function RegisteredUser() {
   return (
     <div>
       <NavbarAdmin />
-      <div className="container mx-auto mt-8 ml-[25%] h-90vh">
-        <h1 className="ml-[30%] text-2xl font-bold mb-4">
+      <div className="container mx-auto ml-[20%] mt-[-3rem] h-90vh">
+        <h1 className="ml-[30%] text-2xl font-bold mb-8">
           Usuarios Registrados
         </h1>
 
@@ -53,9 +53,9 @@ function RegisteredUser() {
               <th className="py-1 px-1 border-b">Correo Electrónico</th>
               <th className="py-1 px-1 border-b">Usuario</th>
               <th className="py-1 px-1 border-b">Dirección</th>
-              <th className="py-1 px-1 border-b">rol</th>
+              <th className="py-1 px-1 border-b">Rol</th>
               <th className="py-1 px-1 border-b">Estado</th>
-              <th className="py-1 px-1 border-b">editar</th>
+              <th className="py-1 px-1 border-b">Editar</th>
               <th className="py-1 px-1 border-b">Eliminar</th>
             </tr>
           </thead>
@@ -70,7 +70,7 @@ function RegisteredUser() {
                   <td className="py-2 px-4 border-b">{user.address}</td>
                   <td className="py-2 px-4 border-b">{user.role}</td>
                   <td className="py-2 px-4 border-b">
-                    {user.deleted ? "Desactivo" : "Activo"}
+                    {user.deleted ? "Inactivo" : "Activo"}
                   </td>
                   <td className="py-2 px-4 border-b">
                     <NavLink to={`/editUserProfile/${user.id}`}>
@@ -86,8 +86,8 @@ function RegisteredUser() {
               ))}
           </tbody>
         </table>
-        </div>
       </div>
+    </div>
   );
 }
 

@@ -19,6 +19,12 @@ import { getColor } from "./reduxToolkit/Color/colorThunks";
 import ProductList from "./Components/DashboardComponents/ProductList/ProductList";
 import EditProduct from "./Components/DashboardComponents/EditProduct/EditProduct";
 import Favorites from "./views/Favorites/favorites";
+import PaymentSuccess from "./views/Payment/PaymentSuccess";
+import Payment from "./views/Payment/Payment";
+import ShippingForm from "./views/Shoppingcart/ShippingForm";
+import ValidateAddress from "./views/Shoppingcart/validateAddress";
+import SelectPayment from "./views/Shoppingcart/SelectPayment";
+import Footer from "./Components/Footer/Footer";
 
 function App() {
   const dispacth = useDispatch();
@@ -59,6 +65,9 @@ function App() {
           />
           <Route path="/detail/:id" element={<ProductDetail />} />
           <Route path="/shoppingcart" element={<Shoppingcart />} />
+          <Route path="/shippingform" element={<ShippingForm />} />
+          <Route path="/validateaddress" element={<ValidateAddress />} />
+          <Route path="/selectpayment" element={<SelectPayment />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/userprofile/:id" element={<UserProfile />} />
           <Route path="/edituserprofile/:id" element={<EditUserProfile />} />
@@ -74,8 +83,13 @@ function App() {
             element={<RegisteredUser />}
           />
           <Route path="/dashboard/productList" element={<ProductList />} />
+          <Route path="/payment/success" element={<PaymentSuccess />} />
+          <Route path="/payment/payment" element={<Payment />} />
         </Routes>
       </div>
+      {!isDashboardRoute && (
+      <Footer/>
+      )}
     </div>
   );
 }

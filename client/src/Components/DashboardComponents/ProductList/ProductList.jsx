@@ -53,7 +53,7 @@ function ProductList() {
             Producto eliminado exitosamente
           </div>
         )}
-        <div className=" w-90vw overflow-x-auto">
+        <div className=" w-90vw overflow-x-auto ml-[8%]">
           <table className="min-w-full bg-whiteSmoke border border-onyx">
             <thead>
               <tr>
@@ -95,7 +95,7 @@ function ProductList() {
                     <td className="py-2 px-4 border-b">{product.brand}</td>
                     <td className="py-2 px-4 border-b">{product.category}</td>
                     <td className="py-2 px-4 border-b">
-                      {product.deleted ? "Desactivo" : "Activo"}
+                      {product.deleted ? "Inactivo" : "Activo"}
                     </td>
                     <td className="py-2 px-4 border-b text-center">
                       <NavLink to={`/dashboard/editProduct/${product.id}`}>

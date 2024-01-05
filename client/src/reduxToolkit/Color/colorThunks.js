@@ -1,7 +1,7 @@
 import { getColorSlice, postColorSlice } from "./colorSlice";
 import axios from "axios";
 
-const API_URL = "http://localhost:3001/color";
+const API_URL = "https://drewili-pf-back.onrender.com/color";
 
 export const getColor = () => {
   return async (dispatch) => {
@@ -16,10 +16,10 @@ export const getColor = () => {
     }
   };
 };
-export const postColor = () => {
+export const postColor = (co) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(API_URL);
+      const response = await axios.post(API_URL, co);
 
       const color = response.data;
 

@@ -95,7 +95,7 @@ const ProductFilter = ({ setActualPage }) => {
             htmlFor="brand"
             className="block text-sm font-medium text-gray-700"
           >
-            Selecciona una Marca:
+            {/* Selecciona una Marca: */}
           </label>
           <select
             id="brand"
@@ -103,6 +103,7 @@ const ProductFilter = ({ setActualPage }) => {
             onChange={(e) => handleBrandChange(e.target.value)}
             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
+            <option value="" disabled defaultValue>Filtrar por marca</option>
             <option value="">Todas las marcas</option>
             {brandList.map((brand) => (
               <option key={brand.id} value={brand.brand}>
@@ -115,7 +116,7 @@ const ProductFilter = ({ setActualPage }) => {
             htmlFor="color"
             className="block text-sm font-medium text-gray-700 mt-4"
           >
-            Selecciona un Color:
+            {/* Selecciona un Color: */}
           </label>
           <select
             id="color"
@@ -123,6 +124,7 @@ const ProductFilter = ({ setActualPage }) => {
             value={filterState.selectedColor || ""}
             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
+            <option value="" disabled defaultValue>Filtrar por color</option>
             <option value="">Todos los colores</option>
             {Array.isArray(colors) &&
               colors.map((color) => (
@@ -134,7 +136,7 @@ const ProductFilter = ({ setActualPage }) => {
 
           <div className="">
             <label className="mr-2 block text-sm font-medium text-gray-700">
-              Selecciona un Rango de Precios:
+              Filtrar por precio:
             </label>
             <input
               type="number"

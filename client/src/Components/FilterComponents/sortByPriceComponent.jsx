@@ -21,10 +21,10 @@ const SortByPriceDropdown = () => {
       <select
         id="sortByPrice"
         onChange={(e) => handleSortChange(e.target.value)}
-        className="mt-1 block py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        className="mt-1  block py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
       >
-        <option value="asc">Ascendente</option>
-        <option value="desc">Descendente</option>
+        <option value="asc">Precio Asc</option>
+        <option value="desc">Precio Desc</option>
       </select>
     </div>
   );
