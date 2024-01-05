@@ -158,13 +158,13 @@ function CreateProduct() {
     }
   }
   return (
-    <div className="max-w-md mx-auto mt-30 mr-50">
+    <div className="max-w-md mx-auto pb-10 mt-[-3rem]">
       <NavbarAdmin />
-      <h1 className="text-2xl font-bold mb-4 flex items-center justify-center">
+      <h1 className="text-2xl font-bold mb-8 flex items-center justify-center">
         Crear Producto
       </h1>
       <form
-        className="border border-chiliRed rounded p- text-arial text-base flex-col flex items-center justify-center "
+        className="border border-chiliRed rounded p- text-arial text-base flex-col flex items-center  justify-center "
         onSubmit={handleSumit}
       >
         <div>
@@ -350,7 +350,7 @@ function CreateProduct() {
             )}
           </div>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 mb-4">
           <button
             type="submit"
             className="bg-chiliRed text-whiteSmoke py-3 px-6 rounded-full w-full"
