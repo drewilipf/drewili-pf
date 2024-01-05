@@ -29,6 +29,7 @@ const salesCartController = async(id, quantity, userId) => {
                 },
             ],
         },
+        order: [['id', 'ASC']]
     });
 
     if (allSalesCarts.length === 0){

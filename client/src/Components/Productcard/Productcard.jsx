@@ -6,11 +6,10 @@ import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
 
 //iconos
-import addToCartIcon from "../../icons/add-to-cart.png"
-import addedToCartIcon from "../../icons/added-to-cart.png"
-import emptyHeartIcon from "../../icons/emptyHeart.png"
-import filledHeartIcon from "../../icons/filledHeart.png"
-
+import addToCartIcon from "../../icons/add-to-cart.png";
+import addedToCartIcon from "../../icons/added-to-cart.png";
+import emptyHeartIcon from "../../icons/emptyHeart.png";
+import filledHeartIcon from "../../icons/filledHeart.png";
 
 function Productcard({
   id,
@@ -24,7 +23,6 @@ function Productcard({
   image,
   brand,
 }) {
-
   const [addedToCart, setAddedToCart] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -73,7 +71,7 @@ function Productcard({
         "https://drewili-pf-back.onrender.com/favorites",
         {
           product_id: id,
-          user_id: userId
+          user_id: userId,
         }
       );
 
@@ -87,49 +85,53 @@ function Productcard({
     }
   };
 
-
   return (
-<div className="m-4 p-4 rounded shadow-lg hover:shadow-xl h-auto w-80 bg-white flex flex-col items-center justify-evenly">
-  <NavLink to={`/detail/${id}`} className="flex flex-col items-center justify-center">
-    <img
-      src={image}
-      alt={name}
-      className="w-full h-52 object-contain object-center rounded-t"
-    />
-    <div className="mt-4 text-center">
-      <h2 className="text-lg font-semibold">{name}</h2>
-      <div className="flex justify-between items-center mt-2 flex-col">
-        <h3 className="text-gray-600 font-bold">S/ {price}</h3>
-        <h3 className="text-gray-600">{color}</h3>
-      </div>
-    </div>
-  </NavLink>
-  
-  <div className="flex gap-4 mt-4">
-    {
-      stock === 0 ?   <button className="bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline" disabled>
-      <img
-        src={addedToCart ? addedToCartIcon : addToCartIcon}
-        alt={addedToCart ? "Agregado al carrito" : "Agregar al carrito"}
-        className="w-6 h-6"
-      />
-    </button>
-    :
+    <div className="m-4 p-4 rounded shadow-lg hover:shadow-xl h-auto w-80 bg-white flex flex-col items-center justify-evenly">
+      <NavLink
+        to={`/detail/${id}`}
+        className="flex flex-col items-center justify-center"
+      >
+        <img
+          src={image}
+          alt={name}
+          className="w-full h-52 object-contain object-center rounded-t"
+        />
+        <div className="mt-4 text-center">
+          <h2 className="text-lg font-semibold">{name}</h2>
+          <div className="flex justify-between items-center mt-2 flex-col">
+            <h3 className="text-gray-600 font-bold">S/ {price}</h3>
+            <h3 className="text-gray-600">{color}</h3>
+          </div>
+        </div>
+      </NavLink>
 
-  <button
-          onClick={handleAddToCart}
-          className={`transition duration-300 ${
-            addedToCart ? "bg-whiteSmoke" : "bg-chiliRed"
-          } hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline`}
-          disabled={loading || addedToCart}
-        >
-          <img
-            src={addedToCart ? addedToCartIcon : addToCartIcon}
-            alt={addedToCart ? "Agregado al carrito" : "Agregar al carrito"}
-            className="w-6 h-6"
-          />
-        </button>
-    }
+      <div className="flex gap-4 mt-4">
+        {stock === 0 ? (
+          <button
+            className="bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+            disabled
+          >
+            <img
+              src={addedToCart ? addedToCartIcon : addToCartIcon}
+              alt={addedToCart ? "Agregado al carrito" : "Agregar al carrito"}
+              className="w-6 h-6"
+            />
+          </button>
+        ) : (
+          <button
+            onClick={handleAddToCart}
+            className={`transition duration-300 ${
+              addedToCart ? "bg-whiteSmoke" : "bg-chiliRed"
+            } hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline`}
+            disabled={loading || addedToCart}
+          >
+            <img
+              src={addedToCart ? addedToCartIcon : addToCartIcon}
+              alt={addedToCart ? "Agregado al carrito" : "Agregar al carrito"}
+              className="w-6 h-6"
+            />
+          </button>
+        )}
 
         <button
           onClick={handleAddToFavorites}
@@ -140,12 +142,14 @@ function Productcard({
         >
           <img
             src={addedToFavorites ? filledHeartIcon : emptyHeartIcon}
-            alt={addedToFavorites ? "Agregado a favoritos" : "Agregar a favoritos"}
+            alt={
+              addedToFavorites ? "Agregado a favoritos" : "Agregar a favoritos"
+            }
             className="w-6 h-6"
           />
         </button>
-  </div>
-</div>
+      </div>
+    </div>
   );
 }
 export default Productcard;

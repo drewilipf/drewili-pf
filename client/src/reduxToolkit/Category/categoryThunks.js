@@ -16,10 +16,10 @@ export const getCategory = () => {
     }
   };
 };
-export const postCategory = () => {
+export const postCategory = (category) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(API_URL);
+      const response = await axios.post(API_URL, category);
 
       const categories = response.data;
 

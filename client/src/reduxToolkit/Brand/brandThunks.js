@@ -15,10 +15,10 @@ export const getBrand = () => {
     }
   };
 };
-export const postBrand = () => {
+export const postBrand = (marca) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(API_URL);
+      const response = await axios.post(API_URL, marca);
 
       const brands = response.data;
 

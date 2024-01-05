@@ -78,7 +78,7 @@ export const searchProduct = (keyword) => {
       const response = await axios.get(`${SEARCH_API_URL}?keyWord=${keyword}`);
 
       const products = response.data;
-      console.log(response.data)
+      console.log(response.data);
       dispatch(searchProductSuccess({ products }));
     } catch (error) {
       console.error("Error searching products:", error);
