@@ -234,7 +234,7 @@ const EditUserProfile = () => {
               onChange={handleFieldChange}
               disabled={combinedUserSession !== "admin"}
             >
-              <option value="true">Desactivo</option>
+              <option value="true">Inactivo</option>
               <option value="false">Activo</option>
             </select>
           </div>

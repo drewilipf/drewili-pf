@@ -14,7 +14,7 @@ server.use(cookieParser('secreto'));
 
 // Middleware para habilitar CORS
 server.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:5173'); // Especifica el origen exacto para entornos de producción
+    res.header('Access-Control-Allow-Origin', '*'); // Especifica el origen exacto para entornos de producción
     res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -34,7 +34,7 @@ server.use(
         resave: false,
         saveUninitialized: true,
         cookie: {
-            secure: false, // Cambia a true si estás usando HTTPS
+            secure: true, // Cambia a true si estás usando HTTPS
             maxAge: 24 * 60 * 60 * 1000, // Duración de la sesión en milisegundos (1 día en este caso)
         },
     })

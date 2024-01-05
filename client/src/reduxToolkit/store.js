@@ -10,6 +10,7 @@ import filterPriceReducer from "./Filtros/filterPriceSlice";
 import filterColorReducer from "./Color/colorSlice";
 import activeFiltersReducer from "./Product/activeFiltersSlice";
 import cartSliceReducer from "./SalesCarts/salesCartsSlice";
+import shippingReducer from "./ShippingInfo/shippingInfoSlice";
 
 export const store = configureStore({
   reducer: {
@@ -23,6 +24,7 @@ export const store = configureStore({
     filterPrice: filterPriceReducer,
     filterColor: filterColorReducer,
     activeFilters: activeFiltersReducer,
-    salesCart: cartSliceReducer  // Agrega el reducer faltante
+    salesCart: cartSliceReducer,
+    shipping: shippingReducer,
   },
 });

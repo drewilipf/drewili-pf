@@ -51,7 +51,6 @@ Este proyecto es un sistema de comercio electrónico (eCommerce) que permite a l
 ## Desarrolladores Contribuidores
 
 - Maria Florencia Arevalo Cordoba
-- Juan Manuel Britos
 - Nicolas Sebastian Diez
 - Gabriela Jhoselin De Freitas Meza
 - Juliana Florez Quiros

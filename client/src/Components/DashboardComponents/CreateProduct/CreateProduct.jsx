@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getCategory } from "../../../reduxToolkit/Category/categoryThunks";
-import { getBrand } from "../../../reduxToolkit/Brand/brandThunks";
-import { getColor } from "../../../reduxToolkit/Color/colorThunks";
+import {
+  getCategory,
+  postCategory,
+} from "../../../reduxToolkit/Category/categoryThunks";
+import { getBrand, postBrand } from "../../../reduxToolkit/Brand/brandThunks";
+import { getColor, postColor } from "../../../reduxToolkit/Color/colorThunks";
 import { postProducts } from "../../../reduxToolkit/Product/productThunks";
 import NavbarAdmin from "../NavbarAdmin/NavbarAdmin";
 
@@ -21,8 +24,12 @@ function CreateProduct() {
     deleted: false,
     relevance: 0,
   });
-
-  console.log(input, "datos");
+  const [showNewCategoryInput, setShowNewCategoryInput] = useState(false);
+  const [showNewColorInput, setShowNewColorInput] = useState(false);
+  const [showNewBrandInput, setShowNewBrandInput] = useState(false);
+  const [newCategoryInput, setNewCategoryInput] = useState("");
+  const [newColorInput, setNewColorInput] = useState("");
+  const [newBrandInput, setNewBrandInput] = useState("");
   const { categories } = useSelector((state) => state.categories);
   const { brands } = useSelector((state) => state.brands);
   const { color } = useSelector((state) => state.color);
@@ -51,6 +58,19 @@ function CreateProduct() {
     const file = event.target.files[0];
     setImageFile(file);
   }
+
+  function handleNewCategoryClick() {
+    setShowNewCategoryInput((prev) => !prev);
+  }
+
+  function handleNewColorClick() {
+    setShowNewColorInput((prev) => !prev);
+  }
+
+  function handleNewBrandClick() {
+    setShowNewBrandInput((prev) => !prev);
+  }
+
   async function handleSumit(event) {
     event.preventDefault();
     try {
@@ -74,6 +94,35 @@ function CreateProduct() {
         imageUrl = data.secure_url;
       }
 
+      if (newCategoryInput) {
+        const uppercaseCategory = newCategoryInput.toUpperCase();
+        const response = await dispatch(
+          postCategory({ category: uppercaseCategory })
+        );
+        const newCategoryId = response.payload.id;
+
+        productData.category_id = newCategoryId;
+        setInput((prevInput) => ({ ...prevInput, category_id: newCategoryId }));
+      }
+      if (newColorInput) {
+        const uppercaseColor = newColorInput.toUpperCase();
+        const response = await dispatch(postColor({ color: uppercaseColor }));
+        const newColorId = response.payload.id;
+
+        productData.color_id = newColorId;
+        setInput((prevInput) => ({ ...prevInput, color_id: newColorId }));
+      }
+
+      if (newBrandInput) {
+        const uppercaseBrand = newBrandInput.toUpperCase();
+        const response = await dispatch(postBrand({ brand: uppercaseBrand }));
+        const newBrandId = response.payload.id;
+
+        productData.brand_id = newBrandId;
+        setInput((prevInput) => ({ ...prevInput, brand_id: newBrandId }));
+      }
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       const productData = {
         name: input.name,
         description: input.description,
@@ -82,14 +131,11 @@ function CreateProduct() {
         stock: parseInt(input.stock),
         image: imageUrl,
         color_id: parseInt(input.color),
-        category_id: parseInt(input.category),
+        category_id: parseInt(input.category) || 0,
         brand_id: parseInt(input.brand),
       };
-
-      // Intenta realizar la acción y esperar su resolución
       await dispatch(postProducts(productData));
 
-      // Si la acción se completa con éxito, entonces muestras la alerta
       alert("producto creado con éxito");
 
       setInput({
@@ -108,18 +154,17 @@ function CreateProduct() {
 
       navigate("/dashboard");
     } catch (error) {
-      // Si hay un error en la acción, muestra una alerta de error
       alert("Error creating product");
     }
   }
   return (
-    <div className="max-w-md mx-auto mt-30 mr-50">
+    <div className="max-w-md mx-auto pb-10 mt-[-3rem]">
       <NavbarAdmin />
-      <h1 className="text-2xl font-bold mb-4 flex items-center justify-center">
+      <h1 className="text-2xl font-bold mb-8 flex items-center justify-center">
         Crear Producto
       </h1>
       <form
-        className="border border-chiliRed rounded p- text-arial text-base flex-col flex items-center justify-center "
+        className="border border-chiliRed rounded p- text-arial text-base flex-col flex items-center  justify-center "
         onSubmit={handleSumit}
       >
         <div>
@@ -194,63 +239,118 @@ function CreateProduct() {
           </div>
           <div>
             <label className="block text-chiliRed mb-2">Color:</label>
-            <select
-              name="color"
-              placeholder="Selecciona el color"
-              onChange={(event) => handleSelect(event)}
-              required
-              className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
-            >
-              <option value="color">Seleccione color</option>
-              {color?.map((element) => {
-                return (
+            <div className="flex items-center mb-2">
+              <select
+                name="color"
+                placeholder="Selecciona el color"
+                onChange={(event) => handleSelect(event)}
+                className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
+              >
+                <option value="color">Seleccione color</option>
+                {color?.map((element) => (
                   <option value={element.id} key={element.id}>
                     {element.color}
                   </option>
-                );
-              })}
-            </select>
+                ))}
+              </select>
+              <button
+                type="button"
+                onClick={handleNewColorClick}
+                className="bg-chiliRed text-whiteSmoke py-2 px-4 rounded-full ml-2"
+              >
+                +
+              </button>
+            </div>
+            {showNewColorInput && (
+              <div>
+                <input
+                  type="text"
+                  name="newColorInput"
+                  placeholder="Ingrese nuevo Color"
+                  value={newColorInput}
+                  onChange={(e) => setNewColorInput(e.target.value)}
+                  className="border rounded p-2 bg-whiteSmoke focus:outline-none"
+                />
+              </div>
+            )}
           </div>
           <div>
             <label className="block text-chiliRed mb-2">Marca:</label>
-            <select
-              name="brand"
-              placeholder="Selecciona la marca"
-              onChange={(event) => handleSelect(event)}
-              required
-              className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
-            >
-              <option value="brand">Seleccione marca</option>
-              {brands?.map((element) => {
-                return (
-                  <option value={element.id} key={element.id}>
-                    {element.brand}
-                  </option>
-                );
-              })}
-            </select>
+            <div className="flex items-center mb-2">
+              <select
+                name="brand"
+                placeholder="Selecciona la marca"
+                onChange={(event) => handleSelect(event)}
+                className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
+              >
+                <option value="brand">Seleccione marca</option>
+                {brands &&
+                  brands.map((element) => (
+                    <option value={element.id} key={element.id}>
+                      {element.brand}
+                    </option>
+                  ))}
+              </select>
+              <button
+                type="button"
+                onClick={handleNewColorClick}
+                className="bg-chiliRed text-whiteSmoke py-2 px-4 rounded-full ml-2"
+              >
+                +
+              </button>
+            </div>
+            {showNewBrandInput && (
+              <div>
+                <input
+                  type="text"
+                  name="newBrandInput"
+                  placeholder="Ingrese nueva Marca"
+                  value={newBrandInput}
+                  onChange={(e) => setNewBrandInput(e.target.value)}
+                  className="border rounded p-2 bg-whiteSmoke focus:outline-none"
+                />
+              </div>
+            )}
           </div>
           <div>
             <label className="block text-chiliRed mb-2">Categoria:</label>
-            <select
-              name="category"
-              placeholder="Selecciona la categoria"
-              onChange={(event) => handleSelect(event)}
-              required
-              className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
-            >
-              <option value="category">Seleccione una categoria</option>
-              {categories?.map((element) => {
-                return (
+            <div className="flex items-center mb-2">
+              <select
+                name="category"
+                placeholder="Selecciona la categoria"
+                onChange={(event) => handleSelect(event)}
+                className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
+              >
+                <option value="category">Seleccione una categoria</option>
+                {categories?.map((element) => (
                   <option value={element.id} key={element.id}>
                     {element.category}
                   </option>
-                );
-              })}
-            </select>
+                ))}
+              </select>
+              <button
+                type="button"
+                onClick={handleNewCategoryClick}
+                className="bg-chiliRed text-whiteSmoke py-2 px-4 rounded-full ml-2"
+              >
+                +
+              </button>
+            </div>
+            {showNewCategoryInput && (
+              <div>
+                <input
+                  type="text"
+                  name="newCategoryInput"
+                  placeholder="Ingrese nueva categoría"
+                  value={newCategoryInput}
+                  onChange={(e) => setNewCategoryInput(e.target.value)}
+                  className="border rounded p-2 bg-whiteSmoke focus:outline-none"
+                />
+              </div>
+            )}
           </div>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 mb-4">
           <button
             type="submit"
             className="bg-chiliRed text-whiteSmoke py-3 px-6 rounded-full w-full"
