@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBrand } from "../../reduxToolkit/Brand/brandThunks";
 import { filterBrand } from "../../reduxToolkit/Filtros/filterBrandThunks";
 
-const API_URL = "http://localhost:3001/brand";
+const API_URL = "https://drewili-pf-back.onrender.com/brand";
 
 const BrandFilterComponent = ({ setActualPage }) => {
   const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 import { filterBrandSuccess } from "../../reduxToolkit/Product/productSlice";
 import axios from "axios";
 
-const API_URL = "http://localhost:3001/filterby/brand";
+const API_URL = "https://drewili-pf-back.onrender.com/filterby/brand";
 
 export const filterBrand = (brand) => {
   return async (dispatch) => {

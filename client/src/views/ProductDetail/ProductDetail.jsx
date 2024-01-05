@@ -85,7 +85,7 @@ function ProductDetail() {
       });
 
       const response = await axios.post(
-        "http://localhost:3001/salesCart/addToSalesCart",
+        "https://drewili-pf-back.onrender.com/salesCart/addToSalesCart",
         {
           productId: id,
           userId,
@@ -109,7 +109,7 @@ function ProductDetail() {
         const choice = window.confirm(
           "Para agregar productos a favoritos, por favor inicia sesión o regístrate. ¿Quieres iniciar sesión?"
         );
-  
+
         if (choice) {
           window.location.href = "/userlogin";
           return;
@@ -117,25 +117,25 @@ function ProductDetail() {
           return;
         }
       }
-  
+
       setLoadingFav(true);
-  
+
       // Imprimir los datos antes de hacer la solicitud
       console.log("Datos enviados en la solicitud de favoritos:", {
         product_id: id,
         user_id: userId,
       });
-  
+
       const response = await axios.post(
-        "http://localhost:3001/favorites",
+        "https://drewili-pf-back.onrender.com/favorites",
         {
           product_id: id,
           user_id: userId,
         }
       );
-  
+
       console.log("Respuesta del servidor (favoritos):", response.data);
-  
+
       setAddedToFavorites(true);
     } catch (error) {
       console.error("Error en la solicitud de favoritos:", error);
@@ -143,8 +143,8 @@ function ProductDetail() {
       setLoadingFav(false);
     }
   };
-  
-  
+
+
   if (!product) {
     return <p>Cargando...</p>;
   }
@@ -196,26 +196,38 @@ function ProductDetail() {
           <h2 className="text-xl text-chiliRed">Precio:</h2>
           <p>{product?.price}</p>
         </div>
+        {
+          product?.stock === 0 ? <button
+            className="bg-onyx text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
+            disabled
+          >
+            {loading
+              ? "Agregando al carrito..."
+              : addedToCart
+                ? "Agregado con éxito!"
+                : "Agregar al carrito"}
+          </button>
+            :
+            <button
+              onClick={handleAddToCart}
+              className="bg-chiliRed text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
+              disabled={loading || addedToCart}
+            >
+              {loading
+                ? "Agregando al carrito..."
+                : addedToCart
+                  ? "Agregado con éxito!"
+                  : "Agregar al carrito"}
+            </button>
+        }
 
         <button
-          onClick={handleAddToCart}
+          onClick={handleAddToFavorite}
           className="bg-chiliRed text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
-          disabled={loading || addedToCart}
+          disabled={loadingFav || addedToFavorites}
         >
-          {loading
-            ? "Agregando al carrito..."
-            : addedToCart
-            ? "Agregado con éxito!"
-            : "Agregar al carrito"}
+          {loadingFav ? "Agregando a favoritos..." : addedToFavorites ? "Agregado a favoritos" : "Agregar a favoritos"}
         </button>
-        
-        <button
-        onClick={handleAddToFavorite}
-        className="bg-chiliRed text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
-        disabled={loadingFav || addedToFavorites}
-      >
-        {loadingFav ? "Agregando a favoritos..." : addedToFavorites ? "Agregado a favoritos" : "Agregar a favoritos"}
-      </button>
 
 
         <div className="col-span-2 mt-4 mx-auto">
@@ -254,10 +266,10 @@ function ProductDetail() {
         </div>
       </div>
       <div className=" pb-2">
-      <h2 className="text-left text-chiliRed text-xl">Comentarios:</h2>
-      <br></br>
+        <h2 className="text-left text-chiliRed text-xl">Comentarios:</h2>
+        <br></br>
         <CommentCards comments={comments} detailId={id} />
-        <CommentInput product_id={id} user_id={userId}/>
+        <CommentInput product_id={id} user_id={userId} />
       </div>
     </div>
   );

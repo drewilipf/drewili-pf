@@ -3,25 +3,34 @@ const { DB_STRIPE_TOKEN } = process.env
 const Stripe = require('stripe')
 const stripe = new Stripe(DB_STRIPE_TOKEN)
 
-const checkoutController = async (carItems) => {
+const checkoutController = async (carItems, id) => {
+    const updateProduct = carItems.map((item) => (
+        {
+            cantidad: item.quantity,
+            idProd: item.idProduct
+
+        }));
+        console.log(updateProduct, 'productos pasados al success');
     const lineItems = carItems.map((item)=>({
         price_data: {
             product_data: {
                 name: item.name,
                 images:[item.image]
             },
-            currency: item.currency,
-            unit_amount: item.amount * 100,
+            currency: 'pen',
+            unit_amount: Math.round(item.price * 100),
         },
         quantity: item.quantity,
     }));
 
+    const queryString = `?userId=${id}&updateProduct=${encodeURIComponent(JSON.stringify(updateProduct))}`;
+    const successUrl = `http://localhost:3001/payment/success${queryString}`;
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         line_items: lineItems,
         mode: 'payment',
-        success_url: 'http://localhost:3001/payment/success',
-        cancel_url: 'http://localhost:3001/payment/cancel',
+        success_url: successUrl,
+        cancel_url: 'http://localhost:5173/shoppingcart',
         locale: 'auto'
     });
 

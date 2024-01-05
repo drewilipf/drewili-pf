@@ -1,7 +1,7 @@
 import { filterColorSuccess } from "../../reduxToolkit/Product/productSlice";
 import axios from "axios";
 
-const API_URL = "http://localhost:3001/filterby/color";
+const API_URL = "https://drewili-pf-back.onrender.com/filterby/color";
 
 export const filterColor = (color) => {
   return async (dispatch) => {

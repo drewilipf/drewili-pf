@@ -1,7 +1,7 @@
 const {DataTypes} = require('sequelize')
 
 module.exports = (sequelize) =>{
-    const SalesCart = sequelize.define('salesCart',{
+    const PurchaseHistory = sequelize.define('purchaseHistory',{
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -11,6 +11,7 @@ module.exports = (sequelize) =>{
         product_id:{
             type: DataTypes.INTEGER,
             allowNull: false,
+            unique: false,
             references: {
                 model: 'products',
                 key: 'id'
@@ -19,6 +20,7 @@ module.exports = (sequelize) =>{
         user_id:{
             type: DataTypes.INTEGER,
             allowNull: false,
+            unique: false,
             references: {
                 model: 'users',
                 key: 'id'
@@ -31,20 +33,5 @@ module.exports = (sequelize) =>{
         }
     },
     { timestamps: false });
-
-    SalesCart.emptyCart = async (userId) =>{
-        try {
-            await SalesCart.destroy({
-                where:{
-                    user_id: userId
-                }
-            })
-            console.log(`Carrito del usuario ${userId} vaciado con exito`);
-        }
-        catch (error) {
-            console.error('Error al vaciar el carrito', error)
-        }
-    }
-    return SalesCart
+    return PurchaseHistory
 }
-

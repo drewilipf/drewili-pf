@@ -7,7 +7,7 @@ import {
 } from "./userSlice";
 import axios from "axios";
 
-const API_URL = "http://localhost:3001/user";
+const API_URL = "https://drewili-pf-back.onrender.com/user";
 
 export const getUser = () => {
   return async (dispatch) => {
