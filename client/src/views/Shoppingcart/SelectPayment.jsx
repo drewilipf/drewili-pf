@@ -24,11 +24,16 @@ const SelectPayment = () => {
   const [ruc, setRuc] = useState(" ");
   const [modalidadPago, setModalidadPago] = useState("transferenciaBancaria");
   const userSessionFromCookies = Cookies.get("userSession");
+  const userGoogleFromCookies = Cookies.get("userGoogle");
   const userSession = userSessionFromCookies
     ? JSON.parse(userSessionFromCookies)
     : null;
+  const userGoogleSession = userGoogleFromCookies
+    ? JSON.parse(userGoogleFromCookies)
+    : null;
 
   const { login } = useSelector((state) => state.login);
+  const { usersGoogle } = useSelector((state) => state.users);
   const { priceTotal } = useSelector((state) => state.salesCart);
   const { shippingInfo } = useSelector((state) => state.shipping);
   const { dropshippingInfo } = useSelector((state) => state.shipping);
@@ -49,22 +54,25 @@ const SelectPayment = () => {
     state6: { RUC, ...rucFactura },
   };
 
-  const pdf = new jsPDF();
-  pdf.text("Mi Documento PDF", 10, 10);
-  pdf.text(JSON.stringify(combinedData), 10, 20);
+  // const pdf = new jsPDF();
+  // pdf.text("Mi Documento PDF", 10, 10);
+  // pdf.text(JSON.stringify(combinedData), 10, 20);
 
-  // Convertir el PDF a Blob
-  const blob = pdf.output("blob");
+  // // Convertir el PDF a Blob
+  // const blob = pdf.output("blob");
 
-  // Crear un objeto FormData y agregar el Blob
-  const formData = new FormData();
-  formData.append("pdf", blob);
+  // // Crear un objeto FormData y agregar el Blob
+  // const formData = new FormData();
+  // formData.append("pdf", blob);
 
-  // Enviar el FormData al servidor
-  enviarFormDataAlServidor(formData);
+  // // Enviar el FormData al servidor
+  // enviarFormDataAlServidor(formData);
 
   const userId =
-    (userSession && userSession.userId) || (login && login.userSession.userId);
+    (userSession && userSession.userId) ||
+    (login && login.userSession.userId) ||
+    (usersGoogle && usersGoogle.id) ||
+    (userGoogleSession && userGoogleSession.id);
 
   const handlePedidoOptionChange = (opcion) => {
     setOpcionSeleccionadaPedido(opcion);

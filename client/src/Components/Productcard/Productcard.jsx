@@ -30,14 +30,22 @@ function Productcard({
   const [addedToFavorites, setAddedToFavorites] = useState(false);
 
   const userSessionFromCookies = Cookies.get("userSession");
+  const userGoogleFromCookies = Cookies.get("userGoogle");
   const userSession = userSessionFromCookies
     ? JSON.parse(userSessionFromCookies)
     : null;
+  const userGoogleSession = userGoogleFromCookies
+    ? JSON.parse(userGoogleFromCookies)
+    : null;
 
   const { login } = useSelector((state) => state.login);
+  const { usersGoogle } = useSelector((state) => state.users);
 
   const userId =
-    (userSession && userSession.userId) || (login && login.userSession.userId);
+    (userSession && userSession.userId) ||
+    (login && login.userSession.userId) ||
+    (usersGoogle && usersGoogle.id) ||
+    (userGoogleSession && userGoogleSession.id);
 
   const handleAddToCart = async () => {
     try {

@@ -293,7 +293,7 @@ function CreateProduct() {
               </select>
               <button
                 type="button"
-                onClick={handleNewColorClick}
+                onClick={handleNewBrandClick}
                 className="bg-chiliRed text-whiteSmoke py-2 px-4 rounded-full ml-2"
               >
                 +

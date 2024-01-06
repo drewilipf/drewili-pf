@@ -4,6 +4,7 @@ import {
   putUserSlice,
   getUserByIdSlice,
   deletedUserSlice,
+  postGoogleSlice,
 } from "./userSlice";
 import axios from "axios";
 
@@ -66,6 +67,19 @@ export const deletedUser = (id) => {
       dispatch(deletedUserSlice({ userId }));
     } catch (error) {
       console.error("Error fetching product:", error);
+    }
+  };
+};
+export const postGoogle = (userData) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(`${API_URL}/google`, userData);
+
+      const users = response.data;
+
+      dispatch(postGoogleSlice(users));
+    } catch (error) {
+      console.error("Error fetching users:", error);
     }
   };
 };

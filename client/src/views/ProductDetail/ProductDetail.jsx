@@ -24,14 +24,23 @@ function ProductDetail() {
   const [addedToFavorites, setAddedToFavorites] = useState(false);
 
   const userSessionFromCookies = Cookies.get("userSession");
+  const userGoogleFromCookies = Cookies.get("userGoogle");
   const userSession = userSessionFromCookies
     ? JSON.parse(userSessionFromCookies)
     : null;
+  const userGoogleSession = userGoogleFromCookies
+    ? JSON.parse(userGoogleFromCookies)
+    : null;
+  
 
   const { login } = useSelector((state) => state.login);
+  const { usersGoogle } = useSelector((state) => state.users);
 
   const userId =
-    (userSession && userSession.userId) || (login && login.userSession.userId);
+    (userSession && userSession.userId) ||
+    (login && login.userSession.userId) ||
+    (usersGoogle && usersGoogle.id) ||
+    (userGoogleSession && userGoogleSession.id);
 
   const productsId = useSelector((state) => state.products.productsId);
 
@@ -40,7 +49,7 @@ function ProductDetail() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(getProductsById(id))
+      await dispatch(getProductsById(id));
       await dispatch(getComments());
     };
 
@@ -144,7 +153,6 @@ function ProductDetail() {
     }
   };
 
-
   if (!product) {
     return <p>Cargando...</p>;
   }
@@ -196,39 +204,42 @@ function ProductDetail() {
           <h2 className="text-xl text-chiliRed">Precio:</h2>
           <p>{product?.price}</p>
         </div>
-        {
-          product?.stock === 0 ? <button
+        {product?.stock === 0 ? (
+          <button
             className="bg-onyx text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
             disabled
           >
             {loading
               ? "Agregando al carrito..."
               : addedToCart
-                ? "Agregado con éxito!"
-                : "Agregar al carrito"}
+              ? "Agregado con éxito!"
+              : "Agregar al carrito"}
           </button>
-            :
-            <button
-              onClick={handleAddToCart}
-              className="bg-chiliRed text-whiteSmoke font-semibold rounded-full mb-8 py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
-              disabled={loading || addedToCart}
-            >
-              {loading
-                ? "Agregando al carrito..."
-                : addedToCart
-                  ? "Agregado con éxito!"
-                  : "Agregar al carrito"}
-            </button>
-        }
+        ) : (
+          <button
+            onClick={handleAddToCart}
+            className="bg-chiliRed text-whiteSmoke font-semibold rounded-full mb-8 py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
+            disabled={loading || addedToCart}
+          >
+            {loading
+              ? "Agregando al carrito..."
+              : addedToCart
+              ? "Agregado con éxito!"
+              : "Agregar al carrito"}
+          </button>
+        )}
 
         <button
           onClick={handleAddToFavorite}
           className="bg-chiliRed text-whiteSmoke font-semibold rounded-full mb-8 py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
           disabled={loadingFav || addedToFavorites}
         >
-          {loadingFav ? "Agregando a favoritos..." : addedToFavorites ? "Agregado a favoritos" : "Agregar a favoritos"}
+          {loadingFav
+            ? "Agregando a favoritos..."
+            : addedToFavorites
+            ? "Agregado a favoritos"
+            : "Agregar a favoritos"}
         </button>
-
 
         <div className="col-span-2 mt-4 mx-auto">
           <h1 className="text-xl text-center text-eerieBlack  font-bold mb-2">

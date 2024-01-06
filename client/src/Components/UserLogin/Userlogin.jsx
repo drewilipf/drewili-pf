@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux";
 import { postLogin } from "../../reduxToolkit/Login/loginThunks";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-// import LoginButton from "../LoginButton";
+import LoginButton from "../LoginButton";
+import { NavLink } from "react-router-dom";
 
 function UserLogin() {
   const [input, setInput] = useState({
@@ -48,9 +49,11 @@ function UserLogin() {
         }
       }
     } catch (error) {
-      const userClickedOk = window.confirm(
-        "Usuario NO registrado o deshabilitado. ¿Quieres ir a la página de registro?"
-      );
+      setTimeout(() => {
+        const userClickedOk = window.confirm(
+          "Usuario NO registrado o deshabilitado. ¿Quieres ir a la página de registro?"
+        );
+      }, 8000);
       if (userClickedOk) {
         navigate("/userform");
       }
@@ -95,9 +98,18 @@ function UserLogin() {
           >
             Enviar
           </button>
+          <div className="mt-4 text-center">
+            <span>¿No tiene una cuenta?</span>
+            <NavLink to="/userform">
+              <span className="ml-2  text-chiliRed">Regístrese</span>
+            </NavLink>
+          </div>
+          <div className="text-center mt-4">---------- o ---------- </div>
+          <div className="text-center mt-4 border rounded-lg bg-chiliRed text-white">
+            <LoginButton />
+          </div>
         </div>
       </form>
-      {/* <LoginButton></LoginButton> */}
     </div>
   );
 }

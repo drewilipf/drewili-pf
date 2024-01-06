@@ -3,6 +3,7 @@ const initialState = {
   users: null,
   user: null,
   userId: null,
+  usersGoogle: null,
 };
 
 export const userSlice = createSlice({
@@ -24,6 +25,9 @@ export const userSlice = createSlice({
     deletedUserSlice: (state, action) => {
       state.users = action.payload.users;
     },
+    postGoogleSlice: (state, action) => {
+      state.usersGoogle = action.payload;
+    },
   },
 });
 
@@ -33,5 +37,6 @@ export const {
   putUserSlice,
   getUserByIdSlice,
   deletedUserSlice,
+  postGoogleSlice,
 } = userSlice.actions;
 export default userSlice.reducer;
