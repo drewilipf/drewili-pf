@@ -3,7 +3,6 @@ const morgan = require('morgan');
 const routes = require('./routes/index.js');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-
 const server = express();
 
 // Middleware de registro de solicitudes (morgan)
