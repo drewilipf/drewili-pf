@@ -64,7 +64,7 @@ function CreateProduct() {
   }
 
   function handleNewColorClick() {
-    setShowNewColorInput((prev) => !prev);
+    setShowNewColorInput(!showNewColorInput);
   }
 
   function handleNewBrandClick() {
@@ -94,33 +94,33 @@ function CreateProduct() {
         imageUrl = data.secure_url;
       }
 
-      if (newCategoryInput) {
-        const uppercaseCategory = newCategoryInput.toUpperCase();
-        const response = await dispatch(
-          postCategory({ category: uppercaseCategory })
-        );
-        const newCategoryId = response.payload.id;
+      // if (newCategoryInput) {
+      //   const uppercaseCategory = newCategoryInput.toUpperCase();
+      //   const response = await dispatch(
+      //     postCategory({ category: uppercaseCategory })
+      //   );
+      //   const newCategoryId = response.payload.id;
 
-        productData.category_id = newCategoryId;
-        setInput((prevInput) => ({ ...prevInput, category_id: newCategoryId }));
-      }
-      if (newColorInput) {
-        const uppercaseColor = newColorInput.toUpperCase();
-        const response = await dispatch(postColor({ color: uppercaseColor }));
-        const newColorId = response.payload.id;
+      //   productData.category_id = newCategoryId;
+      //   setInput((prevInput) => ({ ...prevInput, category_id: newCategoryId }));
+      // }
+      // if (newColorInput) {
+      //   const uppercaseColor = newColorInput.toUpperCase();
+      //   const response = await dispatch(postColor({ color: uppercaseColor }));
+      //   const newColorId = response.payload.id;
 
-        productData.color_id = newColorId;
-        setInput((prevInput) => ({ ...prevInput, color_id: newColorId }));
-      }
+      //   productData.color_id = newColorId;
+      //   setInput((prevInput) => ({ ...prevInput, color_id: newColorId }));
+      // }
 
-      if (newBrandInput) {
-        const uppercaseBrand = newBrandInput.toUpperCase();
-        const response = await dispatch(postBrand({ brand: uppercaseBrand }));
-        const newBrandId = response.payload.id;
+      // if (newBrandInput) {
+      //   const uppercaseBrand = newBrandInput.toUpperCase();
+      //   const response = await dispatch(postBrand({ brand: uppercaseBrand }));
+      //   const newBrandId = response.payload.id;
 
-        productData.brand_id = newBrandId;
-        setInput((prevInput) => ({ ...prevInput, brand_id: newBrandId }));
-      }
+      //   productData.brand_id = newBrandId;
+      //   setInput((prevInput) => ({ ...prevInput, brand_id: newBrandId }));
+      // }
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       const productData = {
@@ -157,6 +157,37 @@ function CreateProduct() {
       alert("Error creating product");
     }
   }
+
+  const addColor = async (e) => {
+    e.preventDefault();
+    if (newColorInput) {
+      const uppercaseColor = newColorInput.toUpperCase();
+      await dispatch(postColor({ color: uppercaseColor }));
+    }
+    setShowNewColorInput(!showNewColorInput);
+    setNewColorInput("")
+  }
+
+  const addBrand = async (e) => {
+    e.preventDefault()
+    if (newBrandInput) {
+      const uppercaseBrand = newBrandInput.toUpperCase();
+      await dispatch(postBrand({ brand: uppercaseBrand }));
+    }
+    setShowNewBrandInput(!showNewBrandInput)
+    setNewBrandInput("")
+  }
+  const addCategory = async (e) => {
+    e.preventDefault()
+    if (newCategoryInput) {
+      const uppercaseCategory = newCategoryInput.toUpperCase();
+      await dispatch(postCategory({ category: uppercaseCategory }));
+    }
+    setShowNewCategoryInput(!showNewCategoryInput)
+    setNewCategoryInput("")
+  }
+
+
   return (
     <div className="max-w-md mx-auto pb-10 mt-[-3rem]">
       <NavbarAdmin />
@@ -165,7 +196,6 @@ function CreateProduct() {
       </h1>
       <form
         className="border border-chiliRed rounded p- text-arial text-base flex-col flex items-center  justify-center "
-        onSubmit={handleSumit}
       >
         <div>
           <div>
@@ -256,9 +286,9 @@ function CreateProduct() {
               <button
                 type="button"
                 onClick={handleNewColorClick}
-                className="bg-chiliRed text-whiteSmoke py-2 px-4 rounded-full ml-2"
+                className="bg-chiliRed text-whiteSmoke py-2 px-4 rounded-full ml-2 hover:scale-105 hover:shadow-xl transition duration-100 ease-in-out"
               >
-                +
+                {showNewColorInput ? "-" : "+"}
               </button>
             </div>
             {showNewColorInput && (
@@ -271,6 +301,9 @@ function CreateProduct() {
                   onChange={(e) => setNewColorInput(e.target.value)}
                   className="border rounded p-2 bg-whiteSmoke focus:outline-none"
                 />
+                <button onClick={addColor} className="bg-chiliRed text-whiteSmoke p-1 m-2 rounded hover:scale-105 hover:shadow-xl transition duration-100 ease-in-out">
+                  Agregar
+                </button>
               </div>
             )}
           </div>
@@ -294,9 +327,13 @@ function CreateProduct() {
               <button
                 type="button"
                 onClick={handleNewBrandClick}
-                className="bg-chiliRed text-whiteSmoke py-2 px-4 rounded-full ml-2"
+
+                className="bg-chiliRed text-whiteSmoke py-2 px-4 rounded-full ml-2 hover:scale-105 hover:shadow-xl transition duration-100 ease-in-out"
+
+               
+
               >
-                +
+                {showNewBrandInput ? "-" : "+"}
               </button>
             </div>
             {showNewBrandInput && (
@@ -309,6 +346,9 @@ function CreateProduct() {
                   onChange={(e) => setNewBrandInput(e.target.value)}
                   className="border rounded p-2 bg-whiteSmoke focus:outline-none"
                 />
+                <button onClick={addBrand} className="bg-chiliRed text-whiteSmoke p-1 m-2 rounded hover:scale-105 hover:shadow-xl transition duration-100 ease-in-out">
+                  Agregar
+                </button>
               </div>
             )}
           </div>
@@ -331,9 +371,9 @@ function CreateProduct() {
               <button
                 type="button"
                 onClick={handleNewCategoryClick}
-                className="bg-chiliRed text-whiteSmoke py-2 px-4 rounded-full ml-2"
+                className="bg-chiliRed text-whiteSmoke py-2 px-4 rounded-full ml-2 hover:scale-105 hover:shadow-xl transition duration-100 ease-in-out"
               >
-                +
+                {showNewCategoryInput ? "-" : "+"}
               </button>
             </div>
             {showNewCategoryInput && (
@@ -346,6 +386,9 @@ function CreateProduct() {
                   onChange={(e) => setNewCategoryInput(e.target.value)}
                   className="border rounded p-2 bg-whiteSmoke focus:outline-none"
                 />
+                <button onClick={addCategory} className="bg-chiliRed text-whiteSmoke p-1 m-2 rounded hover:scale-105 hover:shadow-xl transition duration-100 ease-in-out">
+                  Agregar
+                </button>
               </div>
             )}
           </div>
@@ -354,6 +397,7 @@ function CreateProduct() {
           <button
             type="submit"
             className="bg-chiliRed text-whiteSmoke py-3 px-6 rounded-full w-full"
+            onClick={handleSumit}
           >
             Guardar Producto
           </button>

@@ -5,11 +5,13 @@ const postColorController = async (color) => {
     if(!color){
         throw Error("Ingrese un color!")
     }
-    const newColor = await Colors.create({
+    await Colors.create({
         color: color
     })
 
-    return newColor
+    const allColors = await Colors.findAll()
+
+    return allColors
 
 };
 
