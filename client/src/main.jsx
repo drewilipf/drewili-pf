@@ -11,9 +11,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Provider store={store}>
       <BrowserRouter>
         <Auth0Provider
-          domain="https://drewili.us.auth0.com"
-          clientId="kEaCI7mlY2rpa1h4q3mX8Lk0UEf4Gj3N"
-          redirectUri={window.location.origin}>
+          domain="drewili.us.auth0.com"
+          clientId="1D6DJezLcvz5RAM9cqQs4q0ukKUSe6nI"
+          authorizationParams={{
+            redirect_uri: window.location.origin
+          }}>
           <App />
         </Auth0Provider>
       </BrowserRouter>
