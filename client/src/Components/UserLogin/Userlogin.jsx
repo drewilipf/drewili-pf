@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { postLogin } from "../../reduxToolkit/Login/loginThunks";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+// import LoginButton from "../LoginButton";
 
 function UserLogin() {
   const [input, setInput] = useState({
@@ -96,6 +97,7 @@ function UserLogin() {
           </button>
         </div>
       </form>
+      {/* <LoginButton></LoginButton> */}
     </div>
   );
 }
