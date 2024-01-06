@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPurchaseHistory } from '../../reduxToolkit/purchaseHistory/purchaseHistoryThunks';
+import { useParams } from 'react-router-dom';
 
-const PurchaseHistoryComponent = ({ userId }) => {
+const PurchaseHistoryComponent = () => {
   const dispatch = useDispatch();
+  const { userId } = useParams()
+  console.log(userId, 'id del historial');
   const purchaseHistory = useSelector((state) => state.purchaseHistory.data);  // This is where the error is occurring
   const loading = useSelector((state) => state.purchaseHistory.loading);
   const error = useSelector((state) => state.purchaseHistory.error);
-
   useEffect(() => {
     dispatch(getPurchaseHistory(userId));
   }, [dispatch, userId]);
