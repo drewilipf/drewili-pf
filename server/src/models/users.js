@@ -36,7 +36,8 @@ module.exports = (sequelize) => {
         },
         role: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: true,
+            defaultValue: 'cliente'
         },
         deleted:{
             type: DataTypes.BOOLEAN,
