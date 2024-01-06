@@ -25,6 +25,7 @@ import ShippingForm from "./views/Shoppingcart/ShippingForm";
 import ValidateAddress from "./views/Shoppingcart/validateAddress";
 import SelectPayment from "./views/Shoppingcart/SelectPayment";
 import Footer from "./Components/Footer/Footer";
+import PurchaseHistoryComponent from "./views/UserProfile/purchaseHistory";
 
 function App() {
   const dispacth = useDispatch();
@@ -85,6 +86,8 @@ function App() {
           <Route path="/dashboard/productList" element={<ProductList />} />
           <Route path="/payment/success" element={<PaymentSuccess />} />
           <Route path="/payment/payment" element={<Payment />} />
+          <Route path="/history/:userId" element={<PurchaseHistoryComponent/>} />
+
         </Routes>
       </div>
       {!isDashboardRoute && (
