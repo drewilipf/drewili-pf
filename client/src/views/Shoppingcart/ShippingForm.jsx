@@ -84,9 +84,28 @@ const ShippingForm = () => {
           Confirmación de Datos de Envío
         </h1>
         <div className="flex mb-4">
-          <span className="mr-2 font-bold">Nombre Completo: </span>
-          <span className="mr-2">{nameUser}</span>
-          <span>{userLastname}</span>
+          <label className="mr-2 font-bold">Nombre:</label>
+          <input
+            className={styles}
+            id="name"
+            name="name"
+            type="text"
+            value={editable.name}
+            onChange={handleFieldChange}
+            placeholder="Nombre"
+          />
+        </div>
+        <div className="flex mb-4">
+          <label className="mr-2 font-bold">Apellido:</label>
+          <input
+            className={styles}
+            id="lastname"
+            name="lastname"
+            type="text"
+            value={editable.lastname}
+            onChange={handleFieldChange}
+            placeholder="Apellido"
+          />
         </div>
         {!isOn ? (
           <div>
@@ -281,10 +300,3 @@ const ShippingForm = () => {
 
 export default ShippingForm;
 
-{
-  /* /* <NavLink to={`/shippingform/${userId}`}>
-  <button className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded">
-    Comprar
-  </button>
-</NavLink>  */
-}

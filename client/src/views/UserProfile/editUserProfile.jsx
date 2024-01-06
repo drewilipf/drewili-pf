@@ -15,15 +15,25 @@ const EditUserProfile = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.users.user);
   const { login } = useSelector((state) => state.login);
+  const { usersGoogle } = useSelector((state) => state.users);
   const userSessionFromCookies = Cookies.get("userSession");
+  const userGoogleFromCookies = Cookies.get("userGoogle");
   const userSession = userSessionFromCookies
     ? JSON.parse(userSessionFromCookies)
     : null;
+  const userGoogleSession = userGoogleFromCookies
+    ? JSON.parse(userGoogleFromCookies)
+    : null;
+
   const combinedUserSession =
     userSession && userSession.role
       ? userSession.role
       : login && login.userSession
       ? login.userSession.role
+      : usersGoogle && usersGoogle.role
+      ? user.role
+      : userGoogleSession && userGoogleSession.role
+      ? userGoogleSession.role
       : null;
 
   const [editable, setEditable] = useState({
@@ -109,148 +119,146 @@ const EditUserProfile = () => {
 
   return (
     <div className="h-90vh pt-5">
-
-    
-    <div className="mt-42">
-      <div className="bg-chiliRed bg-opacity-10 p-8 text-eerieBlack rounded-lg shadow-md w-full h-full max-w-screen-md mx-auto flex flex-col">
-        <div className="mb-4">
-          <label className={styles2}>Nombre de Usuario</label>
-          <input
-            className={styles}
-            id="username"
-            name="username"
-            type="text"
-            value={editable.username}
-            onChange={handleFieldChange}
-            placeholder="Nombre de usuario"
-          />
-        </div>
-        <div className="mb-4">
-          <label className={styles2}>Nombre</label>
-          <input
-            className={styles}
-            id="name"
-            name="name"
-            type="text"
-            value={editable.name}
-            onChange={handleFieldChange}
-            placeholder="Nombre"
-          />
-        </div>
-        <div className="mb-4">
-          <label className={styles2}>Apellido</label>
-          <input
-            className={styles}
-            id="lastname"
-            name="lastname"
-            type="text"
-            value={editable.lastname}
-            onChange={handleFieldChange}
-            placeholder="Apellido"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className={styles2}>Correo Electrónico</label>
-          <input
-            className={styles}
-            id="email"
-            name="email"
-            type="text"
-            value={editable.email}
-            onChange={handleFieldChange}
-            placeholder="Correo electrónico"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className={styles2}>Dirección</label>
-          <input
-            className={styles}
-            id="address"
-            name="address"
-            type="text"
-            value={editable.address}
-            onChange={handleFieldChange}
-            placeholder="Dirección"
-          />
-        </div>
-
-        {combinedUserSession !== "admin" && (
+      <div className="mt-42">
+        <div className="bg-chiliRed bg-opacity-10 p-8 text-eerieBlack rounded-lg shadow-md w-full h-full max-w-screen-md mx-auto flex flex-col">
           <div className="mb-4">
-            <label className={styles2}>Contraseña Actual</label>
+            <label className={styles2}>Nombre de Usuario</label>
             <input
               className={styles}
-              id="password"
-              name="password"
-              type="password"
-              value={editable.password}
+              id="username"
+              name="username"
+              type="text"
+              value={editable.username}
               onChange={handleFieldChange}
-              placeholder="Contraseña actual"
-              disabled={combinedUserSession === "admin"}
+              placeholder="Nombre de usuario"
             />
           </div>
-        )}
-
-        {combinedUserSession !== "admin" && (
           <div className="mb-4">
-            <label className={styles2}>Nueva Contraseña</label>
+            <label className={styles2}>Nombre</label>
             <input
               className={styles}
-              id="newPassword"
-              name="newPassword"
-              type="password"
-              value={editable.newPassword}
+              id="name"
+              name="name"
+              type="text"
+              value={editable.name}
               onChange={handleFieldChange}
-              placeholder="Nueva contraseña (opcional)"
-              disabled={combinedUserSession === "admin"}
+              placeholder="Nombre"
             />
           </div>
-        )}
-        {combinedUserSession === "admin" && (
           <div className="mb-4">
-            <label className={styles2}>Rol</label>
-            <select
+            <label className={styles2}>Apellido</label>
+            <input
               className={styles}
-              id="role"
-              name="role"
-              value={editable.role}
+              id="lastname"
+              name="lastname"
+              type="text"
+              value={editable.lastname}
               onChange={handleFieldChange}
-              disabled={combinedUserSession !== "admin"}
-            >
-              <option value="admin">Administrador</option>
-              <option value="cliente">Cliente</option>
-            </select>
+              placeholder="Apellido"
+            />
           </div>
-        )}
-        {combinedUserSession === "admin" && (
-          <div className="mb-4">
-            <label className={styles2}>Estado</label>
-            <select
-              className={styles}
-              id="deleted"
-              name="deleted"
-              value={editable.deleted}
-              onChange={handleFieldChange}
-              disabled={combinedUserSession !== "admin"}
-            >
-              <option value="true">Inactivo</option>
-              <option value="false">Activo</option>
-            </select>
-          </div>
-        )}
 
-        <div className="flex items-center justify-center">
-          <button
-            className="w-full text-eerieBlack px-6 py-2 rounded text-xl bg-chiliRed shadow-xl bg-opacity-20 transition duration-300 hover:bg-opacity-60"
-            type="submit"
-            onClick={handleSaveChanges}
-          >
-            Guardar cambios
-          </button>
+          <div className="mb-4">
+            <label className={styles2}>Correo Electrónico</label>
+            <input
+              className={styles}
+              id="email"
+              name="email"
+              type="text"
+              value={editable.email}
+              onChange={handleFieldChange}
+              placeholder="Correo electrónico"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className={styles2}>Dirección</label>
+            <input
+              className={styles}
+              id="address"
+              name="address"
+              type="text"
+              value={editable.address}
+              onChange={handleFieldChange}
+              placeholder="Dirección"
+            />
+          </div>
+
+          {combinedUserSession !== "admin" && (
+            <div className="mb-4">
+              <label className={styles2}>Contraseña Actual</label>
+              <input
+                className={styles}
+                id="password"
+                name="password"
+                type="password"
+                value={editable.password}
+                onChange={handleFieldChange}
+                placeholder="Contraseña actual"
+                disabled={combinedUserSession === "admin"}
+              />
+            </div>
+          )}
+
+          {combinedUserSession !== "admin" && (
+            <div className="mb-4">
+              <label className={styles2}>Nueva Contraseña</label>
+              <input
+                className={styles}
+                id="newPassword"
+                name="newPassword"
+                type="password"
+                value={editable.newPassword}
+                onChange={handleFieldChange}
+                placeholder="Nueva contraseña (opcional)"
+                disabled={combinedUserSession === "admin"}
+              />
+            </div>
+          )}
+          {combinedUserSession === "admin" && (
+            <div className="mb-4">
+              <label className={styles2}>Rol</label>
+              <select
+                className={styles}
+                id="role"
+                name="role"
+                value={editable.role}
+                onChange={handleFieldChange}
+                disabled={combinedUserSession !== "admin"}
+              >
+                <option value="admin">Administrador</option>
+                <option value="cliente">Cliente</option>
+              </select>
+            </div>
+          )}
+          {combinedUserSession === "admin" && (
+            <div className="mb-4">
+              <label className={styles2}>Estado</label>
+              <select
+                className={styles}
+                id="deleted"
+                name="deleted"
+                value={editable.deleted}
+                onChange={handleFieldChange}
+                disabled={combinedUserSession !== "admin"}
+              >
+                <option value="true">Inactivo</option>
+                <option value="false">Activo</option>
+              </select>
+            </div>
+          )}
+
+          <div className="flex items-center justify-center">
+            <button
+              className="w-full text-eerieBlack px-6 py-2 rounded text-xl bg-chiliRed shadow-xl bg-opacity-20 transition duration-300 hover:bg-opacity-60"
+              type="submit"
+              onClick={handleSaveChanges}
+            >
+              Guardar cambios
+            </button>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 };

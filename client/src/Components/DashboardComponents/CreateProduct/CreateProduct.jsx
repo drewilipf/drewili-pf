@@ -327,7 +327,11 @@ function CreateProduct() {
               <button
                 type="button"
                 onClick={handleNewBrandClick}
+
                 className="bg-chiliRed text-whiteSmoke py-2 px-4 rounded-full ml-2 hover:scale-105 hover:shadow-xl transition duration-100 ease-in-out"
+
+               
+
               >
                 {showNewBrandInput ? "-" : "+"}
               </button>
