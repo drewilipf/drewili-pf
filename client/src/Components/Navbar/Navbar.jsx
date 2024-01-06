@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { NavLink, Routes, Route, useLocation } from "react-router-dom";
+import { NavLink, Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import Searchbar from "../Searchbar/Searchbar";
-import { useNavigate } from "react-router-dom";
 import { AiOutlineMore } from "react-icons/ai";
 import Cookies from "js-cookie";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,7 +17,7 @@ function Navbar({ setActualPage }) {
   const navigate = useNavigate();
   const { login } = useSelector((state) => state.login);
   const dispatch = useDispatch();
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -172,6 +171,16 @@ function Navbar({ setActualPage }) {
                           Ver Perfil
                         </NavLink>
                       </li>
+                      
+                      <li className="cursor-pointer py-2 px-4 hover:bg-gray-200">
+                        <NavLink
+                         to={`/history/${id}`}   
+                          className="text-chiliRed hover:underline"
+                        >
+                          Historial de Compras
+                        </NavLink>
+                      </li>
+                      
                       {role === "admin" && (
                         <li className="cursor-pointer py-2 px-4 hover:bg-gray-200">
                           <NavLink
