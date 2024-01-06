@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Cookies from "js-cookie";
+import jsPDF from "jspdf";
 import { SiWhatsapp } from "react-icons/si";
 import { BsQrCode } from "react-icons/bs";
 import {
@@ -16,21 +17,62 @@ import {
 const SelectPayment = () => {
   const dispatch = useDispatch();
   const [opcionSeleccionadaPedido, setOpcionSeleccionadaPedido] =
-    useState("opcion1");
+    useState("yo");
   const [opcionSeleccionadaComprobante, setOpcionSeleccionadaComprobante] =
-    useState("opcion1");
+    useState("boleta");
   const [razonSocial, setRazonSocial] = useState(" ");
   const [ruc, setRuc] = useState(" ");
   const [modalidadPago, setModalidadPago] = useState("transferenciaBancaria");
   const userSessionFromCookies = Cookies.get("userSession");
+  const userGoogleFromCookies = Cookies.get("userGoogle");
   const userSession = userSessionFromCookies
     ? JSON.parse(userSessionFromCookies)
     : null;
+  const userGoogleSession = userGoogleFromCookies
+    ? JSON.parse(userGoogleFromCookies)
+    : null;
 
   const { login } = useSelector((state) => state.login);
+  const { usersGoogle } = useSelector((state) => state.users);
   const { priceTotal } = useSelector((state) => state.salesCart);
+  const { shippingInfo } = useSelector((state) => state.shipping);
+  const { dropshippingInfo } = useSelector((state) => state.shipping);
+  const { opcionQuienRecibe } = useSelector((state) => state.shipping);
+  const { opciontipoComprobante } = useSelector((state) => state.shipping);
+  const { razonSocialFactura } = useSelector((state) => state.shipping);
+  const { rucFactura } = useSelector((state) => state.shipping);
+  const QuienRecibira = "¿Quién recibirá el pedido?";
+  const TipoComprobante = "¿Qué tipo de comprobante desea?";
+  const Razon = "Razón Social";
+  const RUC = "RUC";
+  const combinedData = {
+    ...shippingInfo,
+    ...dropshippingInfo,
+    state3: { QuienRecibira, ...opcionQuienRecibe },
+    state4: { TipoComprobante, ...opciontipoComprobante },
+    state5: { Razon, ...razonSocialFactura },
+    state6: { RUC, ...rucFactura },
+  };
+
+  // const pdf = new jsPDF();
+  // pdf.text("Mi Documento PDF", 10, 10);
+  // pdf.text(JSON.stringify(combinedData), 10, 20);
+
+  // // Convertir el PDF a Blob
+  // const blob = pdf.output("blob");
+
+  // // Crear un objeto FormData y agregar el Blob
+  // const formData = new FormData();
+  // formData.append("pdf", blob);
+
+  // // Enviar el FormData al servidor
+  // enviarFormDataAlServidor(formData);
+
   const userId =
-    (userSession && userSession.userId) || (login && login.userSession.userId);
+    (userSession && userSession.userId) ||
+    (login && login.userSession.userId) ||
+    (usersGoogle && usersGoogle.id) ||
+    (userGoogleSession && userGoogleSession.id);
 
   const handlePedidoOptionChange = (opcion) => {
     setOpcionSeleccionadaPedido(opcion);
@@ -40,11 +82,17 @@ const SelectPayment = () => {
   const handleComprobanteOptionChange = (opcion) => {
     setOpcionSeleccionadaComprobante(opcion);
     dispatch(setComprobanteOption(opcion));
+    setRazonSocial("");
+    setRuc("");
+  };
+  const handleClik = () => {
     setRazonSocial(razonSocial);
     dispatch(setRazonSocialSlice(razonSocial));
     setRuc(ruc);
+    console.log(ruc);
     dispatch(setRucSlice(ruc));
   };
+
   const { salesCart } = useSelector((state) => state.salesCart);
 
   const handleModalidadPagoChange = (modalidad) => {
@@ -80,19 +128,19 @@ const SelectPayment = () => {
         <div>
           <input
             type="radio"
-            id="pedidoOpcion1"
+            id="yo"
             name="pedido"
-            checked={opcionSeleccionadaPedido === "opcion1"}
-            onChange={() => handlePedidoOptionChange("opcion1")}
+            checked={opcionSeleccionadaPedido === "yo"}
+            onChange={() => handlePedidoOptionChange("yo")}
           />
           <label className="mr-2 ml-2">Yo</label>
 
           <input
             type="radio"
-            id="pedidoOpcion2"
+            id="OtraPersona"
             name="pedido"
-            checked={opcionSeleccionadaPedido === "opcion2"}
-            onChange={() => handlePedidoOptionChange("opcion2")}
+            checked={opcionSeleccionadaPedido === "OtraPersona"}
+            onChange={() => handlePedidoOptionChange("OtraPersona")}
           />
           <label className="mr-2 ml-2">Otra persona</label>
         </div>
@@ -102,24 +150,24 @@ const SelectPayment = () => {
         <div>
           <input
             type="radio"
-            id="comprobanteOpcion1"
+            id="boleta"
             name="comprobante"
-            checked={opcionSeleccionadaComprobante === "opcion1"}
-            onChange={() => handleComprobanteOptionChange("opcion1")}
+            checked={opcionSeleccionadaComprobante === "boleta"}
+            onChange={() => handleComprobanteOptionChange("boleta")}
           />
           <label className="mr-2 ml-2">Boleta</label>
 
           <input
             type="radio"
-            id="comprobanteOpcion2"
+            id="factura"
             name="comprobante"
-            checked={opcionSeleccionadaComprobante === "opcion2"}
-            onChange={() => handleComprobanteOptionChange("opcion2")}
+            checked={opcionSeleccionadaComprobante === "factura"}
+            onChange={() => handleComprobanteOptionChange("factura")}
           />
           <label className="mr-2 ml-2">Factura</label>
         </div>
       </div>
-      {opcionSeleccionadaComprobante === "opcion2" && (
+      {opcionSeleccionadaComprobante === "factura" && (
         <div>
           <label className="block mt-4">Razón social:</label>
           <input
@@ -138,6 +186,12 @@ const SelectPayment = () => {
             className="border p-2"
             placeholder="RUC"
           />
+          <button
+            className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded ml-4"
+            onClick={handleClik}
+          >
+            Aceptar datos
+          </button>
         </div>
       )}
       <div className=" items-center mt-8 ">
@@ -241,8 +295,13 @@ const SelectPayment = () => {
             <div className="mt-4 text-5xl ml-5">
               <SiWhatsapp />
             </div>
-              <a href="https://wa.me/51971985484" target="_blank" rel="noopener noreferrer">
-            <span className="hover:text-chiliRed ml-5">971 985 484</span></a>
+            <a
+              href="https://wa.me/51971985484"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="hover:text-chiliRed ml-5">971 985 484</span>
+            </a>
           </div>
           <NavLink to={`/payment/payment`}>
             <button className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded">
@@ -281,8 +340,13 @@ const SelectPayment = () => {
             <div className="mt-4 text-5xl ml-5">
               <SiWhatsapp />
             </div>
-            <a href="https://wa.me/51971985484" target="_blank" rel="noopener noreferrer">
-            <span className="hover:text-chiliRed ml-5">971 985 484</span></a>
+            <a
+              href="https://wa.me/51971985484"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="hover:text-chiliRed ml-5">971 985 484</span>
+            </a>
           </div>
           <NavLink to={`/payment/payment`}>
             <button className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded">
@@ -302,8 +366,8 @@ const SelectPayment = () => {
             del pedido.
           </span>
           <div className="font-bold">
-            Realiza la transferencia del siguiente monto S/{PriceContraentrega} y
-            envia el comprobante para proceder con el envío.
+            Realiza la transferencia del siguiente monto S/{PriceContraentrega}{" "}
+            y envia el comprobante para proceder con el envío.
           </div>
           <div className="flex mt-8">
             <span className="mr-4">
@@ -340,8 +404,13 @@ const SelectPayment = () => {
             <div className="mt-4 text-5xl ml-5">
               <SiWhatsapp />
             </div>
-            <a href="https://wa.me/51971985484" target="_blank" rel="noopener noreferrer">
-            <span className="hover:text-chiliRed ml-5">971 985 484</span></a>
+            <a
+              href="https://wa.me/51971985484"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="hover:text-chiliRed ml-5">971 985 484</span>
+            </a>
           </div>
           <NavLink to={`/payment/payment`}>
             <button className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded">

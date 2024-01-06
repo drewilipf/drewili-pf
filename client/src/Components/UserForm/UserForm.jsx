@@ -3,6 +3,7 @@ import validation from "./validation";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { postUser } from "../../reduxToolkit/User/userThunks";
+import LoginButton from "../LoginButton";
 
 function UserForm() {
   const [input, setInput] = useState({
@@ -29,8 +30,6 @@ function UserForm() {
       [name]: value,
     }));
   };
-  console.log(input);
-
 
   const handleBlur = (e) => {
     const { name, value } = e.target;
@@ -40,21 +39,19 @@ function UserForm() {
       [name]: validationErrors[name],
     }));
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     // Verificar si hay errores en los campos
     const validationErrors = validation(input);
     setErrors(validationErrors);
-  
+
     // Comprobar si hay algún error antes de enviar la solicitud
-    if (
-      Object.values(validationErrors).every((error) => error === "")
-    ) {
+    if (Object.values(validationErrors).every((error) => error === "")) {
       try {
         dispatch(postUser(input));
-  
+
         setInput({
           name: "",
           lastname: "",
@@ -64,14 +61,14 @@ function UserForm() {
           role: "cliente",
           username: "",
         });
-  
+
         setErrors({
           name: "",
           lastname: "",
           email: "",
           // Agrega aquí otros campos si es necesario
         });
-  
+
         alert("Usuario creado con éxito");
         navigate("/userlogin");
       } catch (error) {
@@ -84,12 +81,12 @@ function UserForm() {
   };
   return (
     <>
-      <div className="w-96 mr-auto ml-auto">
+      <div className="w-96 mr-auto ml-auto ">
         <h1 className="text-2xl font-bold mb-4 flex items-center justify-center">
           Regístrate
         </h1>
         <form
-          className="border border-chiliRed rounded p-6 text-arial text-base shadow-lg"
+          className="border border-chiliRed rounded p-6 text-arial text-base shadow-lg "
           onSubmit={handleSubmit}
         >
           <div className="mb-4">
@@ -206,16 +203,11 @@ function UserForm() {
               Regístrate
             </button>
           </div>
+          <div className="text-center mt-4">---------- o ---------- </div>
+          <div className="  flex items-center justify-center text-center mt-4 h-12 border rounded-lg bg-chiliRed  text-white">
+            <LoginButton />
+          </div>
         </form>
-
-        <div className="my-4">
-          <h1 className="text-lg font-semibold mb-2 flex items-center justify-center">
-            O ingresa con
-          </h1>
-          <h1 className="text-lg flex items-center justify-center">
-            Sección para poner terceros
-          </h1>
-        </div>
       </div>
     </>
   );
