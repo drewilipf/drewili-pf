@@ -49,21 +49,19 @@ const SelectPayment = () => {
     state6: { RUC, ...rucFactura },
   };
 
-  const generatePDF = (combinedData) => {
-    const pdf = new jsPDF();
-    pdf.text("Mi Documento PDF", 10, 10);
-    pdf.text(JSON.stringify(combinedData), 10, 20);
+  const pdf = new jsPDF();
+  pdf.text("Mi Documento PDF", 10, 10);
+  pdf.text(JSON.stringify(combinedData), 10, 20);
 
-    // Convertir el PDF a Blob
-    const blob = pdf.output("blob");
+  // Convertir el PDF a Blob
+  const blob = pdf.output("blob");
 
-    // Crear un objeto FormData y agregar el Blob
-    const formData = new FormData();
-    formData.append("pdf", blob);
+  // Crear un objeto FormData y agregar el Blob
+  const formData = new FormData();
+  formData.append("pdf", blob);
 
-    // Enviar el FormData al servidor
-    enviarFormDataAlServidor(formData);
-  };
+  // Enviar el FormData al servidor
+  enviarFormDataAlServidor(formData);
 
   const userId =
     (userSession && userSession.userId) || (login && login.userSession.userId);
