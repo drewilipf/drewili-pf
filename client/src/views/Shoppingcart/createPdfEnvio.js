@@ -1,6 +1,6 @@
 import jsPDF from "jspdf";
 
-export const generatePDF = (data) => {
+const generatePDF = (data) => {
   const pdf = new jsPDF();
   pdf.text("Mi Documento PDF", 10, 10);
   pdf.text(JSON.stringify(data), 10, 20);
@@ -29,3 +29,5 @@ export const enviarFormDataAlServidor = (formData) => {
       console.error("Error al enviar el FormData al servidor", error);
     });
 };
+
+export default generatePDF;

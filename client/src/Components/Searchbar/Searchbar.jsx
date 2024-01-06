@@ -4,10 +4,11 @@ import { searchProduct } from "../../reduxToolkit/Product/productThunks";
 import { getCategory } from "../../reduxToolkit/Category/categoryThunks.js";
 import { filterAll } from "../../reduxToolkit/Filtros/filterAllThunks.js";
 import { setCategoryFilterAction } from "../../reduxToolkit/Product/activeFilterthunks.js";
+import { useLocation } from "react-router-dom";
 
 function Searchbar({ setActualPage }) {
   const [searchKeyword, setSearchKeyword] = useState("");
-
+  const location = useLocation();
   const dispatch = useDispatch();
   const [filterState, setFilterState] = useState({
     selectedCategory: "",
@@ -47,7 +48,7 @@ function Searchbar({ setActualPage }) {
     if (searchKeyword.length < 2) {
       alert("Debe ingresar al menos dos caracteres");
       return;
-    }    
+    }
     dispatch(searchProduct(searchKeyword));
   };
 
@@ -65,31 +66,28 @@ function Searchbar({ setActualPage }) {
         className="border border-chiliRed rounded p-2 mr-2 focus:outline-none focus:border-chiliRed"
         placeholder="Buscar producto..."
         value={searchKeyword}
-        
         onChange={handleSearchInputChange}
-        
-        
-        
       />
-      <select
-        className="border border-chiliRed rounded p-2 mr-2 focus:outline-none focus:border-chiliRed"
-        onChange={(e) => handleFilterCategory(e.target.value)}
-        value={filterState.selectedCategory || ""}
-      >
-        <option value="All">Todas las Categorías</option>
-        {category.categories
-          ? category.categories.map((categoryItem) => (
-              <option key={categoryItem.id} value={categoryItem.category}>
-                {categoryItem.category}
-              </option>
-            ))
-          : null}
-      </select>
+      {location.pathname !== "/dashboard/productList" && (
+        <select
+          className="border border-chiliRed rounded p-2 mr-2 focus:outline-none focus:border-chiliRed"
+          onChange={(e) => handleFilterCategory(e.target.value)}
+          value={filterState.selectedCategory || ""}
+        >
+          <option value="All">Todas las Categorías</option>
+          {category.categories
+            ? category.categories.map((categoryItem) => (
+                <option key={categoryItem.id} value={categoryItem.category}>
+                  {categoryItem.category}
+                </option>
+              ))
+            : null}
+        </select>
+      )}
 
       <button
         className="bg-chiliRed transition duration-300 hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mr-16"
         onClick={handleSearchClick}
-        
       >
         Buscar
       </button>
