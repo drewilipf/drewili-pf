@@ -9,7 +9,7 @@ const successHandler = async (req, res) => {
         
         await successController(userId, updateProduct);
         
-        res.redirect('http://localhost:5173/payment/success');
+        res.redirect('https://drewilifront.vercel.app/payment/success');
     } catch (error) {
         res.status(500).send('Error en el servidor');
     }
