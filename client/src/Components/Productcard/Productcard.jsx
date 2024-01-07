@@ -47,52 +47,79 @@ function Productcard({
     (usersGoogle && usersGoogle.id) ||
     (userGoogleSession && userGoogleSession.id);
 
-  const handleAddToCart = async () => {
-    try {
-      setLoading(true);
-
-      // Realiza la solicitud para agregar al carrito
-      const response = await axios.post(
-        "https://drewili-pf-back.onrender.com/salesCart/addToSalesCart",
-        {
-          productId: id,
-          userId,
-          quantity: 1,
+    const handleAddToCart = async () => {
+      try {
+        setLoading(true);
+  
+        if (!userId) {
+          // Si userId es null, muestra un mensaje de alerta y redirige si el usuario elige iniciar sesión
+          const choice = window.confirm(
+            "Para continuar, por favor inicia sesión o regístrate. ¿Quieres iniciar sesión?"
+          );
+  
+          if (choice) {
+            window.location.href = "/userlogin";
+            return;
+          } else {
+            return;
+          }
         }
-      );
-
-      console.log("Respuesta del servidor:", response.data);
-
-      setAddedToCart(true);
-    } catch (error) {
-      console.error("Error en la solicitud:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleAddToFavorites = async () => {
-    try {
-      setLoadingFavorites(true);
-
-      const response = await axios.post(
-        "https://drewili-pf-back.onrender.com/favorites",
-        {
-          product_id: id,
-          user_id: userId,
+  
+        // Realiza la solicitud para agregar al carrito
+        const response = await axios.post(
+          "https://drewili-pf-back.onrender.com/salesCart/addToSalesCart",
+          {
+            productId: id,
+            userId,
+            quantity: 1,
+          }
+        );
+  
+        console.log("Respuesta del servidor:", response.data);
+  
+        setAddedToCart(true);
+      } catch (error) {
+        console.error("Error en la solicitud:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    const handleAddToFavorites = async () => {
+      try {
+        setLoadingFavorites(true);
+  
+        if (!userId) {
+          // Si userId es null, muestra un mensaje de alerta y redirige si el usuario elige iniciar sesión
+          const choice = window.confirm(
+            "Para continuar, por favor inicia sesión o regístrate. ¿Quieres iniciar sesión?"
+          );
+  
+          if (choice) {
+            window.location.href = "/userlogin";
+            return;
+          } else {
+            return;
+          }
         }
-      );
-
-      console.log("Respuesta del servidor (favoritos):", response.data);
-
-      setAddedToFavorites(true);
-    } catch (error) {
-      console.error("Error en la solicitud de favoritos:", error);
-    } finally {
-      setLoadingFavorites(false);
-    }
-  };
-
+  
+        const response = await axios.post(
+          "https://drewili-pf-back.onrender.com/favorites",
+          {
+            product_id: id,
+            user_id: userId,
+          }
+        );
+  
+        console.log("Respuesta del servidor (favoritos):", response.data);
+  
+        setAddedToFavorites(true);
+      } catch (error) {
+        console.error("Error en la solicitud de favoritos:", error);
+      } finally {
+        setLoadingFavorites(false);
+      }
+    };
   return (
     <div className="m-4 p-4 rounded shadow-lg hover:shadow-xl h-auto w-80 bg-white flex flex-col items-center justify-evenly">
       <NavLink
