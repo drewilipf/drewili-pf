@@ -11,11 +11,11 @@ module.exports = (sequelize) => {
         },
         name: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         lastname: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         email: {
             type: DataTypes.STRING,
@@ -27,7 +27,7 @@ module.exports = (sequelize) => {
         },
         password: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         
         address: {
@@ -36,12 +36,26 @@ module.exports = (sequelize) => {
         },
         role: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: true,
+            defaultValue: 'cliente'
         },
         deleted:{
             type: DataTypes.BOOLEAN,
             defaultValue: false,
             allowNull: false
+        },
+        auth0UserId: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            unique: true,
+        },
+        auth0DisplayName: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        auth0Email: {
+            type: DataTypes.STRING,
+            allowNull: true,
         }
     },
     { timestamps: false })

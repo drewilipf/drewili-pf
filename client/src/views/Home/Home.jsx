@@ -7,8 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../reduxToolkit/Product/productThunks";
 import ProductFilter from "../../Components/FilterComponents/productfilter";
 
+
 function Home({ actualPage, handlePageChange, setActualPage }) {
   const { products } = useSelector((state) => state.products);
+  
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -48,6 +50,8 @@ function Home({ actualPage, handlePageChange, setActualPage }) {
             totalPages={totalPages}
           />
         </div>
+
+       
       </div>
     </>
   );

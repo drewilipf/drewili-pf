@@ -5,10 +5,10 @@ const shippingSlice = createSlice({
   initialState: {
     shippingInfo: {},
     dropshippingInfo: {},
-    opcionSeleccionadaPedido: "opcion1",
-    opcionSeleccionadaComprobante: "opcion1",
-    razonSocial: "",
-    ruc: "",
+    opcionQuienRecibe: "yo",
+    opciontipoComprobante: "boleta",
+    razonSocialFactura: "",
+    rucFactura: "",
     modalidadPago: "transferenciaBancaria",
   },
   reducers: {
@@ -25,16 +25,16 @@ const shippingSlice = createSlice({
       state.dropshippingInfo.address = action.payload;
     },
     setPedidoOption: (state, action) => {
-      state.opcionSeleccionadaPedido = action.payload;
+      state.opcionQuienRecibe = action.payload;
     },
     setComprobanteOption: (state, action) => {
-      state.opcionSeleccionadaComprobante = action.payload;
+      state.opciontipoComprobante = action.payload;
     },
     setRazonSocialSlice: (state, action) => {
-      state.razonSocial = action.payload;
+      state.razonSocialFactura = action.payload;
     },
     setRucSlice: (state, action) => {
-      state.ruc = action.payload;
+      state.rucFactura = action.payload;
     },
     setModalidadPagoSlice: (state, action) => {
       state.modalidadPago = action.payload;

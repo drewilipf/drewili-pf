@@ -9,8 +9,10 @@ import {
   getSalesCart,
   updateSalesCart,
 } from "../../reduxToolkit/SalesCarts/salesCartThunk";
-import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from "react-icons/io";
-
+import {
+  IoIosAddCircleOutline,
+  IoIosRemoveCircleOutline,
+} from "react-icons/io";
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
@@ -18,15 +20,22 @@ const ShoppingCart = () => {
   const { priceTotal } = useSelector((state) => state.salesCart);
   console.log(salesCart, "este el sales cart de shoping cart");
   const userSessionFromCookies = Cookies.get("userSession");
+  const userGoogleFromCookies = Cookies.get("userGoogle");
   const userSession = userSessionFromCookies
     ? JSON.parse(userSessionFromCookies)
     : null;
+  const userGoogleSession = userGoogleFromCookies
+    ? JSON.parse(userGoogleFromCookies)
+    : null;
 
   const { login } = useSelector((state) => state.login);
+  const { usersGoogle } = useSelector((state) => state.users);
 
   const userId =
-    (userSession && userSession.userId) || (login && login.userSession.userId);
-
+    (userSession && userSession.userId) ||
+    (login && login.userSession.userId) ||
+    (usersGoogle && usersGoogle.id) ||
+    (userGoogleSession && userGoogleSession.id);
   useEffect(() => {
     dispatch(getSalesCart(userId));
   }, [userId]);
@@ -35,14 +44,13 @@ const ShoppingCart = () => {
     dispatch(deleteSalesCart(salesCartId, userId));
   };
 
-
   const handleQuantity = async (salesCartId, newQuantity, userId) => {
     const updatedQuantity = Math.max(1, newQuantity);
     dispatch(updateSalesCart(salesCartId, updatedQuantity, userId));
   };
 
   return (
-    <div className="w-60vw mx-auto bg-gray-800 text-black p-4 h-90vh">
+    <div className=" mt-2 mb-2 shadow-md  w-60vw mx-auto  text-black p-4 ">
       <h2 className="text-2xl font-semibold mb-4">Tu Carrito de Compras</h2>
       {salesCart && salesCart.length !== 0 ? (
         <>
@@ -68,21 +76,36 @@ const ShoppingCart = () => {
               <span className="w-16 text-right">{`S/${parseFloat(
                 item.price
               ).toFixed(2)}`}</span>
-              <button className="ml-4 text-xl"
+              <button
+                className="ml-4 text-xl"
                 onClick={() =>
                   handleQuantity(item.salesCartId, item.quantity - 1, userId)
                 }
-              ><IoIosRemoveCircleOutline />
-
+              >
+                <IoIosRemoveCircleOutline />
               </button>
               <span className="w-16 text-center">{item.quantity}</span>
-              <button className="mr-4 text-xl"
-                onClick={() =>
-                  handleQuantity(item.salesCartId, item.quantity + 1, userId)
-                }
-              ><IoIosAddCircleOutline />
-
-              </button>
+              {
+                item.stock <= item.quantity ?
+                  <button
+                    className="mr-4 text-xl relative group"
+                    disabled
+                  >
+                    <IoIosAddCircleOutline />
+                    <h5 className="hidden group-hover:block  absolute top-0 left-0 bg-chiliRed text-white p-2 rounded-md z-10">
+                      No hay mas stock
+                    </h5>
+                  </button>
+                  :
+                  <button
+                    className="mr-4 text-xl"
+                    onClick={() =>
+                      handleQuantity(item.salesCartId, item.quantity + 1, userId)
+                    }
+                  >
+                    <IoIosAddCircleOutline />
+                  </button>
+              }
               <button
                 onClick={() => handleRemoveFromCart(item.salesCartId, userId)}
                 className="ml-2"

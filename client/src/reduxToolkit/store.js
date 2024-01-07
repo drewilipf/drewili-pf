@@ -11,6 +11,7 @@ import filterColorReducer from "./Color/colorSlice";
 import activeFiltersReducer from "./Product/activeFiltersSlice";
 import cartSliceReducer from "./SalesCarts/salesCartsSlice";
 import shippingReducer from "./ShippingInfo/shippingInfoSlice";
+import purchaseHistoryReducer from "./PurchaseHistory/purchaseHistorySlice";
 
 export const store = configureStore({
   reducer: {
@@ -26,5 +27,6 @@ export const store = configureStore({
     activeFilters: activeFiltersReducer,
     salesCart: cartSliceReducer,
     shipping: shippingReducer,
+    purchaseHistory: purchaseHistoryReducer,
   },
 });

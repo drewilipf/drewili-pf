@@ -6,7 +6,7 @@ const LegalesLink = ({ text, url }) => {
   };
 
   return (
-    <div className="legales-button cursor-pointer" onClick={redirigirALegales}>
+    <div className="hover:text-chiliRed legales-button cursor-pointer" onClick={redirigirALegales}>
       {text}
     </div>
   );

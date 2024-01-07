@@ -24,13 +24,13 @@ const checkoutController = async (carItems, id) => {
     }));
 
     const queryString = `?userId=${id}&updateProduct=${encodeURIComponent(JSON.stringify(updateProduct))}`;
-    const successUrl = `http://localhost:3001/payment/success${queryString}`;
+    const successUrl = `https://drewili-pf-back.onrender.com/payment/success${queryString}`;
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         line_items: lineItems,
         mode: 'payment',
         success_url: successUrl,
-        cancel_url: 'http://localhost:5173/shippingform',
+        cancel_url: 'https://drewilifront.vercel.app/shippingform',
         locale: 'auto'
     });
 

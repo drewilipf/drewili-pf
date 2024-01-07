@@ -6,11 +6,11 @@ const createNewCategory = async (category) => {
             throw Error('Debe ingresar una categoría');
         }
 
-        const newCategory = await Category.create({
+        await Category.create({
             category: category
         });
-
-        return newCategory;
+        const categories = Category.findAll()
+        return categories
     } catch (error) {
         
         throw error;

@@ -54,7 +54,7 @@ const ShippingForm = () => {
   };
 
   const styles =
-    "w-[50%] px-8 py-1.5 text-lg text-eerieBlack leading-tight bg-whiteSmoke border rounded focus:outline-none focus:shadow-outline mt-5 ml-2";
+    "flex flex-auto w-[50%] px-8 py-1.5 text-lg text-eerieBlack leading-tight bg-whiteSmoke border rounded focus:outline-none focus:shadow-outline mt-5 ml-2";
 
   const handleFieldChange = (event) => {
     const { name, value } = event.target;
@@ -78,15 +78,34 @@ const ShippingForm = () => {
     navigate("/validateaddress");
   };
   return (
-    <div className=" pt-5 flex flex-auto overflow-y-hidden">
-      <div className=" bg-opacity-10 p-6 text-eerieBlack rounded-lg shadow-md w-full  max-w-screen-md mx-auto flex flex-col mr-[-1rem] h-screen ">
+    <div className="flex flex-auto">
+      <div className=" bg-opacity-10 p-6 text-eerieBlack rounded-lg shadow-md w-full  max-w-screen-md mx-auto flex flex-col mr-[-1rem] mb-2 bt-2 ">
         <h1 className="font-bold text-2xl text-center mt-2 mb-6 ">
           Confirmación de Datos de Envío
         </h1>
-        <div className="flex mb-4">
-          <span className="mr-2 font-bold">Nombre Completo: </span>
-          <span className="mr-2">{nameUser}</span>
-          <span>{userLastname}</span>
+        <div className=" mb-4">
+          <label className="mr-2 font-bold">Nombre:</label>
+          <input
+            className={styles}
+            id="name"
+            name="name"
+            type="text"
+            value={editable.name}
+            onChange={handleFieldChange}
+            placeholder="Nombre"
+          />
+        </div>
+        <div className=" mb-4">
+          <label className="mr-2 font-bold">Apellido:</label>
+          <input
+            className={styles}
+            id="lastname"
+            name="lastname"
+            type="text"
+            value={editable.lastname}
+            onChange={handleFieldChange}
+            placeholder="Apellido"
+          />
         </div>
         {!isOn ? (
           <div>
@@ -102,7 +121,7 @@ const ShippingForm = () => {
                 placeholder="Dirección"
               />
             </div>
-            <div>
+            <div className="mt-4">
               <label className="mr-2 font-bold">Correo Electrónico</label>
               <input
                 className={styles}
@@ -111,9 +130,10 @@ const ShippingForm = () => {
                 type="email"
                 onChange={handleFieldChange}
                 value={editable.email}
+                placeholder="Email"
               />
             </div>
-            <div>
+            <div className="mt-4">
               <label className="mr-2 font-bold">Celular</label>
               <input
                 className={styles}
@@ -125,12 +145,12 @@ const ShippingForm = () => {
                 placeholder="Ingresa un número de teléfono"
               />
             </div>
-            <div>
+            <div className="mt-4">
               <label className="mr-2 font-bold">Nº de Identificación</label>
               <select
                 name="DNI"
                 id="DNI"
-                className="text-eerieBlack  rounded-lg shadow-md border  focus:outline-none  "
+                className="mt-4 text-eerieBlack  rounded-lg shadow-md border  focus:outline-none  "
               >
                 <option value="DNI">DNI</option>
                 <option value="Carnet de extranjería">
@@ -144,23 +164,22 @@ const ShippingForm = () => {
                 type="text"
                 value={editable.dni}
                 onChange={handleFieldChange}
+                placeholder="Nº de identificación"
               />
             </div>
           </div>
         ) : null}
         <h2 className="font-bold mt-6">¿Eres dropshipping?</h2>
-        <div className="flex mb-2">
+        <div className="flex flex-row mb-2">
           <h2 className="mr-2">No</h2>
           <div
-            className={`relative w-12 h-6 rounded-full p-1 cursor-pointer ${
-              isOn ? "bg-chiliRed" : "bg-onyx"
-            }`}
+            className={`relative w-11 h-6.5 rounded-full p-0.5 cursor-pointer ${isOn ? "bg-chiliRed" : "bg-onyx"
+              }`}
             onClick={handleToggle}
           >
             <div
-              className={`w-5 h-5 bg-white rounded-full transform transition-transform ${
-                isOn ? "translate-x-full" : "translate-x-0"
-              }`}
+              className={`w-5 h-5 bg-white rounded-full transform transition-transform ${isOn ? "translate-x-full" : "translate-x-0"
+                }`}
             />
           </div>
           <h2 className="ml-2">Sí</h2>
@@ -168,7 +187,7 @@ const ShippingForm = () => {
         {isOn ? (
           <div>
             <h2 className="font-bold mt-6 text-xl">Datos del Cliente</h2>
-            <div>
+            <div className="mt-4">
               <label className="mr-2 font-bold">Nombre Completo</label>
               <input
                 className={styles}
@@ -179,7 +198,7 @@ const ShippingForm = () => {
                 onChange={handleChange}
               />
             </div>
-            <div>
+            <div className="mt-4">
               <label className="mr-2 font-bold">Celular</label>
               <input
                 className={styles}
@@ -190,7 +209,7 @@ const ShippingForm = () => {
                 onChange={handleChange}
               />
             </div>
-            <div>
+            <div className="mt-4">
               <label className="mr-2 font-bold">Dirección</label>
               <input
                 className={styles}
@@ -201,7 +220,7 @@ const ShippingForm = () => {
                 onChange={handleChange}
               />
             </div>
-            <div>
+            <div className="mt-4">
               <label className="mr-2 font-bold">Nº de Identificación</label>
               <select
                 name="DNI"
@@ -224,26 +243,11 @@ const ShippingForm = () => {
             </div>
           </div>
         ) : null}
-
-        <button
-          className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4  w-60 rounded"
-          onClick={handleShippingSubmit}
-        >
-          Ir a datos de entrega
-        </button>
-
-        <NavLink
-          to={`/shoppingcart`}
-          className="text-chiliRed  hover:text-onyx underline ml-4 "
-        >
-          Regresar al Carrito
-        </NavLink>
       </div>
       <div
         className="bg-opacity-10 text-eerieBlack rounded-lg shadow-md w-[30%] max-w-screen-md 
-    h-full  mx-auto flex flex-col ml-[1.5rem] p-4"
-      >
-        <h2 className="font-bold text-xl text-center mt-2 mb-6 ">
+               h-full  mx-auto flex flex-col ml-[1.5rem] p-4">
+        <h2 className="font-bold text-xl text-center mt-4 mb-6 ">
           Resumen de compra
         </h2>
         {salesCart?.map((item) => (
@@ -274,6 +278,19 @@ const ShippingForm = () => {
             <span className="text-xl">{`S/${priceTotal.toFixed(2)}`}</span>
           </div>
         </div>
+      <div className="">
+        <button
+          className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4  w-60 rounded"
+          onClick={handleShippingSubmit}>
+          Ir a datos de entrega
+        </button>
+
+        <NavLink
+          to={`/shoppingcart`}
+          className="text-chiliRed  hover:text-onyx underline ml-4 ">
+          Regresar al Carrito
+        </NavLink>
+      </div>
       </div>
     </div>
   );
@@ -281,10 +298,3 @@ const ShippingForm = () => {
 
 export default ShippingForm;
 
-{
-  /* /* <NavLink to={`/shippingform/${userId}`}>
-  <button className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded">
-    Comprar
-  </button>
-</NavLink>  */
-}

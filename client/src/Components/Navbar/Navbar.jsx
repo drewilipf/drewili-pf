@@ -1,12 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
-import { NavLink, Routes, Route, useLocation } from "react-router-dom";
+import { NavLink, Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import Searchbar from "../Searchbar/Searchbar";
-import { useNavigate } from "react-router-dom";
 import { AiOutlineMore } from "react-icons/ai";
 import Cookies from "js-cookie";
 import { useSelector, useDispatch } from "react-redux";
 import { postLogout } from "../../reduxToolkit/Login/logoutThunks";
 import cartIcon from "../../icons/carrito-de-compras.png";
+import { useAuth0 } from "@auth0/auth0-react";
+import { postGoogle } from "../../reduxToolkit/User/userThunks";
+import LogoutButton from "../../Components/LogoutButton";
 
 function Navbar({ setActualPage }) {
   const location = useLocation();
@@ -15,7 +17,33 @@ function Navbar({ setActualPage }) {
   const navigate = useNavigate();
   const { login } = useSelector((state) => state.login);
   const dispatch = useDispatch();
+  const { user, isAuthenticated } = useAuth0();
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      const userGoogle = {
+        userName: user.name,
+        email: user.email,
+        authId: user.sub,
+      };
+
+      dispatch(postGoogle(userGoogle));
+      Cookies.set("userGoogle", JSON.stringify(userGoogle));
+    }
+  }, [dispatch, isAuthenticated, user]);
+
+  const { usersGoogle } = useSelector((state) => state.users);
+
+  if (usersGoogle) {
+    const currentData = Cookies.get("userGoogle")
+      ? JSON.parse(Cookies.get("userGoogle"))
+      : {};
+    const newData = {
+      ...currentData,
+      id: usersGoogle.id,
+    };
+    Cookies.set("userGoogle", JSON.stringify(newData));
+  }
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -36,8 +64,13 @@ function Navbar({ setActualPage }) {
 
   // Obtener la información de sesión desde las cookies
   const userSessionFromCookies = Cookies.get("userSession");
+  const userGoogleFromCookies = Cookies.get("userGoogle");
+
   const userSession = userSessionFromCookies
     ? JSON.parse(userSessionFromCookies)
+    : null;
+  const userGoogleSession = userGoogleFromCookies
+    ? JSON.parse(userGoogleFromCookies)
     : null;
 
   // Combina la información del estado Redux y las cookies
@@ -46,7 +79,12 @@ function Navbar({ setActualPage }) {
       ? userSession.username
       : login && login.userSession
       ? login.userSession.username
+      : isAuthenticated && user.name
+      ? user.name
+      : userGoogleSession
+      ? userGoogleSession.userName
       : null;
+
   const handleclick = async () => {
     if (login && login.userSession) {
       try {
@@ -57,13 +95,20 @@ function Navbar({ setActualPage }) {
       }
     } else {
       Cookies.remove("userSession");
+      Cookies.remove("userGoogle");
       navigate("/");
     }
   };
   const id =
-    (userSession && userSession.userId) || (login && login.userSession.userId);
+    (userSession && userSession.userId) ||
+    (login && login.userSession.userId) ||
+    (usersGoogle && usersGoogle.id) ||
+    (userGoogleSession && userGoogleSession.id);
   const role =
-    (userSession && userSession.role) || (login && login.userSession.role);
+    (userSession && userSession.role) ||
+    (login && login.userSession.role) ||
+    (usersGoogle && usersGoogle.role) ||
+    (userGoogleSession && userGoogleSession.role);
   return (
     <div className="fixed top-0 left-0 right-0 z-10 bg-whiteSmoke shadow-xl">
       <div className="flex items-center justify-between text-onyx">
@@ -126,6 +171,16 @@ function Navbar({ setActualPage }) {
                           Ver Perfil
                         </NavLink>
                       </li>
+                      
+                      <li className="cursor-pointer py-2 px-4 hover:bg-gray-200">
+                        <NavLink
+                         to={`/history/${id}`}   
+                          className="text-chiliRed hover:underline"
+                        >
+                          Historial de Compras
+                        </NavLink>
+                      </li>
+                      
                       {role === "admin" && (
                         <li className="cursor-pointer py-2 px-4 hover:bg-gray-200">
                           <NavLink
@@ -136,12 +191,19 @@ function Navbar({ setActualPage }) {
                           </NavLink>
                         </li>
                       )}
-                      <li
-                        className="cursor-pointer py-2 px-4 hover:bg-gray-200"
-                        onClick={handleclick}
-                      >
-                        Cerrar Sesión
-                      </li>
+                      {isAuthenticated && (
+                        <li>
+                          <LogoutButton />
+                        </li>
+                      )}
+                      {!isAuthenticated && (
+                        <li
+                          className="cursor-pointer py-2 px-4 hover:bg-gray-200"
+                          onClick={handleclick}
+                        >
+                          Cerrar Sesión
+                        </li>
+                      )}
                     </ul>
                   </div>
                 )}
