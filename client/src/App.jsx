@@ -52,7 +52,7 @@ function App() {
           setActualPage={(num) => setActualPage(num)}
         />
       )}
-      <div className="pt-24 bg-whiteSmoke">
+      <div className="pt-24 bg-whiteSmoke min-h-screen">
         <Routes>
           <Route
             path="/"

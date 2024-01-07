@@ -15,7 +15,7 @@ const salesCartController = async(id, quantity, userId) => {
         where: { user_id: userId },
         include: {
             model: Product,
-            attributes: ['id', 'name', 'image', 'price'],
+            attributes: ['id', 'name', 'image', 'price', 'stock'],
             include: [
                 {
                   model: Category,
@@ -39,6 +39,7 @@ const salesCartController = async(id, quantity, userId) => {
     const formattedSalesCart = allSalesCarts.map((product)=>({
         salesCartId: product.id,
         id: product.product.id,
+        stock: product.product.stock,
         name: product.product.name,
         image: product.product.image,
         price: product.product.price,
