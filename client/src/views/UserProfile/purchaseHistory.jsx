@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPurchaseHistory } from '../../reduxToolkit/purchaseHistory/purchaseHistoryThunks';
+import { getPurchaseHistory } from "../../reduxToolkit/PurchaseHistory/purchaseHistoryThunks";
 import { useParams } from 'react-router-dom';
 
 const PurchaseHistoryComponent = () => {
