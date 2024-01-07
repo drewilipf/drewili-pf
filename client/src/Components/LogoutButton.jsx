@@ -10,7 +10,7 @@ const LogoutButton = () => {
     logout({ returnTo: window.location.origin });
   };
 
-  return <button onClick={handleLogout}>Cerrar Sesión</button>;
+  return <button className="ml-4 mb-2 mt-2"onClick={handleLogout}>Cerrar Sesión</button>;
 };
 
 export default LogoutButton;

@@ -48,7 +48,7 @@ const Footer = () => {
         <div className="flex flex-col items-center mt-8 ">
           <p className="font-bold">Contacto</p>
           <div className="flex items-center flex-col space-y-2">
-            <div className="flex items-center">
+            <div className="hover:text-chiliRed flex items-center">
               <a
                 href="https://wa.me/51971985484"
                 target="_blank"
@@ -57,7 +57,7 @@ const Footer = () => {
                 <img
                   src={whatsappIcon}
                   alt="Whatsapp icon"
-                  className="mr-2 w-4 h-4"
+                  className="hover:text-chiliRed mr-2 w-4 h-4"
                 />
               </a>
               <a
@@ -68,7 +68,7 @@ const Footer = () => {
                 <p>971 985 484</p>
               </a>
             </div>
-            <div className="flex items-center">
+            <div className="hover:text-chiliRed flex items-center">
               <a
                 href="https://wa.me/51959386167"
                 target="_blank"
@@ -93,7 +93,7 @@ const Footer = () => {
 
         <div className="flex flex-col mt-8 mr-10 ">
           <LegalesLink
-            text="Política de contratación"
+            text="Política de contratación"            
             url="https://docs.google.com/document/d/1LyWMuTLWuKwGzpHI-WsoCLXb8mTev0cA/edit#heading=h.gjdgxs"
           />
           <LegalesLink

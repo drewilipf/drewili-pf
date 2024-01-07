@@ -50,7 +50,7 @@ const ShoppingCart = () => {
   };
 
   return (
-    <div className="w-60vw mx-auto bg-gray-800 text-black p-4 h-90vh">
+    <div className=" mt-2 mb-2 shadow-md  w-60vw mx-auto  text-black p-4 ">
       <h2 className="text-2xl font-semibold mb-4">Tu Carrito de Compras</h2>
       {salesCart && salesCart.length !== 0 ? (
         <>
