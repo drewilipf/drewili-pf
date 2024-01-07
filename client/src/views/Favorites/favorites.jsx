@@ -55,7 +55,7 @@ const Favorites = () => {
   };
 
   return (
-    <div className="text-black p-8 rounded-lg shadow-lg h-90vh">
+    <div className="text-black p-8 rounded-lg shadow-sm md:w-60vw mx-auto shadow-onyx mt-2 mb-2">
       <h2 className="text-3xl font-semibold mb-6">Tus Productos Favoritos</h2>
       {favoriteProducts?.map((item) => (
         <div
