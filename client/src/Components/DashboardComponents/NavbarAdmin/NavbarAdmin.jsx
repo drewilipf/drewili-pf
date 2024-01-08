@@ -1,11 +1,14 @@
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { IoMenu, IoCloseSharp } from "react-icons/io5";
 import { IoMdCreate } from "react-icons/io";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { postLogout } from "../../../reduxToolkit/Login/logoutThunks";
 
 const NavbarAdmin = () => {
+  const [showMenu, setShowMenu] = useState(true);
   const { login } = useSelector((state) => state.login);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,6 +22,19 @@ const NavbarAdmin = () => {
       : login && login.userSession
       ? login.userSession.username
       : null;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setShowMenu(window.innerWidth > 768); // Ajusta el valor 768 según sea necesario
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const handleclick = async () => {
     const shouldLogout = window.confirm("¿Estás seguro de cerrar sesión?");
 
@@ -37,11 +53,16 @@ const NavbarAdmin = () => {
       }
     }
   };
+
   return (
-    <div className="fixed top-0 left-0 h-screen w-[18%] bg-eerieBlack">
+    <div
+      className={`fixed left-0 h-screen w-[18 %] bg-eerieBlack lg-static transition-all duration-100 ${
+        showMenu ? "top-0 " : "-top-full"
+      }`}
+    >
       <div className="flex flex-col items-center justify-center p-8 gap-2 h-[30vh]">
         <NavLink to="/dashboard" className="flex items-center">
-          <div className="w-20 h-20 rounded  mt-2">
+          <div className="w-20 h-20 rounded mt-2">
             <img src="\logoWhite.png" alt="drewili" />
           </div>
         </NavLink>
@@ -49,14 +70,18 @@ const NavbarAdmin = () => {
           {combinedUserSession}
         </h1>
         <div
-          className="text-whiteSmoke  py-2 px-2 hover:underline"
+          className="text-whiteSmoke py-2 px-2 hover:underline"
           onClick={handleclick}
         >
           Cerrar Sesión
         </div>
       </div>
 
-      <div className="bg-chiliRed p-8 rounded-tr-[100px] h-[70vh] overflow-y-auto flex-col justify-between gap-8">
+      <div
+        className={`bg-chiliRed p-8 rounded-tr-[100px] h-[70vh] flex-col justify-between gap-8 ${
+          showMenu ? "overflow-y-hidden" : ""
+        }`}
+      >
         <nav className="flex flex-col gap-8">
           <div className="flex items-center">
             <IoMdCreate className="mr-2" />
@@ -93,6 +118,14 @@ const NavbarAdmin = () => {
             </NavLink>
           </div>
         </nav>
+      </div>
+      <div>
+        <button
+          onClick={() => setShowMenu(!showMenu)}
+          className="lg:hidden fixed left-4 top-4 text-2xl bg-chiliRed p-2.5 rounded-full text-white"
+        >
+          {showMenu ? <IoCloseSharp /> : <IoMenu />}
+        </button>
       </div>
     </div>
   );
