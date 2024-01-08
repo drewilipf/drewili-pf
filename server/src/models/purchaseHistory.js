@@ -30,6 +30,11 @@ module.exports = (sequelize) =>{
             type: DataTypes.INTEGER,
             allowNull: false,
             defaultValue: 1
+        },
+        purchase_date: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            defaultValue: sequelize.fn('now')
         }
     },
     { timestamps: false });
