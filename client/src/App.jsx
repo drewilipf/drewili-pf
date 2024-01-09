@@ -45,7 +45,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="contents">
       {!isDashboardRoute && (
         <NavBar
           handlePageChange={handlePageChange}
