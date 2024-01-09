@@ -118,7 +118,7 @@ const EditUserProfile = () => {
   };
 
   return (
-    <div className="h-90vh pt-5">
+    <div className="mt-2 mb-4">
       <div className="mt-42">
         <div className="bg-chiliRed bg-opacity-10 p-8 text-eerieBlack rounded-lg shadow-md w-full h-full max-w-screen-md mx-auto flex flex-col">
           <div className="mb-4">

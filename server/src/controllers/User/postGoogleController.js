@@ -10,7 +10,8 @@ const postGoogleController = async(userName, authId, email) =>{
             auth0UserId: authId,
             auth0Email: email,
             auth0DisplayName: userName,
-            username: userName
+            username: userName,
+            email: email
         })
         return userGoogle
     }

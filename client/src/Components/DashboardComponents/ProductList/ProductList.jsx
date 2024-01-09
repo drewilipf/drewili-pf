@@ -40,7 +40,7 @@ function ProductList() {
   return (
     <div className="ml-[20%]">
       <NavbarAdmin />
-      <div className="container mx-auto mt-0">
+      <div className="container mx-auto mt-0 ml-[10%]">
         <Searchbar />
       </div>
       <div className="container mx-auto mt-6">

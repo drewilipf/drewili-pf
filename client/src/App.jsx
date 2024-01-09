@@ -44,7 +44,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="contents">
       {!isDashboardRoute && (
         <NavBar
           handlePageChange={handlePageChange}
@@ -52,7 +52,7 @@ function App() {
           setActualPage={(num) => setActualPage(num)}
         />
       )}
-      <div className="pt-24 bg-whiteSmoke">
+      <div className="pt-24 bg-whiteSmoke min-h-screen">
         <Routes>
           <Route
             path="/"
@@ -86,12 +86,12 @@ function App() {
           <Route path="/dashboard/productList" element={<ProductList />} />
           <Route path="/payment/success" element={<PaymentSuccess />} />
           <Route path="/payment/payment" element={<Payment />} />
-          <Route path="/history/:userId" element={<PurchaseHistoryComponent/>} />
+          <Route path="/history/:userId" element={<PurchaseHistoryComponent />} />
 
         </Routes>
       </div>
       {!isDashboardRoute && (
-      <Footer/>
+            <Footer />
       )}
     </div>
   );
