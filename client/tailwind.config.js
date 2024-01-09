@@ -7,7 +7,8 @@ export default {
       eerieBlack: "#1A1A1A",
       onyx: "#404145",
       whiteSmoke: "#F2F2F2",
-      white: '#FFF'
+      white: '#FFF',
+      blue: '#0000ff'
     },
     extend: {
       width: {
@@ -18,6 +19,9 @@ export default {
       height:{
         '40vh':'50vh',
         '90vh': '89.7vh'
+      },
+      screens:{
+        'tablet':'769px'
       }
     },
   },

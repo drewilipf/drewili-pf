@@ -4,6 +4,9 @@ import { getBrand } from "../../reduxToolkit/Brand/brandThunks";
 import { getCategory } from "../../reduxToolkit/Category/categoryThunks.js";
 import { clearFilter } from "../../reduxToolkit/Product/productThunks";
 import { filterAll } from "../../reduxToolkit/Filtros/filterAllThunks";
+import { IoFilterCircle } from "react-icons/io5";
+import { IoFilterCircleOutline } from "react-icons/io5";
+
 import {
   setCategoryFilterAction,
   clearAllFilters,
@@ -88,7 +91,7 @@ const ProductFilter = ({ setActualPage }) => {
     <div className="mb-4 w-full">
       <div className="p-2">
         {/* Mostrar filtros en pantallas grandes */}
-        <div className="hidden sm:block">
+        <div className="hidden tablet:block">
           <h2 className="block text-sm font-bold mb-4">Opciones de filtrado:</h2>
           {/* Resto del contenido del filtro visible en pantallas grandes */}
           <label
@@ -101,7 +104,7 @@ const ProductFilter = ({ setActualPage }) => {
             id="brand"
             value={filterState.selectedBrand || ""}
             onChange={(e) => handleBrandChange(e.target.value)}
-            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full py-2 px-3 border bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 tablet:text-sm"
           >
             <option value="" disabled defaultValue>Filtrar por marca</option>
             <option value="">Todas las marcas</option>
@@ -176,17 +179,17 @@ const ProductFilter = ({ setActualPage }) => {
         </div>
 
         {/* Mostrar botón para abrir filtros en pantallas pequeñas */}
-        <div className="flex sm:hidden items-center justify-center">
+        <div className="flex tablet:hidden items-center justify-center">
 
           <button
             onClick={handleOpenFilter}
-            className="bg-chiliRed text-whiteSmoke font-bold px-2 rounded block sm:hidden mr-1"
+            className="bg-chiliRed text-whiteSmoke font-bold px-4 py-2 rounded block tablet:hidden mr-1"
           >
-            {filterMenuOpen ? 'Filtros🔺' : 'Filtros 🔻'}
+            {filterMenuOpen ? <IoFilterCircle/> : <IoFilterCircleOutline/>}
           </button>
         </div>
         {filterMenuOpen && (
-          <div className="mb-4 w-full sm:hidden mt-4">
+          <div className="mb-4 w-full tablet:hidden mt-4">
             {/* Etiquetas y selectores para Marca, Color, y Rango de Precios */}
             <label
               htmlFor="brand"
@@ -198,7 +201,7 @@ const ProductFilter = ({ setActualPage }) => {
               id="brand"
               value={filterState.selectedBrand || ""}
               onChange={(e) => handleBrandChange(e.target.value)}
-              className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 tablet:text-sm"
             >
               <option value="">Selecciona una Marca:</option>
               {brandList.map((brand) => (
@@ -218,7 +221,7 @@ const ProductFilter = ({ setActualPage }) => {
               id="color"
               onChange={handleColorChange}
               value={filterState.selectedColor || ""}
-              className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 tablet:text-sm"
             >
               <option value="">Selecciona un Color:</option>
               {Array.isArray(colors) &&
@@ -256,14 +259,14 @@ const ProductFilter = ({ setActualPage }) => {
             {/* Botones de Aplicar Filtros y Limpiar Filtros */}
             <button
               onClick={handleFilterClick}
-              className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mt-2"
+              className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mt-2 flex mx-auto"
             >
               Aplicar Filtros
             </button>
 
             <button
               onClick={handleClearFilter}
-              className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mt-2"
+              className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mt-2 flex mx-auto"
             >
               Limpiar Filtros
             </button>

@@ -105,7 +105,7 @@ function UserLogin() {
             </NavLink>
           </div>
           <div className="text-center mt-4">---------- o ---------- </div>
-          <div className="text-center mt-4 border rounded-lg bg-chiliRed text-white">
+          <div className="flex items-center justify-center text-center mt-4 h-12 border rounded-full bg-chiliRed  text-white">
             <LoginButton />
           </div>
         </div>
