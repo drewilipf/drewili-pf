@@ -117,6 +117,15 @@ const NavbarAdmin = () => {
               Listado de productos
             </NavLink>
           </div>
+          <div className="flex items-center">
+            <IoMdCreate className="mr-2" />
+            <NavLink
+              to="/dashboard/shoppingHistory"
+              className="text-whiteSmoke hover:underline text-xl"
+            >
+              Historias de Ventas
+            </NavLink>
+          </div>
         </nav>
       </div>
       <div>
