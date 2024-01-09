@@ -38,7 +38,7 @@ module.exports = (sequelize) =>{
         },
         paymentPdf: {
             type: DataTypes.BLOB,
-            allowNull: false
+            allowNull: true,
         },
         paymentStatus: {
             type: DataTypes.STRING,
@@ -49,6 +49,6 @@ module.exports = (sequelize) =>{
             }
         },
     },
-    { timestamps: false });
+    {timestamps: false });
     return PurchaseHistory
 }
