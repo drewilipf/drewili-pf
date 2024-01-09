@@ -12,8 +12,6 @@ import {
       try {
         dispatch(postNotificationStart());
   
-        console.log(maildata);
-  
         const response = await axios.post(`${API_URL}userregister`, maildata);
   
         dispatch(postNotificationSuccess({ notification: response.data }));
