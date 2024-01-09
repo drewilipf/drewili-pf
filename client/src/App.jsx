@@ -26,6 +26,7 @@ import ValidateAddress from "./views/Shoppingcart/validateAddress";
 import SelectPayment from "./views/Shoppingcart/SelectPayment";
 import Footer from "./Components/Footer/Footer";
 import PurchaseHistoryComponent from "./views/UserProfile/purchaseHistory";
+import ShoppingHistory from "./Components/DashboardComponents/ShoppingHistory/ShoppingHistory";
 
 function App() {
   const dispacth = useDispatch();
@@ -52,7 +53,7 @@ function App() {
           setActualPage={(num) => setActualPage(num)}
         />
       )}
-      <div className="pt-24 bg-whiteSmoke min-h-screen">
+      <div className=" bg-whiteSmoke min-h-screen">
         <Routes>
           <Route
             path="/"
@@ -80,19 +81,23 @@ function App() {
           <Route path="/dashboard/productList" element={<ProductList />} />
           <Route path="/dashboard/editProduct/:id" element={<EditProduct />} />
           <Route
+            path="/dashboard/shoppingHistory"
+            element={<ShoppingHistory />}
+          />
+          <Route
             path="/dashboard/registeredUser"
             element={<RegisteredUser />}
           />
           <Route path="/dashboard/productList" element={<ProductList />} />
           <Route path="/payment/success" element={<PaymentSuccess />} />
           <Route path="/payment/payment" element={<Payment />} />
-          <Route path="/history/:userId" element={<PurchaseHistoryComponent />} />
-
+          <Route
+            path="/history/:userId"
+            element={<PurchaseHistoryComponent />}
+          />
         </Routes>
       </div>
-      {!isDashboardRoute && (
-            <Footer />
-      )}
+      {!isDashboardRoute && <Footer />}
     </div>
   );
 }
