@@ -38,7 +38,6 @@ function UserForm() {
       [name]: value,
     }));
   
-    console.log(e.target.name);
   
     if (name === "name" || name === "email") {
       setMaildata((prevMail) => ({
@@ -46,8 +45,6 @@ function UserForm() {
         [name]: value,
       }));
     }
-  
-    console.log(maildata);
   };
   
 
@@ -70,16 +67,8 @@ function UserForm() {
     // Comprobar si hay algún error antes de enviar la solicitud
     if (Object.values(validationErrors).every((error) => error === "")) {
       try {
-        /* setMaildata({
-          
-          name: input.name,
-          email: input.email,
-        });
-        dispatch(postUser(input));*/
-
-       
-
-        console.log(maildata)
+        dispatch(postUser(input));
+        
         dispatch(postNotificationCreation(maildata));
 
         setInput({
