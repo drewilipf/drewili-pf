@@ -127,18 +127,6 @@ function Navbar({ setActualPage }) {
                   Bienvenido, {combinedUserSession}!
                 </h1>
               </div>
-              <div className=" w-[80%]">
-                {
-                  location.pathname === "/" && (
-                    <>
-                      <Searchbar
-                        className="mx-auto"
-                        setActualPage={(num) => setActualPage(num)}
-                      />
-                    </>
-                  )
-                }
-              </div>
               <ul className="py-1">
                 <li className="py-2 px-4 hover:bg-gray-200">
                   <NavLink
