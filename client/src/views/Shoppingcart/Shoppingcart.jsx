@@ -50,7 +50,7 @@ const ShoppingCart = () => {
   };
 
   return (
-    <div className="w-60vw mx-auto bg-gray-800 text-black p-4 h-90vh">
+    <div className=" mt-2 mb-2 shadow-md  w-60vw mx-auto  text-black p-4 ">
       <h2 className="text-2xl font-semibold mb-4">Tu Carrito de Compras</h2>
       {salesCart && salesCart.length !== 0 ? (
         <>
@@ -85,14 +85,27 @@ const ShoppingCart = () => {
                 <IoIosRemoveCircleOutline />
               </button>
               <span className="w-16 text-center">{item.quantity}</span>
-              <button
-                className="mr-4 text-xl"
-                onClick={() =>
-                  handleQuantity(item.salesCartId, item.quantity + 1, userId)
-                }
-              >
-                <IoIosAddCircleOutline />
-              </button>
+              {
+                item.stock <= item.quantity ?
+                  <button
+                    className="mr-4 text-xl relative group"
+                    disabled
+                  >
+                    <IoIosAddCircleOutline />
+                    <h5 className="hidden group-hover:block  absolute top-0 left-0 bg-chiliRed text-white p-2 rounded-md z-10">
+                      No hay mas stock
+                    </h5>
+                  </button>
+                  :
+                  <button
+                    className="mr-4 text-xl"
+                    onClick={() =>
+                      handleQuantity(item.salesCartId, item.quantity + 1, userId)
+                    }
+                  >
+                    <IoIosAddCircleOutline />
+                  </button>
+              }
               <button
                 onClick={() => handleRemoveFromCart(item.salesCartId, userId)}
                 className="ml-2"

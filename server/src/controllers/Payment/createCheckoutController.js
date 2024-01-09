@@ -30,7 +30,7 @@ const checkoutController = async (carItems, id) => {
         line_items: lineItems,
         mode: 'payment',
         success_url: successUrl,
-        cancel_url: 'http://localhost:5173/shippingform',
+        cancel_url: 'https://drewilifront.vercel.app/shippingform',
         locale: 'auto'
     });
 

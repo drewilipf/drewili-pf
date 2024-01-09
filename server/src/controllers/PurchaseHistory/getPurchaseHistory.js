@@ -29,6 +29,7 @@ const getPurchaseHistory = async (userId) => {
         quantity: purchase.quantity,
         userId: purchase.user_id,
         username: purchase.user.username,
+        date: purchase.purchase_date
     }));
 
     return formattedPurchaseHistory;

@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Cookies from "js-cookie";
-import jsPDF from "jspdf";
+import generatePDF from "./createPdfEnvio";
 import { SiWhatsapp } from "react-icons/si";
 import { BsQrCode } from "react-icons/bs";
 import {
@@ -45,6 +45,7 @@ const SelectPayment = () => {
   const TipoComprobante = "¿Qué tipo de comprobante desea?";
   const Razon = "Razón Social";
   const RUC = "RUC";
+  const Modalidad = "Modalidad de pago";
   const combinedData = {
     ...shippingInfo,
     ...dropshippingInfo,
@@ -52,21 +53,8 @@ const SelectPayment = () => {
     state4: { TipoComprobante, ...opciontipoComprobante },
     state5: { Razon, ...razonSocialFactura },
     state6: { RUC, ...rucFactura },
+    state7: { Modalidad, ...modalidadPago },
   };
-
-  // const pdf = new jsPDF();
-  // pdf.text("Mi Documento PDF", 10, 10);
-  // pdf.text(JSON.stringify(combinedData), 10, 20);
-
-  // // Convertir el PDF a Blob
-  // const blob = pdf.output("blob");
-
-  // // Crear un objeto FormData y agregar el Blob
-  // const formData = new FormData();
-  // formData.append("pdf", blob);
-
-  // // Enviar el FormData al servidor
-  // enviarFormDataAlServidor(formData);
 
   const userId =
     (userSession && userSession.userId) ||
@@ -120,7 +108,11 @@ const SelectPayment = () => {
       console.error(error);
     }
   };
+  const handlePdf = () => {
+    //generatePDF(combinedData);
+  };
   const PriceContraentrega = ((priceTotal * 30) / 100).toFixed(2);
+
   return (
     <div className="h-screen ml-5">
       <div className="flex items-center">
@@ -304,7 +296,10 @@ const SelectPayment = () => {
             </a>
           </div>
           <NavLink to={`/payment/payment`}>
-            <button className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded">
+            <button
+              className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
+              onClick={handlePdf}
+            >
               Ir a pagar
             </button>
           </NavLink>
@@ -349,7 +344,10 @@ const SelectPayment = () => {
             </a>
           </div>
           <NavLink to={`/payment/payment`}>
-            <button className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded">
+            <button
+              className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
+              onClick={handlePdf}
+            >
               Ir a pagar
             </button>
           </NavLink>
@@ -413,7 +411,10 @@ const SelectPayment = () => {
             </a>
           </div>
           <NavLink to={`/payment/payment`}>
-            <button className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded">
+            <button
+              className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
+              onClick={handlePdf}
+            >
               Ir a pagar
             </button>
           </NavLink>
