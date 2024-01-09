@@ -3,6 +3,7 @@ import validation from "./validation";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { postUser } from "../../reduxToolkit/User/userThunks";
+import { postNotificationCreation } from "../../reduxToolkit/Notification/notificationThunks";
 import LoginButton from "../LoginButton";
 
 function UserForm() {
@@ -15,6 +16,12 @@ function UserForm() {
     role: "cliente",
     username: "",
   });
+  const [maildata, setMaildata] = useState(
+    {
+      user_email: "",
+      user_name: "",
+    }
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({
@@ -52,6 +59,11 @@ function UserForm() {
       try {
         dispatch(postUser(input));
 
+        setMaildata({
+          user_email: input.email,
+          user_name: input.name
+        });
+
         setInput({
           name: "",
           lastname: "",
@@ -66,7 +78,15 @@ function UserForm() {
           name: "",
           lastname: "",
           email: "",
-          // Agrega aquí otros campos si es necesario
+        });
+
+        console.log(maildata)
+        dispatch(postNotificationCreation(maildata));
+
+        setMaildata({
+          name: "",
+          lastname: "",
+          email: "",
         });
 
         alert("Usuario creado con éxito");
@@ -75,7 +95,6 @@ function UserForm() {
         console.error("Error al enviar el formulario:", error);
       }
     } else {
-      // Mostrar mensajes de error si es necesario
       console.log("Corrige los errores antes de enviar el formulario");
     }
   };

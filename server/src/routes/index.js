@@ -12,6 +12,7 @@ const favoriteRouter = require('./favoriteRouter')
 const paymentRoutes= require('./paymentRouter')
 const sortRouter = require("./sortRouter")
 const purchaseHistoryRouter = require("./purchaseHistoryRouter")
+const nodemailer = require ("./nodemailerRouter")
 
 const router = Router()
 
@@ -28,5 +29,6 @@ router.use('/filterby', filterRouter)
 router.use('/favorites', favoriteRouter)
 router.use('/payment', paymentRoutes)
 router.use("/sortby", sortRouter)
+router.use("/nodemailer", nodemailer)
 
 module.exports = router
