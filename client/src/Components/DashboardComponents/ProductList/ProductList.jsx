@@ -12,7 +12,7 @@ import Searchbar from "../../Searchbar/Searchbar";
 
 function ProductList() {
   const { products } = useSelector((state) => state.products);
-  const [showMenu, setShowMenu] = useState(true);
+
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,17 +20,7 @@ function ProductList() {
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch, showSuccessMessage]);
-  useEffect(() => {
-    const handleResize = () => {
-      setShowMenu(window.innerWidth > 768); // Ajusta el valor 768 según sea necesario
-    };
 
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
   const onClick = async (id) => {
     const deleted = window.confirm("¿Estás seguro de desactivar el producto?");
 
