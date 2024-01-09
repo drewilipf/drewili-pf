@@ -129,48 +129,48 @@ const ValidateAddress = () => {
   return (
     <div className="h-screen flex flex-col items-center justify-center">
       <div className="shadow-md  w-40vw  flex flex-col items-center justify-center">
-      <h2 className="font-bold text-2xl text-center mt-2 mb-4">
-        Validación de dirección
-      </h2>
+        <h2 className="font-bold text-2xl text-center mt-2 mb-4">
+          Validación de dirección
+        </h2>
 
-      <div className=" mb-4 mx-auto">
-        <label className="mr-2 font-bold">Dirección</label>
-        <input
-          className="w-auto px-8 py-1.5 text-lg text-eerieBlack leading-tight border rounded focus:outline-none focus:shadow-outline mt-5 ml-2"
-          id="address"
-          name="address"
-          type="text"
-          value={editable.address}
-          onChange={handleFieldChange}
-          placeholder="Dirección"
-        />
-      </div>
-      <div
-        id="map"
-        className="flex items-center mx-auto"
-        style={{ height: "400px", width: "400px" }}
-      ></div>
-      <div className=" flex flex-col items-center">
-        <button
-          className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
-          onClick={validation}
-        >
-          Validar Dirección
-        </button>
-      </div>
-      <div>
-        <NavLink to={"/selectpayment"}>
-          <button className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded">
-            Confirmar Dirección
+        <div className=" mb-4 mx-auto">
+          <label className="mr-2 font-bold">Dirección</label>
+          <input
+            className="w-auto px-8 py-1.5 text-lg text-eerieBlack leading-tight border rounded focus:outline-none focus:shadow-outline mt-5 ml-2"
+            id="address"
+            name="address"
+            type="text"
+            value={editable.address}
+            onChange={handleFieldChange}
+            placeholder="Dirección"
+          />
+        </div>
+        <div
+          id="map"
+          className="flex items-center mx-auto"
+          style={{ height: "400px", width: "400px" }}
+        ></div>
+        <div className=" flex flex-col items-center">
+          <button
+            className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
+            onClick={validation}
+          >
+            Validar Dirección
           </button>
+        </div>
+        <div>
+          <NavLink to={"/selectpayment"}>
+            <button className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded">
+              Confirmar Dirección
+            </button>
+          </NavLink>
+        </div>
+        <NavLink
+          to={`/shippingform`}
+          className="text-chiliRed hover:text-onyx underline ml-4"
+        >
+          Regresar
         </NavLink>
-      </div>
-      <NavLink
-        to={`/shippingform`}
-        className="text-chiliRed hover:text-onyx underline ml-4"
-      >
-        Regresar
-      </NavLink>
       </div>
     </div>
   );
