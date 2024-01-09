@@ -18,8 +18,8 @@ function UserForm() {
   });
   const [maildata, setMaildata] = useState(
     {
-      user_email: "",
-      user_name: "",
+      name: "",
+      email: ""
     }
   );
   const navigate = useNavigate();
@@ -32,11 +32,24 @@ function UserForm() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+  
     setInput((prevInput) => ({
       ...prevInput,
       [name]: value,
     }));
+  
+    console.log(e.target.name);
+  
+    if (name === "name" || name === "email") {
+      setMaildata((prevMail) => ({
+        ...prevMail,
+        [name]: value,
+      }));
+    }
+  
+    console.log(maildata);
   };
+  
 
   const handleBlur = (e) => {
     const { name, value } = e.target;
@@ -57,12 +70,17 @@ function UserForm() {
     // Comprobar si hay algún error antes de enviar la solicitud
     if (Object.values(validationErrors).every((error) => error === "")) {
       try {
-        dispatch(postUser(input));
-
-        setMaildata({
-          user_email: input.email,
-          user_name: input.name
+        /* setMaildata({
+          
+          name: input.name,
+          email: input.email,
         });
+        dispatch(postUser(input));*/
+
+       
+
+        console.log(maildata)
+        dispatch(postNotificationCreation(maildata));
 
         setInput({
           name: "",
@@ -80,14 +98,12 @@ function UserForm() {
           email: "",
         });
 
-        console.log(maildata)
-        dispatch(postNotificationCreation(maildata));
+       
 
-        setMaildata({
-          name: "",
-          lastname: "",
-          email: "",
-        });
+      //  setMaildata({
+        //  name: "",
+          //email: "",
+        // });
 
         alert("Usuario creado con éxito");
         navigate("/userlogin");
