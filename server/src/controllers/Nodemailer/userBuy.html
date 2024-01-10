@@ -55,26 +55,21 @@
         <p>¡Gracias por tu compra! </p>
         <p>Aquí están los detalles:</p>
 
+        <p>Aquí están los detalles de tu compra:</p>
+
         <table>
             <tr>
-                <td>Producto:</td>
-                <td>{product}</td>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Total</th>
             </tr>
-            <tr>
-                <td>Cantidad:</td>
-                <td>{cuantity}</td>
-            </tr>
-            <tr>
-                <td>Precio unitario:</td>
-                <td>{price}</td>
-            </tr>
-            <tr>
-                <td>Total:</td>
-                <td>{total}</td>
-            </tr>
+            {products}
         </table>
+        <p>El estado de tu pedido es:</p>
+        <p>{status}</p>
         <p>Detalles de Envío:</p>
-        <p>Dirección: {adress} </p>
+        <p>Dirección: {address} </p>
 
         <p>Si tienes alguna pregunta sobre tu pedido, no dudes en ponerte en contacto con nosotros.</p>
 
