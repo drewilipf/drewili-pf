@@ -28,8 +28,6 @@ const getAllPurchaseHistory = async () => {
     quantity: purchase.quantity,
     userEmail: purchase.user.email,
     userName: purchase.user.username,
-    paymentPdf: purchase.paymentPdf,
-    paymentStatus: purchase.paymentStatus,
     date: purchase.purchase_date,
     paymentPdf: purchase.paymentPdf,
     paymentStatus: purchase.paymentStatus,
