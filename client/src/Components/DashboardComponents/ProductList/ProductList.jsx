@@ -113,7 +113,7 @@ function ProductList() {
             </tbody>
           </table>
         </div>
-        <div className=" grid grid-cols-1  gap-4 md:hidden m-4">
+        <div className="grid grid-cols-1  gap-4 md:hidden m-4">
           <div className="bg-white p-4 rounded-lg shadow">
             <div className="text-sm space-x-2">
               <div>

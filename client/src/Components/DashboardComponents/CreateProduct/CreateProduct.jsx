@@ -92,6 +92,7 @@ function CreateProduct() {
 
         const data = await response.json();
         imageUrl = data.secure_url;
+        console.log(imageUrl);
       }
 
       // if (newCategoryInput) {
@@ -165,28 +166,27 @@ function CreateProduct() {
       await dispatch(postColor({ color: uppercaseColor }));
     }
     setShowNewColorInput(!showNewColorInput);
-    setNewColorInput("")
-  }
+    setNewColorInput("");
+  };
 
   const addBrand = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (newBrandInput) {
       const uppercaseBrand = newBrandInput.toUpperCase();
       await dispatch(postBrand({ brand: uppercaseBrand }));
     }
-    setShowNewBrandInput(!showNewBrandInput)
-    setNewBrandInput("")
-  }
+    setShowNewBrandInput(!showNewBrandInput);
+    setNewBrandInput("");
+  };
   const addCategory = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (newCategoryInput) {
       const uppercaseCategory = newCategoryInput.toUpperCase();
       await dispatch(postCategory({ category: uppercaseCategory }));
     }
-    setShowNewCategoryInput(!showNewCategoryInput)
-    setNewCategoryInput("")
-  }
-
+    setShowNewCategoryInput(!showNewCategoryInput);
+    setNewCategoryInput("");
+  };
 
   return (
     <div className="max-w-md mx-auto pb-10 mt-[-3rem]">
@@ -194,9 +194,7 @@ function CreateProduct() {
       <h1 className="text-2xl font-bold mb-8 flex items-center justify-center">
         Crear Producto
       </h1>
-      <form
-        className="border border-chiliRed rounded p- text-arial text-base flex-col flex items-center  justify-center "
-      >
+      <form className="border border-chiliRed rounded p- text-arial text-base flex-col flex items-center  justify-center ">
         <div>
           <div>
             <label className="block text-chiliRed mb-2">
@@ -301,7 +299,10 @@ function CreateProduct() {
                   onChange={(e) => setNewColorInput(e.target.value)}
                   className="border rounded p-2 bg-whiteSmoke focus:outline-none"
                 />
-                <button onClick={addColor} className="bg-chiliRed text-whiteSmoke p-1 m-2 rounded hover:scale-105 hover:shadow-xl transition duration-100 ease-in-out">
+                <button
+                  onClick={addColor}
+                  className="bg-chiliRed text-whiteSmoke p-1 m-2 rounded hover:scale-105 hover:shadow-xl transition duration-100 ease-in-out"
+                >
                   Agregar
                 </button>
               </div>
@@ -327,11 +328,7 @@ function CreateProduct() {
               <button
                 type="button"
                 onClick={handleNewBrandClick}
-
                 className="bg-chiliRed text-whiteSmoke py-2 px-4 rounded-full ml-2 hover:scale-105 hover:shadow-xl transition duration-100 ease-in-out"
-
-               
-
               >
                 {showNewBrandInput ? "-" : "+"}
               </button>
@@ -346,7 +343,10 @@ function CreateProduct() {
                   onChange={(e) => setNewBrandInput(e.target.value)}
                   className="border rounded p-2 bg-whiteSmoke focus:outline-none"
                 />
-                <button onClick={addBrand} className="bg-chiliRed text-whiteSmoke p-1 m-2 rounded hover:scale-105 hover:shadow-xl transition duration-100 ease-in-out">
+                <button
+                  onClick={addBrand}
+                  className="bg-chiliRed text-whiteSmoke p-1 m-2 rounded hover:scale-105 hover:shadow-xl transition duration-100 ease-in-out"
+                >
                   Agregar
                 </button>
               </div>
@@ -386,7 +386,10 @@ function CreateProduct() {
                   onChange={(e) => setNewCategoryInput(e.target.value)}
                   className="border rounded p-2 bg-whiteSmoke focus:outline-none"
                 />
-                <button onClick={addCategory} className="bg-chiliRed text-whiteSmoke p-1 m-2 rounded hover:scale-105 hover:shadow-xl transition duration-100 ease-in-out">
+                <button
+                  onClick={addCategory}
+                  className="bg-chiliRed text-whiteSmoke p-1 m-2 rounded hover:scale-105 hover:shadow-xl transition duration-100 ease-in-out"
+                >
                   Agregar
                 </button>
               </div>
