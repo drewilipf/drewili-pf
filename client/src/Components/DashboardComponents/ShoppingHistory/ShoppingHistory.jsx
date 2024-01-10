@@ -34,7 +34,7 @@ const ShoppingHistory = () => {
     <div>
       <NavbarAdmin />
       <div className="ml-[22%]">
-        <h1 className="text-2xl font-bold mb-4 text-center">
+        <h1 className="text-2xl font-bold mb-6 pt-4 text-center">
           Historial de Ventas
         </h1>
         {purchaseHistory.length === 0 ? (
@@ -43,10 +43,13 @@ const ShoppingHistory = () => {
           <ul className="space-y-4">
             {groupProductsByDate(purchaseHistory).map((group, index) => (
               <li key={index} className="space-y-4">
+                <p className="font-bold"> Usuario: {group[0].userName}</p>
                 <p className="font-bold">
                   Fecha de Compra: {formatDate(group[0].date)}
                 </p>
-                <p className="font-bold"> Usuario: {group[0].userName}</p>
+                <p className="font-bold">
+                  Estado del Pago: {group[0].paymentStatus.toUpperCase()}
+                </p>
                 <ul className="space-y-2">
                   {group.map((purchase) => (
                     <li
@@ -54,7 +57,6 @@ const ShoppingHistory = () => {
                       className="flex items-center justify-between py-3"
                     >
                       <div className="flex items-center space-x-4 flex-wrap md:items-center justify-center">
-                        {/*  <p> {purchase.userName}</p>*/}
                         <img
                           src={purchase.productImage}
                           alt={purchase.productName}
