@@ -36,7 +36,7 @@ const postProductsController = async (
     price,
     specifications,
     stock,
-    imageArray: imagesUrls,
+    imageArray: imagesUrls.map((image)=>image),
     color_id,
     brand_id,
     category_id,
