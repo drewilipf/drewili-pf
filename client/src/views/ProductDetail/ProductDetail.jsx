@@ -179,8 +179,19 @@ function ProductDetail() {
     slidesToScroll: 1
   };
 
+  const settings2 = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    prevArrow: null,
+    nextArrow: null
+  };
+
   const specificationsFormatted = product?.specifications.split(', ')
 
+  console.log(product);
 
 
 
@@ -189,13 +200,20 @@ function ProductDetail() {
       <NavLink to="/" className="inline-block mr-2 text-onyx hover:text-chiliRed">
         <AiOutlineLeft style={{ fontSize: "1.5rem", strokeWidth: 3 }} />
       </NavLink>
-      <article className="tablet:flex">
-        <div className="bg-white tablet:ml-5 p-4">
-          <img
+      <article className="tablet:flex p-2">
+        <div className="bg-white shadow-xl tablet:ml-5 p-4 tablet:w-40vw tablet:h-40vh py-20">
+          <Slider {...settings2}>
+            {
+              product.imageArray?.map((img) => (
+                <img src={img} className="w-40vw h-72 object-contain mx-auto" />
+              ))
+            }
+          </Slider>
+          {/* <img
             src={product?.image}
             alt={product?.name}
             className="tablet:h-40vh tablet:w-40vw object-contain mx-auto"
-          />
+          /> */}
         </div>
 
         <div className="bg-whiteSmoke tablet:ml-8 p-8 flex flex-col">
@@ -262,13 +280,13 @@ function ProductDetail() {
       <h2 className="text-xl text-center mb-2 font-bold mt-10">
         Productos relacionados
       </h2>
-      <article className="bg-white rounded tablet:w-60vw">
+      <article className=" rounded tablet:w-60vw bg-chiliRed">
         <Slider {...settings}>
-          {limitedRecommendedProducts.map((recommendedProduct, index) => (
+          {limitedRecommendedProducts?.map((recommendedProduct, index) =>(
             <div key={index}>
               <NavLink to={`/detail/${recommendedProduct.id}`}>
-                <div className="mx-2 my-2 flex flex-col items-center p-2 shadow-md rounded tablet:h-40 bg-whiteSmoke hover:shadow-xl border-[1px] border-grey">
-                  <img src={recommendedProduct.image} alt={recommendedProduct.name} className="w-24 h-24 object-contain" />
+                <div className="mx-2 my-2 flex flex-col items-center p-2 shadow-md rounded tablet:h-40 tablet:w-72 bg-whiteSmoke hover:shadow-xl">
+                  <img src={recommendedProduct.images?.[0]} alt={recommendedProduct.name} className="max-w-24 h-24 object-contain" />
                   <h2>
                     {recommendedProduct.name}
                   </h2>

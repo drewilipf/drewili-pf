@@ -10,6 +10,7 @@ import addToCartIcon from "../../icons/add-to-cart.png";
 import addedToCartIcon from "../../icons/added-to-cart.png";
 import emptyHeartIcon from "../../icons/emptyHeart.png";
 import filledHeartIcon from "../../icons/filledHeart.png";
+import Slider from "react-slick";
 
 function Productcard({
   id,
@@ -121,6 +122,15 @@ function Productcard({
       setLoadingFavorites(false);
     }
   };
+
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
+
   return (
     <div className="m-4 p-4 rounded shadow-lg hover:shadow-xl h-auto w-80 bg-white flex flex-col items-center justify-evenly">
       <NavLink
@@ -132,12 +142,17 @@ function Productcard({
           alt={name}
           className="w-full h-52 object-contain object-center rounded-t"
         />
-        {
-          images?.map((img) => (
-            <img src={img}>
-            </img>
-          ))
-        }
+        <div className="tablet:w-48">
+
+        <Slider {...settings}>
+          {
+            images?.map((img) => (
+              <img src={img} className="w-full h-52 object-contain">
+              </img>
+            ))
+          }
+        </Slider>
+        </div>
         <div className="mt-4 text-center">
           <h2 className="text-lg font-semibold">{name}</h2>
           <div className="flex justify-between items-center mt-2 flex-col">
