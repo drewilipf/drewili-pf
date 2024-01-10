@@ -1,5 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
-import { NavLink, Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import {
+  NavLink,
+  Routes,
+  Route,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import Searchbar from "../Searchbar/Searchbar";
 import { AiOutlineMore } from "react-icons/ai";
 import Cookies from "js-cookie";
@@ -9,13 +15,13 @@ import cartIcon from "../../icons/carrito-de-compras.png";
 import { useAuth0 } from "@auth0/auth0-react";
 import { postGoogle } from "../../reduxToolkit/User/userThunks";
 import LogoutButton from "../../Components/LogoutButton";
-import { CiMenuBurger } from 'react-icons/ci';
-import { FaTimes } from 'react-icons/fa';
+import { CiMenuBurger } from "react-icons/ci";
+import { FaTimes } from "react-icons/fa";
 
 function Navbar({ setActualPage }) {
   const location = useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [click, setClick] = useState(false)
+  const [click, setClick] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
   const { login } = useSelector((state) => state.login);
@@ -81,27 +87,20 @@ function Navbar({ setActualPage }) {
     userSession && userSession.username
       ? userSession.username
       : login && login.userSession
-        ? login.userSession.username
-        : isAuthenticated && user.name
-          ? user.name
-          : userGoogleSession
-            ? userGoogleSession.userName
-            : null;
+      ? login.userSession.username
+      : isAuthenticated && user.name
+      ? user.name
+      : userGoogleSession
+      ? userGoogleSession.userName
+      : null;
 
-  const handleclick = async () => {
-    if (login && login.userSession) {
-      try {
-        await dispatch(postLogout());
-        navigate("/");
-      } catch (error) {
-        console.error("Error al cerrar sesión:", error);
-      }
-    } else {
-      Cookies.remove("userSession");
-      Cookies.remove("userGoogle");
-      navigate("/");
-    }
+  const handleclickClosed = () => {
+    dispatch(postLogout());
+    Cookies.remove("userSession");
+    Cookies.remove("userGoogle");
+    navigate("/");
   };
+
   const id =
     (userSession && userSession.userId) ||
     (login && login.userSession.userId) ||
@@ -114,7 +113,7 @@ function Navbar({ setActualPage }) {
     (userGoogleSession && userGoogleSession.role);
   const handleClick = () => {
     setClick(!click);
-  }
+  };
 
   const content = (
     <div className="tablet:hidden block absolute top-20 w-full left-0 right-0 h-20 transition z- border-t-chiliRed border-t-2">
@@ -178,16 +177,12 @@ function Navbar({ setActualPage }) {
                   </li>
                 )}
                 {!isAuthenticated && (
-                  <li
-                    className="py-2 px-4"
-                    onClick={handleclick}
-                  >
+                  <li className="py-2 px-4" onClick={handleclickClosed}>
                     Cerrar Sesión
                   </li>
                 )}
               </ul>
             </div>
-
           </div>
         </div>
       ) : (
@@ -221,35 +216,36 @@ function Navbar({ setActualPage }) {
       <div className="lg:h-20 sm:h-20 h-20 flex justify-between z-50 lg:py-5 px-4 sm:px-8 items-center">
         <NavLink to="/" className="flex items-center">
           <div className="flex items-center flex-1">
-            <img src="\logoOriginal.png" alt="drewili" className="w-20 h-20 object-contain " />
+            <img
+              src="\logoOriginal.png"
+              alt="drewili"
+              className="w-20 h-20 object-contain "
+            />
           </div>
         </NavLink>
 
+        {location.pathname === "/" && (
+          <div className="tablet:flex hidden mx-auto">
+            <Searchbar
+              className="mx-auto"
+              setActualPage={(num) => setActualPage(num)}
+            />
+          </div>
+        )}
 
-        {
-          location.pathname === "/" && (
-            <div className="tablet:flex hidden mx-auto">
-              <Searchbar
-                className="mx-auto"
-                setActualPage={(num) => setActualPage(num)}
-              />
-            </div>
-          )
-        }
-
-
+      
         {combinedUserSession ? (
           <div className="tablet:flex space-x-3 text-chiliRed items-center pr-4 hidden">
-            <div className="relative">
-              <div className="flex items-center">
+            <div className="relative group:">
+              <div className="flex items-center space-x-4">
                 <img
                   src={cartIcon}
                   alt="shopping-cart-icon"
                   className="w-6 h-6 cursor-pointer"
                   onClick={() => navigate("/shoppingcart")}
                 />
-                <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
-                  <p onClick={toggleDropdown} className="flex items-center">
+                <h1 className="transition duration-300 hover:text-onyx cursor-pointer ">
+                  <p onClick={toggleDropdown} className="flex items-center ">
                     Bienvenido, {combinedUserSession}! <AiOutlineMore />
                   </p>
                 </h1>
@@ -306,7 +302,7 @@ function Navbar({ setActualPage }) {
                     {!isAuthenticated && (
                       <li
                         className="cursor-pointer py-2 px-4 hover:bg-gray-200"
-                        onClick={handleclick}
+                        onClick={handleclickClosed}
                       >
                         Cerrar Sesión
                       </li>
@@ -319,10 +315,7 @@ function Navbar({ setActualPage }) {
         ) : (
           <div className="tablet:flex space-x-3 text-chiliRed items-center pr-4 hidden">
             <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
-              <NavLink
-                to="/userform"
-                className="text-chiliRed hover:text-onyx"
-              >
+              <NavLink to="/userform" className="text-chiliRed hover:text-onyx">
                 Regístrate
               </NavLink>
             </h1>
@@ -339,11 +332,13 @@ function Navbar({ setActualPage }) {
         )}
 
         <div>{click && content}</div>
-        <button className="block tablet:hidden transition" onClick={handleClick}>
+        <button
+          className="block tablet:hidden transition"
+          onClick={handleClick}
+        >
           {click ? <FaTimes /> : <CiMenuBurger />}
         </button>
       </div>
-
     </nav>
   );
 }

@@ -8,7 +8,8 @@ export default {
       onyx: "#404145",
       whiteSmoke: "#F2F2F2",
       white: '#FFF',
-      blue: '#0000ff'
+      blue: '#0000ff',
+      grey: '#c8c8c8'
     },
     extend: {
       width: {
