@@ -1,8 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const purchaseHistorySlice = createSlice({
-  name: 'purchaseHistory',
+  name: "purchaseHistory",
   initialState: {
+    history: [],
     data: [],
     loading: false,
     error: null,
@@ -13,8 +14,14 @@ const purchaseHistorySlice = createSlice({
       state.loading = false;
       state.error = null;
     },
+    getAllPurchaseHistorySlice: (state, action) => {
+      state.history = action.payload;
+      state.loading = false;
+      state.error = null;
+    },
   },
 });
 
-export const { fetchPurchaseHistorySuccess } = purchaseHistorySlice.actions;
+export const { fetchPurchaseHistorySuccess, getAllPurchaseHistorySlice } =
+  purchaseHistorySlice.actions;
 export default purchaseHistorySlice.reducer;

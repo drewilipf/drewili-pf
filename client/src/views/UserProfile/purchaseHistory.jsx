@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getPurchaseHistory } from "../../reduxToolkit/PurchaseHistory/purchaseHistoryThunks";
-import { useParams } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+import { useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const PurchaseHistoryComponent = () => {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const PurchaseHistoryComponent = () => {
   };
 
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    const options = { year: "numeric", month: "numeric", day: "numeric" };
     console.log(dateString);
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
@@ -39,7 +39,11 @@ const PurchaseHistoryComponent = () => {
   }
 
   if (error) {
-    return <p className="text-red-500">Error al cargar el historial de compras: {error}</p>;
+    return (
+      <p className="text-red-500">
+        Error al cargar el historial de compras: {error}
+      </p>
+    );
   }
 
   return (
@@ -51,7 +55,9 @@ const PurchaseHistoryComponent = () => {
         <ul className="space-y-4">
           {groupProductsByDate(purchaseHistory).map((group, index) => (
             <li key={index} className="space-y-4">
-              <p className="font-bold">Fecha de Compra: {formatDate(group[0].date)}</p>
+              <p className="font-bold">
+                Fecha de Compra: {formatDate(group[0].date)}
+              </p>
               <ul className="space-y-2">
                 {group.map((purchase) => (
                   <li
@@ -65,24 +71,31 @@ const PurchaseHistoryComponent = () => {
                         className="w-20 h-20 rounded-md object-contain"
                       />
                       <div>
-                        <p className="text-lg font-semibold ">{purchase.productName}</p>
+                        <p className="text-lg font-semibold ">
+                          {purchase.productName}
+                        </p>
                         <p>Precio: ${purchase.productPrice}</p>
                         <p>Cantidad: {purchase.quantity}</p>
                       </div>
                     </div>
-                      <div className='p-2 rounded shadow-sm shadow-eerieBlack'>
-                        <NavLink to={`/detail/${purchase.productId}`} className="flex items-center space-x-4">
-                          <h3 className='hover:scale-105'>Volver a comprar</h3>
-                        </NavLink>
-                        <hr className='text-chiliRed'/>
-                        <NavLink>
-                          <h3 className='hover:scale-105 hover:drop-shadow-sm hover:shadow-onyx'>Opinar</h3>
-                        </NavLink>
-                      </div>
+                    <div className="p-2 rounded shadow-sm shadow-eerieBlack">
+                      <NavLink
+                        to={`/detail/${purchase.productId}`}
+                        className="flex items-center space-x-4"
+                      >
+                        <h3 className="hover:scale-105">Volver a comprar</h3>
+                      </NavLink>
+                      <hr className="text-chiliRed" />
+                      <NavLink>
+                        <h3 className="hover:scale-105 hover:drop-shadow-sm hover:shadow-onyx">
+                          Opinar
+                        </h3>
+                      </NavLink>
+                    </div>
                   </li>
                 ))}
               </ul>
-              <hr className='text-chiliRed'/>
+              <hr className="text-chiliRed" />
             </li>
           ))}
         </ul>
