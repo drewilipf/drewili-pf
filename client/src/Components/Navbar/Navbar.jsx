@@ -233,18 +233,19 @@ function Navbar({ setActualPage }) {
           </div>
         )}
 
+      
         {combinedUserSession ? (
           <div className="tablet:flex space-x-3 text-chiliRed items-center pr-4 hidden">
-            <div className="relative">
-              <div className="flex items-center">
+            <div className="relative group:">
+              <div className="flex items-center space-x-4">
                 <img
                   src={cartIcon}
                   alt="shopping-cart-icon"
                   className="w-6 h-6 cursor-pointer"
                   onClick={() => navigate("/shoppingcart")}
                 />
-                <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
-                  <p onClick={toggleDropdown} className="flex items-center">
+                <h1 className="transition duration-300 hover:text-onyx cursor-pointer ">
+                  <p onClick={toggleDropdown} className="flex items-center ">
                     Bienvenido, {combinedUserSession}! <AiOutlineMore />
                   </p>
                 </h1>
