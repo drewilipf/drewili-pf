@@ -49,31 +49,33 @@
         <h2></h2>
         <p>Hola Drewili,</p>
         <p>¡El usuario {name} realizó una compra! </p>
-        <p>Aquí están los detalles:</p>
+        <p>Aquí están los detalles de la compra:</p>
 
         <table>
             <tr>
-                <td>Producto:</td>
-                <td>{product}</td>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Total</th>
             </tr>
-            <tr>
-                <td>Cantidad:</td>
-                <td>{cuantity}</td>
-            </tr>
-            <tr>
-                <td>Precio unitario:</td>
-                <td>{price}</td>
-            </tr>
-            <tr>
-                <td>Total:</td>
-                <td>{total}</td>
-            </tr>
+            {products}
         </table>
+        <p>El estado del pedido es: </p>
+        <p>{status}</p>
         <p>Detalles de Envío:</p>
-        <p>nombre: {name}</p>
-        <p>contacto: {phone}</p>
-        <p>dropshipping: {dropshiping}</p>
-        <p>Dirección: {adress} </p>
+        <p>Nombre: {name}</p>
+        <p>Contacto: {phone}</p>
+        <p>Dropshiping</p>
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>telefono</th>
+                <th>direccion</th>
+                
+            </tr>
+            {dropshiping}
+        </table>
+        <p>Dirección: {address} </p>
         <p> Medio de pago: {payment}</p>
                 <p>Saludos,</p>
         <p>El equipo de Drewili</p>
