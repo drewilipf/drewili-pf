@@ -1,21 +1,3 @@
-// const nodemailer = require ("nodemailer")
-// require('dotenv').config();
-// const {PASS_MAIL} = process.env
-
-// const transporter = nodemailer.createTransport({
-//     host: "smtp.gmail.com",
-//     port: 587,
-//     secure: false,
-//     auth: {
-//         user: "drewilipf@gmail.com",
-//         pass: PASS_MAIL,
-//         method: 'PLAIN'
-//     },
-//     requireTLS: true
-// })
-// transporter.verify().then(()=> console.log ("email enviado!!")).catch(error=>console.error);
-
-// module.exports = transporter
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 require("dotenv").config();
