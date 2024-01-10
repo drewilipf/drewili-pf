@@ -29,6 +29,8 @@ const getAllPurchaseHistory = async () => {
     userEmail: purchase.user.email,
     userName: purchase.user.username,
     date: purchase.purchase_date,
+    paymentPdf: purchase.paymentPdf,
+    paymentStatus: purchase.paymentStatus,
   }));
 
   return formattedPurchaseHistory;

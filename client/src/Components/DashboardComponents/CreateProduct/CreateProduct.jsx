@@ -89,6 +89,7 @@ function CreateProduct() {
             body: formData,
           }
         );
+        console.log(response);
 
         const data = await response.json();
         imageUrl = data.secure_url;
@@ -330,7 +331,7 @@ function CreateProduct() {
 
                 className="bg-chiliRed text-whiteSmoke py-2 px-4 rounded-full ml-2 hover:scale-105 hover:shadow-xl transition duration-100 ease-in-out"
 
-               
+
 
               >
                 {showNewBrandInput ? "-" : "+"}

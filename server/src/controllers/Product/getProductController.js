@@ -36,6 +36,7 @@ const getProductsController = async () => {
       category: product.Category.category,
       deleted: product.deleted,
       relevance: product.relevance,
+      images: product.imageArray,
       date: product.createdAt,
     };
   });
