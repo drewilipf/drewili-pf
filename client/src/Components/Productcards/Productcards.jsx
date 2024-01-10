@@ -18,6 +18,7 @@ function Productcards({ products }) {
             category={product.category}
             brand={product.brand}
             deleted={product.deleted}
+            images={product.images}
           />
         ))
       ) : (

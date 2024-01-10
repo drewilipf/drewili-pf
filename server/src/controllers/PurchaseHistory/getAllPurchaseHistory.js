@@ -31,6 +31,8 @@ const getAllPurchaseHistory = async () => {
     paymentPdf: purchase.paymentPdf,
     paymentStatus: purchase.paymentStatus,
     date: purchase.purchase_date,
+    paymentPdf: purchase.paymentPdf,
+    paymentStatus: purchase.paymentStatus,
   }));
 
   return formattedPurchaseHistory;

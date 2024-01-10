@@ -27,6 +27,14 @@ module.exports = (sequelize) => {
         comment: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        rating: {
+            type: DataTypes.INTEGER,
+            allowNull: true, 
+            validate: {
+              min: 1, 
+              max: 5,
+            }
         }
     },
         { timestamps: true })

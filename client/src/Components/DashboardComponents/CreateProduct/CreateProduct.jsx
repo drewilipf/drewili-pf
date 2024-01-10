@@ -89,6 +89,7 @@ function CreateProduct() {
             body: formData,
           }
         );
+        console.log(response);
 
         const data = await response.json();
         imageUrl = data.secure_url;

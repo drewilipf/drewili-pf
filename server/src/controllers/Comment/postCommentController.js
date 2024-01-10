@@ -1,6 +1,6 @@
 const { Comments } = require("../../db");
 
-const postCommentController = async (user_id, product_id, comment) => {
+const postCommentController = async (user_id, product_id, comment, rating) => {
 
     if (!user_id || !product_id) {
         throw new Error("userId y productId son obligatorios");
@@ -9,7 +9,8 @@ const postCommentController = async (user_id, product_id, comment) => {
     const newComment = await Comments.create({
         user_id,
         product_id,
-        comment
+        comment,
+        rating
     });
 
     return newComment;

@@ -30,7 +30,11 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+    },
+    imageArray:{
+      type: DataTypes.JSON,
+      allowNull: true
     },
     color_id: {
       type: DataTypes.INTEGER,
