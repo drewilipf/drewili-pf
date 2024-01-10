@@ -9,7 +9,7 @@ const getAllPurchaseHistory = async () => {
       },
       {
         model: User,
-        attributes: ["id", "email", "username"], 
+        attributes: ["id", "email", "username"],
       },
     ],
     order: [["id", "ASC"]],
@@ -28,6 +28,8 @@ const getAllPurchaseHistory = async () => {
     quantity: purchase.quantity,
     userEmail: purchase.user.email,
     userName: purchase.user.username,
+    paymentPdf: purchase.paymentPdf,
+    paymentStatus: purchase.paymentStatus,
     date: purchase.purchase_date,
   }));
 
