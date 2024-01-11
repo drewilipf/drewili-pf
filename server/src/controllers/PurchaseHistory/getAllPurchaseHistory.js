@@ -9,7 +9,7 @@ const getAllPurchaseHistory = async () => {
       },
       {
         model: User,
-        attributes: ["id", "email", "username"], 
+        attributes: ["id", "email", "username"],
       },
     ],
     order: [["id", "ASC"]],
