@@ -3,8 +3,8 @@ const allDeleteController = require("../../controllers/SalesCart/allDeleteContro
 const allDelete = async(req,res) => {
     const {userId} = req.params
     try {
-        await allDeleteController(userId)
-        res.status(200).json({message: 'Carrito vaciado con exito'})
+        const products = await allDeleteController(userId)
+        res.status(200).json(products)
     } 
     catch (error) {
         res.status(400).send(error)
