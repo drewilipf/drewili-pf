@@ -21,19 +21,35 @@ import {
     };
   };
   
-  export const postNotificationBuy = (user_email, user_name, product ) => {
+  export const postNotificationUserConfirmBuy = (usermaildata) => {
     return async (dispatch) => {
       try {
         dispatch(postNotificationStart());
-        
-       
-        const response = await axios.post(API_URL/creation, {user_email, user_name, product } );
-        
+
+        console.log("estos son los datos que recibe el thunk del usermail", usermaildata)
+  
+        const response = await axios.post(`${API_URL}userCormirmBuy`, usermaildata);
+  
         dispatch(postNotificationSuccess({ notification: response.data }));
       } catch (error) {
         dispatch(postNotificationFailure({ error: error.message }));
       }
     };
   };
+
+  export const postNotificationAdminConfirmBuy = (adminmaildata) => {
+    return async (dispatch) => {
+      try {
+        dispatch(postNotificationStart());
+        console.log("estos son los datos que recibe el thunk del adminmail", adminmaildata)
+        const response = await axios.post(`${API_URL}adminConfirmBuy`, adminmaildata);
+  
+        dispatch(postNotificationSuccess({ notification: response.data }));
+      } catch (error) {
+        dispatch(postNotificationFailure({ error: error.message }));
+      }
+    };
+  };
+ 
   
   

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -16,6 +16,7 @@ import {
 
 const SelectPayment = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [opcionSeleccionadaPedido, setOpcionSeleccionadaPedido] =
     useState("yo");
   const [opcionSeleccionadaComprobante, setOpcionSeleccionadaComprobante] =
@@ -56,6 +57,7 @@ const SelectPayment = () => {
     state7: { Modalidad, ...modalidadPago },
   };
 
+
   const userId =
     (userSession && userSession.userId) ||
     (login && login.userSession.userId) ||
@@ -87,6 +89,8 @@ const SelectPayment = () => {
     setModalidadPago(modalidad);
     dispatch(setModalidadPagoSlice(modalidad));
   };
+  const purchaseHistory = useSelector((state) => state.purchaseHistory.data);
+  console.log(purchaseHistory)
   const listItems = salesCart?.map((item) => ({
     idProduct: item.id,
     name: item.name,
@@ -108,9 +112,23 @@ const SelectPayment = () => {
       console.error(error);
     }
   };
-  const handlePdf = () => {
-    //generatePDF(combinedData);
+  const emailData = {
+    name: shippingInfo.name && shippingInfo.lastname
+      ? `${shippingInfo.name} ${shippingInfo.lastname}`
+      : shippingInfo.lastname,
+    email: shippingInfo.email,
+    product: listItems,
+    totalprice: priceTotal,
+    adress: shippingInfo.adress,
+    status: purchaseHistory.paymentStatus
   };
+  
+  const handlePdf = () => {
+    console.log("Datos combinados enviados al componente payment:", emailData);
+    console.log("Datos combinados purchase:", purchaseHistory);
+    navigate('/payment/payment', { state: emailData });
+  };
+  
   const PriceContraentrega = ((priceTotal * 30) / 100).toFixed(2);
 
   return (
@@ -295,15 +313,14 @@ const SelectPayment = () => {
               <span className="hover:text-chiliRed ml-5">971 985 484</span>
             </a>
           </div>
-          <NavLink to={`/payment/payment`}>
+          
             <button
               className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
               onClick={handlePdf}
             >
               Ir a pagar
             </button>
-          </NavLink>
-        </div>
+                  </div>
       )}
       {modalidadPago === "tarjetaCreditoDebito" && (
         <div>
@@ -343,14 +360,13 @@ const SelectPayment = () => {
               <span className="hover:text-chiliRed ml-5">971 985 484</span>
             </a>
           </div>
-          <NavLink to={`/payment/payment`}>
+
             <button
               className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
               onClick={handlePdf}
             >
               Ir a pagar
             </button>
-          </NavLink>
         </div>
       )}
       {modalidadPago === "contraentrega" && (
@@ -410,14 +426,14 @@ const SelectPayment = () => {
               <span className="hover:text-chiliRed ml-5">971 985 484</span>
             </a>
           </div>
-          <NavLink to={`/payment/payment`}>
+
             <button
               className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
               onClick={handlePdf}
             >
               Ir a pagar
             </button>
-          </NavLink>
+          
         </div>
       )}
 
