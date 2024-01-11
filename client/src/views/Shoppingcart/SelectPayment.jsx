@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -17,6 +17,7 @@ import { allDelete } from "../../reduxToolkit/SalesCarts/salesCartThunk";
 
 const SelectPayment = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [opcionSeleccionadaPedido, setOpcionSeleccionadaPedido] =
     useState("yo");
   const [opcionSeleccionadaComprobante, setOpcionSeleccionadaComprobante] =
@@ -57,6 +58,7 @@ const SelectPayment = () => {
     state7: { Modalidad, ...modalidadPago },
   };
 
+
   const userId =
     (userSession && userSession.userId) ||
     (login && login.userSession.userId) ||
@@ -88,6 +90,8 @@ const SelectPayment = () => {
     setModalidadPago(modalidad);
     dispatch(setModalidadPagoSlice(modalidad));
   };
+  const purchaseHistory = useSelector((state) => state.purchaseHistory.data);
+  console.log("este es el purchase history", purchaseHistory)
   const listItems = salesCart?.map((item) => ({
     idProduct: item.id,
     name: item.name,
@@ -109,11 +113,29 @@ const SelectPayment = () => {
       console.error(error);
     }
   };
-  const handlePdf = async() => {
+
+  const emailData = {
+    name: dropshippingInfo.name ?  `${dropshippingInfo.name} ` : `${shippingInfo.name} ${shippingInfo.lastname}`,
+    email: shippingInfo.email,
+    adress:  dropshippingInfo.adress ?  `${dropshippingInfo.adress} ` : shippingInfo.adress,
+    product: listItems,
+    totalprice: priceTotal,
+    phone:  dropshippingInfo.phone ?  `${dropshippingInfo.phone} ` : shippingInfo.phone,
+    dropshipping: dropshippingInfo.name ? "Si": "No",
+    status: purchaseHistory.paymentStatus,
+  };
+  
+  const handlePdf = async () => {
+    console.log("Datos combinados enviados al componente payment:", emailData);
+    console.log("Datos combinados purchase:", purchaseHistory);
+    console.log("Este es el shipping info:", shippingInfo);
+    console.log("Este es el dropshipping info:", dropshippingInfo);
+    navigate('/payment/payment', { state: emailData });
     await axios.post(`https://drewili-pf-back.onrender.com/history/${userId}`, {cartItems: listItems})
     dispatch(allDelete(userId))
-
+  
   };
+  
   const PriceContraentrega = ((priceTotal * 30) / 100).toFixed(2);
 
   return (
@@ -298,15 +320,14 @@ const SelectPayment = () => {
               <span className="hover:text-chiliRed ml-5">971 985 484</span>
             </a>
           </div>
-          <NavLink to={`/payment/${userId}`}>
+          
             <button
               className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
               onClick={handlePdf}
             >
               Ir a pagar
             </button>
-          </NavLink>
-        </div>
+                  </div>
       )}
       {modalidadPago === "tarjetaCreditoDebito" && (
         <div>
@@ -346,14 +367,13 @@ const SelectPayment = () => {
               <span className="hover:text-chiliRed ml-5">971 985 484</span>
             </a>
           </div>
-          <NavLink to={`/payment/${userId}`}>
+
             <button
               className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
               onClick={handlePdf}
             >
               Ir a pagar
             </button>
-          </NavLink>
         </div>
       )}
       {modalidadPago === "contraentrega" && (
@@ -413,14 +433,14 @@ const SelectPayment = () => {
               <span className="hover:text-chiliRed ml-5">971 985 484</span>
             </a>
           </div>
-          <NavLink to={`/payment/${userId}`}>
+
             <button
               className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
               onClick={handlePdf}
             >
               Ir a pagar
             </button>
-          </NavLink>
+          
         </div>
       )}
 
