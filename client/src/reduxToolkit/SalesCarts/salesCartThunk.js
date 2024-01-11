@@ -1,4 +1,4 @@
-import { getSalesCartSlice } from "./salesCartsSlice";
+import { allDeleteSlice, getSalesCartSlice } from "./salesCartsSlice";
 import axios from "axios";
 
 export const getSalesCart = (userId) => {
@@ -41,3 +41,14 @@ export const updateSalesCart = (salesCartId, updatedQuantity, userId) => {
     } catch (error) {}
   };
 };
+export const allDelete = (userId) =>{
+  return async (dispatch)=>{
+    try {
+      await axios.delete(`https://drewili-pf-back.onrender.com/salescart/alldelete/${userId}`)
+      dispatch(allDeleteSlice())
+    } 
+    catch (error) {
+      
+    }
+  }
+}

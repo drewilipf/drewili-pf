@@ -1,7 +1,9 @@
+
 import React, { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useParams } from "react-router-dom";
 import { postNotificationUserConfirmBuy } from "../../reduxToolkit/Notification/notificationThunks";
+
 
 const Payment = () => {
   const dispatch = useDispatch();

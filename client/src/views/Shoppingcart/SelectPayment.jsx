@@ -13,6 +13,7 @@ import {
   setRazonSocialSlice,
   setRucSlice,
 } from "../../reduxToolkit/ShippingInfo/shippingInfoSlice";
+import { allDelete } from "../../reduxToolkit/SalesCarts/salesCartThunk";
 
 const SelectPayment = () => {
   const dispatch = useDispatch();
@@ -112,6 +113,7 @@ const SelectPayment = () => {
       console.error(error);
     }
   };
+
   const emailData = {
     name: shippingInfo.name && shippingInfo.lastname
       ? `${shippingInfo.name} ${shippingInfo.lastname}`
@@ -123,10 +125,13 @@ const SelectPayment = () => {
     status: purchaseHistory.paymentStatus
   };
   
-  const handlePdf = () => {
+  const handlePdf = async () => {
     console.log("Datos combinados enviados al componente payment:", emailData);
     console.log("Datos combinados purchase:", purchaseHistory);
     navigate('/payment/payment', { state: emailData });
+    await axios.post(`https://drewili-pf-back.onrender.com/history/${userId}`, {cartItems: listItems})
+    dispatch(allDelete(userId))
+  
   };
   
   const PriceContraentrega = ((priceTotal * 30) / 100).toFixed(2);

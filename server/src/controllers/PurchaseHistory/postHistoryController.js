@@ -1,7 +1,6 @@
-const { SalesCart, Product, PurchaseHistory } = require("../../db")
+const { Product, PurchaseHistory } = require("../../db");
 
-const successController = async (userId, updateProduct) => {
-    await SalesCart.emptyCart(userId);
+const postHistoryController = async(updateProduct, userId) =>{
 
     const updatePromises = updateProduct.map(async (product) => {
         const modifiedProduct = await Product.findOne({
@@ -16,11 +15,10 @@ const successController = async (userId, updateProduct) => {
     const purchaseHistoryData = updateProduct.map(product => ({
         user_id: userId,
         product_id: product.idProd,
-        quantity: product.cantidad,
-        paymentStatus: 'aprobado'
+        quantity: product.cantidad
     }));
 
     await PurchaseHistory.bulkCreate(purchaseHistoryData);
-};
+}
 
-module.exports = successController;
+module.exports = postHistoryController

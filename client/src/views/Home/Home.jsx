@@ -13,7 +13,7 @@ import Searchbar from "../../Components/Searchbar/Searchbar";
 function Home({ actualPage, handlePageChange, setActualPage }) {
   const { products } = useSelector((state) => state.products);
   const location = useLocation()
-
+  console.log(products);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProducts());

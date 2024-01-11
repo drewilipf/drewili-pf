@@ -235,8 +235,8 @@ function Navbar({ setActualPage }) {
 
       
         {combinedUserSession ? (
-          <div className="tablet:flex space-x-3 text-chiliRed items-center pr-4 hidden">
-            <div className="relative group:">
+          <div className={`tablet:flex space-x-3 text-chiliRed items-center pr-4 ${location.pathname !== "/" ? 'ml-auto' : ''} hidden`}>
+            <div className="relative group:flex items-center space-x-4 ml-auto">
               <div className="flex items-center space-x-4">
                 <img
                   src={cartIcon}
@@ -344,3 +344,4 @@ function Navbar({ setActualPage }) {
 }
 
 export default Navbar;
+

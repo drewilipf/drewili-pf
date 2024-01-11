@@ -2,9 +2,9 @@ const postNodemailerUserConfirmBuyController = require("../../controllers/Nodema
 
 const postNodemailerUserConfirmBuyHandler = async (req, res) =>{
     try {
-        const {name, email, product, cuantity, price, total, adress} = req.body
+        const {name, email, products, total, address, status} = req.body
 
-        await postNodemailerUserConfirmBuyController(name, email, product, cuantity, price, total, adress);
+        await postNodemailerUserConfirmBuyController(name, email, products, total, address, status);
 
         res.status(200).send("correo enviado con exito")
     } catch (error) {
