@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
 import { NavLink, useLocation, useParams } from "react-router-dom";
 import { postNotificationUserConfirmBuy } from "../../reduxToolkit/Notification/notificationThunks";
+import { postNotificationAdminConfirmBuy } from "../../reduxToolkit/Notification/notificationThunks";
 
 
 const Payment = () => {
@@ -14,49 +15,63 @@ const Payment = () => {
   const [usermaildata, setUsermaildata] = useState({
     name: "",
     email: "",
-    adress: "",
-    product: [],
+    products: [],
     total: 0,
-    status: ""
+    adress: "",
+    status: "default"
   });
 
   const [adminmaildata, setAdminmaildata] = useState({
     name: "",
     email: "",
-    adress: "",
-    product: [],
+    phone:"",
+    products: [],
     total: 0,
-    status: ""
+    adress: "",
+    dropshiping:"", 
+    payment:"" ,
+    status:"default"
+   
   });
 
   useEffect(() => {
+    console.log(emailData)
     if (emailData) {
       setUsermaildata({
         name: emailData.name || "",
         email: emailData.email || "",
-        adress: emailData.adress || "",
-        product: emailData.product?.map((item) => ({ name: item.name, quantity: item.quantity, price: item.price })),
+        products: emailData.product?.map((item) => ({ name: item.name, quantity: item.quantity, price: item.price })),
         total: emailData.totalprice || 0,
+        adress: emailData.adress || "",
+        status: "default"
         //status: emailData.status
       });
       setAdminmaildata({
         name: emailData.name || "",
         email: emailData.email || "",
+        phone: emailData.phone || "",
+        products: emailData.product?.map((item) => ({ name: item.name, quantity: item.quantity, price: item.price })),
         adress: emailData.adress || "",
-        product: emailData.product?.map((item) => ({ name: item.name, quantity: item.quantity, price: item.price })),
+
+       
         total: emailData.totalprice || 0,
-        //status: emailData.status
+        dropshipping: emailData.dropshipping || "",
+        status:"default"
+        //status: emailData.status      
       });
     }
   }, [emailData]);
 
   useEffect(() => {
-    // Verificar si emailData está definido y usermaildata tiene datos
-    if (emailData && usermaildata.name) {
+
+    if (usermaildata && usermaildata.name) {
       console.log("Datos email usuario:", usermaildata);
       dispatch(postNotificationUserConfirmBuy(usermaildata));
     }
-  }, [usermaildata, emailData, dispatch]);
+    if(adminmaildata && adminmaildata.name){
+      console.log("Datos email administrador:", adminmaildata);
+      dispatch(postNotificationAdminConfirmBuy(adminmaildata))}
+  }, [usermaildata, adminmaildata, dispatch]);
 
   return (
     <div className="h-90vh bg-whiteSmoke flex justify-center items-center flex-col">

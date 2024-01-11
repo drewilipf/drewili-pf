@@ -91,7 +91,7 @@ const SelectPayment = () => {
     dispatch(setModalidadPagoSlice(modalidad));
   };
   const purchaseHistory = useSelector((state) => state.purchaseHistory.data);
-  console.log(purchaseHistory)
+  console.log("este es el purchase history", purchaseHistory)
   const listItems = salesCart?.map((item) => ({
     idProduct: item.id,
     name: item.name,
@@ -115,19 +115,21 @@ const SelectPayment = () => {
   };
 
   const emailData = {
-    name: shippingInfo.name && shippingInfo.lastname
-      ? `${shippingInfo.name} ${shippingInfo.lastname}`
-      : shippingInfo.lastname,
+    name: dropshippingInfo.name ?  `${dropshippingInfo.name} ` : `${shippingInfo.name} ${shippingInfo.lastname}`,
     email: shippingInfo.email,
+    adress:  dropshippingInfo.adress ?  `${dropshippingInfo.adress} ` : shippingInfo.adress,
     product: listItems,
     totalprice: priceTotal,
-    adress: shippingInfo.adress,
-    status: purchaseHistory.paymentStatus
+    phone:  dropshippingInfo.phone ?  `${dropshippingInfo.phone} ` : shippingInfo.phone,
+    dropshipping: dropshippingInfo.name ? "Si": "No",
+    status: purchaseHistory.paymentStatus,
   };
   
   const handlePdf = async () => {
     console.log("Datos combinados enviados al componente payment:", emailData);
     console.log("Datos combinados purchase:", purchaseHistory);
+    console.log("Este es el shipping info:", shippingInfo);
+    console.log("Este es el dropshipping info:", dropshippingInfo);
     navigate('/payment/payment', { state: emailData });
     await axios.post(`https://drewili-pf-back.onrender.com/history/${userId}`, {cartItems: listItems})
     dispatch(allDelete(userId))
