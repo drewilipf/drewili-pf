@@ -9,6 +9,7 @@ const getProductId = require('../handlers/Product/getProductId')
 const getProductKeyWordHandler = require('../handlers/Product/getProductKeyWordHandler')
 const sortRecommendedProductHandler = require('../handlers/Product/sortByRecommendedHandler')
 const sortProductsDateHandler = require('../handlers/Product/sortDateHandler')
+const sortProductsByRatingHandler = require('../handlers/Product/sortByRatingHandler')
 
 
 
@@ -18,6 +19,7 @@ router.get("/", getProductsHandler)
 router.get("/product", getProductKeyWordHandler)
 router.get("/recommended", sortRecommendedProductHandler)
 router.get("/date", sortProductsDateHandler)
+router.get("/rating", sortProductsByRatingHandler)
 router.get('/:id', getProductId)
 router.post("/", postProductsHandler)
 
