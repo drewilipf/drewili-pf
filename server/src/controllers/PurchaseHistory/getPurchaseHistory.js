@@ -32,10 +32,6 @@ const getPurchaseHistory = async (userId) => {
         date: purchase.purchase_date,
         paymentPdf: purchase.paymentPdf,
         paymentStatus: purchase.paymentStatus,
-<<<<<<< HEAD
-=======
-
->>>>>>> 01755e1ede265bf29797edbd8d3e914ddd6c5f15
     }));
 
     return formattedPurchaseHistory;
