@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 const PaymentSuccess = () => {
- 
 
   return (
     <div className="h-90vh  bg-whiteSmoke flex justify-center items-center flex-col">

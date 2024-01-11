@@ -32,6 +32,7 @@ const getProductById = async (id) => {
       color: product.Colors.color, 
       stock: product.stock,
       image: product.image,
+      imageArray: product.imageArray,
       brand: product.Brand.brand,
       category: product.Category.category,
       deleted: product.deleted,

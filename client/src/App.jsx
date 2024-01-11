@@ -91,7 +91,7 @@ function App() {
           />
           <Route path="/dashboard/productList" element={<ProductList />} />
           <Route path="/payment/success" element={<PaymentSuccess />} />
-          <Route path="/payment/payment" element={<Payment />} />
+          <Route path="/payment/:userId" element={<Payment />} />
           <Route
             path="/history/:userId"
             element={<PurchaseHistoryComponent />}

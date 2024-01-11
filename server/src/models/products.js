@@ -29,8 +29,12 @@ module.exports = (sequelize) => {
       allowNull: true,
     },
     image: {
-      type: DataTypes.ARRAY(DataTypes.STRING), 
-      allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    imageArray:{
+      type: DataTypes.JSON,
+      allowNull: true
     },
     color_id: {
       type: DataTypes.INTEGER,

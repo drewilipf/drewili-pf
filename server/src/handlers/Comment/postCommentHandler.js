@@ -2,9 +2,9 @@ const postCommentController = require("../../controllers/Comment/postCommentCont
 
 const postCommentHandler = async (req, res) => {
     try {
-        const { user_id, product_id, comment } = req.body;
+        const { user_id, product_id, comment, rating } = req.body;
 
-        await postCommentController(user_id, product_id, comment);
+        await postCommentController(user_id, product_id, comment, rating);
 
         return res.status(200).send("Comentario creado con exito")
     } catch (error) {

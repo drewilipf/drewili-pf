@@ -33,8 +33,8 @@ function CreateProduct() {
   const { categories } = useSelector((state) => state.categories);
   const { brands } = useSelector((state) => state.brands);
   const { color } = useSelector((state) => state.color);
-  const [imageFile, setImageFile] = useState(null);
-
+  const [imageFile, setImageFile] = useState([]);
+  console.log(imageFile);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
@@ -55,8 +55,8 @@ function CreateProduct() {
     });
   }
   function handleImageChange(event) {
-    const file = event.target.files[0];
-    setImageFile(file);
+    const file = event.target.files;
+    setImageFile((prev)=>[...prev, ...file]);
   }
 
   function handleNewCategoryClick() {
@@ -74,24 +74,33 @@ function CreateProduct() {
   async function handleSumit(event) {
     event.preventDefault();
     try {
-      let imageUrl = "";
+      // let imageUrl = "";
+      let arrayUrls = [];
 
       // Subir la imagen a Cloudinary si hay un archivo seleccionado
       if (imageFile) {
-        const formData = new FormData();
-        formData.append("file", imageFile);
-        formData.append("upload_preset", "wagnbv9p");
 
-        const response = await fetch(
-          "https://api.cloudinary.com/v1_1/dpj4n40t6/image/upload",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
+        imageFile.map(async(img)=>{
 
-        const data = await response.json();
-        imageUrl = data.secure_url;
+          const formData = new FormData();
+          formData.append("file", img);
+          formData.append("upload_preset", "wagnbv9p");
+  
+          const response = await fetch(
+            "https://api.cloudinary.com/v1_1/dpj4n40t6/image/upload",
+            {
+              method: "POST",
+              body: formData,
+            }
+          );
+          console.log(response);
+  
+          // const data = await response.json();
+          // imageUrl = data.secure_url;
+          const data = await response.json();
+          const imageUrl = data.secure_url;
+          arrayUrls.push(imageUrl);
+        })
       }
 
       // if (newCategoryInput) {
@@ -129,7 +138,7 @@ function CreateProduct() {
         price: parseFloat(input.price),
         specifications: input.specifications,
         stock: parseInt(input.stock),
-        image: imageUrl,
+        image: arrayUrls,
         color_id: parseInt(input.color),
         category_id: parseInt(input.category) || 0,
         brand_id: parseInt(input.brand),
@@ -263,10 +272,16 @@ function CreateProduct() {
               type="file"
               accept="image/*"
               name="imageFile"
+              multiple
               onChange={handleImageChange}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
           </div>
+          
+      <div>
+        <label className="block text-chiliRed mb-2">Cantidad de imágenes seleccionadas:</label>
+        <p>{imageFile?.length}</p>
+      </div>
           <div>
             <label className="block text-chiliRed mb-2">Color:</label>
             <div className="flex items-center mb-2">
@@ -330,7 +345,7 @@ function CreateProduct() {
 
                 className="bg-chiliRed text-whiteSmoke py-2 px-4 rounded-full ml-2 hover:scale-105 hover:shadow-xl transition duration-100 ease-in-out"
 
-               
+
 
               >
                 {showNewBrandInput ? "-" : "+"}

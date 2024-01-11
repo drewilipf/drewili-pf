@@ -18,8 +18,8 @@ function UserForm() {
   });
   const [maildata, setMaildata] = useState(
     {
-      user_email: "",
-      user_name: "",
+      name: "",
+      email: ""
     }
   );
   const navigate = useNavigate();
@@ -32,11 +32,21 @@ function UserForm() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+  
     setInput((prevInput) => ({
       ...prevInput,
       [name]: value,
     }));
+  
+  
+    if (name === "name" || name === "email") {
+      setMaildata((prevMail) => ({
+        ...prevMail,
+        [name]: value,
+      }));
+    }
   };
+  
 
   const handleBlur = (e) => {
     const { name, value } = e.target;
@@ -58,11 +68,8 @@ function UserForm() {
     if (Object.values(validationErrors).every((error) => error === "")) {
       try {
         dispatch(postUser(input));
-
-        setMaildata({
-          user_email: input.email,
-          user_name: input.name
-        });
+        
+        dispatch(postNotificationCreation(maildata));
 
         setInput({
           name: "",
@@ -79,16 +86,6 @@ function UserForm() {
           lastname: "",
           email: "",
         });
-
-        console.log(maildata)
-        dispatch(postNotificationCreation(maildata));
-
-        setMaildata({
-          name: "",
-          lastname: "",
-          email: "",
-        });
-
         alert("Usuario creado con éxito");
         navigate("/userlogin");
       } catch (error) {

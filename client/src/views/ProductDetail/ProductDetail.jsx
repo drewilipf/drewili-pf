@@ -14,6 +14,11 @@ import "../../../tailwind.config.js";
 import { TiStarFullOutline } from "react-icons/ti";
 import { TiStarOutline } from "react-icons/ti";
 import { TiStarHalfOutline } from "react-icons/ti";
+import Productcard from "../../Components/Productcard/Productcard.jsx";
+
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Slider from 'react-slick';
 
 function ProductDetail() {
   const { id } = useParams();
@@ -31,7 +36,7 @@ function ProductDetail() {
   const userGoogleSession = userGoogleFromCookies
     ? JSON.parse(userGoogleFromCookies)
     : null;
-  
+
 
   const { login } = useSelector((state) => state.login);
   const { usersGoogle } = useSelector((state) => state.users);
@@ -166,122 +171,160 @@ function ProductDetail() {
     return <p>Cargando...</p>;
   }
 
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1
+  };
+
+  const settings2 = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    prevArrow: null,
+    nextArrow: null
+  };
+
+  const specificationsFormatted = product?.specifications.split(', ')
+
+  console.log(product);
+
+
+
   return (
-    <div className="container mx-auto grid grid-cols-2 gap-3 h-auto">
-      <NavLink
-        to="/"
-        className="inline-block mr-2 text-onyx hover:text-chiliRed"
-      >
+    <div className="tablet:w-60vw tablet:mx-auto">
+      <NavLink to="/" className="inline-block mr-2 text-onyx hover:text-chiliRed">
         <AiOutlineLeft style={{ fontSize: "1.5rem", strokeWidth: 3 }} />
       </NavLink>
-      <div />
+      <article className="tablet:flex p-2">
+        <div className="bg-white shadow-xl tablet:ml-5 p-4 tablet:w-40vw tablet:h-40vh py-20">
+          <Slider {...settings2}>
+            {
+              product.imageArray?.map((img) => (
+                <img src={img} className="w-40vw h-72 object-contain mx-auto" />
+              ))
+            }
+          </Slider>
+          {/* <img
+            src={product?.image}
+            alt={product?.name}
+            className="tablet:h-40vh tablet:w-40vw object-contain mx-auto"
+          /> */}
+        </div>
 
-      <img
-        src={product?.image}
-        alt={product?.name}
-        className="col-span-1 w-100 h-100"
-      />
-      <div className="col-span-1 grid grid-cols-2 gap-4 font-arial">
-        <h1 className="text-3xl font-bold ">{product?.name}</h1>
-        <div />
-        <div className="col-span-1 ">
-          <h2 className="text-xl text-chiliRed">Descripción:</h2>
-          <p>{product?.description}</p>
-        </div>
-        <div>
-          <h2 className="text-xl text-chiliRed">Especificaciones:</h2>
-          <p>{product?.specifications}</p>
-        </div>
-        <div>
-          <h2 className="text-xl text-chiliRed">Marca:</h2>
-          <p>{product?.brand}</p>
-        </div>
-        <div>
-          <h2 className="text-xl text-chiliRed">Disponibles:</h2>
-          <p>{product?.stock}</p>
-        </div>
-        <div>
-          <h2 className="text-xl text-chiliRed">Precio:</h2>
-          <p>{product?.price}</p>
-        </div>
-        {product?.stock === 0 ? (
-          <button
-            className="bg-onyx text-whiteSmoke font-semibold rounded-full py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
-            disabled
-          >
-            {loading
-              ? "Agregando al carrito..."
-              : addedToCart
-              ? "Agregado con éxito!"
-              : "Agregar al carrito"}
-          </button>
-        ) : (
-          <button
-            onClick={handleAddToCart}
-            className="bg-chiliRed text-whiteSmoke font-semibold rounded-full mb-8 py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
-            disabled={loading || addedToCart}
-          >
-            {loading
-              ? "Agregando al carrito..."
-              : addedToCart
-              ? "Agregado con éxito!"
-              : "Agregar al carrito"}
-          </button>
-        )}
+        <div className="bg-whiteSmoke tablet:ml-8 p-8 flex flex-col">
+          <h1 className="text-xl font-bold text-center">{product?.name}</h1>
+          <h2>S/ {product?.price}</h2>
+          <span>
 
-        <button
-          onClick={handleAddToFavorite}
-          className="bg-chiliRed text-whiteSmoke font-semibold rounded-full mb-8 py-2 px-2 w-3/4 h-3/4 hover:shadow-xl"
-          disabled={loadingFav || addedToFavorites}
-        >
-          {loadingFav
-            ? "Agregando a favoritos..."
-            : addedToFavorites
-            ? "Agregado a favoritos"
-            : "Agregar a favoritos"}
-        </button>
+            <h2 className="text-xl text-chiliRed block">Disponibles:</h2>
+            <p>{product?.stock}</p>
+          </span>
+          <div className="m-8 flex items-center justify-between">
+            {product?.stock === 0 ? (
+              <button
+                className="bg-onyx text-whiteSmoke font-semibold p-2 m-2 rounded-full hover:shadow-xl"
+                disabled
+              >
+                {loading
+                  ? "Agregando al carrito..."
+                  : addedToCart
+                    ? "Agregado con éxito!"
+                    : "Agregar al carrito"}
+              </button>
+            ) : (
+              <button
+                onClick={handleAddToCart}
+                className="bg-chiliRed text-whiteSmoke font-semibold p-2 m-2 rounded-full hover:shadow-xl"
+                disabled={loading || addedToCart}
+              >
+                {loading
+                  ? "Agregando al carrito..."
+                  : addedToCart
+                    ? "Agregado con éxito!"
+                    : "Agregar al carrito"}
+              </button>
+            )}
 
-        <div className="col-span-2 mt-4 mx-auto">
-          <h1 className="text-xl text-center text-eerieBlack  font-bold mb-2">
-            Calificación general del producto
-          </h1>
-          <div className="text-chiliRed flex text-2xl">
-            <TiStarFullOutline />
-            <TiStarFullOutline />
-            <TiStarFullOutline />
-            <TiStarHalfOutline />
-            <TiStarOutline />
+            <button
+              onClick={handleAddToFavorite}
+              className="bg-chiliRed text-whiteSmoke font-semibold p-2 m-2 rounded-full hover:shadow-xl"
+              disabled={loadingFav || addedToFavorites}
+            >
+              {loadingFav
+                ? "Agregando a favoritos..."
+                : addedToFavorites
+                  ? "Agregado a favoritos"
+                  : "Agregar a favoritos"}
+            </button>
+          </div>
+          <div className="flex flex-col">
+            <h1 className="text-xl text-center text-eerieBlack  font-bold mb-2">
+              Calificación general del producto
+            </h1>
+            <span className="flex mx-auto text-chiliRed text-2xl">
+              <TiStarFullOutline />
+              <TiStarFullOutline />
+              <TiStarFullOutline />
+              <TiStarHalfOutline />
+              <TiStarOutline />
+            </span>
           </div>
         </div>
-      </div>
-      <div className="col-span-2 mt-4 mx-auto">
-        <h2 className="text-xl text-center text-chiliRed mb-2 font-bold">
-          Productos Recomendados
-        </h2>
-        <div className="flex  gap-4 ">
-          {limitedRecommendedProducts.map((recommendedProduct) => (
-            <div key={recommendedProduct.id} className="ml-10">
-              <NavLink
-                to={`/detail/${recommendedProduct.id}`}
-                className="text-onyx hover:text-chiliRed block"
-              >
-                <img
-                  src={recommendedProduct.image}
-                  alt={recommendedProduct.name}
-                  className="w-32 h-32 mb-2"
-                />
-                {recommendedProduct.name}
+      </article>
+
+      <h2 className="text-xl text-center mb-2 font-bold mt-10">
+        Productos relacionados
+      </h2>
+      <article className=" rounded tablet:w-60vw bg-chiliRed">
+        <Slider {...settings}>
+          {limitedRecommendedProducts?.map((recommendedProduct, index) =>(
+            <div key={index}>
+              <NavLink to={`/detail/${recommendedProduct.id}`}>
+                <div className="mx-2 my-2 flex flex-col items-center p-2 shadow-md rounded tablet:h-40 tablet:w-72 bg-whiteSmoke hover:shadow-xl">
+                  <img src={recommendedProduct.images?.[0]} alt={recommendedProduct.name} className="max-w-24 h-24 object-contain" />
+                  <h2>
+                    {recommendedProduct.name}
+                  </h2>
+                </div>
               </NavLink>
             </div>
           ))}
+        </Slider>
+      </article>
+      <article className="tablet:flex my-10">
+        <div className="flex flex-col tablet:w-[50%] p-2">
+          <h2 className="text-xl text-chiliRed">Descripción:</h2>
+          <p>{product?.description}</p>
+
+          <h2 className="text-xl text-chiliRed">Especificaciones:</h2>
+          {specificationsFormatted.map((spec, index) => {
+            const [key, value] = spec.split(': ');
+            return (
+              <span key={index} className="flex flex-col">
+                <h4>
+                  - <strong>{key}:</strong> {value}
+                </h4>
+              </span>
+            );
+          })}
         </div>
-      </div>
-      <div className="ml-20 mb-8 pb-2">
+        <div className="tablet:w-[50%] p-2">
+          <h2 className="text-xl text-chiliRed">Marca:</h2>
+          <p>{product?.brand}</p>
+
+          <h2 className="text-xl text-chiliRed">Precio:</h2>
+          <p>{product?.price}</p>
+        </div>
+      </article>
+      <article className="pb-10 pl-2">
         <h2 className="text-left text-chiliRed text-xl">Comentarios:</h2>
-        <br></br>
         <CommentCards comments={comments} detailId={id} />
-        <CommentInput product_id={id} user_id={userId} />
-      </div>
+      </article>
     </div>
   );
 }
