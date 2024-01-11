@@ -5,8 +5,12 @@ const updatePurchaseHistory = async (req, res) => {
     const { purchaseId } = req.params;
     console.log("ID de compra a actualizar:", purchaseId);
     const { newPaymentStatus } = req.body;
-
-    const result = await updatePurchaseHistoryController(purchaseId, newPaymentStatus);
+    console.log("Nuevo estado de pago:", newPaymentStatus);
+    const result = await updatePurchaseHistoryController(
+      purchaseId,
+      newPaymentStatus
+    );
+    console.log("Resultado de la actualización:", result);
 
     res.status(200).json(result);
   } catch (error) {

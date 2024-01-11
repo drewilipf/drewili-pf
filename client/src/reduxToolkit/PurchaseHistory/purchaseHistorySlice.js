@@ -20,12 +20,18 @@ const purchaseHistorySlice = createSlice({
       state.error = null;
     },
     putStatusSlice: (state, action) => {
-      const { purchaseId, paymentStatus } = action.payload;
+      const acciones = action.payload;
+
+      const paymentStatus = acciones.newStatus;
+
+      const purchaseId = acciones.id;
+
       state.history = state.history.map((purchase) =>
         purchase.purchaseId === purchaseId
           ? { ...purchase, paymentStatus }
           : purchase
       );
+
       state.loading = false;
       state.error = null;
     },

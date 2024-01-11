@@ -8,7 +8,7 @@ import EditPurchaseModal from "./EditPurchaseModal";
 const ShoppingHistory = () => {
   const dispatch = useDispatch();
   const purchaseHistory = useSelector((state) => state.purchaseHistory.history);
-  console.log(purchaseHistory);
+  // console.log(purchaseHistory);
   const [isEditing, setIsEditing] = useState(false);
   const [selectedPurchaseId, setSelectedPurchaseId] = useState(null);
 
@@ -39,14 +39,9 @@ const ShoppingHistory = () => {
 
   const handleEditClick = (group) => {
     const groupPurchaseIds = group.map((purchase) => purchase.purchaseId);
-    dispatch();
+
     setSelectedPurchaseId(groupPurchaseIds);
     setIsEditing(true);
-
-    // if (purchaseId) {
-    //   setSelectedPurchaseId(purchaseId);
-    //   setIsEditing(true);
-    // }
   };
 
   const handleCloseEditModal = () => {

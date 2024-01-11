@@ -7,22 +7,21 @@ import { AiOutlineClose } from "react-icons/ai";
 
 const EditPurchaseModal = ({ onClose, purchaseIds }) => {
   const dispatch = useDispatch();
-  const [selectedStatus, setSelectedStatus] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState("aprobado");
 
   const handleStatusChange = (e) => {
     setSelectedStatus(e.target.value);
   };
 
   const handleSaveChanges = () => {
-    console.log(purchaseIds);
-    console.log(selectedStatus);
     const status = {
       newPaymentStatus: selectedStatus,
     };
-    console.log(status);
-    const response = dispatch(putStatus(purchaseId, status));
 
-    console.log(response);
+    purchaseIds.forEach((purchaseId) => {
+      dispatch(putStatus(purchaseId, status));
+    });
+
     onClose();
   };
 
