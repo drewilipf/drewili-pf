@@ -55,6 +55,7 @@ const SelectPayment = () => {
     state6: { RUC, ...rucFactura },
     state7: { Modalidad, ...modalidadPago },
   };
+  console.log(combinedData);
 
   const userId =
     (userSession && userSession.userId) ||

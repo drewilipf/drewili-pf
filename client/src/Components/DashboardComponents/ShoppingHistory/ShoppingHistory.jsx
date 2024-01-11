@@ -2,32 +2,56 @@ import React, { useState, useEffect } from "react";
 import NavbarAdmin from "../NavbarAdmin/NavbarAdmin";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPurchaseHistory } from "../../../reduxToolkit/PurchaseHistory/purchaseHistoryThunks";
+import { IoMdCreate } from "react-icons/io";
+import EditPurchaseModal from "./EditPurchaseModal";
 
 const ShoppingHistory = () => {
   const dispatch = useDispatch();
   const purchaseHistory = useSelector((state) => state.purchaseHistory.history);
   console.log(purchaseHistory);
+  const [isEditing, setIsEditing] = useState(false);
+  const [selectedPurchaseId, setSelectedPurchaseId] = useState(null);
 
   useEffect(() => {
     dispatch(getAllPurchaseHistory());
   }, [dispatch]);
+
   const groupProductsByDate = (purchaseHistory) => {
     const groupedByDate = {};
-    purchaseHistory.forEach((purchase) => {
-      const dateKey = purchase.date;
-      if (!groupedByDate[dateKey]) {
-        groupedByDate[dateKey] = [];
-      }
-      groupedByDate[dateKey].push(purchase);
-    });
+    {
+      purchaseHistory &&
+        purchaseHistory.forEach((purchase) => {
+          const dateKey = purchase.date;
+          if (!groupedByDate[dateKey]) {
+            groupedByDate[dateKey] = [];
+          }
+          groupedByDate[dateKey].push(purchase);
+        });
 
-    return Object.values(groupedByDate);
+      return Object.values(groupedByDate);
+    }
   };
 
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "numeric", day: "numeric" };
-    console.log(dateString);
     return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+  const handleEditClick = (group) => {
+    const groupPurchaseIds = group.map((purchase) => purchase.purchaseId);
+    dispatch();
+    setSelectedPurchaseId(groupPurchaseIds);
+    setIsEditing(true);
+
+    // if (purchaseId) {
+    //   setSelectedPurchaseId(purchaseId);
+    //   setIsEditing(true);
+    // }
+  };
+
+  const handleCloseEditModal = () => {
+    setSelectedPurchaseId(null);
+    setIsEditing(false);
   };
 
   return (
@@ -37,6 +61,7 @@ const ShoppingHistory = () => {
         <h1 className="text-2xl font-bold mb-6 pt-4 text-center">
           Historial de Ventas
         </h1>
+        <hr className="text-chiliRed" />
         {purchaseHistory.length === 0 ? (
           <p>Aun no has realizado ninguna compra.</p>
         ) : (
@@ -47,9 +72,34 @@ const ShoppingHistory = () => {
                 <p className="font-bold">
                   Fecha de Compra: {formatDate(group[0].date)}
                 </p>
-                <p className="font-bold">
-                  Estado del Pago: {group[0].paymentStatus.toUpperCase()}
+                <p className={"font-bold flex"}>
+                  Estado del Pago:
+                  <span
+                    className={`font-bold ml-2  ${
+                      group[0].paymentStatus.toLowerCase() === "rechazado"
+                        ? "bg-red border-red text-whiteSmoke rounded p-1"
+                        : group[0].paymentStatus.toLowerCase() === "pendiente"
+                        ? "bg-yellow border-yellow text-onyx rounded p-1"
+                        : group[0].paymentStatus.toLowerCase() === "aprobado"
+                        ? "bg-green text-whiteSmoke border-green rounded p-1"
+                        : ""
+                    }`}
+                  >
+                    {group[0].paymentStatus.toUpperCase()}
+                  </span>
+                  <span
+                    className="text-2xl ml-3 cursor-pointer"
+                    onClick={() => handleEditClick(group)}
+                  >
+                    <IoMdCreate />
+                  </span>
                 </p>
+                {isEditing && selectedPurchaseId.length > 0 && (
+                  <EditPurchaseModal
+                    onClose={handleCloseEditModal}
+                    purchaseIds={selectedPurchaseId}
+                  />
+                )}
                 <ul className="space-y-2">
                   {group.map((purchase) => (
                     <li
@@ -82,4 +132,5 @@ const ShoppingHistory = () => {
     </div>
   );
 };
+
 export default ShoppingHistory;
