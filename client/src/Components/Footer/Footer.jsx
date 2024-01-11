@@ -3,6 +3,8 @@ import LegalesLink from "./LinkLegales";
 import instagramIcon from "../../icons/instagram.png";
 import linkedinIcon from "../../icons/linkedin.png";
 import whatsappIcon from "../../icons/whatsapp.png";
+import Creators from "./Desarrolladores";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -62,7 +64,11 @@ const Footer = () => {
           />
         </div>
       </footer>
+     <div className="text-center bg-eerieBlack bg-opacity-40 text-white">
+      <Link to="/creators" >Desarrolladores</Link>
+     </div>
       <h4 className="text-center bg-onyx text-white">© 2024 DREWILI Todos los derechos reservados.</h4>
+
     </>
   );
 };
