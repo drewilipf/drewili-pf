@@ -12,6 +12,6 @@ router.get("/user/:userId", getSalesCartHandler)
 router.post("/addToSalesCart", addToSalesCartHandler)
 router.delete("/delete", salesCartDeleteHandler)
 router.put('/update', putSalesCartHandler)
-router.delete('/:userId', allDelete)
+router.delete('/alldelete/:userId', allDelete)
 
 module.exports = router

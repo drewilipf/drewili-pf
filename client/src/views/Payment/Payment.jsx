@@ -1,5 +1,8 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import axios from "axios";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { NavLink, useParams } from "react-router-dom";
+
 
 const Payment = () => {
   return (

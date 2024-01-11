@@ -13,6 +13,7 @@ import {
   setRazonSocialSlice,
   setRucSlice,
 } from "../../reduxToolkit/ShippingInfo/shippingInfoSlice";
+import { allDelete } from "../../reduxToolkit/SalesCarts/salesCartThunk";
 
 const SelectPayment = () => {
   const dispatch = useDispatch();
@@ -108,8 +109,10 @@ const SelectPayment = () => {
       console.error(error);
     }
   };
-  const handlePdf = () => {
-    //generatePDF(combinedData);
+  const handlePdf = async() => {
+    await axios.post(`https://drewili-pf-back.onrender.com/history/${userId}`, {cartItems: listItems})
+    dispatch(allDelete(userId))
+
   };
   const PriceContraentrega = ((priceTotal * 30) / 100).toFixed(2);
 
@@ -295,7 +298,7 @@ const SelectPayment = () => {
               <span className="hover:text-chiliRed ml-5">971 985 484</span>
             </a>
           </div>
-          <NavLink to={`/payment/payment`}>
+          <NavLink to={`/payment/${userId}`}>
             <button
               className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
               onClick={handlePdf}
@@ -343,7 +346,7 @@ const SelectPayment = () => {
               <span className="hover:text-chiliRed ml-5">971 985 484</span>
             </a>
           </div>
-          <NavLink to={`/payment/payment`}>
+          <NavLink to={`/payment/${userId}`}>
             <button
               className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
               onClick={handlePdf}
@@ -410,7 +413,7 @@ const SelectPayment = () => {
               <span className="hover:text-chiliRed ml-5">971 985 484</span>
             </a>
           </div>
-          <NavLink to={`/payment/payment`}>
+          <NavLink to={`/payment/${userId}`}>
             <button
               className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
               onClick={handlePdf}
