@@ -1,8 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPurchaseHistory } from "../../reduxToolkit/PurchaseHistory/purchaseHistoryThunks";
 import { useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
+import CommentInput from '../../Components/DetailComponents/CommentInput';
+import StarRating from '../../Components/DetailComponents/RatingComponent'; // Ajusta la ruta según tu estructura
+import { setAverageStars } from '../../reduxToolkit/Comment/commentSlice';
 
 const PurchaseHistoryComponent = () => {
   const dispatch = useDispatch();
@@ -18,7 +21,7 @@ const PurchaseHistoryComponent = () => {
   const groupProductsByDate = (purchaseHistory) => {
     const groupedByDate = {};
     purchaseHistory.forEach((purchase) => {
-      const dateKey = purchase.date; // Ajusta según el formato de fecha que recibes
+      const dateKey = purchase.date;
       if (!groupedByDate[dateKey]) {
         groupedByDate[dateKey] = [];
       }
@@ -28,19 +31,24 @@ const PurchaseHistoryComponent = () => {
     return Object.values(groupedByDate);
   };
 
-  const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
-    console.log(dateString);
-    return new Date(dateString).toLocaleDateString(undefined, options);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedPurchase, setSelectedPurchase] = useState(null);
+
+  const openModal = (purchase) => {
+    setSelectedPurchase(purchase);
+    setShowModal(true);
   };
 
-  if (loading) {
-    return <p className="text-black">Cargando historial de compras...</p>;
-  }
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedPurchase(null);
+  };
 
-  if (error) {
-    return <p className="text-red-500">Error al cargar el historial de compras: {error}</p>;
-  }
+  const handleCommentPosted = (rating) => {
+    closeModal();
+    console.log('Rating from CommentInput:', rating);
+    dispatch(getPurchaseHistory(userId));
+  };
 
   return (
     <div className="text-black p-8 rounded-lg shadow-sm md:w-60vw mx-auto shadow-onyx mt-2 mb-2">
@@ -51,13 +59,10 @@ const PurchaseHistoryComponent = () => {
         <ul className="space-y-4">
           {groupProductsByDate(purchaseHistory).map((group, index) => (
             <li key={index} className="space-y-4">
-              <p className="font-bold">Fecha de Compra: {formatDate(group[0].date)}</p>
+              <p className="font-bold">Fecha de Compra: {group[0].date}</p>
               <ul className="space-y-2">
                 {group.map((purchase) => (
-                  <li
-                    key={purchase.purchaseId}
-                    className="flex items-center justify-between py-3"
-                  >
+                  <li key={purchase.purchaseId} className="flex items-center justify-between py-3">
                     <div className="flex items-center space-x-4 flex-wrap md:items-center justify-center">
                       <img
                         src={purchase.productImage}
@@ -70,15 +75,24 @@ const PurchaseHistoryComponent = () => {
                         <p>Cantidad: {purchase.quantity}</p>
                       </div>
                     </div>
-                      <div className='p-2 rounded shadow-sm shadow-eerieBlack'>
-                        <NavLink to={`/detail/${purchase.productId}`} className="flex items-center space-x-4">
-                          <h3 className='hover:scale-105'>Volver a comprar</h3>
-                        </NavLink>
-                        <hr className='text-chiliRed'/>
-                        <NavLink>
-                          <h3 className='hover:scale-105 hover:drop-shadow-sm hover:shadow-onyx'>Opinar</h3>
-                        </NavLink>
-                      </div>
+                    <div className='p-2 rounded shadow-sm shadow-eerieBlack'>
+                      <NavLink
+                        to={`/detail/${purchase.productId}`}
+                        className="flex items-center space-x-4"
+                      >
+                        <h3 className='hover:scale-105'>Volver a comprar</h3>
+                      </NavLink>
+                      <hr className='text-chiliRed'/>
+                      <button
+                        onClick={() => openModal(purchase)}
+                        className={`cursor-pointer hover:scale-105 hover:drop-shadow-sm hover:shadow-onyx ${
+                          showModal && 'opacity-50 cursor-not-allowed'
+                        }`}
+                        disabled={showModal}
+                      >
+                        Opinar
+                      </button>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -86,6 +100,41 @@ const PurchaseHistoryComponent = () => {
             </li>
           ))}
         </ul>
+      )}
+
+      {showModal && selectedPurchase && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-8 rounded-md shadow-md">
+            <h3 className="text-xl font-semibold mb-4">
+              Opinar sobre {selectedPurchase.productName}
+            </h3>
+            <StarRating
+             rating={selectedPurchase.rating}
+              onRatingChange={(newRating) => {
+                // Actualiza el rating local
+                setSelectedPurchase((prevPurchase) => ({
+                  ...prevPurchase,
+                  rating: newRating,
+                }));
+
+                // Actualiza el promedio de estrellas en el estado global
+                dispatch(setAverageStars({
+                  productId: selectedPurchase.productId,
+                  averageStars: newRating
+                }));
+              }}
+              productId={selectedPurchase.productId}
+            />
+            <CommentInput
+              user_id={userId}
+              product_id={selectedPurchase.productId}
+              onCommentPosted={handleCommentPosted}
+            />
+            <button onClick={closeModal} className="mt-4 text-chiliRed hover:underline">
+              Cerrar
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

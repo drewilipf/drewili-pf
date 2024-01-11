@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { postComment } from "../../reduxToolkit/Comment/commentThunks";
 
-const CommentInput = ({ user_id, product_id }) => {
+const CommentInput = ({ user_id, product_id, onCommentPosted }) => {
   const dispatch = useDispatch();
   const [comment, setComment] = useState("");
+  const [commentPosted, setCommentPosted] = useState(false);
 
   const handleCommentChange = (e) => {
     setComment(e.target.value);
@@ -12,16 +13,14 @@ const CommentInput = ({ user_id, product_id }) => {
 
   const handlePostComment = () => {
     if (comment.trim() === "") {
-      alert("Por favor, introduce un comentario antes de enviar.");
+      console.error("Por favor, introduce un comentario antes de enviar.");
       return;
     }
-    user_id= String(user_id)
 
-    // Utiliza String(user_id) para convertir user_id a cadena si no es una cadena ya
-    dispatch(postComment( user_id, product_id, comment ));
-    
-
-    setComment("");
+    dispatch(postComment(user_id, product_id, comment)).then(() => {
+      setCommentPosted(true);
+      onCommentPosted({ comment }); 
+    });
   };
 
   return (
@@ -32,11 +31,15 @@ const CommentInput = ({ user_id, product_id }) => {
         placeholder="Deja tu comentario..."
         value={comment}
         onChange={handleCommentChange}
+        disabled={commentPosted}
       ></textarea>
       <br />
       <button
-        className="bg-chiliRed text-whiteSmoke rounded-md w-1/5 p-2 mt-2 hover:shadow-lg"
+        className={`bg-chiliRed text-whiteSmoke rounded-md w-1/5 p-2 mt-2 hover:shadow-lg ${
+          commentPosted && 'opacity-50 cursor-not-allowed'
+        }`}
         onClick={handlePostComment}
+        disabled={commentPosted}
       >
         Enviar
       </button>
@@ -45,5 +48,3 @@ const CommentInput = ({ user_id, product_id }) => {
 };
 
 export default CommentInput;
-
-

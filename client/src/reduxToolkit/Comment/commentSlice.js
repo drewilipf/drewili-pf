@@ -1,9 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const calculateAverageStarsByProduct = (comments, productId) => {
+  const productComments = comments.filter(comment => comment.productId === productId);
+  const totalStars = productComments.reduce((sum, comment) => sum + comment.rating, 0);
+  const average = productComments.length > 0 ? totalStars / productComments.length : null;
+  return Number.isFinite(average) ? average : null;
+};
+
 const commentSlice = createSlice({
   name: "comments",
   initialState: {
     comments: [],
+    averageStars: {},
     status: "idle",
     error: null,
   },
@@ -14,6 +22,10 @@ const commentSlice = createSlice({
     getCommentsSuccess: (state, action) => {
       state.status = "succeeded";
       state.comments = action.payload.comments;
+
+      state.comments.forEach(comment => {
+        state.averageStars[comment.productId] = calculateAverageStarsByProduct(state.comments, comment.productId);
+      });
     },
     getCommentsFailure: (state, action) => {
       state.status = "failed";
@@ -25,6 +37,7 @@ const commentSlice = createSlice({
     postCommentSuccess: (state, action) => {
       state.status = "succeeded";
       state.comments.push(action.payload.newComment);
+      state.averageStars = calculateAverageStars(state.comments); // Calculate and set average rating
     },
     postCommentFailure: (state, action) => {
       state.status = "failed";
@@ -39,11 +52,15 @@ const commentSlice = createSlice({
       const index = state.comments.findIndex((comment) => comment.id === updatedComment.id);
       if (index !== -1) {
         state.comments[index] = updatedComment;
+        state.averageStars = calculateAverageStars(state.comments); // Calculate and set average rating
       }
     },
     updateCommentFailure: (state, action) => {
       state.status = "failed";
       state.error = action.payload.error;
+    },
+    setAverageStars: (state, action) => {
+      state.averageStars = action.payload;
     },
   },
 });
@@ -58,6 +75,7 @@ export const {
   updateCommentStart,
   updateCommentSuccess,
   updateCommentFailure,
+  setAverageStars,
 } = commentSlice.actions;
 
 export default commentSlice.reducer;
