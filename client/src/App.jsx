@@ -27,6 +27,7 @@ import SelectPayment from "./views/Shoppingcart/SelectPayment";
 import Footer from "./Components/Footer/Footer";
 import PurchaseHistoryComponent from "./views/UserProfile/purchaseHistory";
 import ShoppingHistory from "./Components/DashboardComponents/ShoppingHistory/ShoppingHistory";
+import Creators from "./Components/Footer/Desarrolladores";
 
 function App() {
   const dispacth = useDispatch();
@@ -90,11 +91,12 @@ function App() {
           />
           <Route path="/dashboard/productList" element={<ProductList />} />
           <Route path="/payment/success" element={<PaymentSuccess />} />
-          <Route path="/payment/payment" element={<Payment />} />
+          <Route path="/payment/:userId" element={<Payment />} />
           <Route
             path="/history/:userId"
             element={<PurchaseHistoryComponent />}
           />
+          <Route path="/creators" element={<Creators />} />
         </Routes>
       </div>
       {!isDashboardRoute && <Footer />}

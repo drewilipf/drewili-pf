@@ -16,8 +16,12 @@ export const cartSlice = createSlice({
             state.salesCart = products
             state.priceTotal = totalCartPrice
         },
+        allDeleteSlice: (state,action)=>{
+            state.salesCart = "",
+            state.priceTotal = 0
+        }
     }
 })
 
-export const {getSalesCartSlice, deleteSalesCartSlice, updateSalesCartSlice} = cartSlice.actions
+export const {getSalesCartSlice, deleteSalesCartSlice, updateSalesCartSlice, allDeleteSlice} = cartSlice.actions
 export default cartSlice.reducer

@@ -86,14 +86,6 @@ function UserForm() {
           lastname: "",
           email: "",
         });
-
-       
-
-      //  setMaildata({
-        //  name: "",
-          //email: "",
-        // });
-
         alert("Usuario creado con éxito");
         navigate("/userlogin");
       } catch (error) {
