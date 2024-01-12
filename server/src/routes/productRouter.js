@@ -19,7 +19,7 @@ router.get("/", getProductsHandler)
 router.get("/product", getProductKeyWordHandler)
 router.get("/recommended", sortRecommendedProductHandler)
 router.get("/date", sortProductsDateHandler)
-router.get("/rating", sortProductsByRatingHandler)
+router.get("/sortby/rating", sortProductsByRatingHandler)
 router.get('/:id', getProductId)
 router.post("/", postProductsHandler)
 

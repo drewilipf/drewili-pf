@@ -27,6 +27,7 @@ import SelectPayment from "./views/Shoppingcart/SelectPayment";
 import Footer from "./Components/Footer/Footer";
 import PurchaseHistoryComponent from "./views/UserProfile/purchaseHistory";
 import ShoppingHistory from "./Components/DashboardComponents/ShoppingHistory/ShoppingHistory";
+import Creators from "./Components/Footer/Desarrolladores";
 
 function App() {
   const dispacth = useDispatch();
@@ -95,6 +96,7 @@ function App() {
             path="/history/:userId"
             element={<PurchaseHistoryComponent />}
           />
+          <Route path="/creators" element={<Creators />} />
         </Routes>
       </div>
       {!isDashboardRoute && <Footer />}
