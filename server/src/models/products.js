@@ -65,10 +65,14 @@ module.exports = (sequelize) => {
       defaultValue: false,
       allowNull: false,
     },
-    relevance: {
+   relevance: {
       type: DataTypes.INTEGER,
       allowNull: true,
       defaultValue: 0,
+      validate: {
+        min: 0,
+        max: 2,
+      },  
     },
   });
   return Product;
