@@ -1,6 +1,8 @@
 import React from "react";
 
 const StarRating = ({ rating, onRatingChange }) => {
+
+  console.log(rating, 'este es el rating');
   const handleClick = (newRating) => {
     onRatingChange(newRating);
   };

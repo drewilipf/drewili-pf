@@ -38,11 +38,12 @@ export const getComments = () => {
   };
 };
 
-export const postComment = (user_id, product_id, comment) => {
+export const postComment = (user_id, product_id, comment, rating) => {
   return async (dispatch, getState) => {
     try {
+      console.log(rating,'este es el rating recibido');
       dispatch(postCommentStart());
-      const response = await axios.post(API_URL, { user_id, product_id, comment });
+      const response = await axios.post(API_URL, { user_id, product_id, comment, rating });
       dispatch(postCommentSuccess({ newComment: response.data }));
       
       const updatedComments = [...getState().comments, response.data];
