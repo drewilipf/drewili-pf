@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getPurchaseHistory } from "../../reduxToolkit/PurchaseHistory/purchaseHistoryThunks";
-import { useParams } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+import { useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import CommentInput from '../../Components/DetailComponents/CommentInput';
 
 import { setAverageStars } from '../../reduxToolkit/Comment/commentSlice';
+
 
 const PurchaseHistoryComponent = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const PurchaseHistoryComponent = () => {
     return Object.values(groupedByDate);
   };
 
+
   const [showModal, setShowModal] = useState(false);
   const [selectedPurchase, setSelectedPurchase] = useState(null);
 
@@ -53,6 +55,12 @@ const PurchaseHistoryComponent = () => {
     closeModal();
     console.log('Rating from CommentInput:', rating);
     dispatch(getPurchaseHistory(userId));
+
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "numeric", day: "numeric" };
+    console.log(dateString);
+    return new Date(dateString).toLocaleDateString(undefined, options);
+
   };
 
   if (loading) {
@@ -107,6 +115,7 @@ const PurchaseHistoryComponent = () => {
                         <h3 className="hover:scale-105">Volver a comprar</h3>
                       </NavLink>
                       <hr className="text-chiliRed" />
+
                       <button
                         onClick={() => openModal(purchase)}
                         className={`cursor-pointer hover:scale-105 hover:drop-shadow-sm hover:shadow-onyx ${
@@ -116,6 +125,7 @@ const PurchaseHistoryComponent = () => {
                       >
                         Opinar
                       </button>
+
                     </div>
                   </li>
                 ))}
