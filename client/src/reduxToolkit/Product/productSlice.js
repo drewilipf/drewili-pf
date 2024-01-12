@@ -79,7 +79,7 @@ export const productSlice = createSlice({
     sortByRatingSuccess: (state, action) => {
       state.status = 'succeeded';
       const sortedProducts = action.payload.products.slice().sort((a, b) => {
-       
+
         if (b.rating === null) {
           return -1; 
         } else if (a.rating === null) {

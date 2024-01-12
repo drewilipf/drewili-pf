@@ -272,13 +272,14 @@ function ProductDetail() {
         {averageStars !== null && (
         <span className="flex mx-auto text-chiliRed text-2xl">
           {Array.from({ length: 5 }).map((_, index) => (
-            <span key={index}>
+            <span key={index}> 
               {index + 1 <= (averageStars[productId] || 0) ? (
                 <TiStarFullOutline />
               ) : index < (averageStars[productId] || 0) ? (
                 <TiStarHalfOutline />
               ) : (
                 <TiStarOutline />
+                
                 
         )}
       </span>

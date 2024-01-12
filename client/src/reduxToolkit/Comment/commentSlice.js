@@ -37,7 +37,7 @@ const commentSlice = createSlice({
     postCommentSuccess: (state, action) => {
       state.status = "succeeded";
       state.comments.push(action.payload.newComment);
-      state.averageStars = calculateAverageStars(state.comments); // Calculate and set average rating
+      state.averageStars = calculateAverageStars(state.comments); 
     },
     postCommentFailure: (state, action) => {
       state.status = "failed";
@@ -52,7 +52,7 @@ const commentSlice = createSlice({
       const index = state.comments.findIndex((comment) => comment.id === updatedComment.id);
       if (index !== -1) {
         state.comments[index] = updatedComment;
-        state.averageStars = calculateAverageStars(state.comments); // Calculate and set average rating
+        state.averageStars = calculateAverageStars(state.comments);
       }
     },
     updateCommentFailure: (state, action) => {

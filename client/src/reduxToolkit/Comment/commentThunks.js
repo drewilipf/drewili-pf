@@ -12,7 +12,7 @@ import {
 } from "./commentSlice";
 import axios from "axios";
 
-const API_URL = "http://localhost:3001/comment";
+const API_URL = "https://drewili-pf-back.onrender.com/comment";
 
 const calculateAverageStarsByProduct = (comments, productId) => {
   const productComments = comments.filter(comment => comment.productId === productId);
@@ -27,7 +27,7 @@ export const getComments = () => {
       dispatch(getCommentsStart());
       const response = await axios.get(API_URL);
       dispatch(getCommentsSuccess({ comments: response.data }));
-      
+
       // Calculate and set average ratings for each product
       response.data.forEach(comment => {
         dispatch(setAverageStars({ productId: comment.productId, averageStars: calculateAverageStarsByProduct(response.data, comment.productId) }));
@@ -38,13 +38,14 @@ export const getComments = () => {
   };
 };
 
-export const postComment = (user_id, product_id, comment) => {
+export const postComment = (user_id, product_id, comment, rating) => {
   return async (dispatch, getState) => {
     try {
+      console.log(rating,'este es el rating recibido');
       dispatch(postCommentStart());
-      const response = await axios.post(API_URL, { user_id, product_id, comment });
+      const response = await axios.post(API_URL, { user_id, product_id, comment, rating });
       dispatch(postCommentSuccess({ newComment: response.data }));
-      
+
       const updatedComments = [...getState().comments, response.data];
       console.log("Updated Comments:", updatedComments);
 
