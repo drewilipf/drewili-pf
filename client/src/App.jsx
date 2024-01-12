@@ -30,6 +30,7 @@ import ShoppingHistory from "./Components/DashboardComponents/ShoppingHistory/Sh
 import Creators from "./Components/Footer/Desarrolladores";
 import ForgetPassword from "./Components/PasswordRecoveryComponents/ForgetPassword";
 import OtpInput from "./Components/PasswordRecoveryComponents/OtpInput";
+import VerificationSuccess from "./Components/PasswordRecoveryComponents/VerificationSuccess";
 
 function App() {
   const dispacth = useDispatch();
@@ -80,6 +81,7 @@ function App() {
           <Route path="/userlogin" element={<UserLogin />} />
           <Route path="/forgetpassword" element={<ForgetPassword />} />
           <Route path="/otpinput" element={<OtpInput />} />
+          <Route path="/verificationsuccess" element={<VerificationSuccess />} />
           <Route path="/about" element={<About />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/createProduct" element={<CreateProduct />} />

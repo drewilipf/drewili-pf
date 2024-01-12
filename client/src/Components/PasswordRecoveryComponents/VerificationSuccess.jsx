@@ -6,10 +6,10 @@ import Cookies from "js-cookie";
 import LoginButton from "../LoginButton";
 import { NavLink} from "react-router-dom";
 
-function UserLogin() {
+function VerificationSuccess() {
   const [input, setInput] = useState({
-    username: "",
-    password: "",
+    newpassword: "",
+    newpasswordconfirmation: "",
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -67,7 +67,7 @@ function UserLogin() {
   return (
     <div className="w-96  mr-auto ml-auto h-90vh pt-16">
       <h1 className="text-2xl font-bold mb-4 flex items-center justify-center">
-        Iniciar Sesión
+        Identidad verificada
       </h1>
       <form
         className="border border-chiliRed rounded p-6 text-arial text-base"
@@ -121,4 +121,4 @@ function UserLogin() {
   );
 }
 
-export default UserLogin;
+export default VerificationSuccess;

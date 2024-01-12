@@ -62,7 +62,8 @@ function UserLogin() {
   };
 
   const navigateRecovery = async () => {
-    navigate('/forgetpassword', { state: input });
+    if(input.username){ navigate('/forgetpassword', { state: input })}
+    else {alert("Por favor ingrese su nombre de usuario")}
   };
   return (
     <div className="w-96  mr-auto ml-auto h-90vh pt-16">

@@ -9,7 +9,7 @@ const OtpInput = () => {
   const navigate = useNavigate();
   const datasent = location.state;
 
-  const [timerCount, setTimer] = useState(30);
+  const [timerCount, setTimer] = useState(300);
   const [OTPinput, setOTPinput] = useState([0, 0, 0, 0]);
   const [disable, setDisable] = useState(true);
   const [recoveryData, setRecoveryData] = useState({
@@ -25,8 +25,8 @@ const OtpInput = () => {
   
       const newRecoveryData = {
         username: datasent.username,
-        otp: OTP,
         email: datasent.email,
+        otp: OTP,
       };
   
       console.log("Datos email enviados al thunk:", newRecoveryData);
@@ -36,7 +36,7 @@ const OtpInput = () => {
   
       setRecoveryData(newRecoveryData);
       setDisable(true)
-      setTimer(30)
+      setTimer(300)
       navigate('/otpinput', { state: newRecoveryData });
   
       alert("Se ha enviado el nuevo código");
@@ -86,115 +86,60 @@ const OtpInput = () => {
 
 
   return (
-    <div>
-        <div className="flex flex-col items-center justify-center text-center space-y-2">
-            <div className="font-semibold text-3xl">
-              <p> Verificación por email!</p>
-            </div>
-            <div className="flex flex-row text-sm font-medium text-gray-400">
-              <p>{recoveryData.username} te enviamos un código a tu email {recoveryData.email}</p>
-            </div>
-        </div>
-        <form>
-        <div>
-                <div className="flex flex-row items-center justify-between mx-auto w-full max-w-xs">
-               
-                  <div className="w-16 h-16 ">
-                    <input
-                      maxLength="1"
-                      className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
-                      type="text"
-                      name=""
-                      id=""
-                      onChange={(e) =>
-                        setOTPinput([
-                          e.target.value,
-                          OTPinput[1],
-                          OTPinput[2],
-                          OTPinput[3],
-                        ])
-                      }
-                    ></input>
-                  </div>
-                  <div className="w-16 h-16 ">
-                    <input
-                      maxLength="1"
-                      className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
-                      type="text"
-                      name=""
-                      id=""
-                      onChange={(e) =>
-                        setOTPinput([
-                          OTPinput[0],
-                          e.target.value,
-                          OTPinput[2],
-                          OTPinput[3],
-                        ])
-                      }
-                    ></input>
-                  </div>
-                  <div className="w-16 h-16 ">
-                    <input
-                      maxLength="1"
-                      className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
-                      type="text"
-                      name=""
-                      id=""
-                      onChange={(e) =>
-                        setOTPinput([
-                          OTPinput[0],
-                          OTPinput[1],
-                          e.target.value,
-                          OTPinput[3],
-                        ])
-                      }
-                    ></input>
-                  </div>
-                  <div className="w-16 h-16 ">
-                    <input
-                      maxLength="1"
-                      className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
-                      type="text"
-                      name=""
-                      id=""
-                      onChange={(e) =>
-                        setOTPinput([
-                          OTPinput[0],
-                          OTPinput[1],
-                          OTPinput[2],
-                          e.target.value,
-                        ])
-                      }
-                    ></input>
-                  </div>
-                </div>
-                  <div>
-                    <a
-                      onClick={() => verfiyOTP()}
-                      className="flex flex-row cursor-pointer items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-chiliRed border-none text-white text-sm shadow-sm"
-                    >
-                      Verify Account
-                    </a>
-                  </div>
-                </div>
-                <div className="flex flex-row items-center justify-center text-center text-sm font-medium space-x-1 text-gray-500">
-                    <p>No recibiste el código?</p>{" "}
-                    <a
-                      className="flex flex-row items-center"
-                      style={{
-                        color: disable ? "grey" : "chiliRed",
-                        cursor: disable ? "none" : "pointer",
-                        textDecorationLine: disable ? "none" : "underline",
-                      }}
-                      onClick={() => resendOTP()}
-                    >
-                      {disable ? `Reenviar código en ${Math.floor(timerCount / 60)}:${timerCount % 60}s`: "Reenviar código"}
-                    </a>
-                </div>
-            </form>
-        </div>
-    
-  );
+    <div className="flex flex-col items-center justify-center text-center space-y-2">
+    <div className="font-semibold text-3xl text-chiliRed">
+      <FaLock />
+    </div>
+    <h1 className="font-semibold text-3xl"> Código de verificación</h1>
+    <br></br>
+    <div className="flex flex-row text-sm font-medium ">
+      <p>{recoveryData.username} te enviamos un código a tu email {recoveryData.email}</p>
+    </div>
+    <br></br>
+    <form className="w-full max-w-xs">
+      <div className="flex flex-row items-center justify-between mx-auto">
+        {Array.from({ length: 4 }).map((_, index) => (
+          <div key={index} className="w-16 h-16 ">
+            <input
+              maxLength="1"
+              className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-chiliRed text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
+              type="text"
+              name=""
+              id=""
+              onChange={(e) => {
+                const updatedInput = [...OTPinput];
+                updatedInput[index] = e.target.value;
+                setOTPinput(updatedInput);
+              }}
+            ></input>
+          </div>
+        ))}
+      </div>
+      <br></br>
+      <div>
+        <a
+          onClick={() => verfiyOTP()}
+          className="flex flex-row cursor-pointer items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-chiliRed border-none text-white text-sm shadow-sm"
+        >
+          Verifica tu cuenta
+        </a>
+      </div>
+      <div className="flex flex-row items-center justify-center text-center text-sm font-medium space-x-1 text-gray-500">
+        <p>No recibiste el código?</p>{" "}
+        <a
+          className={`flex flex-row items-center ${
+            disable
+              ? "text-gray-500 cursor-not-allowed"
+              : "text-chiliRed cursor-pointer underline"
+          }`}
+          onClick={() => resendOTP()}
+        >
+          {disable ? `Reenviar código en ${Math.floor(timerCount / 60)}:${timerCount % 60}s` : "Reenviar código"}
+        </a>
+      </div>
+    </form>
+  </div>
+);
 };
 
 export default OtpInput;

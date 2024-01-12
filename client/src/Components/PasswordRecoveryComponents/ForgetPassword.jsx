@@ -14,6 +14,8 @@ const ForgetPassword = () => {
     email: "",
     otp: "",
   });
+  
+const [errors, setErrors] =  useState({ email: ""})
 
   useEffect(() => {
     console.log(userData);
@@ -27,12 +29,25 @@ const ForgetPassword = () => {
     }
   }, [userData]);
 
+  const regexemail = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
+
+
   const handleChange = (event) => {
+    const { name, value } = event.target;
+  
+    // Validación de correo electrónico
+    if (name === "email" && !regexemail.test(value)) {
+      setErrors({ email: "Por favor ingrese un correo válido" });
+    } else {
+      setErrors({ email: "" });
+    }
+  
     setEmaildata({
       ...emailData,
-      [event.target.name]: event.target.value,
+      [name]: value,
     });
   };
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -44,14 +59,13 @@ const ForgetPassword = () => {
       navigate('/otpinput', { state: emailData });
     }
   };
-
   return (
-    <div>
-      <div>
+    <div className="flex flex-col items-center justify-center h-screen">
+      <div className="text-chiliRed text-4xl mb-6">
         <FaLock />
-        <h1>Recupera tu cuenta {emailData.username}</h1>
       </div>
-      <div>
+      <h1 className=" text-xl mb-6">Recupera tu cuenta {emailData.username}</h1>
+      <div className="w-1/2">
         <label className="block text-chiliRed mb-2">Ingresa tu correo:</label>
         <input
           type="email"
@@ -61,14 +75,15 @@ const ForgetPassword = () => {
           onChange={handleChange}
           className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
         />
+        <span className="text-chiliRed">{errors?.email}</span>
       </div>
       <button
         type="submit"
         onClick={handleSubmit}
-        className={`bg-chiliRed text-whiteSmoke mt-6 py-3 px-6 rounded-full w-full ${
+        className={`bg-chiliRed text-whiteSmoke mt-6 py-3 px-6 rounded-full w-1/4 ${
           !emailData.email && "opacity-50 cursor-not-allowed"
         }`}
-        disabled={!emailData.email}
+        disabled={!emailData.email || errors.email}
       >
         Enviar código
       </button>
@@ -77,3 +92,5 @@ const ForgetPassword = () => {
 };
 
 export default ForgetPassword;
+
+
