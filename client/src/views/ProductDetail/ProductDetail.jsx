@@ -51,6 +51,8 @@ function ProductDetail() {
 
   const productAll = useSelector((state) => state.products.products);
   const comments = useSelector((state) => state.comments.comments);
+  const commentsState = useSelector((state) => state.comments);
+  const { averageStars } = commentsState;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,6 +68,7 @@ function ProductDetail() {
   }
 
   const product = productsId[0];
+  const productId = parseInt(id, 10);
 
   // Este useEffect resetea setAddedToCart para que el boton vuelva a ser utilizable al navegar por la barra de productos recomendados:
   useEffect(() => {
@@ -264,15 +267,26 @@ function ProductDetail() {
           </div>
           <div className="flex flex-col">
             <h1 className="text-xl text-center text-eerieBlack  font-bold mb-2">
-              Calificación general del producto
-            </h1>
-            <span className="flex mx-auto text-chiliRed text-2xl">
-              <TiStarFullOutline />
-              <TiStarFullOutline />
-              <TiStarFullOutline />
-              <TiStarHalfOutline />
-              <TiStarOutline />
-            </span>
+            Calificación general del producto
+        </h1>
+        {averageStars !== null && (
+        <span className="flex mx-auto text-chiliRed text-2xl">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <span key={index}> 
+              {index + 1 <= (averageStars[productId] || 0) ? (
+                <TiStarFullOutline />
+              ) : index < (averageStars[productId] || 0) ? (
+                <TiStarHalfOutline />
+              ) : (
+                <TiStarOutline />
+                
+                
+        )}
+      </span>
+    ))}
+    
+  </span>
+)}
           </div>
         </div>
       </article>

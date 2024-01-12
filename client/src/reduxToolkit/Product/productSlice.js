@@ -76,6 +76,20 @@ export const productSlice = createSlice({
         return 0;
       });
     },
+    sortByRatingSuccess: (state, action) => {
+      state.status = 'succeeded';
+      const sortedProducts = action.payload.products.slice().sort((a, b) => {
+
+        if (b.rating === null) {
+          return -1; 
+        } else if (a.rating === null) {
+          return 1; 
+        } else {
+          return Number(b.rating) - Number(a.rating);
+        }
+      });
+      state.products = [...sortedProducts];
+    },
 
     deletedProductSlice: (state, action) => {
       state.status = "succeeded";
@@ -147,6 +161,7 @@ export const {
   searchProductSuccess,
   filterPriceSuccess,
   sortByPriceSuccess,
+  sortByRatingSuccess,
   filterBrandSuccess,
   filterPriceFailure,
   filterColorSuccess,
