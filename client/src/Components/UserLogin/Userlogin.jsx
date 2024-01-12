@@ -104,6 +104,11 @@ function UserLogin() {
               <span className="ml-2  text-chiliRed">Regístrese</span>
             </NavLink>
           </div>
+          <div className="mt-4 text-center">
+            <NavLink to="/forgetpassword">
+              <span className="ml-2  text-chiliRed">¿Olvidaste tu contraseña?</span>
+            </NavLink>
+          </div>
           <div className="text-center mt-4">---------- o ---------- </div>
           <div className="flex items-center justify-center text-center mt-4 h-12 border rounded-full bg-chiliRed  text-white">
             <LoginButton />

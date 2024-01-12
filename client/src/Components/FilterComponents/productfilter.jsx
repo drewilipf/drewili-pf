@@ -78,7 +78,7 @@ const ProductFilter = ({ setActualPage }) => {
       selectedBrand: "",
       selectedColor: "",
       minPrice: "0",
-      maxPrice: "600",
+      maxPrice: "23999",
     });
     setActualPage(1);
   };
