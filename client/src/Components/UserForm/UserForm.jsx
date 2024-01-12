@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { postUser } from "../../reduxToolkit/User/userThunks";
 import { postNotificationCreation } from "../../reduxToolkit/Notification/notificationThunks";
 import LoginButton from "../LoginButton";
+import ReCAPTCHA from "react-google-recaptcha";
 
 function UserForm() {
   const [input, setInput] = useState({
@@ -16,6 +17,8 @@ function UserForm() {
     role: "cliente",
     username: "",
   });
+  const [isRecaptcha, setIsRecaptcha]= useState (false)
+
   const [maildata, setMaildata] = useState(
     {
       name: "",
@@ -56,6 +59,10 @@ function UserForm() {
       [name]: validationErrors[name],
     }));
   };
+  const handleIsCaptcha = (value) =>{
+    console.log("captcha verificado: ", value)
+    setIsRecaptcha(true)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,7 +72,7 @@ function UserForm() {
     setErrors(validationErrors);
 
     // Comprobar si hay algún error antes de enviar la solicitud
-    if (Object.values(validationErrors).every((error) => error === "")) {
+    if (Object.values(validationErrors).every((error) => error === "") && isRecaptcha) {
       try {
         dispatch(postUser(input));
         
@@ -209,6 +216,12 @@ function UserForm() {
               onBlur={handleBlur}
               className="border rounded p-3 bg-whiteSmoke focus:outline-none w-full"
             />
+          </div>
+          <div>
+          <ReCAPTCHA
+          sitekey= "6Lee-E0pAAAAABEFRPClDMwRwWlf5dJXyhfeVwDr"
+          onChange={handleIsCaptcha}
+        />
           </div>
 
           <div className="mt-4">
