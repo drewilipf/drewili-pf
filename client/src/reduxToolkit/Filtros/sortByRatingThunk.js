@@ -1,6 +1,6 @@
 import { sortByRatingSuccess } from "../Product/productSlice";
 
-const API_URL = "http://localhost:3001/product/sortby/rating";
+const API_URL = "https://drewili-pf-back.onrender.com/product/sortby/rating";
 
 export const filterRating = () => {
   return async (dispatch) => {
