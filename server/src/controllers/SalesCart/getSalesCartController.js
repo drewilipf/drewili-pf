@@ -6,7 +6,7 @@ const getSalesCartController = async (userId) => {
         where: { user_id: userId },
         include: {
             model: Product,
-            attributes: ['id', 'name', 'image', 'price','stock'],
+            attributes: ['id', 'name', 'imageArray', 'price','stock'],
             include: [
                 {
                   model: Category,
@@ -32,7 +32,7 @@ const getSalesCartController = async (userId) => {
         id: product.product.id,
         stock: product.product.stock,
         name: product.product.name,
-        image: product.product.image,
+        image: product.product.imageArray[0],
         price: product.product.price,
         quantity: product.quantity,
         totalPrice: product.product.price*product.quantity,
