@@ -28,7 +28,7 @@ export const getComments = () => {
       const response = await axios.get(API_URL);
       dispatch(getCommentsSuccess({ comments: response.data }));
 
-      // Calculate and set average ratings for each product
+     
       response.data.forEach(comment => {
         dispatch(setAverageStars({ productId: comment.productId, averageStars: calculateAverageStarsByProduct(response.data, comment.productId) }));
       });

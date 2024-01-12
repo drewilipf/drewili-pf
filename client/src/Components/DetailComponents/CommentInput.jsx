@@ -6,7 +6,7 @@ import { postComment } from "../../reduxToolkit/Comment/commentThunks";
 const CommentInput = ({ user_id, product_id, onCommentPosted }) => {
   const dispatch = useDispatch();
   const [comment, setComment] = useState("");
-  const [rating, setRating] = useState(0);  // Nuevo estado para la clasificación
+  const [rating, setRating] = useState(0);  
   const [commentPosted, setCommentPosted] = useState(false);
 
   const handleCommentChange = (e) => {
@@ -19,7 +19,7 @@ const CommentInput = ({ user_id, product_id, onCommentPosted }) => {
 
   const handlePostComment = () => {
     if (comment.trim() === "") {
-      console.error("Por favor, introduce un comentario antes de enviar.");
+      alert("Por favor, introduce un comentario antes de enviar.");
       return;
     }
 
