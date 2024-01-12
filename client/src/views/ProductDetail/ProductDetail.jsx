@@ -180,7 +180,17 @@ function ProductDetail() {
   };
 
   const settings2 = {
+    customPaging: function (i) {
+      return (
+        <div className="tablet:w-16vw tablet:h-16 bg-whiteSmoke mt-16">
+          <a key={i} href="#">
+            <img src={product.imageArray?.[i]} alt={`thumbnail-${i}`} className="w-full h-full object-contain mx-auto" />
+          </a>
+        </div>
+      );
+    },
     dots: true,
+    dotsClass: "slick-dots slick-thumb",
     infinite: false,
     speed: 500,
     slidesToShow: 1,
@@ -205,15 +215,10 @@ function ProductDetail() {
           <Slider {...settings2}>
             {
               product.imageArray?.map((img) => (
-                <img src={img} className="w-40vw h-72 object-contain mx-auto" />
+                <img src={img} className="w-40vw h-64 object-contain mx-auto" />
               ))
             }
           </Slider>
-          {/* <img
-            src={product?.image}
-            alt={product?.name}
-            className="tablet:h-40vh tablet:w-40vw object-contain mx-auto"
-          /> */}
         </div>
 
         <div className="bg-whiteSmoke tablet:ml-8 p-8 flex flex-col">
@@ -282,7 +287,7 @@ function ProductDetail() {
       </h2>
       <article className=" rounded tablet:w-60vw bg-chiliRed">
         <Slider {...settings}>
-          {limitedRecommendedProducts?.map((recommendedProduct, index) =>(
+          {limitedRecommendedProducts?.map((recommendedProduct, index) => (
             <div key={index}>
               <NavLink to={`/detail/${recommendedProduct.id}`}>
                 <div className="mx-2 my-2 flex flex-col items-center p-2 shadow-md rounded tablet:h-40 tablet:w-72 bg-whiteSmoke hover:shadow-xl">

@@ -127,8 +127,8 @@ function Productcard({
     dots: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToShow: 1,  // Número de imágenes a mostrar por defecto
+    slidesToScroll: 1,
   };
 
   return (
@@ -137,21 +137,16 @@ function Productcard({
         to={`/detail/${id}`}
         className="flex flex-col items-center justify-center"
       >
-        <img
-          src={image}
-          alt={name}
-          className="w-full h-52 object-contain object-center rounded-t"
-        />
         <div className="tablet:w-48">
 
-        <Slider {...settings}>
-          {
-            images?.map((img) => (
-              <img src={img} className="w-full h-52 object-contain">
-              </img>
-            ))
-          }
-        </Slider>
+          <Slider {...settings}>
+            {
+              images?.map((img) => (
+                <img src={img} className="w-full h-52 object-contain object-center rounded-t">
+                </img>
+              ))
+            }
+          </Slider>
         </div>
         <div className="mt-4 text-center">
           <h2 className="text-lg font-semibold">{name}</h2>
