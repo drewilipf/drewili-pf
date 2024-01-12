@@ -1,0 +1,203 @@
+import React, { useEffect, useState } from "react";
+import { FaLock } from 'react-icons/fa';
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+const OtpInput = () => {
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const datasent = location.state;
+
+  const [timerCount, setTimer] = useState(30);
+  const [OTPinput, setOTPinput] = useState([0, 0, 0, 0]);
+  const [disable, setDisable] = useState(true);
+  const [recoveryData, setRecoveryData] = useState({
+    username: "",
+    email: "",
+    otp: "",
+  });
+ 
+  function resendOTP() {
+    if (!disable) {
+      const OTP = Math.floor(Math.random() * 9000 + 1000);
+      console.log("nuevo OTP", OTP);
+  
+      const newRecoveryData = {
+        username: datasent.username,
+        otp: OTP,
+        email: datasent.email,
+      };
+  
+      console.log("Datos email enviados al thunk:", newRecoveryData);
+  
+      // Dispatch the action or perform any other necessary logic
+      // dispatch(postNotificationAdminConfirmBuy(newRecoveryData));
+  
+      setRecoveryData(newRecoveryData);
+      setDisable(true)
+      setTimer(30)
+      navigate('/otpinput', { state: newRecoveryData });
+  
+      alert("Se ha enviado el nuevo código");
+    }
+  }
+  
+  useEffect(() => {
+   // para actualizar el estado local con los datos enviados al correo
+    if (datasent) {
+      setRecoveryData({
+        username: datasent.username,
+        otp: datasent.otp,
+        email: datasent.email
+      });
+    }
+    console.log("este es mi recovery data actual", recoveryData)
+    //para setear el contador del nuevo envío del código
+    let interval = setInterval(() => {
+        setTimer((lastTimerCount) => {
+          lastTimerCount <= 1 && clearInterval(interval);
+          if (lastTimerCount <= 1) setDisable(false);
+  
+          const minutes = Math.floor(lastTimerCount / 60);
+          const seconds = lastTimerCount % 60;
+  
+          if (lastTimerCount <= 0) return lastTimerCount;
+          return lastTimerCount - 1;
+        });
+      }, 1000);
+      return () => clearInterval(interval);
+      
+    }, [datasent, disable]);
+
+
+  function verfiyOTP() {
+    if (parseInt(OTPinput.join("")) === recoveryData.otp) {
+      console.log("codigo correcto")
+      navigate('/verificationsuccess', { state: recoveryData });
+      return;
+    }
+    alert(
+      "El código ingresado no es correcto, por favor ingreselo correctamente o solicite uno nuevo"
+    );
+    return;
+  }
+
+
+
+  return (
+    <div>
+        <div className="flex flex-col items-center justify-center text-center space-y-2">
+            <div className="font-semibold text-3xl">
+              <p> Verificación por email!</p>
+            </div>
+            <div className="flex flex-row text-sm font-medium text-gray-400">
+              <p>{recoveryData.username} te enviamos un código a tu email {recoveryData.email}</p>
+            </div>
+        </div>
+        <form>
+        <div>
+                <div className="flex flex-row items-center justify-between mx-auto w-full max-w-xs">
+               
+                  <div className="w-16 h-16 ">
+                    <input
+                      maxLength="1"
+                      className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
+                      type="text"
+                      name=""
+                      id=""
+                      onChange={(e) =>
+                        setOTPinput([
+                          e.target.value,
+                          OTPinput[1],
+                          OTPinput[2],
+                          OTPinput[3],
+                        ])
+                      }
+                    ></input>
+                  </div>
+                  <div className="w-16 h-16 ">
+                    <input
+                      maxLength="1"
+                      className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
+                      type="text"
+                      name=""
+                      id=""
+                      onChange={(e) =>
+                        setOTPinput([
+                          OTPinput[0],
+                          e.target.value,
+                          OTPinput[2],
+                          OTPinput[3],
+                        ])
+                      }
+                    ></input>
+                  </div>
+                  <div className="w-16 h-16 ">
+                    <input
+                      maxLength="1"
+                      className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
+                      type="text"
+                      name=""
+                      id=""
+                      onChange={(e) =>
+                        setOTPinput([
+                          OTPinput[0],
+                          OTPinput[1],
+                          e.target.value,
+                          OTPinput[3],
+                        ])
+                      }
+                    ></input>
+                  </div>
+                  <div className="w-16 h-16 ">
+                    <input
+                      maxLength="1"
+                      className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
+                      type="text"
+                      name=""
+                      id=""
+                      onChange={(e) =>
+                        setOTPinput([
+                          OTPinput[0],
+                          OTPinput[1],
+                          OTPinput[2],
+                          e.target.value,
+                        ])
+                      }
+                    ></input>
+                  </div>
+                </div>
+                  <div>
+                    <a
+                      onClick={() => verfiyOTP()}
+                      className="flex flex-row cursor-pointer items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-chiliRed border-none text-white text-sm shadow-sm"
+                    >
+                      Verify Account
+                    </a>
+                  </div>
+                </div>
+                <div className="flex flex-row items-center justify-center text-center text-sm font-medium space-x-1 text-gray-500">
+                    <p>No recibiste el código?</p>{" "}
+                    <a
+                      className="flex flex-row items-center"
+                      style={{
+                        color: disable ? "grey" : "chiliRed",
+                        cursor: disable ? "none" : "pointer",
+                        textDecorationLine: disable ? "none" : "underline",
+                      }}
+                      onClick={() => resendOTP()}
+                    >
+                      {disable ? `Reenviar código en ${Math.floor(timerCount / 60)}:${timerCount % 60}s`: "Reenviar código"}
+                    </a>
+                </div>
+            </form>
+        </div>
+    
+  );
+};
+
+export default OtpInput;
+
+
+

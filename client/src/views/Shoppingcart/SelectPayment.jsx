@@ -127,10 +127,6 @@ const SelectPayment = () => {
   };
   
   const handlePdf = async () => {
-    console.log("Datos combinados enviados al componente payment:", emailData);
-    console.log("Datos combinados purchase:", purchaseHistory);
-    console.log("Este es el shipping info:", shippingInfo);
-    console.log("Este es el dropshipping info:", dropshippingInfo);
     navigate('/payment/payment', { state: emailData });
     await axios.post(`https://drewili-pf-back.onrender.com/history/${userId}`, {cartItems: listItems})
     dispatch(allDelete(userId))

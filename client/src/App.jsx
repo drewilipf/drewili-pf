@@ -28,7 +28,8 @@ import Footer from "./Components/Footer/Footer";
 import PurchaseHistoryComponent from "./views/UserProfile/purchaseHistory";
 import ShoppingHistory from "./Components/DashboardComponents/ShoppingHistory/ShoppingHistory";
 import Creators from "./Components/Footer/Desarrolladores";
-import ForgetPassword from "./Components/UserLogin/ForgetPassword";
+import ForgetPassword from "./Components/PasswordRecoveryComponents/ForgetPassword";
+import OtpInput from "./Components/PasswordRecoveryComponents/OtpInput";
 
 function App() {
   const dispacth = useDispatch();
@@ -78,6 +79,7 @@ function App() {
           <Route path="/userform" element={<UserForm />} />
           <Route path="/userlogin" element={<UserLogin />} />
           <Route path="/forgetpassword" element={<ForgetPassword />} />
+          <Route path="/otpinput" element={<OtpInput />} />
           <Route path="/about" element={<About />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/createProduct" element={<CreateProduct />} />
