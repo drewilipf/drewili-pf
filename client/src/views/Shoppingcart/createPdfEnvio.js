@@ -7,13 +7,14 @@ const generatePDF = (data) => {
 
   // Convertir el PDF a Blob
   const blob = pdf.output("blob");
+  return blob;
 
   // Crear un objeto FormData y agregar el Blob
   const formData = new FormData();
   formData.append("pdf", blob);
 
   // Enviar el FormData al servidor
-  enviarFormDataAlServidor(formData);
+  //enviarFormDataAlServidor(formData);
 };
 
 export const enviarFormDataAlServidor = (formData) => {
