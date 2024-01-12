@@ -9,11 +9,10 @@ import ProductFilter from "../../Components/FilterComponents/productfilter";
 import { useLocation } from "react-router-dom";
 import Searchbar from "../../Components/Searchbar/Searchbar";
 
-
 function Home({ actualPage, handlePageChange, setActualPage }) {
   const { products } = useSelector((state) => state.products);
-  const location = useLocation()
-  console.log(products);
+  const location = useLocation();
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProducts());
@@ -35,19 +34,16 @@ function Home({ actualPage, handlePageChange, setActualPage }) {
   return (
     <>
       <div className="flex flex-col tablet:flex-row tablet:items-start justify-center w-full pt-2 sm:items-center">
-
         {/* searchbar oculta para pantallas grandes */}
         <div className="p-8 tablet:hidden shadow-md">
-          {
-            location.pathname === "/" && (
-              <>
-                <Searchbar
-                  className="mx-auto"
-                  setActualPage={(num) => setActualPage(num)}
-                />
-              </>
-            )
-          }
+          {location.pathname === "/" && (
+            <>
+              <Searchbar
+                className="mx-auto"
+                setActualPage={(num) => setActualPage(num)}
+              />
+            </>
+          )}
         </div>
         {/* ---------------------------------------- */}
 

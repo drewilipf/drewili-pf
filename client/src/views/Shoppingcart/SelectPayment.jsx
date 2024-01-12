@@ -39,29 +39,34 @@ const SelectPayment = () => {
   const { usersGoogle } = useSelector((state) => state.users);
   const { priceTotal } = useSelector((state) => state.salesCart);
   const { shippingInfo } = useSelector((state) => state.shipping);
-  console.log(shippingInfo);
+
   const { dropshippingInfo } = useSelector((state) => state.shipping);
+
   const { opcionQuienRecibe } = useSelector((state) => state.shipping);
   const { opciontipoComprobante } = useSelector((state) => state.shipping);
   const { razonSocialFactura } = useSelector((state) => state.shipping);
   const { rucFactura } = useSelector((state) => state.shipping);
-  const QuienRecibira = "¿Quién recibirá el pedido?";
-  const TipoComprobante = "¿Qué tipo de comprobante desea?";
-  const Razon = "Razón Social";
-  const RUC = "RUC";
-  const Modalidad = "Modalidad de pago";
+
   const opcionR = opcionQuienRecibe;
   const opcionC = opciontipoComprobante;
   const combinedData = {
-    shippingInfo,
-    dropshippingInfo,
-    QuienRecibira: opcionR,
-    TipoComprobante: opcionC,
-    Razon: razonSocialFactura,
+    Nombre: shippingInfo.name,
+    Apellido: shippingInfo.lastname,
+    Dirección: shippingInfo.address,
+    "Correo electrónico": shippingInfo.email,
+    Celular: shippingInfo.phone,
+    "Nº de Documento": shippingInfo.dni,
+    Dropshipping: "Datos del Cliente",
+    "Nombre completo ": dropshippingInfo.name,
+    "Dirección de envío": dropshippingInfo.address,
+    Teléfono: dropshippingInfo.phone,
+    "Número de Documento": dropshippingInfo.dni,
+    "¿Quién recibirá el pedido?": opcionR,
+    "¿Qué tipo de comprobante desea?": opcionC,
+    "Razón Social": razonSocialFactura,
     RUC: rucFactura,
-    Modalidad: modalidadPago,
+    "modalidad de pago": modalidadPago,
   };
-  console.log(combinedData);
 
   const userId =
     (userSession && userSession.userId) ||
@@ -84,7 +89,7 @@ const SelectPayment = () => {
     setRazonSocial(razonSocial);
     dispatch(setRazonSocialSlice(razonSocial));
     setRuc(ruc);
-    console.log(ruc);
+
     dispatch(setRucSlice(ruc));
   };
 
@@ -95,7 +100,7 @@ const SelectPayment = () => {
     dispatch(setModalidadPagoSlice(modalidad));
   };
   const purchaseHistory = useSelector((state) => state.purchaseHistory.data);
-  console.log("este es el purchase history", purchaseHistory);
+
   const listItems = salesCart?.map((item) => ({
     idProduct: item.id,
     name: item.name,
