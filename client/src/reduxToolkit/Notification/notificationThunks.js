@@ -50,6 +50,20 @@ import {
       }
     };
   };
+
+  export const postNotificationRecoveryPassword = (emailData) => {
+    return async (dispatch) => {
+      try {
+        dispatch(postNotificationStart());
+        console.log("estos son los datos que recibe el thunk del recovery", emailData)
+        const response = await axios.post(`${API_URL}adminConfirmBuy`, emailData);
+  
+        dispatch(postNotificationSuccess({ notification: response.data }));
+      } catch (error) {
+        dispatch(postNotificationFailure({ error: error.message }));
+      }
+    };
+  };
  
   
   

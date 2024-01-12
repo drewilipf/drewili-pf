@@ -31,8 +31,7 @@ const OtpInput = () => {
   
       console.log("Datos email enviados al thunk:", newRecoveryData);
   
-      // Dispatch the action or perform any other necessary logic
-      // dispatch(postNotificationAdminConfirmBuy(newRecoveryData));
+      postLoginpostNotificationRecoveryPassword(newRecoveryData);
   
       setRecoveryData(newRecoveryData);
       setDisable(true)

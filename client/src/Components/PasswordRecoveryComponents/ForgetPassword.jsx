@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaLock } from 'react-icons/fa';
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { postLoginpostNotificationRecoveryPassword } from "../../reduxToolkit/Notification/notificationThunks"
 
 const ForgetPassword = () => {
   const dispatch = useDispatch();
@@ -54,8 +55,7 @@ const [errors, setErrors] =  useState({ email: ""})
 
     if (emailData && emailData.email) {
       console.log("Datos email enviados al thunk:", emailData);
-      // Completa la lógica de dispatch según tus necesidades
-      // dispatch(postNotificationAdminConfirmBuy(emailData));
+      postLoginpostNotificationRecoveryPassword(emailData);
       navigate('/otpinput', { state: emailData });
     }
   };
