@@ -16,6 +16,7 @@ export default {
     },
     extend: {
       width: {
+        "16vw": "16vw",
         "40vw": "40vw",
         "60vw": "70vw",
         "90vw": "80vw",

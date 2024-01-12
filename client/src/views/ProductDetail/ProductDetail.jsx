@@ -51,6 +51,8 @@ function ProductDetail() {
 
   const productAll = useSelector((state) => state.products.products);
   const comments = useSelector((state) => state.comments.comments);
+  const commentsState = useSelector((state) => state.comments);
+  const { averageStars } = commentsState;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,6 +68,7 @@ function ProductDetail() {
   }
 
   const product = productsId[0];
+  const productId = parseInt(id, 10);
 
   // Este useEffect resetea setAddedToCart para que el boton vuelva a ser utilizable al navegar por la barra de productos recomendados:
   useEffect(() => {
@@ -179,17 +182,84 @@ function ProductDetail() {
     slidesToScroll: 1
   };
 
-  const settings2 = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    prevArrow: null,
-    nextArrow: null
+  const SampleNextArrow = (props) => {
+    const [isMobile, setIsMobile] = useState(false);
+  
+    useEffect(() => {
+      const handleResize = () => {
+        setIsMobile(window.innerWidth <= 769);
+      };
+  
+      handleResize(); // Llama a la función una vez para establecer el estado inicial
+  
+      window.addEventListener("resize", handleResize);
+  
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }, []);
+  
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{
+          ...style,
+          display: isMobile ? "none" : "block", // Oculta en dispositivos móviles
+          background: "#E62F05",
+          borderRadius: '5px',
+          paddingTop: '1px'
+        }}
+        onClick={onClick}
+      />
+    );
   };
-
-  const specificationsFormatted = product?.specifications.split(', ')
+  
+  const SamplePrevArrow = (props) => {
+    const [isMobile, setIsMobile] = useState(false);
+  
+    useEffect(() => {
+      const handleResize = () => {
+        setIsMobile(window.innerWidth <= 769);
+      };
+  
+      handleResize(); // Llama a la función una vez para establecer el estado inicial
+  
+      window.addEventListener("resize", handleResize);
+  
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }, []);
+  
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{
+          ...style,
+          display: isMobile ? "none" : "block", // Oculta en dispositivos móviles
+          background: "#E62F05",
+          borderRadius: '5px',
+          paddingTop: '1px'
+        }}
+        onClick={onClick}
+      />
+    );
+  };
+      
+      const settings2 = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autplayspeed: 2000,
+        nextArrow: <SampleNextArrow />,
+        prevArrow: <SamplePrevArrow />,
+      };
+      const specificationsFormatted = product?.specifications.split(', ')
 
   console.log(product);
 
@@ -197,26 +267,21 @@ function ProductDetail() {
 
   return (
     <div className="tablet:w-60vw tablet:mx-auto">
-      <NavLink to="/" className="inline-block mr-2 text-onyx hover:text-chiliRed">
+      <NavLink to="/" className="inline-block text-onyx hover:text-chiliRed">
         <AiOutlineLeft style={{ fontSize: "1.5rem", strokeWidth: 3 }} />
       </NavLink>
-      <article className="tablet:flex p-2">
-        <div className="bg-white shadow-xl tablet:ml-5 p-4 tablet:w-40vw tablet:h-40vh py-20">
+      <article className="tablet:flex">
+        <div className="shadow-xl tablet:ml-5 tablet:w-40vw tablet:h-auto bg-white border-grey border-[1px] sm:m-6 rounded">
           <Slider {...settings2}>
-            {
-              product.imageArray?.map((img) => (
-                <img src={img} className="w-40vw h-72 object-contain mx-auto" />
-              ))
-            }
-          </Slider>
-          {/* <img
-            src={product?.image}
-            alt={product?.name}
-            className="tablet:h-40vh tablet:w-40vw object-contain mx-auto"
-          /> */}
+            {product.imageArray?.map((img, index) => (
+              <div key={index} className="p-20">
+                <img src={img} className="w-40vw h-64 object-contain mx-auto" />
+              </div>
+            ))}
+            </Slider>
         </div>
 
-        <div className="bg-whiteSmoke tablet:ml-8 p-8 flex flex-col">
+        <div className=" tablet:ml-8 p-8 flex flex-col border-grey border-[1px] rounded-xl tablet:w-[500px] sm:w-[60%] mx-auto">
           <h1 className="text-xl font-bold text-center">{product?.name}</h1>
           <h2>S/ {product?.price}</h2>
           <span>
@@ -224,7 +289,7 @@ function ProductDetail() {
             <h2 className="text-xl text-chiliRed block">Disponibles:</h2>
             <p>{product?.stock}</p>
           </span>
-          <div className="m-8 flex items-center justify-between">
+          <div className="m-8 flex items-center flex-col justify-between">
             {product?.stock === 0 ? (
               <button
                 className="bg-onyx text-whiteSmoke font-semibold p-2 m-2 rounded-full hover:shadow-xl"
@@ -239,7 +304,7 @@ function ProductDetail() {
             ) : (
               <button
                 onClick={handleAddToCart}
-                className="bg-chiliRed text-whiteSmoke font-semibold p-2 m-2 rounded-full hover:shadow-xl"
+                className="bg-chiliRed text-whiteSmoke font-semibold p-2 m-2 rounded-full hover:shadow-xl w-[100%]"
                 disabled={loading || addedToCart}
               >
                 {loading
@@ -252,7 +317,7 @@ function ProductDetail() {
 
             <button
               onClick={handleAddToFavorite}
-              className="bg-chiliRed text-whiteSmoke font-semibold p-2 m-2 rounded-full hover:shadow-xl"
+              className="bg-chiliRed text-whiteSmoke font-semibold p-2 m-2 rounded-full hover:shadow-xl w-[100%]"
               disabled={loadingFav || addedToFavorites}
             >
               {loadingFav
@@ -262,17 +327,29 @@ function ProductDetail() {
                   : "Agregar a favoritos"}
             </button>
           </div>
+          <hr />
           <div className="flex flex-col">
             <h1 className="text-xl text-center text-eerieBlack  font-bold mb-2">
-              Calificación general del producto
-            </h1>
-            <span className="flex mx-auto text-chiliRed text-2xl">
-              <TiStarFullOutline />
-              <TiStarFullOutline />
-              <TiStarFullOutline />
-              <TiStarHalfOutline />
-              <TiStarOutline />
-            </span>
+            Calificación general del producto
+        </h1>
+        {averageStars !== null && (
+        <span className="flex mx-auto text-chiliRed text-2xl">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <span key={index}> 
+              {index + 1 <= (averageStars[productId] || 0) ? (
+                <TiStarFullOutline />
+              ) : index < (averageStars[productId] || 0) ? (
+                <TiStarHalfOutline />
+              ) : (
+                <TiStarOutline />
+                
+                
+        )}
+      </span>
+    ))}
+    
+  </span>
+)}
           </div>
         </div>
       </article>
@@ -280,12 +357,12 @@ function ProductDetail() {
       <h2 className="text-xl text-center mb-2 font-bold mt-10">
         Productos relacionados
       </h2>
-      <article className=" rounded tablet:w-60vw bg-chiliRed">
+      <article className=" rounded tablet:w-60vw shadow-xl bg-white block">
         <Slider {...settings}>
-          {limitedRecommendedProducts?.map((recommendedProduct, index) =>(
+          {limitedRecommendedProducts?.map((recommendedProduct, index) => (
             <div key={index}>
               <NavLink to={`/detail/${recommendedProduct.id}`}>
-                <div className="mx-2 my-2 flex flex-col items-center p-2 shadow-md rounded tablet:h-40 tablet:w-72 bg-whiteSmoke hover:shadow-xl">
+                <div className="mx-2 my-2 flex flex-col items-center p-2 shadow-md rounded tablet:h-40 tablet:w-[225px] bg-whiteSmoke hover:shadow-xl">
                   <img src={recommendedProduct.images?.[0]} alt={recommendedProduct.name} className="max-w-24 h-24 object-contain" />
                   <h2>
                     {recommendedProduct.name}

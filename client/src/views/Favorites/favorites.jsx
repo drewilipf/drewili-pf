@@ -7,6 +7,7 @@ import { NavLink } from "react-router-dom";
 
 const Favorites = () => {
   const [favoriteProducts, setFavoriteProducts] = useState([]);
+  console.log(favoriteProducts);
   const userSessionFromCookies = Cookies.get("userSession");
   const userGoogleFromCookies = Cookies.get("userGoogle");
   const userSession = userSessionFromCookies
@@ -69,14 +70,14 @@ const Favorites = () => {
             <img
               src={item.image}
               alt={item.name}
-              className="w-36 h-36 rounded-md"
+              className="w-36 h-36 rounded-md object-contain"
             />
             <span className="text-lg">{item.name}</span>
           </NavLink>
 
           <button
             onClick={() => handleRemoveFromFavorites(item.favorited)}
-            className="text-red-500 hover:text-red-700 transition duration-300"
+            className="text-red-500 hover:text-chiliRed transition duration-300"
           >
             <img src={binIcon} alt="quitar" className="w-6 h-6" />
           </button>
