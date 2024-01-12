@@ -11,6 +11,7 @@ const sortRecommendedProductHandler = require('../handlers/Product/sortByRecomme
 const sortProductsDateHandler = require('../handlers/Product/sortDateHandler')
 const sortProductsByRatingHandler = require('../handlers/Product/sortByRatingHandler')
 const updateRelevanceHandler = require('../handlers/Product/putProductRelevanceHandler')
+const sortProductsByRelevanceHandler = require('../handlers/Product/sortByRelevanceHandler')
 
 
 
@@ -20,6 +21,7 @@ router.get("/", getProductsHandler)
 router.get("/product", getProductKeyWordHandler)
 router.get("/recommended", sortRecommendedProductHandler)
 router.get("/date", sortProductsDateHandler)
+router.get("/relevance", sortProductsByRelevanceHandler)
 router.get("/sortby/rating", sortProductsByRatingHandler)
 router.get('/:id', getProductId)
 router.post("/", postProductsHandler)
