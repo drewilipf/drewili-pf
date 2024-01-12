@@ -10,23 +10,36 @@ import { useLocation } from "react-router-dom";
 import Searchbar from "../../Components/Searchbar/Searchbar";
 import SortDropdown from "../../Components/FilterComponents/sortByRatingComponent";
 
-
 function Home({ actualPage, handlePageChange, setActualPage }) {
   const { products } = useSelector((state) => state.products);
-  const location = useLocation()
-  console.log(products);
+  const location = useLocation();
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(getProducts());
-  // }, [dispatch]);
+
+  useEffect(() => {
+    // Agregar el script de Tawk.to solo cuando el componente Home se monta
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.async = true;
+    script.src = 'https://embed.tawk.to/65a19f178d261e1b5f52a94f/1hjvlatkp';
+    script.charset = 'UTF-8';
+    script.setAttribute('crossorigin', '*');
+    document.body.appendChild(script);
+
+    // Cleanup: Remover el script cuando el componente Home se desmonta
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []); // El segundo parámetro [] asegura que este efecto se ejecute solo una vez al montar el componente
 
   if (!products) {
     return <div>Cargando...</div>;
   }
+
   if (!Array.isArray(products)) {
     console.error("El estado de los productos no es un array:", products);
     return <div>Error al cargar los productos</div>;
   }
+
   const cardsXpage = 9;
   const indexOfLastCard = actualPage * cardsXpage;
   const indexOfFirstCard = indexOfLastCard - cardsXpage;
