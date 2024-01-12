@@ -60,7 +60,8 @@ const commentSlice = createSlice({
       state.error = action.payload.error;
     },
     setAverageStars: (state, action) => {
-      state.averageStars = action.payload;
+      const { productId, averageStars } = action.payload;
+      state.averageStars[productId] = averageStars;
     },
   },
 });

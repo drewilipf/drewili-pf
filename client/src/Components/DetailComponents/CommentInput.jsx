@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import StarRating from "./RatingComponent";  // Asegúrate de proporcionar la ruta correcta
 import { postComment } from "../../reduxToolkit/Comment/commentThunks";
 
 const CommentInput = ({ user_id, product_id, onCommentPosted }) => {
   const dispatch = useDispatch();
   const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(0);  // Nuevo estado para la clasificación
   const [commentPosted, setCommentPosted] = useState(false);
 
   const handleCommentChange = (e) => {
     setComment(e.target.value);
+  };
+
+  const handleRatingChange = (newRating) => {
+    setRating(newRating);
   };
 
   const handlePostComment = () => {
@@ -17,14 +23,15 @@ const CommentInput = ({ user_id, product_id, onCommentPosted }) => {
       return;
     }
 
-    dispatch(postComment(user_id, product_id, comment)).then(() => {
+    dispatch(postComment(user_id, product_id, comment, rating)).then(() => {
       setCommentPosted(true);
-      onCommentPosted({ comment }); 
+      onCommentPosted({ comment, rating });
     });
   };
 
   return (
     <div className="">
+      <StarRating rating={rating} onRatingChange={handleRatingChange} />
       <textarea
         className="border-chiliRed border mt-4 w-3/4 h-1/2 rounded-md p-2 text-black font-arial text-base"
         rows="3"
