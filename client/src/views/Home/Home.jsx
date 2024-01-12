@@ -16,9 +16,9 @@ function Home({ actualPage, handlePageChange, setActualPage }) {
   const location = useLocation()
   console.log(products);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getProducts());
+  // }, [dispatch]);
 
   if (!products) {
     return <div>Cargando...</div>;

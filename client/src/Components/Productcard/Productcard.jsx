@@ -123,12 +123,10 @@ function Productcard({
     }
   };
 
-  const settings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1
+  const MAX_NAME_LENGTH = 25;
+
+  const TruncateText = ({ text, maxLength }) => {
+    return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
   };
 
   return (
@@ -137,24 +135,14 @@ function Productcard({
         to={`/detail/${id}`}
         className="flex flex-col items-center justify-center"
       >
-        <img
-          src={image}
-          alt={name}
-          className="w-full h-52 object-contain object-center rounded-t"
-        />
         <div className="tablet:w-48">
-
-        <Slider {...settings}>
-          {
-            images?.map((img) => (
-              <img src={img} className="w-full h-52 object-contain">
-              </img>
-            ))
-          }
-        </Slider>
+           
+                <img src={images?.[0]} className="w-full h-52 object-contain object-center rounded-t">
+                </img>
+          
         </div>
         <div className="mt-4 text-center">
-          <h2 className="text-lg font-semibold">{name}</h2>
+          <h2 className="text-lg font-semibold">{TruncateText({text: name.toUpperCase(), maxLength: MAX_NAME_LENGTH})}</h2>
           <div className="flex justify-between items-center mt-2 flex-col">
             <h3 className="text-gray-600 font-bold">S/ {price}</h3>
             <h3 className="text-gray-600">{color}</h3>
