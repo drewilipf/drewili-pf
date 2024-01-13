@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaLock } from 'react-icons/fa';
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { postNotificationRecoveryPassword } from "../../reduxToolkit/Notification/notificationThunks"
 
 const OtpInput = () => {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ const OtpInput = () => {
   
       console.log("Datos email enviados al thunk:", newRecoveryData);
   
-      postLoginpostNotificationRecoveryPassword(newRecoveryData);
+      dispatch(postNotificationRecoveryPassword(newRecoveryData));
   
       setRecoveryData(newRecoveryData);
       setDisable(true)
@@ -47,8 +48,9 @@ const OtpInput = () => {
     if (datasent) {
       setRecoveryData({
         username: datasent.username,
+        email: datasent.email,
         otp: datasent.otp,
-        email: datasent.email
+        
       });
     }
     console.log("este es mi recovery data actual", recoveryData)

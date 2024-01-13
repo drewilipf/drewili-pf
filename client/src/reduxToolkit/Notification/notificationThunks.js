@@ -56,7 +56,7 @@ import {
       try {
         dispatch(postNotificationStart());
         console.log("estos son los datos que recibe el thunk del recovery", emailData)
-        const response = await axios.post(`${API_URL}adminConfirmBuy`, emailData);
+        const response = await axios.post(`${API_URL}recoverPass`, emailData);
   
         dispatch(postNotificationSuccess({ notification: response.data }));
       } catch (error) {

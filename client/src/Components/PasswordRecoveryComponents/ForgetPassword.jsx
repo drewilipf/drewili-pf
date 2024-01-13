@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaLock } from 'react-icons/fa';
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { postLoginpostNotificationRecoveryPassword } from "../../reduxToolkit/Notification/notificationThunks"
+import { postNotificationRecoveryPassword } from "../../reduxToolkit/Notification/notificationThunks"
 
 const ForgetPassword = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,6 @@ const ForgetPassword = () => {
 const [errors, setErrors] =  useState({ email: ""})
 
   useEffect(() => {
-    console.log(userData);
     if (userData) {
       // Genera el OTP una vez cuando userData está presente
       const OTP = Math.floor(Math.random() * 9000 + 1000);
@@ -54,8 +53,7 @@ const [errors, setErrors] =  useState({ email: ""})
     event.preventDefault();
 
     if (emailData && emailData.email) {
-      console.log("Datos email enviados al thunk:", emailData);
-      postLoginpostNotificationRecoveryPassword(emailData);
+      dispatch(postNotificationRecoveryPassword(emailData));
       navigate('/otpinput', { state: emailData });
     }
   };
