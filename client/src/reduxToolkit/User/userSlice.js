@@ -4,6 +4,7 @@ const initialState = {
   user: null,
   userId: null,
   usersGoogle: null,
+  userModificationResult: null,
 };
 
 export const userSlice = createSlice({
@@ -28,6 +29,9 @@ export const userSlice = createSlice({
     postGoogleSlice: (state, action) => {
       state.usersGoogle = action.payload;
     },
+    putPassRecoverySlice: (state, action) => {
+      state.userModificationResult = action.payload;
+    },
   },
 });
 
@@ -38,5 +42,6 @@ export const {
   getUserByIdSlice,
   deletedUserSlice,
   postGoogleSlice,
+  putPassRecoverySlice,
 } = userSlice.actions;
 export default userSlice.reducer;

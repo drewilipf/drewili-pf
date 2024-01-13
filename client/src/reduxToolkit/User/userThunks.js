@@ -1,10 +1,11 @@
-import {
+import userSlice, {
   getUserSlice,
   postUserSlice,
   putUserSlice,
   getUserByIdSlice,
   deletedUserSlice,
   postGoogleSlice,
+  putPassRecoverySlice,
 } from "./userSlice";
 import axios from "axios";
 
@@ -83,3 +84,35 @@ export const postGoogle = (userData) => {
     }
   };
 };
+
+export const putPassRecovery = (passrecoverydata) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(`${API_URL}/password/update`, passrecoverydata);
+      console.log("estos son los datos que recibe el thunk de put", passrecoverydata);
+
+      // Verificar si la respuesta tiene un código de estado 200
+      if (response.status === 200) {
+        const userModificated = response.data;
+        console.log("usermodificated", userModificated)
+        // Despachar la acción para actualizar el estado con el resultado de la modificación de contraseña
+        dispatch(putPassRecoverySlice({ userModificationResult: { success: true, data: userModificated } }));
+
+        console.log("usermodificated", userModificated)
+      } else {
+        console.error("Error en la solicitud:", response.status);
+
+        // Despachar la acción para actualizar el estado con el resultado de la modificación de contraseña (en caso de error)
+        dispatch(putPassRecoverySlice({ userModificationResult: { success: false, error: "Error en la solicitud" } }));
+      }
+    } catch (error) {
+      console.error("Error al enviar datos:", error);
+
+      // Despachar la acción para actualizar el estado con el resultado de la modificación de contraseña (en caso de error)
+      dispatch(putPassRecoverySlice({ userModificationResult: { success: false, error: error.message } }));
+    }
+  };
+};
+
+
+

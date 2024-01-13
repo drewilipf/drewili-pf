@@ -1,75 +1,93 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import { useDispatch } from "react-redux";
 import { postLogin } from "../../reduxToolkit/Login/loginThunks";
-import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import LoginButton from "../LoginButton";
 import { NavLink} from "react-router-dom";
+import { FaLock } from 'react-icons/fa';
+import { useLocation, useNavigate } from "react-router-dom";
+import { postNotificationRecoveryPassword } from "../../reduxToolkit/Notification/notificationThunks"
+import { putPassRecovery } from "../../reduxToolkit/User/userThunks";
 
 function VerificationSuccess() {
-  // ESTE COMPONENTE NO TIENE NADA AÚN, IGNORARLO POR FAVOR
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const datasent = location.state;
+
+  console.log("estos son los datos que recibe del componente anterior", datasent);
+
   const [input, setInput] = useState({
     newpassword: "",
     newpasswordconfirmation: "",
   });
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+
+  const [putdata, setPutdata] = useState({
+    username: "",
+    password: "",
+  });
+
+  useEffect(() => {
+    if (datasent) {
+      setPutdata({
+        username: datasent.username,
+        password: input.newpassword,
+      });
+    }
+    console.log("data para el put actual", putdata);
+  }, [datasent, input]);
 
   const handleChange = (event) => {
     setInput({
       ...input,
       [event.target.name]: event.target.value,
     });
-  };
-
-  const handleSuccessfulLogin = (userSession) => {
-    // Guardar información de sesión en una cookie
-    Cookies.set("userSession", JSON.stringify(userSession), { expires: 7 });
+    console.log(input);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const loginData = {
-      username: input.username,
-      password: input.password,
-    };
-  
 
     try {
-      const response = await dispatch(postLogin(loginData));
+      if (input.newpassword === input.newpasswordconfirmation) {
+        const response = await dispatch(putPassRecovery(putdata));
+        console.log("datos del componente enviados al thunk", putdata);
 
-      const { message, access, userSession } = response.data;
-      alert(message);
+        if (response && response.status === 200) {
+          // La solicitud fue exitosa, puedes realizar acciones adicionales aquí
+          console.log("La solicitud fue exitosa");}
+   //console.log("response data", response)
 
-      if (access && userSession) {
-        handleSuccessfulLogin(userSession);
+        /*const { message, access, userSession } = response.data;
+        alert(message);
+  
+        if (access && userSession) {
+          handleSuccessfulLogin(userSession);
+  
+          if (userSession.role === "admin") {
+            navigate("/dashboard");
+          } else if (userSession.role === "cliente") {
+            navigate("/");
+          }
+        }*/
 
-        if (userSession.role === "admin") {
-          navigate("/dashboard");
-        } else if (userSession.role === "cliente") {
-          navigate("/");
-        }
+
+      } else {
+        throw new Error("Las contraseñas no coinciden");
       }
     } catch (error) {
-      setTimeout(() => {
-        const userClickedOk = window.confirm(
-          "Usuario NO registrado o deshabilitado. ¿Quieres ir a la página de registro?"
-        );
-      }, 8000);
-      if (userClickedOk) {
-        navigate("/userform");
-      }
+      console.error("Error al enviar datos:", error.message);
+      // Mostrar mensaje de error al usuario
+      alert("Procedimiento incorrecto. Por favor, verifique sus datos.");
     }
-  };
-
-  const navigateRecovery = async () => {
-    navigate('/forgetpassword', { state: input });
   };
   return (
     <div className="w-96  mr-auto ml-auto h-90vh pt-16">
       <h1 className="text-2xl font-bold mb-4 flex items-center justify-center">
         Identidad verificada
       </h1>
+      <h3 className="text-l mb-4 flex items-center justify-center"> Por favor digite su nueva contraseña</h3>
+      <br></br>
       <form
         className="border border-chiliRed rounded p-6 text-arial text-base"
         onSubmit={handleSubmit}
@@ -78,10 +96,10 @@ function VerificationSuccess() {
           <div>
             <label className="block text-chiliRed mb-2">Contraseña</label>
             <input
-              type="text"
-              name="username"
-              placeholder="Ingrese su usuario"
-              value={input.username}
+              type="password"
+              name="newpassword"
+              placeholder="Ingrese su nueva contraseña"
+              value={input.newpassword}
               onChange={handleChange}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
@@ -90,9 +108,9 @@ function VerificationSuccess() {
             <label className="block text-chiliRed mb-2"> repetir Contraseña</label>
             <input
               type="password"
-              name="password"
-              placeholder="Ingrese su Contraseña"
-              value={input.password}
+              name="newpasswordconfirmation"
+              placeholder="Repita su contraseña"
+              value={input.newpasswordconfirmation}
               onChange={handleChange}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
@@ -103,19 +121,6 @@ function VerificationSuccess() {
           >
             Enviar
           </button>
-          <div className="mt-4 text-center">
-            <span>¿No tiene una cuenta?</span>
-            <NavLink to="/userform">
-              <span className="ml-2  text-chiliRed">Regístrese</span>
-            </NavLink>
-          </div>
-          <div className="mt-4 text-center">
-              <span className="ml-2  text-chiliRed" onClick={navigateRecovery}>¿Olvidó su contraseña?</span>
-          </div>
-          <div className="text-center mt-4">---------- o ---------- </div>
-          <div className="flex items-center justify-center text-center mt-4 h-12 border rounded-full bg-chiliRed  text-white">
-            <LoginButton />
-          </div>
         </div>
       </form>
     </div>
