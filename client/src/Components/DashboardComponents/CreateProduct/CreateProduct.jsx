@@ -74,60 +74,31 @@ function CreateProduct() {
   async function handleSumit(event) {
     event.preventDefault();
     try {
-      // let imageUrl = "";
       let arrayUrls = [];
 
-      // Subir la imagen a Cloudinary si hay un archivo seleccionado
       if (imageFile) {
-        imageFile.map(async (img) => {
-          const formData = new FormData();
-          formData.append("file", img);
-          formData.append("upload_preset", "wagnbv9p");
-
-          const response = await fetch(
-            "https://api.cloudinary.com/v1_1/dpj4n40t6/image/upload",
-            {
-              method: "POST",
-              body: formData,
-            }
-          );
-          console.log(response);
-
-          // const data = await response.json();
-          // imageUrl = data.secure_url;
-          const data = await response.json();
-          const imageUrl = data.secure_url;
-          arrayUrls.push(imageUrl);
-        });
+        await Promise.all(
+          imageFile.map(async (img) => {
+            const formData = new FormData();
+            formData.append("file", img);
+            formData.append("upload_preset", "wagnbv9p");
+  
+            const response = await fetch(
+              "https://api.cloudinary.com/v1_1/dpj4n40t6/image/upload",
+              {
+                method: "POST",
+                body: formData,
+              }
+            );
+  
+            const data = await response.json();
+            const imageUrl = data.secure_url;
+            arrayUrls.push(imageUrl);
+          })
+        );
       }
-
-      // if (newCategoryInput) {
-      //   const uppercaseCategory = newCategoryInput.toUpperCase();
-      //   const response = await dispatch(
-      //     postCategory({ category: uppercaseCategory })
-      //   );
-      //   const newCategoryId = response.payload.id;
-
-      //   productData.category_id = newCategoryId;
-      //   setInput((prevInput) => ({ ...prevInput, category_id: newCategoryId }));
-      // }
-      // if (newColorInput) {
-      //   const uppercaseColor = newColorInput.toUpperCase();
-      //   const response = await dispatch(postColor({ color: uppercaseColor }));
-      //   const newColorId = response.payload.id;
-
-      //   productData.color_id = newColorId;
-      //   setInput((prevInput) => ({ ...prevInput, color_id: newColorId }));
-      // }
-
-      // if (newBrandInput) {
-      //   const uppercaseBrand = newBrandInput.toUpperCase();
-      //   const response = await dispatch(postBrand({ brand: uppercaseBrand }));
-      //   const newBrandId = response.payload.id;
-
-      //   productData.brand_id = newBrandId;
-      //   setInput((prevInput) => ({ ...prevInput, brand_id: newBrandId }));
-      // }
+  
+     
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       const productData = {

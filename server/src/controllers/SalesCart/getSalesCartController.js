@@ -32,7 +32,7 @@ const getSalesCartController = async (userId) => {
         id: product.product.id,
         stock: product.product.stock,
         name: product.product.name,
-        image: product.product.imageArray[0],
+        images: product.product.imageArray[0],
         price: product.product.price,
         quantity: product.quantity,
         totalPrice: product.product.price*product.quantity,
