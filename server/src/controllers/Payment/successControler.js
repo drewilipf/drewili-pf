@@ -20,7 +20,10 @@ const successController = async (userId, updateProduct) => {
         paymentStatus: 'aprobado'
     }));
 
-    await PurchaseHistory.bulkCreate(purchaseHistoryData);
+    const newHistory = await PurchaseHistory.bulkCreate(purchaseHistoryData);
+
+    return newHistory
+
 };
 
 module.exports = successController;

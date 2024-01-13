@@ -10,7 +10,6 @@ const Payment = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const emailData = location.state;
-  console.log("datos recibidos en el nuevo componente", emailData);
 
   const [usermaildata, setUsermaildata] = useState({
     name: "",

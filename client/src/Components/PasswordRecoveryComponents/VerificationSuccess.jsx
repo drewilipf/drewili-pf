@@ -6,10 +6,11 @@ import Cookies from "js-cookie";
 import LoginButton from "../LoginButton";
 import { NavLink} from "react-router-dom";
 
-function UserLogin() {
+function VerificationSuccess() {
+  // ESTE COMPONENTE NO TIENE NADA AÚN, IGNORARLO POR FAVOR
   const [input, setInput] = useState({
-    username: "",
-    password: "",
+    newpassword: "",
+    newpasswordconfirmation: "",
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -62,13 +63,12 @@ function UserLogin() {
   };
 
   const navigateRecovery = async () => {
-    if(input.username){ navigate('/forgetpassword', { state: input })}
-    else {alert("Por favor ingrese su nombre de usuario")}
+    navigate('/forgetpassword', { state: input });
   };
   return (
     <div className="w-96  mr-auto ml-auto h-90vh pt-16">
       <h1 className="text-2xl font-bold mb-4 flex items-center justify-center">
-        Iniciar Sesión
+        Identidad verificada
       </h1>
       <form
         className="border border-chiliRed rounded p-6 text-arial text-base"
@@ -76,7 +76,7 @@ function UserLogin() {
       >
         <div>
           <div>
-            <label className="block text-chiliRed mb-2">Usuario</label>
+            <label className="block text-chiliRed mb-2">Contraseña</label>
             <input
               type="text"
               name="username"
@@ -87,7 +87,7 @@ function UserLogin() {
             />
           </div>
           <div>
-            <label className="block text-chiliRed mb-2">Contraseña</label>
+            <label className="block text-chiliRed mb-2"> repetir Contraseña</label>
             <input
               type="password"
               name="password"
@@ -122,4 +122,4 @@ function UserLogin() {
   );
 }
 
-export default UserLogin;
+export default VerificationSuccess;
