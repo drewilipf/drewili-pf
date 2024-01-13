@@ -1,24 +1,36 @@
 const { PurchaseHistory } = require("../../db");
 
-const updatePurchaseHistory = async (purchaseId, newPaymentStatus) => {
+const updatePurchaseHistory = async (
+  purchaseId,
+  newPaymentStatus,
+  paymentPdf
+) => {
   try {
     const purchase = await PurchaseHistory.findByPk(purchaseId);
 
     if (!purchase) {
       throw new Error("Compra no encontrada");
     }
-    console.log("Compra encontrada:", purchase);
 
-    purchase.paymentStatus = newPaymentStatus;
+    console.log("Compra encontrada:", purchase);
+    if (newPaymentStatus) {
+      purchase.paymentStatus = newPaymentStatus;
+    }
+    // Verifica si se proporcionó un archivo PDF antes de intentar guardarlo
+    if (paymentPdf) {
+      purchase.paymentPdf = paymentPdf;
+    }
 
     await purchase.save();
-    console.log("Compra actualizada con éxito");
+
     return {
       success: true,
-      message: "Estado de pago actualizado correctamente",
+      message: "Estado de pago o pdf actualizado correctamente",
     };
   } catch (error) {
-    throw new Error(`Error al actualizar el estado de pago: ${error.message}`);
+    throw new Error(
+      `Error al actualizar el estado de pago o pdf: ${error.message}`
+    );
   }
 };
 
