@@ -7,6 +7,7 @@ import LoginButton from "../LoginButton";
 import { NavLink} from "react-router-dom";
 
 function VerificationSuccess() {
+  // ESTE COMPONENTE NO TIENE NADA AÚN, IGNORARLO POR FAVOR
   const [input, setInput] = useState({
     newpassword: "",
     newpasswordconfirmation: "",
@@ -75,7 +76,7 @@ function VerificationSuccess() {
       >
         <div>
           <div>
-            <label className="block text-chiliRed mb-2">Usuario</label>
+            <label className="block text-chiliRed mb-2">Contraseña</label>
             <input
               type="text"
               name="username"
@@ -86,7 +87,7 @@ function VerificationSuccess() {
             />
           </div>
           <div>
-            <label className="block text-chiliRed mb-2">Contraseña</label>
+            <label className="block text-chiliRed mb-2"> repetir Contraseña</label>
             <input
               type="password"
               name="password"

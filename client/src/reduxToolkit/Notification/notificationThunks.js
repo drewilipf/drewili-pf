@@ -25,8 +25,6 @@ import {
     return async (dispatch) => {
       try {
         dispatch(postNotificationStart());
-
-        console.log("estos son los datos que recibe el thunk del usermail", usermaildata)
   
         const response = await axios.post(`${API_URL}userCormirmBuy`, usermaildata);
   
@@ -41,7 +39,6 @@ import {
     return async (dispatch) => {
       try {
         dispatch(postNotificationStart());
-        console.log("estos son los datos que recibe el thunk del adminmail", adminmaildata)
         const response = await axios.post(`${API_URL}adminConfirmBuy`, adminmaildata);
   
         dispatch(postNotificationSuccess({ notification: response.data }));
