@@ -25,8 +25,6 @@ import {
     return async (dispatch) => {
       try {
         dispatch(postNotificationStart());
-
-        console.log("estos son los datos que recibe el thunk del usermail", usermaildata)
   
         const response = await axios.post(`${API_URL}userCormirmBuy`, usermaildata);
   
@@ -41,8 +39,21 @@ import {
     return async (dispatch) => {
       try {
         dispatch(postNotificationStart());
-        console.log("estos son los datos que recibe el thunk del adminmail", adminmaildata)
         const response = await axios.post(`${API_URL}adminConfirmBuy`, adminmaildata);
+  
+        dispatch(postNotificationSuccess({ notification: response.data }));
+      } catch (error) {
+        dispatch(postNotificationFailure({ error: error.message }));
+      }
+    };
+  };
+
+  export const postNotificationRecoveryPassword = (emailData) => {
+    return async (dispatch) => {
+      try {
+        dispatch(postNotificationStart());
+        console.log("estos son los datos que recibe el thunk del recovery", emailData)
+        const response = await axios.post(`${API_URL}recoverPass`, emailData);
   
         dispatch(postNotificationSuccess({ notification: response.data }));
       } catch (error) {

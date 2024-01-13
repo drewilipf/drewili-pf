@@ -5,6 +5,7 @@ const sortProductsByRatingHandler = async (req, res) => {
     const productsByRating = await sortProductsByRatingController();
     res.status(200).json(productsByRating);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: error.message });
   }
 };

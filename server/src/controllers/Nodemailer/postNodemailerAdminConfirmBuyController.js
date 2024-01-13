@@ -8,6 +8,7 @@ const postNodemailerAdminConfirmBuyController = async (name, email, phone, produ
     htmlContent = htmlContent.replace(/\{total\}/g, total);
     htmlContent = htmlContent.replace(/\{address\}/g, address);
     htmlContent = htmlContent.replace(/\{phone\}/g, phone);
+    htmlContent = htmlContent.replace(/\{dropshiping\}/g, dropshiping);
     htmlContent = htmlContent.replace(/\{status\}/g, status);
     console.log(products)
 
@@ -22,6 +23,7 @@ const postNodemailerAdminConfirmBuyController = async (name, email, phone, produ
         `;
     }).join('');
     htmlContent = htmlContent.replace(/\{products\}/g, productHtml);
+    
 
 
     await transporter.sendMail({

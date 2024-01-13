@@ -263,7 +263,11 @@ function ProductDetail() {
 
   console.log(product);
 
+  const MAX_NAME_LENGTH = 25;
 
+  const TruncateText = ({ text, maxLength }) => {
+    return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
+  };
 
   return (
     <div className="tablet:w-60vw tablet:mx-auto">
@@ -275,7 +279,7 @@ function ProductDetail() {
           <Slider {...settings2}>
             {product.imageArray?.map((img, index) => (
               <div key={index} className="p-20">
-                <img src={img} className="w-40vw h-64 object-contain mx-auto" />
+                <img src={img} className="w-auto h-80 object-contain mx-auto" />
               </div>
             ))}
             </Slider>
@@ -365,7 +369,7 @@ function ProductDetail() {
                 <div className="mx-2 my-2 flex flex-col items-center p-2 shadow-md rounded tablet:h-40 tablet:w-[225px] bg-whiteSmoke hover:shadow-xl">
                   <img src={recommendedProduct.images?.[0]} alt={recommendedProduct.name} className="max-w-24 h-24 object-contain" />
                   <h2>
-                    {recommendedProduct.name}
+                    {TruncateText({text: recommendedProduct.name, maxLength: MAX_NAME_LENGTH})}
                   </h2>
                 </div>
               </NavLink>

@@ -1,57 +1,55 @@
+const { Sequelize } = require("sequelize");
 const { Comments, Product, Category, Brand, Colors } = require("../../db");
 
 const sortProductsByRatingController = async (order = 'DESC') => {
   try {
-    const productsByRating = await Comments.findAll({
-      order: [['rating', order]], 
-      include: [
-        {
-          model: Product,
-          include: [
-            {
-              model: Category,
-              attributes: ["category"],
-              as: "Category",
-            },
-            {
-              model: Brand,
-              attributes: ["brand"],
-              as: "Brand",
-            },
-            {
-              model: Colors,
-              attributes: ["color"],
-              as: "Colors",
-            },
+      const productsByRating = await Comments.findAll({
+          attributes: [
+              'product_id',
+              [Sequelize.fn('AVG', Sequelize.col('rating')), 'averagerating'], 
           ],
-        },
-      ],
-    });
+          group: ['product_id', 'product.id', 'product.name', 'product.price', 'product.stock', 'product.image', 'product.deleted', 'product.relevance', 'product.Colors.id'], 
+          order: [[Sequelize.literal('averagerating'), order]],
+          include: [
+              {
+                  model: Product,
+                  attributes: [
+                      "id",
+                      "name",
+                      "price",
+                      "imageArray",
+                      "deleted",
+                      "relevance",
+                  ],
+                  as: 'product',
+                  include: [
+                    {
+                        model: Colors,
+                        attributes: ["color"],
+                        as: "Colors",
+                    },
+                ],
+              },
+          ],
+          raw: true, // Obtén resultados directos de la base de datos
+      });
 
-    const formattedProducts = productsByRating.map((product) => {
-      return {
-        idComment: product.id,
-        id:product.product.id,
-        comment: product.comment,
-        rating: product.rating,
-        name: product.product.name,
-        description: product.description,
-        price: product.product.price,
-        specifications: product.specifications,
-        color: product.product.Colors.color,
-        stock: product.product.stock,
-        image: product.product.image,
-        brand: product.product.Brand.brand,
-        category: product.product.Category.category,
-        deleted: product.product.deleted,
-        relevance: product.product.relevance,
-        date: product.createdAt,
-      };
-    });
+      const formattedProducts = productsByRating.map((product) => {
+          return {
+              idComment: product.product_id,
+              comment: product.comment,
+              rating: product.averagerating,
+              id: product['product.id'],
+              name: product['product.name'],
+              price: product['product.price'],
+              images: product['product.imageArray'],
+              color: product['product.Colors.color']
+          };
+      });
 
-    return formattedProducts;
+      return formattedProducts;
   } catch (error) {
-    throw new Error(`Error al ordenar por rating: ${error.message}`);
+      throw new Error(`Error al ordenar por rating: ${error.message}`);
   }
 };
 
