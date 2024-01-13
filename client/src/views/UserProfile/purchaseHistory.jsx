@@ -18,7 +18,7 @@ const PurchaseHistoryComponent = () => {
   const groupProductsByDate = (purchaseHistory) => {
     const groupedByDate = {};
     purchaseHistory.forEach((purchase) => {
-      const dateKey = purchase.date; // Ajusta según el formato de fecha que recibes
+      const dateKey = purchase.date; 
       if (!groupedByDate[dateKey]) {
         groupedByDate[dateKey] = [];
       }

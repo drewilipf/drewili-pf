@@ -115,32 +115,32 @@ const SelectPayment = () => {
   };
 
   const emailData = {
-    name: dropshippingInfo.name ?  `${dropshippingInfo.name} ` : `${shippingInfo.name} ${shippingInfo.lastname}`,
+    name: dropshippingInfo.name ? `${dropshippingInfo.name} ` : `${shippingInfo.name} ${shippingInfo.lastname}`,
     email: shippingInfo.email,
-    adress:  dropshippingInfo.adress ?  `${dropshippingInfo.adress} ` : shippingInfo.adress,
+    adress: dropshippingInfo.adress ? `${dropshippingInfo.adress} ` : shippingInfo.adress,
     product: listItems,
     totalprice: priceTotal,
-    phone:  dropshippingInfo.phone ?  `${dropshippingInfo.phone} ` : shippingInfo.phone,
-    dropshipping: dropshippingInfo.name ? "Si": "No",
+    phone: dropshippingInfo.phone ? `${dropshippingInfo.phone} ` : shippingInfo.phone,
+    dropshipping: dropshippingInfo.name ? "Si" : "No",
     status: purchaseHistory.paymentStatus,
   };
-  
+
   const handlePdf = async () => {
     console.log("Datos combinados enviados al componente payment:", emailData);
     console.log("Datos combinados purchase:", purchaseHistory);
     console.log("Este es el shipping info:", shippingInfo);
     console.log("Este es el dropshipping info:", dropshippingInfo);
     navigate('/payment/payment', { state: emailData });
-    await axios.post(`https://drewili-pf-back.onrender.com/history/${userId}`, {cartItems: listItems})
+    await axios.post(`https://drewili-pf-back.onrender.com/history/${userId}`, { cartItems: listItems })
     dispatch(allDelete(userId))
-  
+
   };
-  
+
   const PriceContraentrega = ((priceTotal * 30) / 100).toFixed(2);
 
   return (
     <div className="h-screen ml-5">
-      <div className="flex items-center">
+      <div className="border border-chiliRed flex items-center">
         <label className="mr-4 ">¿Quién recibirá el pedido?</label>
         <div>
           <input
@@ -162,7 +162,7 @@ const SelectPayment = () => {
           <label className="mr-2 ml-2">Otra persona</label>
         </div>
       </div>
-      <div className="flex items-center">
+      <div className="border border-chiliRed flex items-center">
         <label className="mr-4">¿Qué tipo de comprobante desea?</label>
         <div>
           <input
@@ -212,7 +212,7 @@ const SelectPayment = () => {
         </div>
       )}
       <div className=" items-center mt-8 ">
-        <label className="mr-4 font-bold text-center text-2xl ml-16">
+        <label className=" mr-4 font-bold text-center text-2xl ml-16">
           Modalidad de pago
         </label>
         <div className="text-xl mt-4">
@@ -255,48 +255,47 @@ const SelectPayment = () => {
       </div>
       {modalidadPago === "transferenciaBancaria" && (
         <div>
-          <div className="flex mt-8">
+          <div className="border border-chiliRed flex mt-8">
+            <span className="shadow-xl bg-white  border border-chiliRed mr-4 items-center">
             <img
               src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/bbva_pyb84a.png"
               alt="BBVA"
-              className="mr-48 w-20 h-16"
+              className="flex items-center w-20 h-16"
             />
+              <div className="font-bold">Nombre del banco:"BBVA"</div>
+              
+              <div>Titular: DREWILI</div>
+              <div>Cta. corriente: 555-566-555-555</div>
+              <div>CCI: 20.000.000</div>
+            </span>
+            <span className="shadow-xl bg-white rounded-xl border border-chiliRed  mr-4">
             <img
               src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/diners_Club_zfcjlt.png"
               alt="Diners Club"
               className="mr-48 w-20 h-16"
             />
-            <img
-              src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/bcp_gm0nfk.png"
-              alt="BCP"
-              className="mr-48 w-28 h-16"
-            />
-            <img
-              src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/dividelo_interbank_iq253n.png"
-              alt="Dividelo Interbanck"
-              className="mr-48 w-24 h-16"
-            />
-          </div>
-          <div className="flex mt-8">
-            <span className="mr-4">
-              <div className="font-bold">Nombre del banco:"BBVA"</div>
-              <div>Titular: DREWILI</div>
-              <div>Cta. corriente: 555-566-555-555</div>
-              <div>CCI: 20.000.000</div>
-            </span>
-            <span className="mr-4">
               <div className="font-bold">Nombre del banco:"Diners Club"</div>
               <div>Titular: DREWILI</div>
               <div>Cta. corriente: 555-566-555-555</div>
               <div>CCI: 20.000.000</div>
             </span>
-            <span className="mr-4">
+            <span className="shadow-xl bg-white border border-chiliRed  mr-4">
+            <img
+              src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/bcp_gm0nfk.png"
+              alt="BCP"
+              className="mr-48 w-28 h-16"
+            />
               <div className="font-bold">Nombre del banco:"BCP"</div>
               <div>Titular: DREWILI</div>
               <div>Cta. corriente: 555-566-555-555</div>
               <div>CCI: 20.000.000</div>
             </span>
-            <span className="mr-4">
+            <span className="shadow-xl bg-white border border-chiliRed  mr-4">
+              <img
+              src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/dividelo_interbank_iq253n.png"
+              alt="Dividelo Interbanck"
+              className="mr-48 w-24 h-16"
+            />
               <div className="font-bold">
                 Nombre del banco:"Dividelo Interbanck"
               </div>
@@ -320,14 +319,14 @@ const SelectPayment = () => {
               <span className="hover:text-chiliRed ml-5">971 985 484</span>
             </a>
           </div>
-          
-            <button
-              className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
-              onClick={handlePdf}
-            >
-              Ir a pagar
-            </button>
-                  </div>
+
+          <button
+            className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
+            onClick={handlePdf}
+          >
+            Ir a pagar
+          </button>
+        </div>
       )}
       {modalidadPago === "tarjetaCreditoDebito" && (
         <div>
@@ -368,12 +367,12 @@ const SelectPayment = () => {
             </a>
           </div>
 
-            <button
-              className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
-              onClick={handlePdf}
-            >
-              Ir a pagar
-            </button>
+          <button
+            className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
+            onClick={handlePdf}
+          >
+            Ir a pagar
+          </button>
         </div>
       )}
       {modalidadPago === "contraentrega" && (
@@ -434,13 +433,13 @@ const SelectPayment = () => {
             </a>
           </div>
 
-            <button
-              className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
-              onClick={handlePdf}
-            >
-              Ir a pagar
-            </button>
-          
+          <button
+            className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
+            onClick={handlePdf}
+          >
+            Ir a pagar
+          </button>
+
         </div>
       )}
 
