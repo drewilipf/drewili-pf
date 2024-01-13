@@ -21,16 +21,12 @@ const OtpInput = () => {
  
   function resendOTP() {
     if (!disable) {
-      const OTP = Math.floor(Math.random() * 9000 + 1000);
-      console.log("nuevo OTP", OTP);
-  
+      const OTP = Math.floor(Math.random() * 9000 + 1000);  
       const newRecoveryData = {
         username: datasent.username,
         email: datasent.email,
         otp: OTP,
       };
-  
-      console.log("Datos email enviados al thunk:", newRecoveryData);
   
       dispatch(postNotificationRecoveryPassword(newRecoveryData));
   
@@ -53,7 +49,6 @@ const OtpInput = () => {
         
       });
     }
-    console.log("este es mi recovery data actual", recoveryData)
     //para setear el contador del nuevo envío del código
     let interval = setInterval(() => {
         setTimer((lastTimerCount) => {
@@ -74,7 +69,6 @@ const OtpInput = () => {
 
   function verfiyOTP() {
     if (parseInt(OTPinput.join("")) === recoveryData.otp) {
-      console.log("codigo correcto")
       navigate('/verificationsuccess', { state: recoveryData });
       return;
     }
