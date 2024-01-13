@@ -9,7 +9,7 @@ export const getPurchaseHistory = (userId) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/history/${userId}`
+        `https://drewili-pf-back.onrender.com/history/${userId}`
       );
       console.log(userId);
       const purchaseHistory = response.data;
@@ -24,7 +24,7 @@ export const getAllPurchaseHistory = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/history`
+        `https://drewili-pf-back.onrender.com/history`
       );
       const allPurchase = response.data;
       dispatch(getAllPurchaseHistorySlice(allPurchase));
