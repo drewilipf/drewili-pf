@@ -149,9 +149,13 @@ const SelectPayment = () => {
     navigate("/payment/payment", { state: emailData });
     const generatedBlob = generatePDF(combinedData);
     setPdfBlob(generatedBlob);
-    await axios.post(`https://drewili-pf-back.onrender.com/history/${userId}`, {
-      cartItems: listItems,
-    });
+    const Historial = await axios.post(
+      `https://drewili-pf-back.onrender.com/history/${userId}`,
+      {
+        cartItems: listItems,
+      }
+    );
+    console.log(Historial.data);
     // dispatch(putStatus(purchaseId, pdfBlob));
     dispatch(allDelete(userId));
   };
