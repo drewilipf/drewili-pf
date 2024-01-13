@@ -25,7 +25,7 @@ const EditProduct = () => {
     price: 0.0,
     specifications: [],
     stock: 0,
-    image: "",
+    imageArray: "",
     color_id: 0,
     category_id: 0,
     brand_id: 0,
@@ -34,9 +34,9 @@ const EditProduct = () => {
   const { categories } = useSelector((state) => state.categories);
   const { brands } = useSelector((state) => state.brands);
   const { color } = useSelector((state) => state.color);
-  const [imageFile, setImageFile] = useState(null);
+  const [imageFile, setImageFile] = useState([]);
   const productsId = useSelector((state) => state.products.productsId);
-
+  console.log(imageFile, 'array de imagefile');
   console.log(productsId);
   const product = productsId.length > 0 ? productsId[0] : null;
   console.log(product);
@@ -70,7 +70,7 @@ const EditProduct = () => {
         price: parseFloat(product.price),
         specifications: product.specifications,
         stock: parseInt(product.stock),
-        image: product.image,
+        imageArray: product.imageArray[0],
         color_id: colorId,
         category_id: categoryId,
         brand_id: brandId,
@@ -105,29 +105,34 @@ const EditProduct = () => {
     });
   }
   function handleImageChange(event) {
-    const file = event.target.files[0];
-    setImageFile(file);
+    const file = event.target.files;
+    setImageFile((prev) => [...prev, ...file]);
   }
   async function handleSumit(event) {
     event.preventDefault();
     try {
-      let imageUrl = "";
-      // Subir la imagen a Cloudinary si hay un archivo seleccionado
+      let arrayUrls = [];
+      console.log(arrayUrls, 'array de imagenes');
       if (imageFile) {
-        const formData = new FormData();
-        formData.append("file", imageFile);
-        formData.append("upload_preset", "wagnbv9p");
-
-        const response = await fetch(
-          "https://api.cloudinary.com/v1_1/dpj4n40t6/image/upload",
-          {
-            method: "POST",
-            body: formData,
-          }
+        await Promise.all(
+          imageFile.map(async (img) => {
+            const formData = new FormData();
+            formData.append("file", img);
+            formData.append("upload_preset", "wagnbv9p");
+  
+            const response = await fetch(
+              "https://api.cloudinary.com/v1_1/dpj4n40t6/image/upload",
+              {
+                method: "POST",
+                body: formData,
+              }
+            );
+  
+            const data = await response.json();
+            const imageUrl = data.secure_url;
+            arrayUrls.push(imageUrl);
+          })
         );
-
-        const data = await response.json();
-        imageUrl = data.secure_url;
       }
 
       const productData = {
@@ -136,7 +141,7 @@ const EditProduct = () => {
         price: parseFloat(input.price),
         specifications: input.specifications,
         stock: parseInt(input.stock),
-        image: imageUrl ? imageUrl : product.image,
+        imageArray: arrayUrls.length > 0 ? arrayUrls : product.imageArray,
         color_id: input.color ? parseInt(input.color) : colorId,
         category_id: input.category ? parseInt(input.category) : categoryId,
         brand_id: input.brand ? parseInt(input.brand) : brandId,
@@ -153,7 +158,7 @@ const EditProduct = () => {
         price: parseFloat(product.price),
         specifications: product.specifications,
         stock: parseInt(product.stock),
-        image: product.image,
+        imageArray: product.imageArray,
         color_id: colorId,
         category_id: categoryId,
         brand_id: brandId,
@@ -242,9 +247,16 @@ const EditProduct = () => {
               type="file"
               accept="image/*"
               name="imageFile"
+              multiple
               onChange={handleImageChange}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
+          </div>
+          <div>
+            <label className="block text-chiliRed mb-2">
+              Cantidad de imágenes seleccionadas:
+            </label>
+            <p>{imageFile?.length}</p>
           </div>
           <div>
             <label className="block text-chiliRed mb-2">Color:</label>
