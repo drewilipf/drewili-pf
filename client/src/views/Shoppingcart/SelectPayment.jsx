@@ -14,6 +14,7 @@ import {
   setRucSlice,
 } from "../../reduxToolkit/ShippingInfo/shippingInfoSlice";
 import { allDelete } from "../../reduxToolkit/SalesCarts/salesCartThunk";
+import { putStatus } from "../../reduxToolkit/PurchaseHistory/purchaseHistoryThunks";
 
 const SelectPayment = () => {
   const dispatch = useDispatch();
@@ -146,27 +147,31 @@ const SelectPayment = () => {
     console.log("Este es el shipping info:", shippingInfo);
     console.log("Este es el dropshipping info:", dropshippingInfo);
     navigate("/payment/payment", { state: emailData });
+    const generatedBlob = generatePDF(combinedData);
+    setPdfBlob(generatedBlob);
     await axios.post(`https://drewili-pf-back.onrender.com/history/${userId}`, {
       cartItems: listItems,
     });
+    // dispatch(putStatus(purchaseId, pdfBlob));
     dispatch(allDelete(userId));
   };
-  const handleCrearPdf = () => {
-    const generatedBlob = generatePDF(combinedData);
-    setPdfBlob(generatedBlob);
-  };
-  const handleDownloadPdf = () => {
-    if (pdfBlob) {
-      const url = URL.createObjectURL(pdfBlob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "documento.pdf";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
-  };
+
+  // const handleCrearPdf = () => {
+  //   const generatedBlob = generatePDF(combinedData);
+  //   setPdfBlob(generatedBlob);
+  // };
+  // const handleDownloadPdf = () => {
+  //   if (pdfBlob) {
+  //     const url = URL.createObjectURL(pdfBlob);
+  //     const a = document.createElement("a");
+  //     a.href = url;
+  //     a.download = "documento.pdf";
+  //     document.body.appendChild(a);
+  //     a.click();
+  //     document.body.removeChild(a);
+  //     URL.revokeObjectURL(url);
+  //   }
+  // };
 
   const PriceContraentrega = ((priceTotal * 30) / 100).toFixed(2);
 
@@ -471,18 +476,6 @@ const SelectPayment = () => {
             onClick={handlePdf}
           >
             Ir a pagar
-          </button>
-          <button
-            className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
-            onClick={handleCrearPdf}
-          >
-            Crear
-          </button>
-          <button
-            className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
-            onClick={handleDownloadPdf}
-          >
-            Descargar PDF
           </button>
         </div>
       )}

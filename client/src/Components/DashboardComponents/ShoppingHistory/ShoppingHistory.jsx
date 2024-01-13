@@ -8,7 +8,7 @@ import EditPurchaseModal from "./EditPurchaseModal";
 const ShoppingHistory = () => {
   const dispatch = useDispatch();
   const purchaseHistory = useSelector((state) => state.purchaseHistory.history);
-  // console.log(purchaseHistory);
+  console.log(purchaseHistory);
   const [isEditing, setIsEditing] = useState(false);
   const [selectedPurchaseId, setSelectedPurchaseId] = useState(null);
 
@@ -89,6 +89,10 @@ const ShoppingHistory = () => {
                     <IoMdCreate />
                   </span>
                 </p>
+                {/* <p className="font-bold">
+                  {" 
+                  Datos de envio: {group[0].paymentPdf}
+                </p> */}
                 {isEditing && selectedPurchaseId.length > 0 && (
                   <EditPurchaseModal
                     onClose={handleCloseEditModal}

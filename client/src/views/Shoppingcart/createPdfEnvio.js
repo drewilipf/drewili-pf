@@ -1,6 +1,6 @@
 import jsPDF from "jspdf";
 
-import logoOriginal from "../../../public/logoOriginal.png";
+import logoOriginal from "../../icons/logoOriginal.png";
 
 const generatePDF = (data) => {
   const pdf = new jsPDF();
@@ -21,30 +21,11 @@ const generatePDF = (data) => {
   formattedData.forEach((line, index) => {
     pdf.text(line, 10, 50 + index * 10);
   });
+  pdf.text("Gracias por tu Compra", 10, 220);
+
   // Convertir el PDF a Blob
   const blob = pdf.output("blob");
   return blob;
-
-  // Crear un objeto FormData y agregar el Blob
-  const formData = new FormData();
-  formData.append("pdf", blob);
-
-  // Enviar el FormData al servidor
-  //enviarFormDataAlServidor(formData);
-};
-
-export const enviarFormDataAlServidor = (formData) => {
-  fetch("http://localhost:3001/guardar-pdf", {
-    method: "POST",
-    body: formData,
-  })
-    .then((response) => {
-      console.log("FormData enviado correctamente al servidor");
-      // Manejar la respuesta del servidor si es necesario
-    })
-    .catch((error) => {
-      console.error("Error al enviar el FormData al servidor", error);
-    });
 };
 
 export default generatePDF;
