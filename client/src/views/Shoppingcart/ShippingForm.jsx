@@ -257,7 +257,7 @@ const ShippingForm = () => {
           >
             <span className="flex items-center flex-1 text-xs">
               <img
-                src={item.image}
+                src={item.images}
                 alt={item.name}
                 className="mr-2"
                 style={{ maxWidth: "50px", maxHeight: "50px" }}
