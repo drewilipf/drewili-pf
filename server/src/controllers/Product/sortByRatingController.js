@@ -39,6 +39,7 @@ const sortProductsByRatingController = async (order = 'DESC') => {
               idComment: product.product_id,
               comment: product.comment,
               rating: product.averagerating,
+              id: product['product.id'],
               name: product['product.name'],
               price: product['product.price'],
               images: product['product.imageArray'],
