@@ -87,12 +87,12 @@ function Navbar({ setActualPage }) {
     userSession && userSession.username
       ? userSession.username
       : login && login.userSession
-      ? login.userSession.username
-      : isAuthenticated && user.name
-      ? user.name
-      : userGoogleSession
-      ? userGoogleSession.userName
-      : null;
+        ? login.userSession.username
+        : isAuthenticated && user.name
+          ? user.name
+          : userGoogleSession
+            ? userGoogleSession.userName
+            : null;
 
   const handleclickClosed = () => {
     dispatch(postLogout());
@@ -233,7 +233,7 @@ function Navbar({ setActualPage }) {
           </div>
         )}
 
-      
+
         {combinedUserSession ? (
           <div className={`tablet:flex space-x-3 text-chiliRed items-center pr-4 ${location.pathname !== "/" ? 'ml-auto' : ''} hidden`}>
             <div className="relative group:flex items-center space-x-4 ml-auto">
@@ -313,7 +313,7 @@ function Navbar({ setActualPage }) {
             </div>
           </div>
         ) : (
-          <div className="tablet:flex space-x-3 text-chiliRed items-center pr-4 hidden">
+          <div className={`tablet:flex space-x-3 text-chiliRed items-center pr-4 ${location.pathname !== "/" ? 'ml-auto' : ''} hidden`}>
             <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
               <NavLink to="/userform" className="text-chiliRed hover:text-onyx">
                 Regístrate

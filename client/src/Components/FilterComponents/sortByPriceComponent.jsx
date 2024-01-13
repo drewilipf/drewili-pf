@@ -1,11 +1,15 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { filterPrice } from "../../reduxToolkit/Filtros/sortByPricethunk";
+import { filterRating } from "../../reduxToolkit/Filtros/sortByRatingThunk";
 
 const SortByPriceDropdown = () => {
   const dispatch = useDispatch();
 
   const handleSortChange = (order) => {
+    if (order === 'rating') {
+      dispatch(filterRating());
+    }
     dispatch(filterPrice({ order }));
   };
 
@@ -25,6 +29,7 @@ const SortByPriceDropdown = () => {
       >
         <option value="asc">Precio Asc</option>
         <option value="desc">Precio Desc</option>
+        <option value='rating'>Mejor puntuado</option>
       </select>
     </div>
   );

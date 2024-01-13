@@ -8,7 +8,6 @@ import { getProducts } from "../../reduxToolkit/Product/productThunks";
 import ProductFilter from "../../Components/FilterComponents/productfilter";
 import { useLocation } from "react-router-dom";
 import Searchbar from "../../Components/Searchbar/Searchbar";
-import SortDropdown from "../../Components/FilterComponents/sortByRatingComponent";
 
 
 function Home({ actualPage, handlePageChange, setActualPage }) {
@@ -61,7 +60,6 @@ function Home({ actualPage, handlePageChange, setActualPage }) {
           </div>
           <div className="tablet:ml-[70%]">
             <SortByPriceButtons setActualPage={(num) => setActualPage(num)} />
-            <SortDropdown />
           </div>
 
           <Productcards products={currentCards} />
