@@ -141,8 +141,8 @@ const SelectPayment = () => {
 
   return (
     <div className="h-screen ml-5">
-      <div className="border border-chiliRed flex items-center">
-        <label className="mr-4 ">¿Quién recibirá el pedido?</label>
+      <div className=" flex justify-center  ">
+        <label className="mr-16 font-bold">¿Quién recibirá el pedido?</label>
         <div>
           <input
             type="radio"
@@ -151,7 +151,7 @@ const SelectPayment = () => {
             checked={opcionSeleccionadaPedido === "yo"}
             onChange={() => handlePedidoOptionChange("yo")}
           />
-          <label className="mr-2 ml-2">Yo</label>
+          <label className="mr-12 ml-2">Yo</label>
 
           <input
             type="radio"
@@ -163,8 +163,8 @@ const SelectPayment = () => {
           <label className="mr-2 ml-2">Otra persona</label>
         </div>
       </div>
-      <div className="border border-chiliRed flex items-center">
-        <label className="mr-4">¿Qué tipo de comprobante desea?</label>
+      <div className="flex justify-center ">
+        <label className="mr-8 font-bold">¿Qué tipo de comprobante desea?</label>
         <div>
           <input
             type="radio"
@@ -173,7 +173,7 @@ const SelectPayment = () => {
             checked={opcionSeleccionadaComprobante === "boleta"}
             onChange={() => handleComprobanteOptionChange("boleta")}
           />
-          <label className="mr-2 ml-2">Boleta</label>
+          <label className="mr-8 ml-2">Boleta</label>
 
           <input
             type="radio"
@@ -256,47 +256,48 @@ const SelectPayment = () => {
       </div>
       {modalidadPago === "transferenciaBancaria" && (
         <div>
-          <div className="border border-chiliRed flex mt-8">
-            <span className="shadow-xl bg-white  border border-chiliRed mr-4 items-center">
-            <img
-              src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/bbva_pyb84a.png"
-              alt="BBVA"
-              className="flex items-center w-20 h-16"
-            />
-              <div className="font-bold">Nombre del banco:"BBVA"</div>
-              
-              <div>Titular: DREWILI</div>
-              <div>Cta. corriente: 555-566-555-555</div>
-              <div>CCI: 20.000.000</div>
+          <div className=" flex mt-8">
+            <span className="shadow-xl bg-white rounded-xl border border-chiliRed mr-4 flex items-center p-4">
+              <img
+                src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/bbva_pyb84a.png"
+                alt="BBVA"
+                className="flex items-center w-20 h-16"
+              />
+              <div>
+                <div className="font-bold">Nombre del banco:"BBVA"</div>
+                <div>Titular: DREWILI</div>
+                <div>Cta. corriente: 555-566-555-555</div>
+                <div>CCI: 20.000.000</div>
+              </div>
             </span>
             <span className="shadow-xl bg-white rounded-xl border border-chiliRed  mr-4">
-            <img
-              src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/diners_Club_zfcjlt.png"
-              alt="Diners Club"
-              className="mr-48 w-20 h-16"
-            />
+              <img
+                src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/diners_Club_zfcjlt.png"
+                alt="Diners Club"
+                className="mr-48 w-20 h-16"
+              />
               <div className="font-bold">Nombre del banco:"Diners Club"</div>
               <div>Titular: DREWILI</div>
               <div>Cta. corriente: 555-566-555-555</div>
               <div>CCI: 20.000.000</div>
             </span>
-            <span className="shadow-xl bg-white border border-chiliRed  mr-4">
-            <img
-              src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/bcp_gm0nfk.png"
-              alt="BCP"
-              className="mr-48 w-28 h-16"
-            />
+            <span className="shadow-xl bg-white rounded-xl border border-chiliRed  mr-4">
+              <img
+                src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/bcp_gm0nfk.png"
+                alt="BCP"
+                className="mr-48 w-28 h-16"
+              />
               <div className="font-bold">Nombre del banco:"BCP"</div>
               <div>Titular: DREWILI</div>
               <div>Cta. corriente: 555-566-555-555</div>
               <div>CCI: 20.000.000</div>
             </span>
-            <span className="shadow-xl bg-white border border-chiliRed  mr-4">
+            <span className="shadow-xl bg-white rounded-xl border border-chiliRed  mr-4">
               <img
-              src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/dividelo_interbank_iq253n.png"
-              alt="Dividelo Interbanck"
-              className="mr-48 w-24 h-16"
-            />
+                src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/dividelo_interbank_iq253n.png"
+                alt="Dividelo Interbanck"
+                className="mr-48 w-24 h-16"
+              />
               <div className="font-bold">
                 Nombre del banco:"Dividelo Interbanck"
               </div>

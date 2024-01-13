@@ -28,7 +28,7 @@ function Searchbar({ setActualPage }) {
   }, [dispatch]);
 
   useEffect(() => {
-    // Inicializar el estado local solo si no hay filtros activos
+    
     if (activeFilters && !activeFilters.isFiltering) {
       setFilterState({
         selectedCategory: "",

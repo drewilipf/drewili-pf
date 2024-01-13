@@ -6,7 +6,7 @@ import menProgram from "../../icons/menProgram.avif"
 import womanProgram from "../../icons/womanProgram.avif"
 
 const Creators = () => {
-    // Número de repeticiones en la cuadrícula
+    
     const numRepeticiones = 72;
 
     return (
@@ -39,7 +39,7 @@ const Creators = () => {
                             <img
                                 src={menProgram}
                                 alt="Descripción de la imagen"
-                                className="w-24 h-24" // Ajusta el tamaño según tus necesidades usando clases de Tailwind
+                                className="w-24 h-24"
                             />
                             <div className="flex items-center ">.
                                 <a href="https://github.com/SergioFVallenari" target="_blank" rel="noopener noreferrer">
@@ -55,7 +55,7 @@ const Creators = () => {
                             <img
                                 src={womanProgram}
                                 alt="Descripción de la imagen"
-                                className="w-24 h-24" // Ajusta el tamaño según tus necesidades usando clases de Tailwind
+                                className="w-24 h-24" 
                             />
                             <div className="flex items-center ">
                             <a href="https://github.com/gabrielaDF" target="_blank" rel="noopener noreferrer">
@@ -71,7 +71,7 @@ const Creators = () => {
                             <img
                                 src={womanProgram}
                                 alt="Descripción de la imagen"
-                                className="w-24 h-24" // Ajusta el tamaño según tus necesidades usando clases de Tailwind
+                                className="w-24 h-24" 
                             />
                             <div className="flex items-center ">
                             <a href="https://github.com/MFArevaloCordoba" target="_blank" rel="noopener noreferrer">
@@ -103,7 +103,7 @@ const Creators = () => {
                             <img
                                 src={menProgram}
                                 alt="Descripción de la imagen"
-                                className="w-24 h-24" // Ajusta el tamaño según tus necesidades usando clases de Tailwind
+                                className="w-24 h-24" 
                             />
                             <div className="flex items-center ">
                             <a href="https://github.com/NicolasSDiez" target="_blank" rel="noopener noreferrer">
@@ -119,7 +119,7 @@ const Creators = () => {
                             <img
                                 src={menProgram}
                                 alt="Descripción de la imagen"
-                                className="w-24 h-24" // Ajusta el tamaño según tus necesidades usando clases de Tailwind
+                                className="w-24 h-24" 
                             />
                             <div className="flex items-center ">
                             <a href="https://github.com/Elranas5000" target="_blank" rel="noopener noreferrer">
@@ -135,7 +135,7 @@ const Creators = () => {
                             <img
                                 src={womanProgram}
                                 alt="Descripción de la imagen"
-                                className="w-24 h-24 flex items-center" // Ajusta el tamaño según tus necesidades usando clases de Tailwind
+                                className="w-24 h-24 flex items-center" 
                             />
                             <div className="flex items-center">
                             <a href="https://github.com/JFlorezQ" target="_blank" rel="noopener noreferrer">
@@ -147,7 +147,7 @@ const Creators = () => {
                             </div>
                         </div>
 
-                        {/* Agrega más divs con información según sea necesario */}
+                        
                     </div>
                 </div>
             </div>

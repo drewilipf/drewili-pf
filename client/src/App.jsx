@@ -45,28 +45,6 @@ function App() {
     setActualPage(newPage);
   };
 
-  //dark mode
-  const [theme, setTheme] = useState("light")
-
-  useEffect(() => {
-    if (theme === "dark"){
-      document.querySelector('html').classList.add("dark")
-   } else {
-      document.querySelector('html').classList.remove("dark")
-      
-   }      
-  }, [theme])
-
-  const handleChangeTheme = () => {
-    setTheme(prevTheme => {
-      document.querySelector('html').style.visibility = 'hidden';
-      setTimeout(() => {
-        document.querySelector('html').classList.toggle("dark");
-        document.querySelector('html').style.visibility = 'visible';
-      }, 0);
-      return prevTheme === "light" ? "dark" : "light";
-    });
-  };
 
   return (
     <div className="contents">
@@ -78,9 +56,7 @@ function App() {
         />
       )}
       <div className=" bg-whiteSmoke min-h-screen dark:bg-onyx">
-        <button className="bg-whiteSmoke"
-        onClick={handleChangeTheme}
-        >DARK</button>
+       
         <Routes>
           <Route
             path="/"
