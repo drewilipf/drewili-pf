@@ -5,11 +5,11 @@ const getAllPurchaseHistory = async () => {
     include: [
       {
         model: Product,
-        attributes: ["id", "name", "image", "price"],
+        attributes: ["id", "name", "imageArray", "price"],
       },
       {
         model: User,
-        attributes: ["id", "email", "username"], 
+        attributes: ["id", "email", "username"],
       },
     ],
     order: [["id", "ASC"]],
@@ -23,7 +23,7 @@ const getAllPurchaseHistory = async () => {
     purchaseId: purchase.id,
     productId: purchase.product_id,
     productName: purchase.product.name,
-    productImage: purchase.product.image,
+    productImage: purchase.product.imageArray[0],
     productPrice: purchase.product.price,
     quantity: purchase.quantity,
     userEmail: purchase.user.email,

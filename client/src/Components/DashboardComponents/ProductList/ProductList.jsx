@@ -87,7 +87,7 @@ function ProductList() {
                     <td className="py-2 px-4 border-b">{product.stock}</td>
                     <td className="py-2 px-4 border-b">
                       <img
-                        src={product.image}
+                        src={product.images[0]}
                         alt={product.name}
                         className="max-w-[50px] max-h-[50px] mx-auto"
                       />
@@ -113,7 +113,7 @@ function ProductList() {
             </tbody>
           </table>
         </div>
-        <div className=" grid grid-cols-1  gap-4 md:hidden m-4">
+        <div className="grid grid-cols-1  gap-4 md:hidden m-4">
           <div className="bg-white p-4 rounded-lg shadow">
             <div className="text-sm space-x-2">
               <div>
@@ -122,7 +122,7 @@ function ProductList() {
                     <div key={product.id}>
                       <div className="p-2">
                         <img
-                          src={product.image}
+                          src={product.images[0]}
                           alt={product.name}
                           className="max-w-[50px] max-h-[50px] mx-auto"
                         />

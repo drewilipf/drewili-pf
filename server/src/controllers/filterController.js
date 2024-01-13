@@ -28,6 +28,9 @@ const filterController = async (filters) => {
     }
 
     const products = await Product.findAll({
+      where: {
+        deleted: false, 
+        ...filterConditions},
       include: [
         {
           model: Category,
@@ -45,7 +48,6 @@ const filterController = async (filters) => {
           as: "Colors", // Agrega un alias para la tabla Colors
         },
       ],
-      where: filterConditions
     });
 
     const formattedProducts = products.map((product) => {
@@ -58,6 +60,7 @@ const filterController = async (filters) => {
         color: product.Colors.color,  // Accede a la propiedad 'color' dentro de 'Colors'
         stock: product.stock,
         image: product.image,
+        images: product.imageArray,
         brand: product.Brand.brand,  // Accede a la propiedad 'brand' dentro de 'Brand'
         category: product.Category.category,  // Accede a la propiedad 'category' dentro de 'Category'
         deleted: product.deleted,

@@ -6,7 +6,7 @@ const getFavoriteController = async (userId) => {
             where: { user_id: userId },
             include: {
                 model: Product,
-                attributes: ['id', 'name', 'image'],
+                attributes: ['id', 'name', 'imageArray'],
                 include: [
                     {
                         model: Brand,
@@ -30,7 +30,7 @@ const getFavoriteController = async (userId) => {
             favorited: favorite.id,
             id: favorite.product.id,
             name: favorite.product.name,
-            image: favorite.product.image,
+            image: favorite.product.imageArray[0],
             brand: favorite.product.Brand.brand,
         }));
 

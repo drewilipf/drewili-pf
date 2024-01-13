@@ -116,7 +116,7 @@ function Navbar({ setActualPage }) {
   };
 
   const content = (
-    <div className="tablet:hidden block absolute top-20 w-full left-0 right-0 h-20 transition z- border-t-chiliRed border-t-2">
+    <div className="tablet:hidden block absolute top-20 w-full left-0 right-0 h-20 transition z-50 border-t-chiliRed border-t-2">
       {combinedUserSession ? (
         <div className="flex flex-col items-center shadow-xl">
           <div className="bg-whiteSmoke">

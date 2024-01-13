@@ -7,12 +7,16 @@ const updatePurchaseHistory = async (purchaseId, newPaymentStatus) => {
     if (!purchase) {
       throw new Error("Compra no encontrada");
     }
+    console.log("Compra encontrada:", purchase);
 
     purchase.paymentStatus = newPaymentStatus;
 
     await purchase.save();
-
-    return { success: true, message: "Estado de pago actualizado correctamente" };
+    console.log("Compra actualizada con éxito");
+    return {
+      success: true,
+      message: "Estado de pago actualizado correctamente",
+    };
   } catch (error) {
     throw new Error(`Error al actualizar el estado de pago: ${error.message}`);
   }
