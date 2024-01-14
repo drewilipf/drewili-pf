@@ -10,6 +10,7 @@ import NavbarAdmin from "../NavbarAdmin/NavbarAdmin";
 import { getCategory } from "../../../reduxToolkit/Category/categoryThunks";
 import { getBrand } from "../../../reduxToolkit/Brand/brandThunks";
 import { getColor } from "../../../reduxToolkit/Color/colorThunks";
+import Spinner from "../../../icons/Spinner";
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -163,7 +164,11 @@ const EditProduct = () => {
   };
 
   if (!product || !color || !brands || !categories) {
-    return <p>Cargando...</p>;
+    return (<div className="mx-auto flex justify-center items-center w-screen h-screen">
+      <Spinner />
+
+    </div>
+    )
   }
 
 
