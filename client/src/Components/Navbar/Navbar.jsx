@@ -17,6 +17,8 @@ import { postGoogle } from "../../reduxToolkit/User/userThunks";
 import LogoutButton from "../../Components/LogoutButton";
 import { CiMenuBurger } from "react-icons/ci";
 import { FaTimes } from "react-icons/fa";
+import DarkModeToggle from "../DarkMode/DarkMode";
+
 
 function Navbar({ setActualPage }) {
   const location = useLocation();
@@ -116,13 +118,14 @@ function Navbar({ setActualPage }) {
   };
 
   const content = (
-    <div className="tablet:hidden block absolute top-20 w-full left-0 right-0 h-20 transition z-50 border-t-chiliRed border-t-2">
+    <div className="tablet:hidden block absolute top-20 w-full left-0 right-0 h-20 transition z-50 border-t-chiliRed  border-t-2">
       {combinedUserSession ? (
         <div className="flex flex-col items-center shadow-xl">
-          <div className="bg-whiteSmoke">
+          <div className="bg-whiteSmoke ">
             <div className="right-0 mt-2 w-screen flex flex-col pl-2">
+
               <div className="flex items-center space-x-4">
-                <h1 className="transition duration-300 text-chiliRed cursor-pointer">
+                <h1 className="transition duration-300 text-chiliRed   ursor-pointer">
                   Bienvenido, {combinedUserSession}!
                 </h1>
               </div>
@@ -211,6 +214,7 @@ function Navbar({ setActualPage }) {
     </div>
   );
 
+
   return (
     <nav className="shadow-xl bg-whiteSmoke mb-2">
       <div className="lg:h-20 sm:h-20 h-20 flex justify-between z-50 lg:py-5 px-4 sm:px-8 items-center">
@@ -233,6 +237,7 @@ function Navbar({ setActualPage }) {
           </div>
         )}
 
+        {location.pathname === "/" && <DarkModeToggle />}
 
         {combinedUserSession ? (
           <div className={`tablet:flex space-x-3 text-chiliRed items-center pr-4 ${location.pathname !== "/" ? 'ml-auto' : ''} hidden`}>
@@ -263,7 +268,7 @@ function Navbar({ setActualPage }) {
               {isDropdownOpen && (
                 <div
                   ref={dropdownRef}
-                  className="absolute right-0 mt-2 bg-white border rounded shadow-md text-chiliRed"
+                  className="z-50 absolute right-0 mt-2 bg-white border rounded shadow-md text-chiliRed"
                 >
                   <ul className="py-1">
                     <li className="cursor-pointer py-2 px-4 hover:bg-gray-200">
@@ -301,7 +306,7 @@ function Navbar({ setActualPage }) {
                     )}
                     {!isAuthenticated && (
                       <li
-                        className="cursor-pointer py-2 px-4 hover:bg-gray-200"
+                        className="cursor-pointer py-2 px-4 hover:underline"
                         onClick={handleclickClosed}
                       >
                         Cerrar Sesión
@@ -313,7 +318,7 @@ function Navbar({ setActualPage }) {
             </div>
           </div>
         ) : (
-          <div className={`tablet:flex space-x-3 text-chiliRed items-center pr-4 ${location.pathname !== "/" ? 'ml-auto' : ''} hidden`}>
+          <div className="tablet:flex space-x-3 text-chiliRed items-center pr-4 hidden">
             <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
               <NavLink to="/userform" className="text-chiliRed hover:text-onyx">
                 Regístrate
