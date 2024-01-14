@@ -47,31 +47,14 @@ function VerificationSuccess() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     try {
       if (input.newpassword === input.newpasswordconfirmation) {
-        const response = await dispatch(putPassRecovery(putdata));
-        console.log("datos del componente enviados al thunk", putdata);
-
-        if (response && response.status === 200) {
-          // La solicitud fue exitosa, puedes realizar acciones adicionales aquí
-          console.log("La solicitud fue exitosa");}
-   //console.log("response data", response)
-
-        /*const { message, access, userSession } = response.data;
-        alert(message);
+        const actionResult = await dispatch(putPassRecovery(putdata));
+        const response = actionResult.payload.userModificationResult; // Acceder a la parte específica del estado que necesitas
+        console.log("Datos del componente enviados al thunk", putdata);
+        console.log("Response del thunk:", response);
   
-        if (access && userSession) {
-          handleSuccessfulLogin(userSession);
-  
-          if (userSession.role === "admin") {
-            navigate("/dashboard");
-          } else if (userSession.role === "cliente") {
-            navigate("/");
-          }
-        }*/
-
-
       } else {
         throw new Error("Las contraseñas no coinciden");
       }
@@ -81,6 +64,7 @@ function VerificationSuccess() {
       alert("Procedimiento incorrecto. Por favor, verifique sus datos.");
     }
   };
+  
   return (
     <div className="w-96  mr-auto ml-auto h-90vh pt-16">
       <h1 className="text-2xl font-bold mb-4 flex items-center justify-center">
