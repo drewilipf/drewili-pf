@@ -148,7 +148,7 @@ const ProductFilter = ({ setActualPage }) => {
                 setFilterState((prev) => ({ ...prev, minPrice: e.target.value >= 0 ? e.target.value : prev.minPrice }))
               }
               placeholder="Min"
-              className="mr-2 mb-2 p-2 border-chiliRed rounded mt-1 block w-full py-2 px-3 border border-grey-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-chiliRed focus:border-chiliRed sm:text-sm "
+              className="mr-2 mb-2 p-2 border-chiliRed  mt-1 block w-full py-2 px-3 border border-grey-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-chiliRed focus:border-chiliRed sm:text-sm "
             />
             <input
               type="number"
@@ -157,7 +157,7 @@ const ProductFilter = ({ setActualPage }) => {
                 setFilterState((prev) => ({ ...prev, maxPrice:  e.target.value >= 0 ? e.target.value : prev.maxPrice }))
               }
               placeholder="Max"
-              className="mr-2 mb-2 p-2 border-chiliRed rounded mt-1 block w-full py-2 px-3 border border-grey-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-chiliRed focus:border-chiliRed sm:text-sm "
+              className="mr-2 mb-2 p-2 border-chiliRed  mt-1 block w-full py-2 px-3 border border-grey-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-chiliRed focus:border-chiliRed sm:text-sm "
               />
           </div>
               <div className="mt-2 flex p-2">
@@ -221,7 +221,7 @@ const ProductFilter = ({ setActualPage }) => {
               id="color"
               onChange={handleColorChange}
               value={filterState.selectedColor || ""}
-              className="mt-1 block w-full py-2 px-3 border border-chiliRed bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 tablet:text-sm border-chiliRed"
+              className="mt-1 block w-full py-2 px-3 border  bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 tablet:text-sm border-chiliRed"
             >
               <option value="">Selecciona un Color:</option>
               {Array.isArray(colors) &&
@@ -243,7 +243,7 @@ const ProductFilter = ({ setActualPage }) => {
                   setFilterState((prev) => ({ ...prev, minPrice:  e.target.value >= 0 ? e.target.value : prev.minPrice }))
                 }
                 placeholder="Min"
-                className="mb-2 p-2 border rounded w-full border-chiliRed mt-1 block w-full py-2 px-3 border border-chiliRed bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 tablet:text-sm "
+                className="mb-2 p-2 mt-1 block w-full py-2 px-3 border border-chiliRed bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 tablet:text-sm "
               />
               <input
                 type="number"
@@ -252,7 +252,7 @@ const ProductFilter = ({ setActualPage }) => {
                   setFilterState((prev) => ({ ...prev, maxPrice: e.target.value >= 0 ? e.target.value : prev.maxPrice }))
                 }
                 placeholder="Max"
-                className="mb-2 p-2 border rounded w-full border-chiliRed mt-1 block w-full py-2 px-3 border border-chiliRed bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 tablet:text-sm "
+                className="mb-2 p-2 mt-1 block w-full py-2 px-3 border border-chiliRed bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 tablet:text-sm "
               />
             </div>
 

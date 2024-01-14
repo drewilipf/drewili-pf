@@ -27,7 +27,7 @@ const getProductsController = async () => {
       id: product.id,
       name: product.name,
       description: product.description,
-      price: product.price,
+      price: product.finalPrice,
       specifications: product.specifications,
       color: product.Colors.color, 
       stock: product.stock,
@@ -38,6 +38,7 @@ const getProductsController = async () => {
       relevance: product.relevance,
       images: product.imageArray,
       date: product.createdAt,
+      discount: product.discount
     };
   });
 

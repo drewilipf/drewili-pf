@@ -6,7 +6,7 @@ const getPurchaseHistory = async (userId) => {
         include: [
             {
                 model: Product,
-                attributes: ['id', 'name', 'imageArray', 'price'],
+                attributes: ['id', 'name', 'imageArray', 'price', 'discount',],
             },
             {
                 model: User,
@@ -20,19 +20,23 @@ const getPurchaseHistory = async (userId) => {
         throw new Error("No se encontraron registros de compra para el usuario");
     }
 
-    const formattedPurchaseHistory = purchaseHistory.map((purchase) => ({
-        purchaseId: purchase.id,
-        productId: purchase.product_id,
-        productName: purchase.product.name,
-        productImage: purchase.product.imageArray[0],
-        productPrice: purchase.product.price,
-        quantity: purchase.quantity,
-        userId: purchase.user_id,
-        username: purchase.user.username,
-        date: purchase.purchase_date,
-        paymentPdf: purchase.paymentPdf,
-        paymentStatus: purchase.paymentStatus,
-    }));
+    const formattedPurchaseHistory = purchaseHistory.map((purchase) => {
+        const finalPrice = purchase.product.finalPrice;
+        return{
+            purchaseId: purchase.id,
+            productId: purchase.product_id,
+            productName: purchase.product.name,
+            productImage: purchase.product.imageArray[0],
+            productPrice: finalPrice,
+            quantity: purchase.quantity,
+            userId: purchase.user_id,
+            username: purchase.user.username,
+            date: purchase.purchase_date,
+            paymentPdf: purchase.paymentPdf,
+            paymentStatus: purchase.paymentStatus,
+
+        }
+    });
 
     return formattedPurchaseHistory;
 };
