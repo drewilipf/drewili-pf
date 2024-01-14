@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import LoginButton from "../LoginButton";
 import { NavLink} from "react-router-dom";
+import Swal from 'sweetalert2'
 
 function UserLogin() {
   const [input, setInput] = useState({
@@ -38,7 +39,12 @@ function UserLogin() {
       const response = await dispatch(postLogin(loginData));
 
       const { message, access, userSession } = response.data;
-      alert(message);
+      Swal.fire({
+        title: '¡Inicio exitoso!',
+        text: (message),
+        icon: 'success',
+        confirmButtonText: 'Ok'
+      });
 
       if (access && userSession) {
         handleSuccessfulLogin(userSession);
@@ -51,10 +57,16 @@ function UserLogin() {
       }
     } catch (error) {
       setTimeout(() => {
-        const userClickedOk = window.confirm(
-          "Usuario NO registrado o deshabilitado. ¿Quieres ir a la página de registro?"
-        );
-      }, 8000);
+        const userClickedOk = Swal.fire({
+          title: 'Error!',
+          text: 'Usuario NO registrado o deshabilitado. ¿Quieres ir a la página de registro?',
+          icon: 'error',
+          confirmButtonText: 'Continuar'
+        })
+        // window.confirm(
+        //   "Usuario NO registrado o deshabilitado. ¿Quieres ir a la página de registro?"
+      
+      }, 1000);
       if (userClickedOk) {
         navigate("/userform");
       }
