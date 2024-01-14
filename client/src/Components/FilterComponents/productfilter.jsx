@@ -40,8 +40,6 @@ const ProductFilter = ({ setActualPage }) => {
     dispatch(getCategory());
   }, [dispatch]);
 
-
-
   const handleBrandChange = (brand) => {
     setFilterState((prev) => ({ ...prev, selectedBrand: brand }));
   };
@@ -83,9 +81,9 @@ const ProductFilter = ({ setActualPage }) => {
     setActualPage(1);
   };
 
-  const handleOpenFilter = () =>{
-    setFilterMenuOpen(!filterMenuOpen)
-  }
+  const handleOpenFilter = () => {
+    setFilterMenuOpen(!filterMenuOpen);
+  };
 
   return (
     <div className="mb-4 w-full">
@@ -106,10 +104,18 @@ const ProductFilter = ({ setActualPage }) => {
             onChange={(e) => handleBrandChange(e.target.value)}
             className="mt-1 block w-full py-2 px-3 border bg-white rounded-md shadow-sm focus:outline-none focus:ring-chiliRed focus:border-chiliRed tablet:text-sm border-chiliRed"
           >
-            <option value="" className="text-eerieBlack" disabled defaultValue>Filtrar por marca</option>
-            <option value="" className="text-eerieBlack" >Todas las marcas</option>
+            <option value="" className="text-eerieBlack" disabled defaultValue>
+              Filtrar por marca
+            </option>
+            <option value="" className="text-eerieBlack">
+              Todas las marcas
+            </option>
             {brandList.map((brand) => (
-              <option key={brand.id} value={brand.brand} className="text-eerieBlack">
+              <option
+                key={brand.id}
+                value={brand.brand}
+                className="text-eerieBlack"
+              >
                 {brand.brand}
               </option>
             ))}
@@ -127,7 +133,9 @@ const ProductFilter = ({ setActualPage }) => {
             value={filterState.selectedColor || ""}
             className="mt-1 block w-full py-2 px-3 border border-grey-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-chiliRed focus:border-chiliRed sm:text-sm border-chiliRed"
           >
-            <option value="" disabled defaultValue>Filtrar por color</option>
+            <option value="" disabled defaultValue>
+              Filtrar por color
+            </option>
             <option value="">Todos los colores</option>
             {Array.isArray(colors) &&
               colors.map((color) => (
@@ -138,54 +146,60 @@ const ProductFilter = ({ setActualPage }) => {
           </select>
 
           <div className="">
-          <label className="mr-2 mt-2 block text-sm font-medium text-eerieBlack">
+            <label className="mr-2 mt-2 block text-sm font-medium text-eerieBlack">
               Filtrar por precio:
             </label>
             <input
               type="number"
               value={filterState.minPrice}
               onChange={(e) =>
-                setFilterState((prev) => ({ ...prev, minPrice: e.target.value >= 0 ? e.target.value : prev.minPrice }))
+                setFilterState((prev) => ({
+                  ...prev,
+                  minPrice:
+                    e.target.value >= 0 ? e.target.value : prev.minPrice,
+                }))
               }
               placeholder="Min"
-              className="mr-2 mb-2 p-2 border-chiliRed rounded mt-1 block w-full py-2 px-3 border border-grey-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-chiliRed focus:border-chiliRed sm:text-sm "
+              className="mr-2 mb-2 p-2 border-chiliRed  mt-1 block w-full py-2 px-3 border border-grey-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-chiliRed focus:border-chiliRed sm:text-sm "
             />
             <input
               type="number"
               value={filterState.maxPrice}
               onChange={(e) =>
-                setFilterState((prev) => ({ ...prev, maxPrice:  e.target.value >= 0 ? e.target.value : prev.maxPrice }))
+                setFilterState((prev) => ({
+                  ...prev,
+                  maxPrice:
+                    e.target.value >= 0 ? e.target.value : prev.maxPrice,
+                }))
               }
               placeholder="Max"
-              className="mr-2 mb-2 p-2 border-chiliRed rounded mt-1 block w-full py-2 px-3 border border-grey-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-chiliRed focus:border-chiliRed sm:text-sm "
-              />
+              className="mr-2 mb-2 p-2 border-chiliRed mt-1 block w-full py-2 px-3 border border-grey-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-chiliRed focus:border-chiliRed sm:text-sm "
+            />
           </div>
-              <div className="mt-2 flex p-2">
+          <div className="mt-2 flex p-2">
+            <button
+              onClick={handleFilterClick}
+              className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mr-2 mb-2"
+            >
+              Aplicar Filtros
+            </button>
 
-          <button
-            onClick={handleFilterClick}
-            className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mr-2 mb-2"
-          >
-            Aplicar Filtros
-          </button>
-
-          <button
-            onClick={handleClearFilter}
-            className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mb-2"
-          >
-            Limpiar Filtros
-          </button>
-              </div>
+            <button
+              onClick={handleClearFilter}
+              className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mb-2"
+            >
+              Limpiar Filtros
+            </button>
+          </div>
         </div>
 
         {/* Mostrar botón para abrir filtros en pantallas pequeñas */}
         <div className="flex tablet:hidden items-center justify-center">
-
           <button
             onClick={handleOpenFilter}
             className="bg-chiliRed text-whiteSmoke font-bold px-4 py-2 rounded block tablet:hidden mr-1"
           >
-            {filterMenuOpen ? <IoFilterCircle/> : <IoFilterCircleOutline/>}
+            {filterMenuOpen ? <IoFilterCircle /> : <IoFilterCircleOutline />}
           </button>
         </div>
         {filterMenuOpen && (
@@ -221,7 +235,7 @@ const ProductFilter = ({ setActualPage }) => {
               id="color"
               onChange={handleColorChange}
               value={filterState.selectedColor || ""}
-              className="mt-1 block w-full py-2 px-3 border border-chiliRed bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 tablet:text-sm border-chiliRed"
+              className="mt-1 block w-full py-2 px-3 border border-chiliRed bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 tablet:text-sm"
             >
               <option value="">Selecciona un Color:</option>
               {Array.isArray(colors) &&
@@ -240,19 +254,27 @@ const ProductFilter = ({ setActualPage }) => {
                 type="number"
                 value={filterState.minPrice}
                 onChange={(e) =>
-                  setFilterState((prev) => ({ ...prev, minPrice:  e.target.value >= 0 ? e.target.value : prev.minPrice }))
+                  setFilterState((prev) => ({
+                    ...prev,
+                    minPrice:
+                      e.target.value >= 0 ? e.target.value : prev.minPrice,
+                  }))
                 }
                 placeholder="Min"
-                className="mb-2 p-2 border rounded w-full border-chiliRed mt-1 block w-full py-2 px-3 border border-chiliRed bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 tablet:text-sm "
+                className="mb-2 p-2 border  w-full border-chiliRed mt-1 block  py-2 px-3  bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 tablet:text-sm "
               />
               <input
                 type="number"
                 value={filterState.maxPrice}
                 onChange={(e) =>
-                  setFilterState((prev) => ({ ...prev, maxPrice: e.target.value >= 0 ? e.target.value : prev.maxPrice }))
+                  setFilterState((prev) => ({
+                    ...prev,
+                    maxPrice:
+                      e.target.value >= 0 ? e.target.value : prev.maxPrice,
+                  }))
                 }
                 placeholder="Max"
-                className="mb-2 p-2 border rounded w-full border-chiliRed mt-1 block w-full py-2 px-3 border border-chiliRed bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 tablet:text-sm "
+                className="mb-2 p-2 border  w-full border-chiliRed mt-1 block py-2 px-3  bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 tablet:text-sm "
               />
             </div>
 
@@ -274,10 +296,9 @@ const ProductFilter = ({ setActualPage }) => {
             {/* Botón para cerrar el menú desplegable */}
           </div>
         )}
-    </div>
+      </div>
     </div>
   );
 };
 
 export default ProductFilter;
-
