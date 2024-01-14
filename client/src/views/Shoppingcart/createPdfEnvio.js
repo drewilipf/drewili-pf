@@ -56,7 +56,7 @@ const enviarFormDataAlServidor = async (formData, purchaseID) => {
     },
   };
   const response = await axios.put(
-    `http://localhost:3001/history/update/${purchaseID}`,
+    `https://drewili-pf-back.onrender.com/history/update/${purchaseID}`,
     formData,
     config
   );
