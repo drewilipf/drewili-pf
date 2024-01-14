@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -18,6 +18,7 @@ import { allDelete } from "../../reduxToolkit/SalesCarts/salesCartThunk";
 const SelectPayment = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [pdfBlob, setPdfBlob] = useState(null);
   const [opcionSeleccionadaPedido, setOpcionSeleccionadaPedido] =
     useState("yo");
   const [opcionSeleccionadaComprobante, setOpcionSeleccionadaComprobante] =
@@ -38,27 +39,34 @@ const SelectPayment = () => {
   const { usersGoogle } = useSelector((state) => state.users);
   const { priceTotal } = useSelector((state) => state.salesCart);
   const { shippingInfo } = useSelector((state) => state.shipping);
+
   const { dropshippingInfo } = useSelector((state) => state.shipping);
+
   const { opcionQuienRecibe } = useSelector((state) => state.shipping);
   const { opciontipoComprobante } = useSelector((state) => state.shipping);
   const { razonSocialFactura } = useSelector((state) => state.shipping);
   const { rucFactura } = useSelector((state) => state.shipping);
-  const QuienRecibira = "¿Quién recibirá el pedido?";
-  const TipoComprobante = "¿Qué tipo de comprobante desea?";
-  const Razon = "Razón Social";
-  const RUC = "RUC";
-  const Modalidad = "Modalidad de pago";
-  const combinedData = {
-    ...shippingInfo,
-    ...dropshippingInfo,
-    state3: { QuienRecibira, ...opcionQuienRecibe },
-    state4: { TipoComprobante, ...opciontipoComprobante },
-    state5: { Razon, ...razonSocialFactura },
-    state6: { RUC, ...rucFactura },
-    state7: { Modalidad, ...modalidadPago },
-  };
-  console.log(combinedData);
 
+  const opcionR = opcionQuienRecibe;
+  const opcionC = opciontipoComprobante;
+  const combinedData = {
+    Nombre: shippingInfo.name,
+    Apellido: shippingInfo.lastname,
+    Dirección: shippingInfo.address,
+    "Correo electrónico": shippingInfo.email,
+    Celular: shippingInfo.phone,
+    "Nº de Documento": shippingInfo.dni,
+    Dropshipping: "Datos del Cliente",
+    "Nombre completo ": dropshippingInfo.name,
+    "Dirección de envío": dropshippingInfo.address,
+    Teléfono: dropshippingInfo.phone,
+    "Número de Documento": dropshippingInfo.dni,
+    "¿Quién recibirá el pedido?": opcionR,
+    "¿Qué tipo de comprobante desea?": opcionC,
+    "Razón Social": razonSocialFactura,
+    RUC: rucFactura,
+    "modalidad de pago": modalidadPago,
+  };
 
   const userId =
     (userSession && userSession.userId) ||
@@ -81,7 +89,7 @@ const SelectPayment = () => {
     setRazonSocial(razonSocial);
     dispatch(setRazonSocialSlice(razonSocial));
     setRuc(ruc);
-    console.log(ruc);
+
     dispatch(setRucSlice(ruc));
   };
 
@@ -92,7 +100,7 @@ const SelectPayment = () => {
     dispatch(setModalidadPagoSlice(modalidad));
   };
   const purchaseHistory = useSelector((state) => state.purchaseHistory.data);
-  console.log("este es el purchase history", purchaseHistory)
+
   const listItems = salesCart?.map((item) => ({
     idProduct: item.id,
     name: item.name,
@@ -116,21 +124,40 @@ const SelectPayment = () => {
   };
 
   const emailData = {
-    name: dropshippingInfo.name ? `${dropshippingInfo.name} ` : `${shippingInfo.name} ${shippingInfo.lastname}`,
+    name: dropshippingInfo.name
+      ? `${dropshippingInfo.name} `
+      : `${shippingInfo.name} ${shippingInfo.lastname}`,
     email: shippingInfo.email,
-    adress: dropshippingInfo.adress ? `${dropshippingInfo.adress} ` : shippingInfo.adress,
+    adress: dropshippingInfo.adress
+      ? `${dropshippingInfo.adress} `
+      : shippingInfo.adress,
     product: listItems,
     totalprice: priceTotal,
-    phone: dropshippingInfo.phone ? `${dropshippingInfo.phone} ` : shippingInfo.phone,
+    phone: dropshippingInfo.phone
+      ? `${dropshippingInfo.phone} `
+      : shippingInfo.phone,
     dropshipping: dropshippingInfo.name ? "Si" : "No",
     status: purchaseHistory.paymentStatus,
   };
 
   const handlePdf = async () => {
-    navigate('/payment/payment', { state: emailData });
-    await axios.post(`https://drewili-pf-back.onrender.com/history/${userId}`, { cartItems: listItems })
-    dispatch(allDelete(userId))
+    navigate("/payment/payment", { state: emailData });
 
+    console.log(pdfBlob);
+
+    const Historial = await axios.post(
+      `https://drewili-pf-back.onrender.com/history/${userId}`,
+      {
+        cartItems: listItems,
+      }
+    );
+
+    const purchaseId = Historial.data[0].id;
+    console.log(purchaseId);
+    const generatedBlob = generatePDF(combinedData, purchaseId);
+    setPdfBlob(generatedBlob);
+
+    dispatch(allDelete(userId));
   };
 
   const PriceContraentrega = ((priceTotal * 30) / 100).toFixed(2);
