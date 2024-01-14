@@ -23,7 +23,7 @@ const PaymentSuccess = () => {
   const { opciontipoComprobante } = useSelector((state) => state.shipping);
   const { razonSocialFactura } = useSelector((state) => state.shipping);
   const { rucFactura } = useSelector((state) => state.shipping);
-  const { modalidadPago } = useSelector((state = state.shipping));
+  const { modalidadPago } = useSelector((state) => state.shipping);
 
   const opcionR = opcionQuienRecibe;
   const opcionC = opciontipoComprobante;
