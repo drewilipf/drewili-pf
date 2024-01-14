@@ -20,3 +20,4 @@ const postHistoryController = async (updateProduct, userId) => {
   const newPurchase = await PurchaseHistory.bulkCreate(purchaseHistoryData);
   return newPurchase;
 };
+module.exports = postHistoryController;
