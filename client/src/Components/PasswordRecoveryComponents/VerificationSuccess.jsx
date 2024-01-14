@@ -20,8 +20,11 @@ function VerificationSuccess() {
 
   const [input, setInput] = useState({
     newpassword: "",
-    newpasswordconfirmation: "",
+  newpasswordconfirmation: "",
+    
   });
+  const [errors, setErrors] =  useState({ newpassword: "",
+  newpasswordconfirmation: "",})
 
   const [putdata, setPutdata] = useState({
     username: "",
@@ -37,8 +40,46 @@ function VerificationSuccess() {
     }
     console.log("data para el put actual", putdata);
   }, [datasent, input]);
+const regexpassword= /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}|<>?]).{8,}$/;
 
   const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    let errors = {
+      newpassword : ""
+    }
+   // validaciones de la constraseña
+   if (!input.newpassword) {
+    errors.newpassword = "Por favor ingrese una constraseña"
+}
+
+const regexPassword1 = /[a-z]/
+if (!regexPassword1.test(input.newpassword)) {
+    errors.newpassword = "La constraseña debe tener al menos una letra minúscula ";
+}
+const regexPassword2 = /[A-Z]/
+if (!regexPassword2.test(input.newpassword)) {
+    errors.newpassword = "La constraseña debe tener al menos una letra mayúscula ";
+}
+const regexPassword3 = /\d/
+if (!regexPassword3.test(input.newpassword)) {
+    errors.newpassword = "La constraseña debe tener al menos un dígito ";
+}
+const regexPassword4 = /[!@#$%^&*()?¿¡\-_+=.,;:'"<>{}[\]\|\/\\`~]+/
+if (!regexPassword4.test(input.newpassword)) {
+    errors.newpassword = "La constraseña debe tener al menos un carácter especial";
+}
+const longitud = 8
+if (input.newpassword.length<longitud) {
+    errors.newpassword = "La constraseña debe tener una logintud mínima de 8";
+}
+
+if (errors.newpassword != "") {
+  setErrors({ newpassword: errors.newpassword });
+} else {
+  setErrors({ password: "" });
+}
+  
     setInput({
       ...input,
       [event.target.name]: event.target.value,
@@ -50,7 +91,7 @@ function VerificationSuccess() {
     event.preventDefault();
   
     try {
-      if (input.newpassword && input.newpasswordconfirmation && input.newpassword === input.newpasswordconfirmation) {
+      if ( !errors.newpassword && input.newpasswordconfirmation && input.newpassword === input.newpasswordconfirmation) {
         const action = putPassRecovery(putdata);
         const actionResult = await dispatch(action);
         console.log("Datos del componente enviados al thunk", putdata);
@@ -60,8 +101,6 @@ function VerificationSuccess() {
           alert("Actualización de contraseña correcta");
           navigate("/userlogin");
         }
-        
-        
       } else {
         throw new Error("Las contraseñas no coinciden");
       }
@@ -94,6 +133,7 @@ function VerificationSuccess() {
               onChange={handleChange}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
+            <span className="text-chiliRed">{errors?.newpassword}</span>
           </div>
           <div>
             <label className="block text-chiliRed mb-2"> repetir Contraseña</label>
