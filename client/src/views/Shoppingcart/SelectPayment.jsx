@@ -182,26 +182,26 @@ const SelectPayment = () => {
         </div>
       </div>
       {opcionSeleccionadaComprobante === "factura" && (
-        <div>
-          <label className="block mt-4">Razón social:</label>
+        <div className=" flex items-center justify-around mt-8 max-w-4xl mx-auto ">
+          <label className="block">Razón social:</label>
           <input
             type="text"
             value={razonSocial}
             onChange={(e) => setRazonSocial(e.target.value)}
-            className="border p-2"
+            className="border p-2 rounded-md shadow-xl"
             placeholder="Razón social"
           />
 
-          <label className="block mt-4">RUC:</label>
+          <label className="block ml-20">RUC:</label>
           <input
             type="text"
             value={ruc}
             onChange={(e) => setRuc(e.target.value)}
-            className="border p-2"
+            className="border p-2 rounded-md shadow-xl"
             placeholder="RUC"
           />
           <button
-            className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded ml-4"
+            className=" bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded ml-8 shadow-xl"
             onClick={handleClik}
           >
             Aceptar datos
@@ -307,25 +307,25 @@ const SelectPayment = () => {
               </div>
             </span>
           </div>
-          <div className="mx-auto border border-chiliRed ">
-            <span className="font-bold">
+          <div className="max-w-xl mx-auto mt-8 shadow-xl rounded-xl ">
+            <span className="font-bold ml-2">
               RECUERDA ENVIAR EL COMPROBANTE DE PAGO AL SIGUIENTE WHATSAPP
             </span>
-            <div className=" text-2xl  ">
-              <SiWhatsapp />
+            <div className="flex justify-center text-2xl  ">
+              <SiWhatsapp className="mt-1 mr-4"/>
               <a
                 href="https://wa.me/51971985484"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span className="hover:text-chiliRed ">971 985 484</span>
+                <span className="hover:text-chiliRed p-2">971 985 484</span>
               </a>
             </div>
           </div>
 
 
           <button
-            className="mx-auto bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
+            className="flex mx-auto mt-8 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
             onClick={handlePdf}
           >
             Ir a pagar
@@ -343,53 +343,51 @@ const SelectPayment = () => {
         </div>
       )}
       {modalidadPago === "yape" && (
-        <div className="mt-8">
-          <span>
+        <div className="mt-8  ">
+          <span className="flex justify-center ">
             Con esta opción podrás pagar a través de Yape o Plin, registra
             nuestro número de teléfono, usuando el QR, en tus contactos y
             realiza el pago.
           </span>
           <div
-            className="
-          mt-8 ml-9 text-9xl"
-          >
+            className="flex justify-center mt-8 ml-9 text-9xl">
             <BsQrCode />
           </div>
-          <div className="mt-8 border border-chiliRed">
-            <span className="font-bold mt-8">
+          <div className="max-w-xl mx-auto mt-8 shadow-xl rounded-xl ">
+            <span className="font-bold ml-2">
               RECUERDA ENVIAR EL COMPROBANTE DE PAGO AL SIGUIENTE WHATSAPP
             </span>
-            <div className="mt-4 text-5xl ml-5">
-              <SiWhatsapp />
+            <div className="flex justify-center text-2xl  ">
+              <SiWhatsapp className="mt-1 mr-4"/>
+              <a
+                href="https://wa.me/51971985484"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="hover:text-chiliRed p-2">971 985 484</span>
+              </a>
             </div>
-            <a
-              href="https://wa.me/51971985484"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className="hover:text-chiliRed ml-5">971 985 484</span>
-            </a>
           </div>
-
+          <div className="flex justify-center items-baseline">
           <button
             className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
             onClick={handlePdf}
           >
             Ir a pagar
-          </button>
+          </button></div>
         </div>
       )}
       {modalidadPago === "contraentrega" && (
-        <div className="mt-6">
-          <span className="font-bold">Anticipo del 30% del pago</span>
-          <div>
-            Se confirmará el pedido por los medios de contacto suministrado
+        <div className="mt-6 ">
+          <span className="font-bold flex justify-center">Anticipo del 30% del pago.</span>
+          <div className="flex justify-center">
+            Se confirmará el pedido por los medios de contacto suministrado.
           </div>
-          <span>
+          <span className="flex justify-center">
             En caso el comprador no conteste, DREWILI no procederá con el envío
             del pedido.
           </span>
-          <div className="font-bold">
+          <div className="font-bold flex justify-center">
             Realiza la transferencia del siguiente monto S/{PriceContraentrega}{" "}
             y envia el comprobante para proceder con el envío.
           </div>
@@ -448,28 +446,29 @@ const SelectPayment = () => {
               </div>
             </span>
           </div>
-          <div className="mt-8">
-            <span className="font-bold mt-8">
+          <div className="max-w-xl mx-auto mt-8 shadow-xl rounded-xl ">
+            <span className="font-bold ml-2">
               RECUERDA ENVIAR EL COMPROBANTE DE PAGO AL SIGUIENTE WHATSAPP
             </span>
-            <div className="mt-4 text-5xl ml-5">
-              <SiWhatsapp />
+            <div className="flex justify-center text-2xl  ">
+              <SiWhatsapp className="mt-1 mr-4"/>
+              <a
+                href="https://wa.me/51971985484"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="hover:text-chiliRed p-2">971 985 484</span>
+              </a>
             </div>
-            <a
-              href="https://wa.me/51971985484"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className="hover:text-chiliRed ml-5">971 985 484</span>
-            </a>
           </div>
 
+          <div className="flex justify-center items-baseline">
           <button
             className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
             onClick={handlePdf}
           >
             Ir a pagar
-          </button>
+          </button></div>
 
         </div>
       )}
