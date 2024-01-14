@@ -89,21 +89,9 @@ export const putPassRecovery = (passrecoverydata) => {
   return async (dispatch) => {
     try {
       const response = await axios.put(`${API_URL}/password/update`, passrecoverydata);
-      
-
-      // Verificar si la respuesta tiene un código de estado 200
-      if (response.status === 200) {
-        const userModificated = response.status; // Asumo que la información que necesitas está en response.data
-
-        // Despachar la acción para actualizar el estado con el resultado de la modificación de contraseña
-        dispatch(putPassRecoverySlice({ userModificationResult: { success: true, userModificationResult: userModificated } }));
-      console.log(userModificated)
-      } else {
-        console.error("Error en la solicitud:", response.status);
-
-        // Despachar la acción para actualizar el estado con el resultado de la modificación de contraseña (en caso de error)
-        dispatch(putPassRecoverySlice({ userModificationResult: { success: false, error: "Error en la solicitud" } }));
-      }
+      console.log(response.status)
+        dispatch(putPassRecoverySlice({ userModificationResult: { success: true, status: response.status } }));
+     
     } catch (error) {
       console.error("Error al enviar datos:", error);
 

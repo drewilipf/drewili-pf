@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector} from "react-redux";
 import { postLogin } from "../../reduxToolkit/Login/loginThunks";
 import Cookies from "js-cookie";
 import LoginButton from "../LoginButton";
@@ -14,6 +14,7 @@ function VerificationSuccess() {
   const location = useLocation();
   const navigate = useNavigate();
   const datasent = location.state;
+  const userputResult = useSelector((state) => state.users.userModificationResult.userModificationResult.status);
 
   console.log("estos son los datos que recibe del componente anterior", datasent);
 
@@ -50,11 +51,17 @@ function VerificationSuccess() {
   
     try {
       if (input.newpassword === input.newpasswordconfirmation) {
-        const actionResult = await dispatch(putPassRecovery(putdata));
-        const response = actionResult.payload.userModificationResult; // Acceder a la parte específica del estado que necesitas
+        const action = putPassRecovery(putdata);
+        const actionResult = await dispatch(action);
         console.log("Datos del componente enviados al thunk", putdata);
-        console.log("Response del thunk:", response);
-  
+        console.log("user put result", userputResult)
+        if(userputResult == "200"){
+          console.log("cambio correcto")
+          alert("Actualización de contraseña correcta");
+          navigate("/userlogin");
+        }
+        
+        
       } else {
         throw new Error("Las contraseñas no coinciden");
       }
