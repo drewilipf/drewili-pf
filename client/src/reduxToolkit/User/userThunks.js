@@ -1,10 +1,12 @@
-import {
+import userSlice, {
   getUserSlice,
   postUserSlice,
   putUserSlice,
   getUserByIdSlice,
   deletedUserSlice,
   postGoogleSlice,
+  putPassRecoverySlice,
+  getUserByUsernameSlice
 } from "./userSlice";
 import axios from "axios";
 
@@ -58,6 +60,23 @@ export const getUserId = (id) => {
     }
   };
 };
+export const getUserByUsername = (username) => {
+  return async (dispatch) => {
+    try {
+      console.log("data recibida al thunk", `${API_URL}/username?username=${username}`)
+      const response = await axios.get(`${API_URL}/username?username=${username}`);
+      const user = response.data;
+      console.log("thunk response", user)
+      dispatch(getUserByUsernameSlice(user));
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        // Si es un error 400, envía el mensaje de error al slice
+        dispatch(getUserByUsernameSlice(error.response.data))}
+      console.error("Error fetching product:", error);
+      
+    }
+  };
+};
 export const deletedUser = (id) => {
   return async (dispatch) => {
     try {
@@ -83,3 +102,23 @@ export const postGoogle = (userData) => {
     }
   };
 };
+
+export const putPassRecovery = (passrecoverydata) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(`${API_URL}/password/update`, passrecoverydata);
+      console.log(response.status)
+        dispatch(putPassRecoverySlice(response.status));
+     
+    } catch (error) {
+      console.error("Error al enviar datos:", error);
+
+      // Despachar la acción para actualizar el estado con el resultado de la modificación de contraseña (en caso de error)
+      dispatch(putPassRecoverySlice({ userModificationResult: { success: false, error: error.message } }));
+    }
+  };
+};
+
+
+
+
