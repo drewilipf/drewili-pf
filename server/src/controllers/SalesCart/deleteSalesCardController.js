@@ -11,7 +11,7 @@ const salesCartDeleteController = async(id, userId) =>{
             where: { user_id: userId },
             include: {
                 model: Product,
-                attributes: ['id', 'name', 'image', 'price'],
+                attributes: ['id', 'name', 'imageArray', 'price'],
                 include: [
                     {
                       model: Category,
@@ -35,7 +35,7 @@ const salesCartDeleteController = async(id, userId) =>{
             salesCartId: product.id,
             id: product.product.id,
             name: product.product.name,
-            image: product.product.image,
+            images: product.product.imageArray[0],
             price: product.product.price,
             quantity: product.quantity,
             totalPrice: product.product.price*product.quantity,

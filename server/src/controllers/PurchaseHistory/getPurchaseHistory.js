@@ -13,7 +13,7 @@ const getPurchaseHistory = async (userId) => {
                 attributes: ['id', 'username'],
             },
         ],
-        order: [['id', 'ASC']],
+        order: [['id', 'desc']],
     });
 
     if (purchaseHistory.length === 0) {

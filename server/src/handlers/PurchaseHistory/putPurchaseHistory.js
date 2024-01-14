@@ -3,14 +3,17 @@ const updatePurchaseHistoryController = require("../../controllers/PurchaseHisto
 const updatePurchaseHistory = async (req, res) => {
   try {
     const { purchaseId } = req.params;
-    console.log("ID de compra a actualizar:", purchaseId);
+
     const { newPaymentStatus } = req.body;
-    console.log("Nuevo estado de pago:", newPaymentStatus);
+
+    // Verifica si se proporcionó un archivo PDF en la solicitud
+    const paymentPdf = req.file ? req.file.buffer : null;
+
     const result = await updatePurchaseHistoryController(
       purchaseId,
-      newPaymentStatus
+      newPaymentStatus,
+      paymentPdf
     );
-    console.log("Resultado de la actualización:", result);
 
     res.status(200).json(result);
   } catch (error) {
