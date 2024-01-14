@@ -66,18 +66,16 @@ function UserLogin() {
   const navigateRecovery = async () => {
     if (input.username) {
       try {
-        console.log("Información que se enviará al thunk", input.username);
         
-        // Asegúrate de utilizar await y manejar el resultado correctamente
         const actionResult = await dispatch(getUserByUsername(input.username));
-        // Accede correctamente al resultado del thunk
-        console.log("userbyusername result", userbyusernameResult.user.message)
         
-        // Verifica si el mensaje es "Usuario existente"
-        if (userbyusernameResult.user.message == "Usuario existente") {
+        console.log("user by username result", userbyusernameResult)
+       
+        if (userbyusernameResult && userbyusernameResult.message == "Usuario existente") {
+          
           navigate('/forgetpassword', { state: input });
         } else {
-          // Utiliza window.confirm y almacena el resultado en userClickedOk
+          
           const userClickedOk = window.confirm(
             "Usuario NO registrado o deshabilitado. ¿Quieres ir a la página de registro?"
           );
@@ -87,7 +85,6 @@ function UserLogin() {
           }
         }
       } catch (error) {
-        // Maneja errores aquí si es necesario
         console.error("Error al obtener el usuario por nombre de usuario:", error);
       }
     } else {

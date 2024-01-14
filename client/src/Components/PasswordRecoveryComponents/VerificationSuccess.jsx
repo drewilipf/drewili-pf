@@ -14,7 +14,7 @@ function VerificationSuccess() {
   const location = useLocation();
   const navigate = useNavigate();
   const datasent = location.state;
-  const userputResult = useSelector((state) => state.users.userModificationResult.userModificationResult.status);
+  const userputResult = useSelector((state) => state.users.userModificationResult);
 
   console.log("estos son los datos que recibe del componente anterior", datasent);
 
@@ -50,7 +50,7 @@ function VerificationSuccess() {
     event.preventDefault();
   
     try {
-      if (input.newpassword === input.newpasswordconfirmation) {
+      if (input.newpassword && input.newpasswordconfirmation && input.newpassword === input.newpasswordconfirmation) {
         const action = putPassRecovery(putdata);
         const actionResult = await dispatch(action);
         console.log("Datos del componente enviados al thunk", putdata);
@@ -68,7 +68,7 @@ function VerificationSuccess() {
     } catch (error) {
       console.error("Error al enviar datos:", error.message);
       // Mostrar mensaje de error al usuario
-      alert("Procedimiento incorrecto. Por favor, verifique sus datos.");
+      alert("Procedimiento incorrecto. Por favor, verifique los datos ingresados.");
     }
   };
   
