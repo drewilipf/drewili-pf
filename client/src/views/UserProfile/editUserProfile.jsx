@@ -4,6 +4,7 @@ import { getUserId, putUser } from "../../reduxToolkit/User/userThunks";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import Swal from "sweetalert2";
 
 const EditUserProfile = () => {
   const styles =
@@ -95,7 +96,13 @@ const EditUserProfile = () => {
       };
 
       await dispatch(putUser(id, userData));
-      alert("Datos actualizados correctamente");
+      Swal.fire({
+        title: "¡Éxito!",
+        text: "Datos actualizados correctamente",
+        icon: "success",
+        confirmButtonColor: "#E62F05"
+      })
+      
       if (combinedUserSession !== "admin") {
         navigate(`/userprofile/${id}`);
       } else {
@@ -113,7 +120,13 @@ const EditUserProfile = () => {
         deleted: user.deleted,
       });
     } catch (error) {
-      alert("Error al actualizar los datos");
+      Swal.fire({
+        title: "¡Error!",
+        text: "Error al actualizar los datos",
+        icon: "error",
+        confirmButtonColor: "#E62F05"
+      })
+      
     }
   };
 

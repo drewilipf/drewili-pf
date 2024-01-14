@@ -5,6 +5,7 @@ import { getCategory } from "../../reduxToolkit/Category/categoryThunks.js";
 import { filterAll } from "../../reduxToolkit/Filtros/filterAllThunks.js";
 import { setCategoryFilterAction } from "../../reduxToolkit/Product/activeFilterthunks.js";
 import { useLocation } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function Searchbar({ setActualPage }) {
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -28,7 +29,7 @@ function Searchbar({ setActualPage }) {
   }, [dispatch]);
 
   useEffect(() => {
-    // Inicializar el estado local solo si no hay filtros activos
+    
     if (activeFilters && !activeFilters.isFiltering) {
       setFilterState({
         selectedCategory: "",
@@ -46,7 +47,13 @@ function Searchbar({ setActualPage }) {
 
   const handleSearchClick = () => {
     if (searchKeyword.length < 2) {
-      alert("Debe ingresar al menos dos caracteres");
+      Swal.fire({
+        title: "¡Atención!",
+        text: "Debe ingresar al menos dos caracteres",
+        icon: "warning",
+        confirmButtonColor: "#E62F05"
+      })
+      
       return;
     }
     dispatch(searchProduct(searchKeyword));

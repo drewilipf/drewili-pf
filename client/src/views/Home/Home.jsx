@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Productcards from "../../Components/Productcards/Productcards";
 import Banners from "../../Components/Banners/Banners";
+import BannersUp from "../../Components/Banners/BannersUp";
 import SortByPriceButtons from "../../Components/FilterComponents/sortByPriceComponent";
 import Pagination from "../../Components/Pagination/Pagination";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,11 +10,10 @@ import ProductFilter from "../../Components/FilterComponents/productfilter";
 import { useLocation } from "react-router-dom";
 import Searchbar from "../../Components/Searchbar/Searchbar";
 
-
 function Home({ actualPage, handlePageChange, setActualPage }) {
   const { products } = useSelector((state) => state.products);
-  const location = useLocation()
-  console.log(products);
+  const location = useLocation();
+
   const dispatch = useDispatch();
   // useEffect(() => {
   //   dispatch(getProducts());
@@ -34,20 +34,17 @@ function Home({ actualPage, handlePageChange, setActualPage }) {
 
   return (
     <>
-      <div className="flex flex-col tablet:flex-row tablet:items-start justify-center w-full pt-2 sm:items-center">
-
+      <div className="flex flex-col  md:flex-row tablet:flex-row tablet:items-start justify-center w-full pt-2 sm:items-center">
         {/* searchbar oculta para pantallas grandes */}
         <div className="p-8 tablet:hidden shadow-md">
-          {
-            location.pathname === "/" && (
-              <>
-                <Searchbar
-                  className="mx-auto"
-                  setActualPage={(num) => setActualPage(num)}
-                />
-              </>
-            )
-          }
+          {location.pathname === "/" && (
+            <>
+              <Searchbar
+                className="mx-auto"
+                setActualPage={(num) => setActualPage(num)}
+              />
+            </>
+          )}
         </div>
         {/* ---------------------------------------- */}
 
@@ -55,20 +52,24 @@ function Home({ actualPage, handlePageChange, setActualPage }) {
           <ProductFilter setActualPage={(num) => setActualPage(num)} />
         </div>
         <div className="w-full md:w-auto bg-white p-2 mb-2 rounded shadow-lg">
-          <div className="lg:w-full md:pl-[7%]">
-            <Banners />
+          <div className="lg:w-full ">
+            <BannersUp />
           </div>
-          <div className="tablet:ml-[70%]">
+          <div className="tablet:ml-[70%] tablet:sticky">
             <SortByPriceButtons setActualPage={(num) => setActualPage(num)} />
           </div>
-
-          <Productcards products={currentCards} />
-          <Pagination
-            handlePage={handlePageChange}
-            actualPage={actualPage}
-            totalPages={totalPages}
-          />
+          <div className="w-full md:w-auto bg-white p-2 mb-2 rounded shadow-lg">
+            <Productcards products={currentCards} />
+            <Pagination
+              handlePage={handlePageChange}
+              actualPage={actualPage}
+              totalPages={totalPages}
+            />
+          </div>
         </div>
+      </div>
+      <div className="lg:w-full ">
+        <Banners />
       </div>
     </>
   );
