@@ -19,7 +19,7 @@ const DarkModeToggle = () => {
   };
 
   return (
-    <button className="bg-whiteSmoke mr-8" onClick={handleChangeTheme}>
+    <button className=" mr-8" onClick={handleChangeTheme}>
       {theme === "light" ? <MdNightlight /> : <MdOutlineLightMode />}      
     </button>
   );
