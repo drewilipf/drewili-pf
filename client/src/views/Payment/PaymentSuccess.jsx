@@ -15,7 +15,17 @@ const PaymentSuccess = () => {
 
     // Ahora 'purchaseId' contiene el valor del parámetro "id"
     console.log(purchaseId);
+    const { shippingInfo } = useSelector((state) => state.shipping);
 
+    const { dropshippingInfo } = useSelector((state) => state.shipping);
+
+    const { opcionQuienRecibe } = useSelector((state) => state.shipping);
+    const { opciontipoComprobante } = useSelector((state) => state.shipping);
+    const { razonSocialFactura } = useSelector((state) => state.shipping);
+    const { rucFactura } = useSelector((state) => state.shipping);
+
+    const opcionR = opcionQuienRecibe;
+    const opcionC = opciontipoComprobante;
     const combinedData = {
       Nombre: shippingInfo.name,
       Apellido: shippingInfo.lastname,
