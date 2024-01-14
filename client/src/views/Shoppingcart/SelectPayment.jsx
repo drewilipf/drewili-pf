@@ -209,10 +209,10 @@ const SelectPayment = () => {
         </div>
       )}
       <div className=" items-center mt-8 ">
-        <label className=" mr-4 font-bold text-center text-2xl ml-16">
+        <label className=" mr-4 font-bold flex justify-center text-2xl ml-16">
           Modalidad de pago
         </label>
-        <div className="text-xl mt-4">
+        <div className="text-xl mt-4 flex justify-center">
           <input
             type="radio"
             id="modalidadTransferencia"
@@ -220,7 +220,7 @@ const SelectPayment = () => {
             checked={modalidadPago === "transferenciaBancaria"}
             onChange={() => handleModalidadPagoChange("transferenciaBancaria")}
           />
-          <label className="mr-2 ml-2">Transferencia Bancaria</label>
+          <label className="mr-8 ml-2">Transferencia Bancaria</label>
 
           <input
             type="radio"
@@ -229,7 +229,7 @@ const SelectPayment = () => {
             checked={modalidadPago === "tarjetaCreditoDebito"}
             onChange={() => handleModalidadPagoChange("tarjetaCreditoDebito")}
           />
-          <label className="mr-2 ml-2">Tarjeta de Crédito o Débito</label>
+          <label className="mr-8 ml-2">Tarjeta de Crédito o Débito</label>
 
           <input
             type="radio"
@@ -238,7 +238,7 @@ const SelectPayment = () => {
             checked={modalidadPago === "yape"}
             onChange={() => handleModalidadPagoChange("yape")}
           />
-          <label className="mr-2 ml-2">Yape o Plin</label>
+          <label className="mr-8 ml-2">Yape o Plin</label>
 
           <input
             type="radio"
@@ -247,79 +247,85 @@ const SelectPayment = () => {
             checked={modalidadPago === "contraentrega"}
             onChange={() => handleModalidadPagoChange("contraentrega")}
           />
-          <label className="mr-2 ml-2">Contraentrega</label>
+          <label className="mr-8 ml-2">Contraentrega</label>
         </div>
       </div>
       {modalidadPago === "transferenciaBancaria" && (
         <div>
-          <div className=" flex mt-8">
-            <span className="shadow-xl bg-white rounded-xl border border-chiliRed mr-4 flex items-center p-4">
+          <div className="flex justify-center space-x-8  mt-4">
+            <span className="shadow-xl bg-whiteSmoke rounded-xl   ">
               <img
                 src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/bbva_pyb84a.png"
                 alt="BBVA"
-                className="flex items-center w-20 h-16"
+                className="w-40 h-20 ml-16 shadow-xl rounded-xl  "
               />
-              <div>
-                <div className="font-bold">Nombre del banco:"BBVA"</div>
+              <div className="">
+                <div className="font-bold p-2">Nombre del banco:"BBVA"</div>
                 <div>Titular: DREWILI</div>
                 <div>Cta. corriente: 555-566-555-555</div>
                 <div>CCI: 20.000.000</div>
               </div>
             </span>
-            <span className="shadow-xl bg-white rounded-xl border border-chiliRed  mr-4">
+            <span className="shadow-xl bg-whiteSmoke rounded-xl  ">
               <img
                 src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/diners_Club_zfcjlt.png"
                 alt="Diners Club"
-                className="mr-48 w-20 h-16"
+                className="w-40 h-20  ml-16 shadow-xl rounded-xl"
               />
-              <div className="font-bold">Nombre del banco:"Diners Club"</div>
-              <div>Titular: DREWILI</div>
-              <div>Cta. corriente: 555-566-555-555</div>
-              <div>CCI: 20.000.000</div>
+              <div className="">
+                <div className="font-bold p-2">Nombre del banco:"Diners Club"</div>
+                <div>Titular: DREWILI</div>
+                <div>Cta. corriente: 555-566-555-555</div>
+                <div>CCI: 20.000.000</div>
+              </div>
             </span>
-            <span className="shadow-xl bg-white rounded-xl border border-chiliRed  mr-4">
+            <span className="shadow-xl bg-whiteSmoke rounded-xl ">
               <img
                 src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/bcp_gm0nfk.png"
                 alt="BCP"
-                className="mr-48 w-28 h-16"
+                className="w-40 h-20 ml-8 shadow-xl rounded-xl "
               />
-              <div className="font-bold">Nombre del banco:"BCP"</div>
-              <div>Titular: DREWILI</div>
-              <div>Cta. corriente: 555-566-555-555</div>
-              <div>CCI: 20.000.000</div>
+              <div className="">
+                <div className="font-bold p-2">Nombre del banco:"BCP" </div>
+                <div>Titular: DREWILI</div>
+                <div>Cta. corriente: 555-566-555-555</div>
+                <div>CCI: 20.000.000</div>
+
+              </div>
             </span>
-            <span className="shadow-xl bg-white rounded-xl border border-chiliRed  mr-4">
+            <span className="shadow-xl bg-whiteSmoke rounded-xl ">
               <img
                 src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/dividelo_interbank_iq253n.png"
                 alt="Dividelo Interbanck"
-                className="mr-48 w-24 h-16"
+                className="w-40 h-20 ml-16 shadow-xl rounded-xl "
               />
-              <div className="font-bold">
-                Nombre del banco:"Dividelo Interbanck"
+              <div className="">
+                <div className="font-bold ">Nombre del banco:"Dividelo Interbanck"</div>
+                <div>Titular: DREWILI</div>
+                <div>cta. corriente: 555-566-555-555</div>
+                <div>CCI: 20.000.000</div>
               </div>
-              <div>Titular: DREWILI</div>
-              <div>cta. corriente: 555-566-555-555</div>
-              <div>CCI: 20.000.000</div>
             </span>
           </div>
-          <div className="mt-8">
-            <span className="font-bold mt-8">
+          <div className="mx-auto border border-chiliRed ">
+            <span className="font-bold">
               RECUERDA ENVIAR EL COMPROBANTE DE PAGO AL SIGUIENTE WHATSAPP
             </span>
-            <div className="mt-4 text-5xl ml-5">
+            <div className=" text-2xl  ">
               <SiWhatsapp />
+              <a
+                href="https://wa.me/51971985484"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="hover:text-chiliRed ">971 985 484</span>
+              </a>
             </div>
-            <a
-              href="https://wa.me/51971985484"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className="hover:text-chiliRed ml-5">971 985 484</span>
-            </a>
           </div>
 
+
           <button
-            className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
+            className="mx-auto bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
             onClick={handlePdf}
           >
             Ir a pagar
@@ -327,9 +333,9 @@ const SelectPayment = () => {
         </div>
       )}
       {modalidadPago === "tarjetaCreditoDebito" && (
-        <div>
+        <div className="flex justify-center items-baseline ">
           <button
-            className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
+            className="mt-24 mb-8 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
             onClick={handlePayment}
           >
             Ir a pagar
@@ -349,7 +355,7 @@ const SelectPayment = () => {
           >
             <BsQrCode />
           </div>
-          <div className="mt-8">
+          <div className="mt-8 border border-chiliRed">
             <span className="font-bold mt-8">
               RECUERDA ENVIAR EL COMPROBANTE DE PAGO AL SIGUIENTE WHATSAPP
             </span>
@@ -387,32 +393,59 @@ const SelectPayment = () => {
             Realiza la transferencia del siguiente monto S/{PriceContraentrega}{" "}
             y envia el comprobante para proceder con el envío.
           </div>
-          <div className="flex mt-8">
-            <span className="mr-4">
-              <div className="font-bold">Nombre del banco:"BBVA"</div>
-              <div>Titular: DREWILI</div>
-              <div>Cta. corriente: 555-566-555-555</div>
-              <div>CCI: 20.000.000</div>
-            </span>
-            <span className="mr-4">
-              <div className="font-bold">Nombre del banco:"Diners Club"</div>
-              <div>Titular: DREWILI</div>
-              <div>Cta. corriente: 555-566-555-555</div>
-              <div>CCI: 20.000.000</div>
-            </span>
-            <span className="mr-4">
-              <div className="font-bold">Nombre del banco:"BCP"</div>
-              <div>Titular: DREWILI</div>
-              <div>Cta. corriente: 555-566-555-555</div>
-              <div>CCI: 20.000.000</div>
-            </span>
-            <span className="mr-4">
-              <div className="font-bold">
-                Nombre del banco:"Dividelo Interbanck"
+          <div className="flex justify-center space-x-8  mt-4">
+            <span className="shadow-xl bg-whiteSmoke rounded-xl   ">
+              <img
+                src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/bbva_pyb84a.png"
+                alt="BBVA"
+                className="w-40 h-20 ml-16 shadow-xl rounded-xl  "
+              />
+              <div className="">
+                <div className="font-bold p-2">Nombre del banco:"BBVA"</div>
+                <div>Titular: DREWILI</div>
+                <div>Cta. corriente: 555-566-555-555</div>
+                <div>CCI: 20.000.000</div>
               </div>
-              <div>Titular: DREWILI</div>
-              <div>cta. corriente: 555-566-555-555</div>
-              <div>CCI: 20.000.000</div>
+            </span>
+            <span className="shadow-xl bg-whiteSmoke rounded-xl  ">
+              <img
+                src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/diners_Club_zfcjlt.png"
+                alt="Diners Club"
+                className="w-40 h-20  ml-16 shadow-xl rounded-xl"
+              />
+              <div className="">
+                <div className="font-bold p-2">Nombre del banco:"Diners Club"</div>
+                <div>Titular: DREWILI</div>
+                <div>Cta. corriente: 555-566-555-555</div>
+                <div>CCI: 20.000.000</div>
+              </div>
+            </span>
+            <span className="shadow-xl bg-whiteSmoke rounded-xl ">
+              <img
+                src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/bcp_gm0nfk.png"
+                alt="BCP"
+                className="w-40 h-20 ml-8 shadow-xl rounded-xl "
+              />
+              <div className="">
+                <div className="font-bold p-2">Nombre del banco:"BCP" </div>
+                <div>Titular: DREWILI</div>
+                <div>Cta. corriente: 555-566-555-555</div>
+                <div>CCI: 20.000.000</div>
+
+              </div>
+            </span>
+            <span className="shadow-xl bg-whiteSmoke rounded-xl ">
+              <img
+                src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/dividelo_interbank_iq253n.png"
+                alt="Dividelo Interbanck"
+                className="w-40 h-20 ml-16 shadow-xl rounded-xl "
+              />
+              <div className="">
+                <div className="font-bold ">Nombre del banco:"Dividelo Interbanck"</div>
+                <div>Titular: DREWILI</div>
+                <div>cta. corriente: 555-566-555-555</div>
+                <div>CCI: 20.000.000</div>
+              </div>
             </span>
           </div>
           <div className="mt-8">
@@ -443,7 +476,7 @@ const SelectPayment = () => {
 
       <NavLink
         to={`/validateaddress`}
-        className="text-chiliRed  hover:text-onyx underline ml-4 mt-9"
+        className="text-chiliRed  hover:text-onyx underline ml-4 mt-9 flex justify-center"
       >
         Regresar a dirección de entrega
       </NavLink>
