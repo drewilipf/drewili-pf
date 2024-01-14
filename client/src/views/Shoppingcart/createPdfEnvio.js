@@ -1,9 +1,13 @@
 import jsPDF from "jspdf";
 
+import axios from "axios";
+
 import logoOriginal from "../../icons/logoOriginal.png";
 
-const generatePDF = (data) => {
+const generatePDF = (data, purchaseID) => {
   const pdf = new jsPDF();
+  console.log(data);
+  console.log(purchaseID);
 
   const imgWidth = 30;
   const imgHeight = 22;
@@ -16,16 +20,48 @@ const generatePDF = (data) => {
   const formattedData = Object.entries(data).map(
     ([key, value]) => `${key}: ${value}`
   );
+  console.log("Formatted Data:", formattedData);
 
-  // Agregar los datos formateados al PDF
   formattedData.forEach((line, index) => {
     pdf.text(line, 10, 50 + index * 10);
   });
   pdf.text("Gracias por tu Compra", 10, 220);
 
-  // Convertir el PDF a Blob
   const blob = pdf.output("blob");
-  return blob;
+  console.log("Blob:", blob);
+
+  const formData = new FormData();
+  formData.append("paymentPdf", blob, "documento.pdf");
+  console.log("FormData:", formData);
+  formData.forEach((value, key) => {
+    console.log(`${key}: ${value}`);
+  });
+
+  // O, si prefieres ver un objeto simple
+  const formDataObject = {};
+  formData.forEach((value, key) => {
+    formDataObject[key] = value;
+  });
+  console.log("FormData Object:", formDataObject);
+
+  if (pdf && blob) {
+    enviarFormDataAlServidor(formData, purchaseID);
+  }
+};
+
+const enviarFormDataAlServidor = async (formData, purchaseID) => {
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  };
+  const response = await axios.put(
+    `http://localhost:3001/history/update/${purchaseID}`,
+    formData,
+    config
+  );
+
+  console.log(response);
 };
 
 export default generatePDF;

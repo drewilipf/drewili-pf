@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -14,7 +14,6 @@ import {
   setRucSlice,
 } from "../../reduxToolkit/ShippingInfo/shippingInfoSlice";
 import { allDelete } from "../../reduxToolkit/SalesCarts/salesCartThunk";
-import { putStatus } from "../../reduxToolkit/PurchaseHistory/purchaseHistoryThunks";
 
 const SelectPayment = () => {
   const dispatch = useDispatch();
@@ -142,40 +141,24 @@ const SelectPayment = () => {
   };
 
   const handlePdf = async () => {
-    console.log("Datos combinados enviados al componente payment:", emailData);
-    console.log("Datos combinados purchase:", purchaseHistory);
-    console.log("Este es el shipping info:", shippingInfo);
-    console.log("Este es el dropshipping info:", dropshippingInfo);
     navigate("/payment/payment", { state: emailData });
-    const generatedBlob = generatePDF(combinedData);
-    setPdfBlob(generatedBlob);
+
+    console.log(pdfBlob);
+
     const Historial = await axios.post(
       `https://drewili-pf-back.onrender.com/history/${userId}`,
       {
         cartItems: listItems,
       }
     );
-    console.log(Historial.data);
-    // dispatch(putStatus(purchaseId, pdfBlob));
+
+    const purchaseId = Historial.data[0].id;
+    console.log(purchaseId);
+    const generatedBlob = generatePDF(combinedData, purchaseId);
+    setPdfBlob(generatedBlob);
+
     dispatch(allDelete(userId));
   };
-
-  // const handleCrearPdf = () => {
-  //   const generatedBlob = generatePDF(combinedData);
-  //   setPdfBlob(generatedBlob);
-  // };
-  // const handleDownloadPdf = () => {
-  //   if (pdfBlob) {
-  //     const url = URL.createObjectURL(pdfBlob);
-  //     const a = document.createElement("a");
-  //     a.href = url;
-  //     a.download = "documento.pdf";
-  //     document.body.appendChild(a);
-  //     a.click();
-  //     document.body.removeChild(a);
-  //     URL.revokeObjectURL(url);
-  //   }
-  // };
 
   const PriceContraentrega = ((priceTotal * 30) / 100).toFixed(2);
 

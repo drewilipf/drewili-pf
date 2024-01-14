@@ -23,12 +23,12 @@ const purchaseHistorySlice = createSlice({
       const acciones = action.payload;
 
       const paymentStatus = acciones.newStatus;
-      const paymentPdf = acciones.paymentPdf;
+
       const purchaseId = acciones.id;
 
       state.history = state.history.map((purchase) =>
         purchase.purchaseId === purchaseId
-          ? { ...purchase, paymentStatus, paymentPdf }
+          ? { ...purchase, paymentStatus }
           : purchase
       );
 

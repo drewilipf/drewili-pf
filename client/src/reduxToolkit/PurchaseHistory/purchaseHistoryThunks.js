@@ -33,23 +33,21 @@ export const getAllPurchaseHistory = () => {
     }
   };
 };
-export const putStatus = (id, newPaymentStatus, paymentPdf) => {
+export const putStatus = (id, newPaymentStatus) => {
   return async (dispatch) => {
     try {
       const newStatus = newPaymentStatus.newPaymentStatus;
 
       const response = await axios.put(
-        `http://localhost:3001/history/update/${id}`,
-        newStatus,
-        paymentPdf
+        `https://drewili-pf-back.onrender.com/history/update/${id}`,
+        newPaymentStatus
       );
 
       const dataStatus = response.data;
-      console.log(dataStatus);
 
       dispatch(putStatusSlice({ id, newStatus }));
     } catch (error) {
-      console.error("Error updating purchase:", error);
+      console.error("Error fetching product:", error);
     }
   };
 };
