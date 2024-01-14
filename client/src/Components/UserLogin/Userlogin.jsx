@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postLogin } from "../../reduxToolkit/Login/loginThunks";
+import { getUserByUsername } from "../../reduxToolkit/User/userThunks";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import LoginButton from "../LoginButton";
@@ -13,6 +14,7 @@ function UserLogin() {
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userbyusernameResult = useSelector((state) => state.users.usernameSearchResult);
 
   const handleChange = (event) => {
     setInput({
@@ -62,9 +64,37 @@ function UserLogin() {
   };
 
   const navigateRecovery = async () => {
-    if(input.username){ navigate('/forgetpassword', { state: input })}
-    else {alert("Por favor ingrese su nombre de usuario")}
+    if (input.username) {
+      try {
+        console.log("Información que se enviará al thunk", input.username);
+        
+        // Asegúrate de utilizar await y manejar el resultado correctamente
+        const actionResult = await dispatch(getUserByUsername(input.username));
+        // Accede correctamente al resultado del thunk
+        console.log("userbyusername result", userbyusernameResult.user.message)
+        
+        // Verifica si el mensaje es "Usuario existente"
+        if (userbyusernameResult.user.message == "Usuario existente") {
+          navigate('/forgetpassword', { state: input });
+        } else {
+          // Utiliza window.confirm y almacena el resultado en userClickedOk
+          const userClickedOk = window.confirm(
+            "Usuario NO registrado o deshabilitado. ¿Quieres ir a la página de registro?"
+          );
+  
+          if (userClickedOk) {
+            navigate("/userform");
+          }
+        }
+      } catch (error) {
+        // Maneja errores aquí si es necesario
+        console.error("Error al obtener el usuario por nombre de usuario:", error);
+      }
+    } else {
+      alert("Por favor, ingrese su nombre de usuario");
+    }
   };
+  
   return (
     <div className="w-96  mr-auto ml-auto h-90vh pt-16">
       <h1 className="text-2xl font-bold mb-4 flex items-center justify-center">

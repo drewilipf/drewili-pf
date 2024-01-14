@@ -6,6 +6,7 @@ import userSlice, {
   deletedUserSlice,
   postGoogleSlice,
   putPassRecoverySlice,
+  getUserByUsernameSlice
 } from "./userSlice";
 import axios from "axios";
 
@@ -54,6 +55,19 @@ export const getUserId = (id) => {
       const response = await axios.get(`${API_URL}/bypk/${id}`);
       const user = response.data;
       dispatch(getUserByIdSlice({ user }));
+    } catch (error) {
+      console.error("Error fetching product:", error);
+    }
+  };
+};
+export const getUserByUsername = (username) => {
+  return async (dispatch) => {
+    try {
+      console.log("data recibida al thunk", `${API_URL}/username?username=${username}`)
+      const response = await axios.get(`${API_URL}/username?username=${username}`);
+      const user = response.data;
+      console.log("thunk response", user)
+      dispatch(getUserByUsernameSlice({ user }));
     } catch (error) {
       console.error("Error fetching product:", error);
     }
