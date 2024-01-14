@@ -1,75 +1,123 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect} from "react";
+import { useDispatch , useSelector} from "react-redux";
 import { postLogin } from "../../reduxToolkit/Login/loginThunks";
-import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import LoginButton from "../LoginButton";
 import { NavLink} from "react-router-dom";
+import { FaLock } from 'react-icons/fa';
+import { useLocation, useNavigate } from "react-router-dom";
+import { postNotificationRecoveryPassword } from "../../reduxToolkit/Notification/notificationThunks"
+import { putPassRecovery } from "../../reduxToolkit/User/userThunks";
 
 function VerificationSuccess() {
-  // ESTE COMPONENTE NO TIENE NADA AÚN, IGNORARLO POR FAVOR
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const datasent = location.state;
+  const userputResult = useSelector((state) => state.users.userModificationResult);
+
+  console.log("estos son los datos que recibe del componente anterior", datasent);
+
   const [input, setInput] = useState({
     newpassword: "",
-    newpasswordconfirmation: "",
+  newpasswordconfirmation: "",
+    
   });
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [errors, setErrors] =  useState({ newpassword: "",
+  newpasswordconfirmation: "",})
+
+  const [putdata, setPutdata] = useState({
+    username: "",
+    password: "",
+  });
+
+  useEffect(() => {
+    if (datasent) {
+      setPutdata({
+        username: datasent.username,
+        password: input.newpassword,
+      });
+    }
+    console.log("data para el put actual", putdata);
+  }, [datasent, input]);
+const regexpassword= /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}|<>?]).{8,}$/;
 
   const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    let errors = {
+      newpassword : ""
+    }
+   // validaciones de la constraseña
+   if (!input.newpassword) {
+    errors.newpassword = "Por favor ingrese una constraseña"
+}
+
+const regexPassword1 = /[a-z]/
+if (!regexPassword1.test(input.newpassword)) {
+    errors.newpassword = "La constraseña debe tener al menos una letra minúscula ";
+}
+const regexPassword2 = /[A-Z]/
+if (!regexPassword2.test(input.newpassword)) {
+    errors.newpassword = "La constraseña debe tener al menos una letra mayúscula ";
+}
+const regexPassword3 = /\d/
+if (!regexPassword3.test(input.newpassword)) {
+    errors.newpassword = "La constraseña debe tener al menos un dígito ";
+}
+const regexPassword4 = /[!@#$%^&*()?¿¡\-_+=.,;:'"<>{}[\]\|\/\\`~]+/
+if (!regexPassword4.test(input.newpassword)) {
+    errors.newpassword = "La constraseña debe tener al menos un carácter especial";
+}
+const longitud = 8
+if (input.newpassword.length<longitud) {
+    errors.newpassword = "La constraseña debe tener una logintud mínima de 8";
+}
+
+if (errors.newpassword != "") {
+  setErrors({ newpassword: errors.newpassword });
+} else {
+  setErrors({ password: "" });
+}
+  
     setInput({
       ...input,
       [event.target.name]: event.target.value,
     });
-  };
-
-  const handleSuccessfulLogin = (userSession) => {
-    // Guardar información de sesión en una cookie
-    Cookies.set("userSession", JSON.stringify(userSession), { expires: 7 });
+    console.log(input);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const loginData = {
-      username: input.username,
-      password: input.password,
-    };
   
-
     try {
-      const response = await dispatch(postLogin(loginData));
-
-      const { message, access, userSession } = response.data;
-      alert(message);
-
-      if (access && userSession) {
-        handleSuccessfulLogin(userSession);
-
-        if (userSession.role === "admin") {
-          navigate("/dashboard");
-        } else if (userSession.role === "cliente") {
-          navigate("/");
+      if ( !errors.newpassword && input.newpasswordconfirmation && input.newpassword === input.newpasswordconfirmation) {
+        const action = putPassRecovery(putdata);
+        const actionResult = await dispatch(action);
+        console.log("Datos del componente enviados al thunk", putdata);
+        console.log("user put result", userputResult)
+        if(userputResult == "200"){
+          console.log("cambio correcto")
+          alert("Actualización de contraseña correcta");
+          navigate("/userlogin");
         }
+      } else {
+        throw new Error("Las contraseñas no coinciden");
       }
     } catch (error) {
-      setTimeout(() => {
-        const userClickedOk = window.confirm(
-          "Usuario NO registrado o deshabilitado. ¿Quieres ir a la página de registro?"
-        );
-      }, 8000);
-      if (userClickedOk) {
-        navigate("/userform");
-      }
+      console.error("Error al enviar datos:", error.message);
+      // Mostrar mensaje de error al usuario
+      alert("Procedimiento incorrecto. Por favor, verifique los datos ingresados.");
     }
   };
-
-  const navigateRecovery = async () => {
-    navigate('/forgetpassword', { state: input });
-  };
+  
   return (
     <div className="w-96  mr-auto ml-auto h-90vh pt-16">
       <h1 className="text-2xl font-bold mb-4 flex items-center justify-center">
         Identidad verificada
       </h1>
+      <h3 className="text-l mb-4 flex items-center justify-center"> Por favor digite su nueva contraseña</h3>
+      <br></br>
       <form
         className="border border-chiliRed rounded p-6 text-arial text-base"
         onSubmit={handleSubmit}
@@ -78,21 +126,22 @@ function VerificationSuccess() {
           <div>
             <label className="block text-chiliRed mb-2">Contraseña</label>
             <input
-              type="text"
-              name="username"
-              placeholder="Ingrese su usuario"
-              value={input.username}
+              type="password"
+              name="newpassword"
+              placeholder="Ingrese su nueva contraseña"
+              value={input.newpassword}
               onChange={handleChange}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
+            <span className="text-chiliRed">{errors?.newpassword}</span>
           </div>
           <div>
             <label className="block text-chiliRed mb-2"> repetir Contraseña</label>
             <input
               type="password"
-              name="password"
-              placeholder="Ingrese su Contraseña"
-              value={input.password}
+              name="newpasswordconfirmation"
+              placeholder="Repita su contraseña"
+              value={input.newpasswordconfirmation}
               onChange={handleChange}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
@@ -103,19 +152,6 @@ function VerificationSuccess() {
           >
             Enviar
           </button>
-          <div className="mt-4 text-center">
-            <span>¿No tiene una cuenta?</span>
-            <NavLink to="/userform">
-              <span className="ml-2  text-chiliRed">Regístrese</span>
-            </NavLink>
-          </div>
-          <div className="mt-4 text-center">
-              <span className="ml-2  text-chiliRed" onClick={navigateRecovery}>¿Olvidó su contraseña?</span>
-          </div>
-          <div className="text-center mt-4">---------- o ---------- </div>
-          <div className="flex items-center justify-center text-center mt-4 h-12 border rounded-full bg-chiliRed  text-white">
-            <LoginButton />
-          </div>
         </div>
       </form>
     </div>

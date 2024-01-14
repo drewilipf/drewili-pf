@@ -4,9 +4,12 @@ import NavbarAdmin from "../../Components/DashboardComponents/NavbarAdmin/Navbar
 
 function Dashboard() {
   return (
-    <div className="h-90vh">
+    <div className="flex flex-col items-center">
       <NavbarAdmin />
-      <h1 className="text-center">PANEL DE ADMINISTRADOR</h1>
+      <h1 className="text-2xl font-bold mb-4 pt-5 text-center">
+        PANEL DE ADMINISTRADOR
+      </h1>
+      <img src="./peru.jpg" alt="Perú" />
     </div>
   );
 }

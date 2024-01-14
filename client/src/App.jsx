@@ -48,16 +48,18 @@ function App() {
     setActualPage(newPage);
   };
 
+
   return (
     <div className="contents">
       {!isDashboardRoute && (
-        <NavBar
+        <NavBar 
           handlePageChange={handlePageChange}
           actualPage={actualPage}
           setActualPage={(num) => setActualPage(num)}
         />
       )}
-      <div className=" bg-whiteSmoke min-h-screen">
+      <div className=" bg-whiteSmoke min-h-screen dark:bg-onyx">
+       
         <Routes>
           <Route
             path="/"

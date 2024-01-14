@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllPurchaseHistory } from "../../../reduxToolkit/PurchaseHistory/purchaseHistoryThunks";
 import { IoMdCreate } from "react-icons/io";
 import EditPurchaseModal from "./EditPurchaseModal";
+import { FaFilePdf } from "react-icons/fa6";
 
 const ShoppingHistory = () => {
   const dispatch = useDispatch();
   const purchaseHistory = useSelector((state) => state.purchaseHistory.history);
-  // console.log(purchaseHistory);
+  console.log(purchaseHistory);
   const [isEditing, setIsEditing] = useState(false);
   const [selectedPurchaseId, setSelectedPurchaseId] = useState(null);
 
@@ -47,6 +48,22 @@ const ShoppingHistory = () => {
   const handleCloseEditModal = () => {
     setSelectedPurchaseId(null);
     setIsEditing(false);
+  };
+  const downloadPDF = (pdfData) => {
+    const uint8Array = new Uint8Array(pdfData.data);
+    const blob = new Blob([uint8Array], { type: "application/pdf" });
+    const url = URL.createObjectURL(blob);
+
+    // Crear un enlace temporal para descargar el archivo
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "documento.pdf";
+    document.body.appendChild(a);
+    a.click();
+
+    // Limpiar el enlace temporal
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -88,6 +105,15 @@ const ShoppingHistory = () => {
                   >
                     <IoMdCreate />
                   </span>
+                </p>
+                <p className="font-bold flex ml-2">
+                  <span>Informacion de envio:</span>
+                  <button
+                    className=" ml-2 text-xl text-chiliRed border-onyx cursor-pointer"
+                    onClick={() => downloadPDF(group[0].paymentPdf)}
+                  >
+                    <FaFilePdf />
+                  </button>
                 </p>
                 {isEditing && selectedPurchaseId.length > 0 && (
                   <EditPurchaseModal
