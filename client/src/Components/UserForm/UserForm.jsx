@@ -6,6 +6,7 @@ import { postUser } from "../../reduxToolkit/User/userThunks";
 import { postNotificationCreation } from "../../reduxToolkit/Notification/notificationThunks";
 import LoginButton from "../LoginButton";
 import ReCAPTCHA from "react-google-recaptcha";
+import Swal from "sweetalert2";
 
 function UserForm() {
   const [input, setInput] = useState({
@@ -17,7 +18,7 @@ function UserForm() {
     role: "cliente",
     username: "",
   });
-  const [isRecaptcha, setIsRecaptcha]= useState (false)
+  const [isRecaptcha, setIsRecaptcha] = useState(false)
 
   const [maildata, setMaildata] = useState(
     {
@@ -35,13 +36,13 @@ function UserForm() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-  
+
     setInput((prevInput) => ({
       ...prevInput,
       [name]: value,
     }));
-  
-  
+
+
     if (name === "name" || name === "email") {
       setMaildata((prevMail) => ({
         ...prevMail,
@@ -49,7 +50,7 @@ function UserForm() {
       }));
     }
   };
-  
+
 
   const handleBlur = (e) => {
     const { name, value } = e.target;
@@ -59,7 +60,7 @@ function UserForm() {
       [name]: validationErrors[name],
     }));
   };
-  const handleIsCaptcha = (value) =>{
+  const handleIsCaptcha = (value) => {
     console.log("captcha verificado: ", value)
     setIsRecaptcha(true)
   }
@@ -75,7 +76,7 @@ function UserForm() {
     if (Object.values(validationErrors).every((error) => error === "") && isRecaptcha) {
       try {
         dispatch(postUser(input));
-        
+
         dispatch(postNotificationCreation(maildata));
 
         setInput({
@@ -93,13 +94,29 @@ function UserForm() {
           lastname: "",
           email: "",
         });
-        alert("Usuario creado con éxito");
+        Swal.fire({
+          title: "¡Éxito!",
+          text: "Usuario creado con éxito",
+          icon: "success",
+          confirmButtonColor: "#E62F05"
+        });
         navigate("/userlogin");
       } catch (error) {
-        console.error("Error al enviar el formulario:", error);
+        Swal.fire({
+          title: "¡Error!",
+          text: "Error al enviar el formulario",
+          icon: "error",
+          confirmButtonColor: "#E62F05"
+        })
       }
     } else {
-      console.log("Corrige los errores antes de enviar el formulario");
+      Swal.fire({
+        title: "¡Error!",
+        text: "Corrige los errores antes de enviar el formulario",
+        icon: "error",
+        confirmButtonColor: "#E62F05"
+
+      })
     }
   };
   return (
@@ -218,10 +235,10 @@ function UserForm() {
             />
           </div>
           <div>
-          <ReCAPTCHA
-          sitekey= "6Lee-E0pAAAAABEFRPClDMwRwWlf5dJXyhfeVwDr"
-          onChange={handleIsCaptcha}
-        />
+            <ReCAPTCHA
+              sitekey="6Lee-E0pAAAAABEFRPClDMwRwWlf5dJXyhfeVwDr"
+              onChange={handleIsCaptcha}
+            />
           </div>
 
           <div className="mt-4">

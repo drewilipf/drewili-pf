@@ -11,7 +11,7 @@ const generatePDF = (data, purchaseID) => {
 
   const imgWidth = 30;
   const imgHeight = 22;
-  pdf.addImage(logoOriginal, "png", 85, 10, imgWidth, imgHeight);
+  // pdf.addImage(logoOriginal, "png", 85, 10, imgWidth, imgHeight);
   pdf.setFont("helvetica", "bold");
   pdf.text("Datos de Envio", 82, 40);
 

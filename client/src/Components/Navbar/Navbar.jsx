@@ -125,7 +125,7 @@ function Navbar({ setActualPage }) {
             <div className="right-0 mt-2 w-screen flex flex-col pl-2">
 
               <div className="flex items-center space-x-4">
-                <h1 className="transition duration-300 text-chiliRed   ursor-pointer">
+                <h1 className="transition duration-300 text-chiliRed   cursor-pointer">
                   Bienvenido, {combinedUserSession}!
                 </h1>
               </div>
@@ -216,7 +216,7 @@ function Navbar({ setActualPage }) {
 
 
   return (
-    <nav className="shadow-xl bg-whiteSmoke mb-2">
+    <nav className="shadow-xl bg-whiteSmoke mb-2 dark:bg-onyx">
       <div className="lg:h-20 sm:h-20 h-20 flex justify-between z-50 lg:py-5 px-4 sm:px-8 items-center">
         <NavLink to="/" className="flex items-center">
           <div className="flex items-center flex-1">
@@ -237,7 +237,7 @@ function Navbar({ setActualPage }) {
           </div>
         )}
 
-        {location.pathname === "/" && <DarkModeToggle />}
+        {/* {location.pathname === "/" && <DarkModeToggle />} */}
 
         {combinedUserSession ? (
           <div className={`tablet:flex space-x-3 text-chiliRed items-center pr-4 ${location.pathname !== "/" ? 'ml-auto' : ''} hidden`}>
