@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postLogin } from "../../reduxToolkit/Login/loginThunks";
+import { getUserByUsername } from "../../reduxToolkit/User/userThunks";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import LoginButton from "../LoginButton";
@@ -14,6 +15,7 @@ function UserLogin() {
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userbyusernameResult = useSelector((state) => state.users.usernameSearchResult);
 
   const handleChange = (event) => {
     setInput({
@@ -79,9 +81,34 @@ function UserLogin() {
   };
 
   const navigateRecovery = async () => {
-    if(input.username){ navigate('/forgetpassword', { state: input })}
-    else {alert("Por favor ingrese su nombre de usuario")}
+    if (input.username) {
+      try {
+        
+        const actionResult = await dispatch(getUserByUsername(input.username));
+        
+        console.log("user by username result", userbyusernameResult)
+       
+        if (userbyusernameResult && userbyusernameResult.message == "Usuario existente") {
+        // verificar el bug de cuando la gente usa el mismo componente dos veces
+          navigate('/forgetpassword', { state: input });
+        } else {
+          
+          const userClickedOk = window.confirm(
+            "Usuario NO registrado o deshabilitado. ¿Quieres ir a la página de registro?"
+          );
+  
+          if (userClickedOk) {
+            navigate("/userform");
+          }
+        }
+      } catch (error) {
+        console.error("Error al obtener el usuario por nombre de usuario:", error);
+      }
+    } else {
+      alert("Por favor, ingrese su nombre de usuario");
+    }
   };
+  
   return (
     <div className="w-96  mr-auto ml-auto h-90vh pt-16">
       <h1 className="text-2xl font-bold mb-4 flex items-center justify-center">
