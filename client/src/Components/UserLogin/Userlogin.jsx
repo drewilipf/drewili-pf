@@ -41,10 +41,10 @@ function UserLogin() {
       const { message, access, userSession } = response.data;
       Swal.fire({
         title: '¡Inicio exitoso!',
-        text: (message),
+        text: message,
         icon: 'success',
-        confirmButtonText: 'Ok'
-      });
+        confirmButtonColor: "#E62F05",
+        confirmButtonText: 'Ok'});
 
       if (access && userSession) {
         handleSuccessfulLogin(userSession);
@@ -57,19 +57,24 @@ function UserLogin() {
       }
     } catch (error) {
       setTimeout(() => {
-        const userClickedOk = Swal.fire({
-          title: 'Error!',
-          text: 'Usuario NO registrado o deshabilitado. ¿Quieres ir a la página de registro?',
-          icon: 'error',
-          confirmButtonText: 'Continuar'
-        })
-        // window.confirm(
-        //   "Usuario NO registrado o deshabilitado. ¿Quieres ir a la página de registro?"
-      
+         const userClickedOk = Swal.fire({
+          title: "Error",
+          text: "Usuario NO registrado o deshabilitado. ¿Quieres ir a la página de registro?",
+          icon: "error",
+          showCancelButton: true,
+          confirmButtonColor: "#E62F05",
+          cancelButtonColor: "#404145",
+          confirmButtonText: "Aceptar",
+          cancelButtonText: "Cancelar"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            
+              navigate("/userform");
+            
+          }
+        });
+             
       }, 1000);
-      if (userClickedOk) {
-        navigate("/userform");
-      }
     }
   };
 
