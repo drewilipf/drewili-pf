@@ -19,6 +19,7 @@ import Productcard from "../../Components/Productcard/Productcard.jsx";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
+import Spinner from "../../icons/Spinner.jsx";
 
 function ProductDetail() {
   const { id } = useParams();
@@ -162,7 +163,7 @@ function ProductDetail() {
   };
 
   if (!product) {
-    return <p>Cargando...</p>;
+    return <div className="h-90vh flex justify-center items-center"><Spinner></Spinner></div>;
   }
   const productCategory = product.category;
 

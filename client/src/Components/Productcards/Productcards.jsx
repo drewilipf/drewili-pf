@@ -1,4 +1,5 @@
 import Productcard from "../../Components/Productcard/Productcard";
+import Spinner from "../../icons/Spinner";
 
 function Productcards({ products }) {
   return (
@@ -22,7 +23,7 @@ function Productcards({ products }) {
           />
         ))
       ) : (
-        <p>No products available</p>
+        <div><Spinner></Spinner></div>
       )}
     </div>
   );
