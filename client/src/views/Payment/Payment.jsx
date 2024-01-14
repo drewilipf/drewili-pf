@@ -65,16 +65,16 @@ const Payment = () => {
     }
   }, [emailData]);
 
-  // useEffect(() => {
-
-  //   if (usermaildata && usermaildata.name) {
-  //     console.log("Datos email usuario:", usermaildata);
-  //     dispatch(postNotificationUserConfirmBuy(usermaildata));
-  //   }
-  //   if(adminmaildata && adminmaildata.name){
-  //     console.log("Datos email administrador:", adminmaildata);
-  //     dispatch(postNotificationAdminConfirmBuy(adminmaildata))}
-  // }, [usermaildata, adminmaildata, dispatch]);
+  useEffect(() => {
+    if (usermaildata && usermaildata.name) {
+      console.log("Datos email usuario:", usermaildata);
+      dispatch(postNotificationUserConfirmBuy(usermaildata));
+    }
+    if (adminmaildata && adminmaildata.name) {
+      console.log("Datos email administrador:", adminmaildata);
+      dispatch(postNotificationAdminConfirmBuy(adminmaildata));
+    }
+  }, [usermaildata, adminmaildata, dispatch]);
 
   return (
     <div className="h-90vh bg-whiteSmoke flex justify-center items-center flex-col">
