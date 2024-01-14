@@ -10,7 +10,7 @@ import {
 } from "./productSlice";
 import axios from "axios";
 
-const API_URL = "https://drewili-pf-back.onrender.com/product";
+const API_URL = "http://localhost:3001/product";
 const SEARCH_API_URL = "https://drewili-pf-back.onrender.com/product/product/";
 const CATEGORY_FILTER_API_URL = "https://drewili-pf-back.onrender.com/filterby/category";
 

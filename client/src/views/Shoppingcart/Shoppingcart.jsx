@@ -121,7 +121,7 @@ const ShoppingCart = () => {
           <div className="mt-4">
             <div className="flex justify-between">
               <span className="font-semibold">Total:</span>
-              <span className="text-2xl">{`$${priceTotal.toFixed(2)}`}</span>
+              <span className="text-2xl">{priceTotal}</span>
             </div>
 
             <NavLink to={`/shippingform`}>
