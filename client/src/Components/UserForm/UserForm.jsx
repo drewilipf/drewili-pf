@@ -215,6 +215,14 @@ function UserForm() {
               onChange={handleInputChange}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
+            <ul className="list-disc text-onyx pl-6 mt-2 border rounded-md p-4">
+              <li className="rounded-md text-sm">Debe tener una longitud mínima de 8 caracteres</li>
+              <li className="rounded-md text-sm">Debe contener al menos una minúscula</li>
+              <li className="rounded-md text-sm">Debe contener al menos una mayúscula</li>
+              <li className="rounded-md text-sm">Debe contener al menos un dígito</li>
+            <li className="rounded-md text-sm">Debe contener al menos un símbolo</li>
+            </ul>
+
             <div className="h-4">
               <span className="text-chiliRed text-opacity-60 items-center flex text-sm">
                 {errors?.password}
