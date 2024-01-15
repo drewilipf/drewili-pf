@@ -26,6 +26,11 @@ import ValidateAddress from "./views/Shoppingcart/validateAddress";
 import SelectPayment from "./views/Shoppingcart/SelectPayment";
 import Footer from "./Components/Footer/Footer";
 import PurchaseHistoryComponent from "./views/UserProfile/purchaseHistory";
+import ShoppingHistory from "./Components/DashboardComponents/ShoppingHistory/ShoppingHistory";
+import Creators from "./Components/Footer/Desarrolladores";
+import ForgetPassword from "./Components/PasswordRecoveryComponents/ForgetPassword";
+import OtpInput from "./Components/PasswordRecoveryComponents/OtpInput";
+import VerificationSuccess from "./Components/PasswordRecoveryComponents/VerificationSuccess";
 
 function App() {
   const dispacth = useDispatch();
@@ -43,16 +48,18 @@ function App() {
     setActualPage(newPage);
   };
 
+
   return (
-    <div>
+    <div className="contents">
       {!isDashboardRoute && (
-        <NavBar
+        <NavBar 
           handlePageChange={handlePageChange}
           actualPage={actualPage}
           setActualPage={(num) => setActualPage(num)}
         />
       )}
-      <div className="pt-24 bg-whiteSmoke min-h-screen">
+      <div className=" bg-whiteSmoke min-h-screen dark:bg-onyx">
+       
         <Routes>
           <Route
             path="/"
@@ -74,25 +81,33 @@ function App() {
           <Route path="/edituserprofile/:id" element={<EditUserProfile />} />
           <Route path="/userform" element={<UserForm />} />
           <Route path="/userlogin" element={<UserLogin />} />
+          <Route path="/forgetpassword" element={<ForgetPassword />} />
+          <Route path="/otpinput" element={<OtpInput />} />
+          <Route path="/verificationsuccess" element={<VerificationSuccess />} />
           <Route path="/about" element={<About />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/createProduct" element={<CreateProduct />} />
           <Route path="/dashboard/productList" element={<ProductList />} />
           <Route path="/dashboard/editProduct/:id" element={<EditProduct />} />
           <Route
+            path="/dashboard/shoppingHistory"
+            element={<ShoppingHistory />}
+          />
+          <Route
             path="/dashboard/registeredUser"
             element={<RegisteredUser />}
           />
           <Route path="/dashboard/productList" element={<ProductList />} />
           <Route path="/payment/success" element={<PaymentSuccess />} />
-          <Route path="/payment/payment" element={<Payment />} />
-          <Route path="/history/:userId" element={<PurchaseHistoryComponent/>} />
-
+          <Route path="/payment/:userId" element={<Payment />} />
+          <Route
+            path="/history/:userId"
+            element={<PurchaseHistoryComponent />}
+          />
+          <Route path="/creators" element={<Creators />} />
         </Routes>
       </div>
-      {!isDashboardRoute && (
-      <Footer/>
-      )}
+      {!isDashboardRoute && <Footer />}
     </div>
   );
 }

@@ -3,7 +3,10 @@ import validation from "./validation";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { postUser } from "../../reduxToolkit/User/userThunks";
+import { postNotificationCreation } from "../../reduxToolkit/Notification/notificationThunks";
 import LoginButton from "../LoginButton";
+import ReCAPTCHA from "react-google-recaptcha";
+import Swal from "sweetalert2";
 
 function UserForm() {
   const [input, setInput] = useState({
@@ -15,6 +18,14 @@ function UserForm() {
     role: "cliente",
     username: "",
   });
+  const [isRecaptcha, setIsRecaptcha] = useState(false)
+
+  const [maildata, setMaildata] = useState(
+    {
+      name: "",
+      email: ""
+    }
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({
@@ -25,11 +36,21 @@ function UserForm() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
     setInput((prevInput) => ({
       ...prevInput,
       [name]: value,
     }));
+
+
+    if (name === "name" || name === "email") {
+      setMaildata((prevMail) => ({
+        ...prevMail,
+        [name]: value,
+      }));
+    }
   };
+
 
   const handleBlur = (e) => {
     const { name, value } = e.target;
@@ -39,6 +60,10 @@ function UserForm() {
       [name]: validationErrors[name],
     }));
   };
+  const handleIsCaptcha = (value) => {
+    console.log("captcha verificado: ", value)
+    setIsRecaptcha(true)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,9 +73,11 @@ function UserForm() {
     setErrors(validationErrors);
 
     // Comprobar si hay algún error antes de enviar la solicitud
-    if (Object.values(validationErrors).every((error) => error === "")) {
+    if (Object.values(validationErrors).every((error) => error === "") && isRecaptcha) {
       try {
         dispatch(postUser(input));
+
+        dispatch(postNotificationCreation(maildata));
 
         setInput({
           name: "",
@@ -66,17 +93,30 @@ function UserForm() {
           name: "",
           lastname: "",
           email: "",
-          // Agrega aquí otros campos si es necesario
         });
-
-        alert("Usuario creado con éxito");
+        Swal.fire({
+          title: "¡Éxito!",
+          text: "Usuario creado con éxito",
+          icon: "success",
+          confirmButtonColor: "#E62F05"
+        });
         navigate("/userlogin");
       } catch (error) {
-        console.error("Error al enviar el formulario:", error);
+        Swal.fire({
+          title: "¡Error!",
+          text: "Error al enviar el formulario",
+          icon: "error",
+          confirmButtonColor: "#E62F05"
+        })
       }
     } else {
-      // Mostrar mensajes de error si es necesario
-      console.log("Corrige los errores antes de enviar el formulario");
+      Swal.fire({
+        title: "¡Error!",
+        text: "Corrige los errores antes de enviar el formulario",
+        icon: "error",
+        confirmButtonColor: "#E62F05"
+
+      })
     }
   };
   return (
@@ -175,6 +215,14 @@ function UserForm() {
               onChange={handleInputChange}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
+            <ul className="list-disc text-onyx pl-6 mt-2 border rounded-md p-4">
+              <li className="rounded-md text-sm">Debe tener una longitud mínima de 8 caracteres</li>
+              <li className="rounded-md text-sm">Debe contener al menos una minúscula</li>
+              <li className="rounded-md text-sm">Debe contener al menos una mayúscula</li>
+              <li className="rounded-md text-sm">Debe contener al menos un dígito</li>
+            <li className="rounded-md text-sm">Debe contener al menos un símbolo</li>
+            </ul>
+
             <div className="h-4">
               <span className="text-chiliRed text-opacity-60 items-center flex text-sm">
                 {errors?.password}
@@ -194,6 +242,12 @@ function UserForm() {
               className="border rounded p-3 bg-whiteSmoke focus:outline-none w-full"
             />
           </div>
+          <div>
+            <ReCAPTCHA
+              sitekey="6Lee-E0pAAAAABEFRPClDMwRwWlf5dJXyhfeVwDr"
+              onChange={handleIsCaptcha}
+            />
+          </div>
 
           <div className="mt-4">
             <button
@@ -204,7 +258,7 @@ function UserForm() {
             </button>
           </div>
           <div className="text-center mt-4">---------- o ---------- </div>
-          <div className="  flex items-center justify-center text-center mt-4 h-12 border rounded-lg bg-chiliRed  text-white">
+          <div className="  flex items-center justify-center text-center mt-4 h-12 border rounded-full bg-chiliRed  text-white">
             <LoginButton />
           </div>
         </form>

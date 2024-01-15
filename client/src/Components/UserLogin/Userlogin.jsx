@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import axios from "axios"
+import { useDispatch, useSelector } from "react-redux";
 import { postLogin } from "../../reduxToolkit/Login/loginThunks";
+import { getUserByUsername } from "../../reduxToolkit/User/userThunks";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import LoginButton from "../LoginButton";
-import { NavLink } from "react-router-dom";
+import { NavLink} from "react-router-dom";
+import Swal from 'sweetalert2'
 
 function UserLogin() {
   const [input, setInput] = useState({
@@ -13,6 +16,7 @@ function UserLogin() {
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userbyusernameResult = useSelector((state) => state.users.usernameSearchResult);
 
   const handleChange = (event) => {
     setInput({
@@ -32,12 +36,18 @@ function UserLogin() {
       username: input.username,
       password: input.password,
     };
+  
 
     try {
       const response = await dispatch(postLogin(loginData));
 
       const { message, access, userSession } = response.data;
-      alert(message);
+      Swal.fire({
+        title: '¡Inicio exitoso!',
+        text: message,
+        icon: 'success',
+        confirmButtonColor: "#E62F05",
+        confirmButtonText: 'Ok'});
 
       if (access && userSession) {
         handleSuccessfulLogin(userSession);
@@ -50,20 +60,63 @@ function UserLogin() {
       }
     } catch (error) {
       setTimeout(() => {
-        const userClickedOk = window.confirm(
-          "Usuario NO registrado o deshabilitado. ¿Quieres ir a la página de registro?"
-        );
-      }, 8000);
-      if (userClickedOk) {
-        navigate("/userform");
-      }
+         const userClickedOk = Swal.fire({
+          title: "Error",
+          text: "Usuario NO registrado o deshabilitado. ¿Quieres ir a la página de registro?",
+          icon: "error",
+          showCancelButton: true,
+          confirmButtonColor: "#E62F05",
+          cancelButtonColor: "#404145",
+          confirmButtonText: "Aceptar",
+          cancelButtonText: "Cancelar"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            
+              navigate("/userform");
+            
+          }
+        });
+             
+      }, 1000);
     }
   };
 
+  const navigateRecovery = async () => {
+    if (input.username) {
+      try {
+        
+        //const actionResult = await dispatch(getUserByUsername(input.username));
+        const response = await axios.get(`https://drewili-pf-back.onrender.com/user/username?username=${input.username}`)
+        console.log("user by username result", response.status)
+       
+        response.status && response.status === 200
+        // verificar el bug de cuando la gente usa el mismo componente dos veces
+          navigate('/forgetpassword', { state: input })
+       
+      } catch (error) {
+        console.error("Error al obtener el usuario por nombre de usuario:", error)
+        Swal.fire({
+          title: '¡Error!',
+          text: "Usuario no encontrado.",
+          icon: 'error',
+          confirmButtonColor: "#E62F05",
+          confirmButtonText: 'Ok'});
+      }
+    } else {
+      Swal.fire({
+        title: 'Atención',
+        text: "Por favor, ingrese su nombre de usuario.",
+        icon: 'warning',
+        confirmButtonColor: "#E62F05",
+        confirmButtonText: 'Ok'});
+      
+    }
+  };
+  
   return (
     <div className="w-96  mr-auto ml-auto h-90vh pt-16">
       <h1 className="text-2xl font-bold mb-4 flex items-center justify-center">
-        UserLogin
+        Iniciar Sesión
       </h1>
       <form
         className="border border-chiliRed rounded p-6 text-arial text-base"
@@ -104,8 +157,11 @@ function UserLogin() {
               <span className="ml-2  text-chiliRed">Regístrese</span>
             </NavLink>
           </div>
+          <div className="mt-4 text-center">
+              <span className="ml-2  text-chiliRed" onClick={navigateRecovery}>¿Olvidó su contraseña?</span>
+          </div>
           <div className="text-center mt-4">---------- o ---------- </div>
-          <div className="text-center mt-4 border rounded-lg bg-chiliRed text-white">
+          <div className="flex items-center justify-center text-center mt-4 h-12 border rounded-full bg-chiliRed  text-white">
             <LoginButton />
           </div>
         </div>

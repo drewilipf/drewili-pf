@@ -10,7 +10,8 @@ const addToSalesCartController = async (productId, userId, quantity) => {
 
     return salesCartItem;
   } catch (error) {
-    throw new Error("Error al agregar el producto al carrito de ventas.");
+    console.log(error);
+    throw new Error(error);
   }
 };
 

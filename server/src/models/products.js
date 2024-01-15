@@ -17,8 +17,13 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     price: {
+      type: DataTypes.DECIMAL(10,2),
+      allowNull: true,
+    },
+    realPrice:{
       type: DataTypes.DECIMAL,
       allowNull: true,
+
     },
     specifications: {
       type: DataTypes.TEXT,
@@ -30,7 +35,11 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+    },
+    imageArray:{
+      type: DataTypes.JSON,
+      allowNull: true
     },
     color_id: {
       type: DataTypes.INTEGER,
@@ -61,11 +70,32 @@ module.exports = (sequelize) => {
       defaultValue: false,
       allowNull: false,
     },
-    relevance: {
+   relevance: {
       type: DataTypes.INTEGER,
       allowNull: true,
-      defaultValue: 0,
+      defaultValue: 1,
+      validate: {
+        min: 0,
+        max: 2,
+      },  
     },
-  });
+    discount: {
+      type: DataTypes.DECIMAL,
+      allowNull: true
+    },
+  },{
+    getterMethods: {
+      finalPrice() {
+        // Verifica si hay un descuento y calcula el precio final
+        if (this.discount && this.price) {
+          const discountAmount = this.price * (this.discount / 100);
+          return (this.price - discountAmount).toFixed(2);
+        }
+        // Si no hay descuento, devuelve el precio original
+        return this.price;
+      },
+    },
+  }
+  );
   return Product;
 };

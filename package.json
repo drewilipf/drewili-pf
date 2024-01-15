@@ -2,9 +2,14 @@
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cloudinary": "^1.41.1",
+    "cors": "^2.8.5",
     "express-session": "^1.17.3",
+    "google-auth-library": "^9.4.1",
+    "googleapis": "^130.0.0",
     "icons": "^1.0.0",
     "js-cookie": "^3.0.5",
+    "nodemailer": "^6.9.8",
+    "react-google-recaptcha": "^3.1.0",
     "react-icons": "^4.12.0",
     "stripe": "^14.10.0"
   }

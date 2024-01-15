@@ -5,6 +5,7 @@ import { getCategory } from "../../reduxToolkit/Category/categoryThunks.js";
 import { filterAll } from "../../reduxToolkit/Filtros/filterAllThunks.js";
 import { setCategoryFilterAction } from "../../reduxToolkit/Product/activeFilterthunks.js";
 import { useLocation } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function Searchbar({ setActualPage }) {
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -28,7 +29,7 @@ function Searchbar({ setActualPage }) {
   }, [dispatch]);
 
   useEffect(() => {
-    // Inicializar el estado local solo si no hay filtros activos
+    
     if (activeFilters && !activeFilters.isFiltering) {
       setFilterState({
         selectedCategory: "",
@@ -46,7 +47,13 @@ function Searchbar({ setActualPage }) {
 
   const handleSearchClick = () => {
     if (searchKeyword.length < 2) {
-      alert("Debe ingresar al menos dos caracteres");
+      Swal.fire({
+        title: "¡Atención!",
+        text: "Debe ingresar al menos dos caracteres",
+        icon: "warning",
+        confirmButtonColor: "#E62F05"
+      })
+      
       return;
     }
     dispatch(searchProduct(searchKeyword));
@@ -61,20 +68,20 @@ function Searchbar({ setActualPage }) {
   };
 
   return (
-    <div className="flex items-center">
+    <div className="tablet:flex h-full">
       <input
-        className="border border-chiliRed rounded p-2 mr-2 focus:outline-none focus:border-chiliRed"
+        className="border border-chiliRed rounded p-2  focus:outline-none focus:border-chiliRed mr-4"
         placeholder="Buscar producto..."
         value={searchKeyword}
         onChange={handleSearchInputChange}
       />
       {location.pathname !== "/dashboard/productList" && (
         <select
-          className="border border-chiliRed rounded p-2 mr-2 focus:outline-none focus:border-chiliRed"
+          className="border border-chiliRed rounded p-2 focus:outline-none focus:border-chiliRed"
           onChange={(e) => handleFilterCategory(e.target.value)}
           value={filterState.selectedCategory || ""}
         >
-          <option value="All">Todas las Categorías</option>
+          <option value="">Todas las Categorías</option>
           {category.categories
             ? category.categories.map((categoryItem) => (
                 <option key={categoryItem.id} value={categoryItem.category}>
@@ -86,7 +93,7 @@ function Searchbar({ setActualPage }) {
       )}
 
       <button
-        className="bg-chiliRed transition duration-300 hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mr-16"
+        className="bg-chiliRed transition duration-300 hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded m-1"
         onClick={handleSearchClick}
       >
         Buscar

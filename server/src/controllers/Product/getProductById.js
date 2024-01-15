@@ -27,16 +27,19 @@ const getProductById = async (id) => {
       id: product.id,
       name: product.name,
       description: product.description,
-      price: product.price,
+      price:  product.finalPrice,
+      realPrice: product.discount ? product.price : null,
       specifications: product.specifications,
       color: product.Colors.color, 
       stock: product.stock,
       image: product.image,
+      imageArray: product.imageArray,
       brand: product.Brand.brand,
       category: product.Category.category,
       deleted: product.deleted,
       relevance: product.relevance,
       date: product.createdAt,
+      discount: product.discount
     };
   });
 

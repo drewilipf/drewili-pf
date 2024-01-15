@@ -257,7 +257,7 @@ const ShippingForm = () => {
           >
             <span className="flex items-center flex-1 text-xs">
               <img
-                src={item.image}
+                src={item.images}
                 alt={item.name}
                 className="mr-2"
                 style={{ maxWidth: "50px", maxHeight: "50px" }}
@@ -275,7 +275,7 @@ const ShippingForm = () => {
         <div className="mt-4">
           <div className="flex justify-between">
             <span className="font-semibold">Total:</span>
-            <span className="text-xl">{`S/${priceTotal.toFixed(2)}`}</span>
+            <span className="text-xl">{priceTotal}</span>
           </div>
         </div>
       <div className="">

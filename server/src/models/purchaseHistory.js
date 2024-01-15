@@ -35,8 +35,20 @@ module.exports = (sequelize) =>{
             type: DataTypes.DATE,
             allowNull: false,
             defaultValue: sequelize.fn('now')
-        }
+        },
+        paymentPdf: {
+            type: DataTypes.BLOB,
+            allowNull: true,
+        },
+        paymentStatus: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: 'pendiente', 
+            validate: {
+              isIn: [['pendiente', 'aprobado', 'rechazado']]
+            }
+        },
     },
-    { timestamps: false });
+    {timestamps: false });
     return PurchaseHistory
 }

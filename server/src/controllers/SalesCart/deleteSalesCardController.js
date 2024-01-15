@@ -11,7 +11,7 @@ const salesCartDeleteController = async(id, userId) =>{
             where: { user_id: userId },
             include: {
                 model: Product,
-                attributes: ['id', 'name', 'image', 'price'],
+                attributes: ['id', 'name', 'imageArray', 'price','discount'],
                 include: [
                     {
                       model: Category,
@@ -31,18 +31,21 @@ const salesCartDeleteController = async(id, userId) =>{
             return allSalesCarts
         }
     
-        const formattedSalesCart = allSalesCarts.map((product)=>({
-            salesCartId: product.id,
-            id: product.product.id,
-            name: product.product.name,
-            image: product.product.image,
-            price: product.product.price,
-            quantity: product.quantity,
-            totalPrice: product.product.price*product.quantity,
-            brand: product.product.Brand.brand
-        }))
+        const formattedSalesCart = allSalesCarts.map((product)=>{
+            const finalPrice = product.product.finalPrice;
+            return {
+                salesCartId: product.id,
+                id: product.product.id,
+                name: product.product.name,
+                images: product.product.imageArray[0],
+                price: finalPrice,
+                quantity: product.quantity,
+                totalPrice: finalPrice*product.quantity,
+                brand: product.product.Brand.brand
+            }
+        })
     
-        const totalCartPrice = formattedSalesCart.reduce((total, product)=> total + product.totalPrice, 0)
+        const totalCartPrice = formattedSalesCart.reduce((total, product) => total + parseFloat(product.totalPrice), 0).toFixed(2);
     
         return {
             products: formattedSalesCart,

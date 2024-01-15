@@ -16,10 +16,14 @@ const successController = async (userId, updateProduct) => {
     const purchaseHistoryData = updateProduct.map(product => ({
         user_id: userId,
         product_id: product.idProd,
-        quantity: product.cantidad
+        quantity: product.cantidad,
+        paymentStatus: 'aprobado'
     }));
 
-    await PurchaseHistory.bulkCreate(purchaseHistoryData);
+    const newHistory = await PurchaseHistory.bulkCreate(purchaseHistoryData);
+
+    return newHistory
+
 };
 
 module.exports = successController;

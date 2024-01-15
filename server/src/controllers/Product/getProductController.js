@@ -27,7 +27,8 @@ const getProductsController = async () => {
       id: product.id,
       name: product.name,
       description: product.description,
-      price: product.price,
+      price: product.finalPrice,
+      realPrice: product.discount ? product.price : null,
       specifications: product.specifications,
       color: product.Colors.color, 
       stock: product.stock,
@@ -36,7 +37,9 @@ const getProductsController = async () => {
       category: product.Category.category,
       deleted: product.deleted,
       relevance: product.relevance,
+      images: product.imageArray,
       date: product.createdAt,
+      discount: product.discount
     };
   });
 

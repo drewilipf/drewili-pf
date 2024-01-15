@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+        <html lang="en">
+        
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <style>
+    .boton-whatsapp {
+        background-color: #25D366;
+        color: #FFF;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+
+    }
+
+    .boton-insta {
+        background: linear-gradient(to right, #833AB4, #F56040);
+        color: #FFF;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    /* Estilos adicionales para mejorar la apariencia */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h2></h2>
+        <p>Hola Drewili,</p>
+        <p>¡El usuario {name} realizó una compra! </p>
+        <p>Aquí están los detalles de la compra:</p>
+
+        <table>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Total</th>
+            </tr>
+            {products}
+        </table>
+        <p>El estado del pedido es: {status} </p>
+        <p> El total es de {total} </p>
+        <p>Detalles de Envío:</p>
+        <p>Nombre: {name}</p>
+        <p>Contacto: {phone}</p>
+        <p>Dropshiping: {dropshiping}</p>
+        <p>Dirección: {address} </p>
+        </table>
+                <p>Saludos,</p>
+        <p>El equipo de Drewili</p>
+            <hr></hr>
+            <br></br>
+            <div>
+              <a href="https://www.instagram.com/dropshipping.peru/" class="boton-insta">Instagram</a>
+              <a href="https://wa.me/51971985484" class="boton-whatsapp">Whatsapp</a>
+            </div>
+          </div>
+        </body>
+        
+        </html>  `

@@ -4,6 +4,9 @@ import { getBrand } from "../../reduxToolkit/Brand/brandThunks";
 import { getCategory } from "../../reduxToolkit/Category/categoryThunks.js";
 import { clearFilter } from "../../reduxToolkit/Product/productThunks";
 import { filterAll } from "../../reduxToolkit/Filtros/filterAllThunks";
+import { IoFilterCircle } from "react-icons/io5";
+import { IoFilterCircleOutline } from "react-icons/io5";
+
 import {
   setCategoryFilterAction,
   clearAllFilters,
@@ -36,8 +39,6 @@ const ProductFilter = ({ setActualPage }) => {
     dispatch(getBrand());
     dispatch(getCategory());
   }, [dispatch]);
-
-
 
   const handleBrandChange = (brand) => {
     setFilterState((prev) => ({ ...prev, selectedBrand: brand }));
@@ -75,25 +76,25 @@ const ProductFilter = ({ setActualPage }) => {
       selectedBrand: "",
       selectedColor: "",
       minPrice: "0",
-      maxPrice: "600",
+      maxPrice: "23999",
     });
     setActualPage(1);
   };
 
-  const handleOpenFilter = () =>{
-    setFilterMenuOpen(!filterMenuOpen)
-  }
+  const handleOpenFilter = () => {
+    setFilterMenuOpen(!filterMenuOpen);
+  };
 
   return (
     <div className="mb-4 w-full">
       <div className="p-2">
         {/* Mostrar filtros en pantallas grandes */}
-        <div className="hidden sm:block">
-          <h2 className="block text-sm font-bold mb-4">Opciones de filtrado:</h2>
+        <div className="hidden tablet:block">
+          <h2 className="block text-m font-bold mb-4">Opciones de filtrado:</h2>
           {/* Resto del contenido del filtro visible en pantallas grandes */}
           <label
             htmlFor="brand"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-grey"
           >
             {/* Selecciona una Marca: */}
           </label>
@@ -101,12 +102,20 @@ const ProductFilter = ({ setActualPage }) => {
             id="brand"
             value={filterState.selectedBrand || ""}
             onChange={(e) => handleBrandChange(e.target.value)}
-            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full py-2 px-3 border bg-white rounded-md shadow-sm focus:outline-none focus:ring-chiliRed focus:border-chiliRed tablet:text-sm border-chiliRed"
           >
-            <option value="" disabled defaultValue>Filtrar por marca</option>
-            <option value="">Todas las marcas</option>
+            <option value="" className="text-eerieBlack" disabled defaultValue>
+              Filtrar por marca
+            </option>
+            <option value="" className="text-eerieBlack">
+              Todas las marcas
+            </option>
             {brandList.map((brand) => (
-              <option key={brand.id} value={brand.brand}>
+              <option
+                key={brand.id}
+                value={brand.brand}
+                className="text-eerieBlack"
+              >
                 {brand.brand}
               </option>
             ))}
@@ -114,7 +123,7 @@ const ProductFilter = ({ setActualPage }) => {
 
           <label
             htmlFor="color"
-            className="block text-sm font-medium text-gray-700 mt-4"
+            className="block text-sm font-medium text-grey mt-4"
           >
             {/* Selecciona un Color: */}
           </label>
@@ -122,9 +131,11 @@ const ProductFilter = ({ setActualPage }) => {
             id="color"
             onChange={handleColorChange}
             value={filterState.selectedColor || ""}
-            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full py-2 px-3 border border-grey-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-chiliRed focus:border-chiliRed sm:text-sm border-chiliRed"
           >
-            <option value="" disabled defaultValue>Filtrar por color</option>
+            <option value="" disabled defaultValue>
+              Filtrar por color
+            </option>
             <option value="">Todos los colores</option>
             {Array.isArray(colors) &&
               colors.map((color) => (
@@ -135,62 +146,70 @@ const ProductFilter = ({ setActualPage }) => {
           </select>
 
           <div className="">
-            <label className="mr-2 block text-sm font-medium text-gray-700">
+            <label className="mr-2 mt-2 block text-sm font-medium text-eerieBlack">
               Filtrar por precio:
             </label>
             <input
               type="number"
               value={filterState.minPrice}
               onChange={(e) =>
-                setFilterState((prev) => ({ ...prev, minPrice: e.target.value }))
+                setFilterState((prev) => ({
+                  ...prev,
+                  minPrice:
+                    e.target.value >= 0 ? e.target.value : prev.minPrice,
+                }))
               }
               placeholder="Min"
-              className="mr-2 mb-2 p-2 border rounded"
+              className="mr-2 mb-2 p-2 border-chiliRed  mt-1 block w-full py-2 px-3 border border-grey-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-chiliRed focus:border-chiliRed sm:text-sm "
             />
             <input
               type="number"
               value={filterState.maxPrice}
               onChange={(e) =>
-                setFilterState((prev) => ({ ...prev, maxPrice: e.target.value }))
+                setFilterState((prev) => ({
+                  ...prev,
+                  maxPrice:
+                    e.target.value >= 0 ? e.target.value : prev.maxPrice,
+                }))
               }
               placeholder="Max"
-              className="p-2 border rounded"
-            />
+
+              className="mr-2 mb-2 p-2 border-chiliRed  mt-1 block w-full py-2 px-3 border border-grey-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-chiliRed focus:border-chiliRed sm:text-sm "
+              />
+
           </div>
-              <div className="mt-2 flex p-2">
+          <div className="mt-2 flex p-2">
+            <button
+              onClick={handleFilterClick}
+              className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mr-2 mb-2"
+            >
+              Aplicar Filtros
+            </button>
 
-          <button
-            onClick={handleFilterClick}
-            className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mr-2 mb-2"
-          >
-            Aplicar Filtros
-          </button>
-
-          <button
-            onClick={handleClearFilter}
-            className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mb-2"
-          >
-            Limpiar Filtros
-          </button>
-              </div>
+            <button
+              onClick={handleClearFilter}
+              className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mb-2"
+            >
+              Limpiar Filtros
+            </button>
+          </div>
         </div>
 
         {/* Mostrar botón para abrir filtros en pantallas pequeñas */}
-        <div className="flex sm:hidden items-center justify-center">
-
+        <div className="flex tablet:hidden items-center justify-center">
           <button
             onClick={handleOpenFilter}
-            className="bg-chiliRed text-whiteSmoke font-bold px-2 rounded block sm:hidden mr-1"
+            className="bg-chiliRed text-whiteSmoke font-bold px-4 py-2 rounded block tablet:hidden mr-1"
           >
-            {filterMenuOpen ? 'Filtros🔺' : 'Filtros 🔻'}
+            {filterMenuOpen ? <IoFilterCircle /> : <IoFilterCircleOutline />}
           </button>
         </div>
         {filterMenuOpen && (
-          <div className="mb-4 w-full sm:hidden mt-4">
+          <div className="mb-4 w-full tablet:hidden mt-4">
             {/* Etiquetas y selectores para Marca, Color, y Rango de Precios */}
             <label
               htmlFor="brand"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 "
             >
               Selecciona una Marca:
             </label>
@@ -198,7 +217,7 @@ const ProductFilter = ({ setActualPage }) => {
               id="brand"
               value={filterState.selectedBrand || ""}
               onChange={(e) => handleBrandChange(e.target.value)}
-              className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 tablet:text-sm border-chiliRed"
             >
               <option value="">Selecciona una Marca:</option>
               {brandList.map((brand) => (
@@ -218,7 +237,9 @@ const ProductFilter = ({ setActualPage }) => {
               id="color"
               onChange={handleColorChange}
               value={filterState.selectedColor || ""}
-              className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+
+              className="mt-1 block w-full py-2 px-3 border  bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 tablet:text-sm border-chiliRed"
+
             >
               <option value="">Selecciona un Color:</option>
               {Array.isArray(colors) &&
@@ -230,40 +251,52 @@ const ProductFilter = ({ setActualPage }) => {
             </select>
 
             <div className="mt-4">
-              <label className="mr-2 block text-sm font-medium text-gray-700">
+              <label className="mr-2 block text-sm font-medium text-gray-700 ">
                 Selecciona un Rango de Precios:
               </label>
               <input
                 type="number"
                 value={filterState.minPrice}
                 onChange={(e) =>
-                  setFilterState((prev) => ({ ...prev, minPrice: e.target.value }))
+                  setFilterState((prev) => ({
+                    ...prev,
+                    minPrice:
+                      e.target.value >= 0 ? e.target.value : prev.minPrice,
+                  }))
                 }
                 placeholder="Min"
-                className="mb-2 p-2 border rounded w-full"
+
+                className="mb-2 p-2 mt-1 block w-full py-2 px-3 border border-chiliRed bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 tablet:text-sm "
+
               />
               <input
                 type="number"
                 value={filterState.maxPrice}
                 onChange={(e) =>
-                  setFilterState((prev) => ({ ...prev, maxPrice: e.target.value }))
+                  setFilterState((prev) => ({
+                    ...prev,
+                    maxPrice:
+                      e.target.value >= 0 ? e.target.value : prev.maxPrice,
+                  }))
                 }
                 placeholder="Max"
-                className="p-2 border rounded w-full"
+
+                className="mb-2 p-2 mt-1 block w-full py-2 px-3 border border-chiliRed bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 tablet:text-sm "
+
               />
             </div>
 
             {/* Botones de Aplicar Filtros y Limpiar Filtros */}
             <button
               onClick={handleFilterClick}
-              className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mt-2"
+              className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mt-2 flex mx-auto"
             >
               Aplicar Filtros
             </button>
 
             <button
               onClick={handleClearFilter}
-              className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mt-2"
+              className="transition duration-300 bg-chiliRed hover:bg-onyx text-whiteSmoke font-bold py-2 px-4 rounded mt-2 flex mx-auto"
             >
               Limpiar Filtros
             </button>
@@ -271,7 +304,7 @@ const ProductFilter = ({ setActualPage }) => {
             {/* Botón para cerrar el menú desplegable */}
           </div>
         )}
-    </div>
+      </div>
     </div>
   );
 };
