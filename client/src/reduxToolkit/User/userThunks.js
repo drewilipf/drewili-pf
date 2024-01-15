@@ -65,13 +65,13 @@ export const getUserByUsername = (username) => {
     try {
       console.log("data recibida al thunk", `${API_URL}/username?username=${username}`)
       const response = await axios.get(`${API_URL}/username?username=${username}`);
-      const user = response.data;
-      console.log("thunk response", user)
-      dispatch(getUserByUsernameSlice(user));
+      const user = response;
+      console.log("thunk response", user.status)
+      dispatch(getUserByUsernameSlice(user.status));
     } catch (error) {
       if (error.response && error.response.status === 400) {
         // Si es un error 400, envía el mensaje de error al slice
-        dispatch(getUserByUsernameSlice(error.response.data))}
+        dispatch(getUserByUsernameSlice(error.response.status))}
       console.error("Error fetching product:", error);
       
     }

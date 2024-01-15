@@ -88,7 +88,7 @@ function UserLogin() {
         
         console.log("user by username result", userbyusernameResult)
        
-        if (userbyusernameResult && userbyusernameResult.message == "Usuario existente") {
+        if (userbyusernameResult && userbyusernameResult === 200) {
         // verificar el bug de cuando la gente usa el mismo componente dos veces
           navigate('/forgetpassword', { state: input });
         } else {
