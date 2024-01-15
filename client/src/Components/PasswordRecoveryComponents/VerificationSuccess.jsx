@@ -8,6 +8,7 @@ import { FaLock } from 'react-icons/fa';
 import { useLocation, useNavigate } from "react-router-dom";
 import { postNotificationRecoveryPassword } from "../../reduxToolkit/Notification/notificationThunks"
 import { putPassRecovery } from "../../reduxToolkit/User/userThunks";
+import Swal from "sweetalert2";
 
 function VerificationSuccess() {
   const dispatch = useDispatch();
@@ -98,7 +99,13 @@ if (errors.newpassword != "") {
         console.log("user put result", userputResult)
         if(userputResult == "200"){
           console.log("cambio correcto")
-          alert("Actualización de contraseña correcta");
+          Swal.fire({
+            title: '¡Éxito!',
+            text: "Actualización de contraseña correcta.",
+            icon: 'success',
+            confirmButtonColor: "#E62F05",
+            confirmButtonText: 'Ok'});
+          
           navigate("/userlogin");
         }
       } else {
@@ -107,7 +114,13 @@ if (errors.newpassword != "") {
     } catch (error) {
       console.error("Error al enviar datos:", error.message);
       // Mostrar mensaje de error al usuario
-      alert("Procedimiento incorrecto. Por favor, verifique los datos ingresados.");
+      Swal.fire({
+        title: '¡Error!',
+        text: "Procedimiento incorrecto. Por favor, verifique los datos ingresados.",
+        icon: 'error',
+        confirmButtonColor: "#E62F05",
+        confirmButtonText: 'Ok'});
+      
     }
   };
   
