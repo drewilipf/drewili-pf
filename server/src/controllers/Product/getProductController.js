@@ -28,6 +28,7 @@ const getProductsController = async () => {
       name: product.name,
       description: product.description,
       price: product.finalPrice,
+      realPrice: product.discount ? product.price : null,
       specifications: product.specifications,
       color: product.Colors.color, 
       stock: product.stock,

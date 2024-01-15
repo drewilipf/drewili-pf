@@ -6,6 +6,7 @@ import { IoMdCreate } from "react-icons/io";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { postLogout } from "../../../reduxToolkit/Login/logoutThunks";
+import Swal from "sweetalert2";
 
 const NavbarAdmin = () => {
   const [showMenu, setShowMenu] = useState(true);
@@ -36,23 +37,39 @@ const NavbarAdmin = () => {
   }, []);
 
   const handleclick = async () => {
-    const shouldLogout = window.confirm("¿Estás seguro de cerrar sesión?");
-
-    if (shouldLogout) {
-      if (login && login.userSession) {
-        try {
-          await dispatch(postLogout());
+    const shouldLogout = Swal.fire({
+      title: "¡Atención!",
+      text: "¿Está seguro de querer salir?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#E62F05",
+      cancelButtonColor: "#404145",
+      confirmButtonText: "Salir",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (login && login.userSession) {
+          try {
+            dispatch(postLogout());
+            Cookies.remove("userSession");
+            navigate("/");
+          } catch (error) {
+            console.error("Error al cerrar sesión:", error);
+          }
+        } else {
           Cookies.remove("userSession");
           navigate("/");
-        } catch (error) {
-          console.error("Error al cerrar sesión:", error);
         }
-      } else {
-        Cookies.remove("userSession");
-        navigate("/");
+        
+          navigate("/");
+        
       }
-    }
-  };
+    });
+  }
+    
+     
+    
+ 
 
   return (
     <div

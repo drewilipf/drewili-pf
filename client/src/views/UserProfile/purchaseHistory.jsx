@@ -135,7 +135,7 @@ const PurchaseHistoryComponent = () => {
                         <p className="text-lg font-semibold ">
                           {purchase.productName}
                         </p>
-                        <p>Precio: ${purchase.productPrice}</p>
+                        <p>Precio: S/ {purchase.productPrice} xU</p>
                         <p>Cantidad: {purchase.quantity}</p>
                       </div>
                     </div>

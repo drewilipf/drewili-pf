@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios"
 import { useDispatch, useSelector } from "react-redux";
 import { postLogin } from "../../reduxToolkit/Login/loginThunks";
 import { getUserByUsername } from "../../reduxToolkit/User/userThunks";
@@ -84,28 +85,31 @@ function UserLogin() {
     if (input.username) {
       try {
         
-        const actionResult = await dispatch(getUserByUsername(input.username));
-        
-        console.log("user by username result", userbyusernameResult)
+        //const actionResult = await dispatch(getUserByUsername(input.username));
+        const response = await axios.get(`https://drewili-pf-back.onrender.com/user/username?username=${input.username}`)
+        console.log("user by username result", response.status)
        
-        if (userbyusernameResult && userbyusernameResult.message == "Usuario existente") {
+        response.status && response.status === 200
         // verificar el bug de cuando la gente usa el mismo componente dos veces
-          navigate('/forgetpassword', { state: input });
-        } else {
-          
-          const userClickedOk = window.confirm(
-            "Usuario NO registrado o deshabilitado. ¿Quieres ir a la página de registro?"
-          );
-  
-          if (userClickedOk) {
-            navigate("/userform");
-          }
-        }
+          navigate('/forgetpassword', { state: input })
+       
       } catch (error) {
-        console.error("Error al obtener el usuario por nombre de usuario:", error);
+        console.error("Error al obtener el usuario por nombre de usuario:", error)
+        Swal.fire({
+          title: '¡Error!',
+          text: "Usuario no encontrado.",
+          icon: 'error',
+          confirmButtonColor: "#E62F05",
+          confirmButtonText: 'Ok'});
       }
     } else {
-      alert("Por favor, ingrese su nombre de usuario");
+      Swal.fire({
+        title: 'Atención',
+        text: "Por favor, ingrese su nombre de usuario.",
+        icon: 'warning',
+        confirmButtonColor: "#E62F05",
+        confirmButtonText: 'Ok'});
+      
     }
   };
   

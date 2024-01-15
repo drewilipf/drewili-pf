@@ -3,6 +3,7 @@ import { FaLock } from 'react-icons/fa';
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { postNotificationRecoveryPassword } from "../../reduxToolkit/Notification/notificationThunks"
+import Swal from "sweetalert2";
 
 const OtpInput = () => {
   const dispatch = useDispatch();
@@ -34,8 +35,13 @@ const OtpInput = () => {
       setDisable(true)
       setTimer(300)
       navigate('/otpinput', { state: newRecoveryData });
-  
-      alert("Se ha enviado el nuevo código");
+      Swal.fire({
+        title: '¡Éxito!',
+        text: "Se ha enviado el nuevo código",
+        icon: 'success',
+        confirmButtonColor: "#E62F05",
+        confirmButtonText: 'Ok'});
+      
     }
   }
   
@@ -72,9 +78,13 @@ const OtpInput = () => {
       navigate('/verificationsuccess', { state: recoveryData });
       return;
     }
-    alert(
-      "El código ingresado no es correcto, por favor ingreselo correctamente o solicite uno nuevo"
-    );
+    Swal.fire({
+      title: '¡Error!',
+      text: "El código ingresado no es correcto, por favor ingreselo correctamente o solicite uno nuevo",
+      icon: 'error',
+      confirmButtonColor: "#E62F05",
+      confirmButtonText: 'Ok'});
+    ;
     return;
   }
 

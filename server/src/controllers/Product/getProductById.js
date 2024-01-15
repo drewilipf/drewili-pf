@@ -28,7 +28,7 @@ const getProductById = async (id) => {
       name: product.name,
       description: product.description,
       price:  product.finalPrice,
-      realPrice: product.realPrice,
+      realPrice: product.discount ? product.price : null,
       specifications: product.specifications,
       color: product.Colors.color, 
       stock: product.stock,

@@ -15,7 +15,7 @@ const validation = (input) => {
     if (!input.name) {
         errors.name = "Por favor ingrese su nombre"
     }
-    const nameRegex = /^[a-zA-Z\s]{4,15}$/;
+    const nameRegex = /^[a-zA-ZÁÉÍÓÚáéíóúüÜ\s]{4,15}$/;
     if (!nameRegex.test(input.name)) {
         errors.name = "Por favor ingrese un nombre válido";
     }
@@ -24,7 +24,7 @@ const validation = (input) => {
     if (!input.lastname) {
         errors.lastname = "Por favor ingrese su apellido"
     }
-    const lastnameRegex = /^[a-zA-Z\s]{3,15}$/;
+    const lastnameRegex = /^[a-zA-ZÁÉÍÓÚáéíóúüÜ\s]{3,15}$/;
     if (!lastnameRegex.test(input.lastname)) {
         errors.lastname = "Por favor ingrese un apellido válido";
     }
