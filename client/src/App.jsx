@@ -31,6 +31,7 @@ import Creators from "./Components/Footer/Desarrolladores";
 import ForgetPassword from "./Components/PasswordRecoveryComponents/ForgetPassword";
 import OtpInput from "./Components/PasswordRecoveryComponents/OtpInput";
 import VerificationSuccess from "./Components/PasswordRecoveryComponents/VerificationSuccess";
+import NotFound from "./Components/404/NotFound";
 import Cookies from "js-cookie";
 
 function App() {
@@ -147,6 +148,9 @@ function App() {
             element={<PurchaseHistoryComponent />}
           />
           <Route path="/creators" element={<Creators />} />
+          {/*SIEMPRE DEJAR LA RUTA NOT FOUND AL FINAL DE LA LISTA */}
+          <Route path="*" element={<NotFound />} />
+          {/*SIEMPRE DEJAR LA RUTA NOT FOUND AL FINAL DE LA LISTA */}
         </Routes>
       </div>
       {!isDashboardRoute && <Footer />}

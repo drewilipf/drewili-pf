@@ -96,10 +96,10 @@ const Payment = () => {
     <div className="h-90vh bg-whiteSmoke flex justify-center items-center flex-col">
       <article className="h-[50%] w-[50%] rounded-2xl shadow-2xl flex justify-center flex-col items-center">
         <h2 className="p-2 text-lg font-bold">
-          ¡Su pago será verificado y en máximo 48 horas estará recibiendo la
+          ¡Su pago será verificado y en un máximo de 48 horas estará recibiendo la
           confirmación del envío!
         </h2>
-        <h3 className="p-2">Gracias por confiar en nosotros</h3>
+        <h3 className="p-2">Gracias por confiar en nosotros.</h3>
       </article>
       <NavLink
         to={`/`}
