@@ -1,5 +1,5 @@
 import jsPDF from "jspdf";
-
+import Cookies from "js-cookie";
 import axios from "axios";
 
 import logoOriginal from "../../icons/logoOriginal.png";
@@ -60,7 +60,7 @@ const enviarFormDataAlServidor = async (formData, purchaseID) => {
     formData,
     config
   );
-
+  Cookies.remove("combinedData");
   console.log(response);
 };
 

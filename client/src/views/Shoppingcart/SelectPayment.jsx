@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -67,6 +67,9 @@ const SelectPayment = () => {
     RUC: rucFactura,
     "modalidad de pago": modalidadPago,
   };
+  useEffect(() => {
+    Cookies.set("combinedData", JSON.stringify(combinedData));
+  }, [combinedData]);
 
   const userId =
     (userSession && userSession.userId) ||
@@ -187,7 +190,9 @@ const SelectPayment = () => {
         </div>
       </div>
       <div className="flex justify-center ">
-        <label className="mr-8 font-bold">¿Qué tipo de comprobante desea?</label>
+        <label className="mr-8 font-bold">
+          ¿Qué tipo de comprobante desea?
+        </label>
         <div>
           <input
             type="radio"
@@ -300,7 +305,9 @@ const SelectPayment = () => {
                 className="w-40 h-20  ml-16 shadow-xl rounded-xl"
               />
               <div className="">
-                <div className="font-bold p-2">Nombre del banco:"Diners Club"</div>
+                <div className="font-bold p-2">
+                  Nombre del banco:"Diners Club"
+                </div>
                 <div>Titular: DREWILI</div>
                 <div>Cta. corriente: 555-566-555-555</div>
                 <div>CCI: 20.000.000</div>
@@ -317,7 +324,6 @@ const SelectPayment = () => {
                 <div>Titular: DREWILI</div>
                 <div>Cta. corriente: 555-566-555-555</div>
                 <div>CCI: 20.000.000</div>
-
               </div>
             </span>
             <span className="shadow-xl bg-whiteSmoke rounded-xl ">
@@ -327,7 +333,9 @@ const SelectPayment = () => {
                 className="w-40 h-20 ml-16 shadow-xl rounded-xl "
               />
               <div className="">
-                <div className="font-bold ">Nombre del banco:"Dividelo Interbanck"</div>
+                <div className="font-bold ">
+                  Nombre del banco:"Dividelo Interbanck"
+                </div>
                 <div>Titular: DREWILI</div>
                 <div>cta. corriente: 555-566-555-555</div>
                 <div>CCI: 20.000.000</div>
@@ -339,7 +347,7 @@ const SelectPayment = () => {
               RECUERDA ENVIAR EL COMPROBANTE DE PAGO AL SIGUIENTE WHATSAPP
             </span>
             <div className="flex justify-center text-2xl  ">
-              <SiWhatsapp className="mt-1 mr-4"/>
+              <SiWhatsapp className="mt-1 mr-4" />
               <a
                 href="https://wa.me/51971985484"
                 target="_blank"
@@ -349,7 +357,6 @@ const SelectPayment = () => {
               </a>
             </div>
           </div>
-
 
           <button
             className="flex mx-auto mt-8 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
@@ -376,8 +383,7 @@ const SelectPayment = () => {
             nuestro número de teléfono, usuando el QR, en tus contactos y
             realiza el pago.
           </span>
-          <div
-            className="flex justify-center mt-8 ml-9 text-9xl">
+          <div className="flex justify-center mt-8 ml-9 text-9xl">
             <BsQrCode />
           </div>
           <div className="max-w-xl mx-auto mt-8 shadow-xl rounded-xl ">
@@ -385,7 +391,7 @@ const SelectPayment = () => {
               RECUERDA ENVIAR EL COMPROBANTE DE PAGO AL SIGUIENTE WHATSAPP
             </span>
             <div className="flex justify-center text-2xl  ">
-              <SiWhatsapp className="mt-1 mr-4"/>
+              <SiWhatsapp className="mt-1 mr-4" />
               <a
                 href="https://wa.me/51971985484"
                 target="_blank"
@@ -396,17 +402,20 @@ const SelectPayment = () => {
             </div>
           </div>
           <div className="flex justify-center items-baseline">
-          <button
-            className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
-            onClick={handlePdf}
-          >
-            Ir a pagar
-          </button></div>
+            <button
+              className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
+              onClick={handlePdf}
+            >
+              Ir a pagar
+            </button>
+          </div>
         </div>
       )}
       {modalidadPago === "contraentrega" && (
         <div className="mt-6 ">
-          <span className="font-bold flex justify-center">Anticipo del 30% del pago.</span>
+          <span className="font-bold flex justify-center">
+            Anticipo del 30% del pago.
+          </span>
           <div className="flex justify-center">
             Se confirmará el pedido por los medios de contacto suministrado.
           </div>
@@ -439,7 +448,9 @@ const SelectPayment = () => {
                 className="w-40 h-20  ml-16 shadow-xl rounded-xl"
               />
               <div className="">
-                <div className="font-bold p-2">Nombre del banco:"Diners Club"</div>
+                <div className="font-bold p-2">
+                  Nombre del banco:"Diners Club"
+                </div>
                 <div>Titular: DREWILI</div>
                 <div>Cta. corriente: 555-566-555-555</div>
                 <div>CCI: 20.000.000</div>
@@ -456,7 +467,6 @@ const SelectPayment = () => {
                 <div>Titular: DREWILI</div>
                 <div>Cta. corriente: 555-566-555-555</div>
                 <div>CCI: 20.000.000</div>
-
               </div>
             </span>
             <span className="shadow-xl bg-whiteSmoke rounded-xl ">
@@ -466,7 +476,9 @@ const SelectPayment = () => {
                 className="w-40 h-20 ml-16 shadow-xl rounded-xl "
               />
               <div className="">
-                <div className="font-bold ">Nombre del banco:"Dividelo Interbanck"</div>
+                <div className="font-bold ">
+                  Nombre del banco:"Dividelo Interbanck"
+                </div>
                 <div>Titular: DREWILI</div>
                 <div>cta. corriente: 555-566-555-555</div>
                 <div>CCI: 20.000.000</div>
@@ -478,7 +490,7 @@ const SelectPayment = () => {
               RECUERDA ENVIAR EL COMPROBANTE DE PAGO AL SIGUIENTE WHATSAPP
             </span>
             <div className="flex justify-center text-2xl  ">
-              <SiWhatsapp className="mt-1 mr-4"/>
+              <SiWhatsapp className="mt-1 mr-4" />
               <a
                 href="https://wa.me/51971985484"
                 target="_blank"
@@ -490,13 +502,13 @@ const SelectPayment = () => {
           </div>
 
           <div className="flex justify-center items-baseline">
-          <button
-            className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
-            onClick={handlePdf}
-          >
-            Ir a pagar
-          </button></div>
-
+            <button
+              className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
+              onClick={handlePdf}
+            >
+              Ir a pagar
+            </button>
+          </div>
         </div>
       )}
 
