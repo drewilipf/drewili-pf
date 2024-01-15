@@ -12,7 +12,7 @@ const postNodemailerUserRegisterController = async (username, email, otp ) =>{
 
         from: "mensaje enviado desde drewillipf@gmail.com",
         to: email,
-        subject: `Recuperacion de contraseña ${username}}`,
+        subject: `Recuperacion de contraseña ${username}`,
         html: htmlContent,
     });
   };

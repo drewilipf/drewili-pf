@@ -27,7 +27,8 @@ const getProductById = async (id) => {
       id: product.id,
       name: product.name,
       description: product.description,
-      price: product.price,
+      price:  product.finalPrice,
+      realPrice: product.realPrice,
       specifications: product.specifications,
       color: product.Colors.color, 
       stock: product.stock,
@@ -38,6 +39,7 @@ const getProductById = async (id) => {
       deleted: product.deleted,
       relevance: product.relevance,
       date: product.createdAt,
+      discount: product.discount
     };
   });
 

@@ -11,7 +11,7 @@ import addedToCartIcon from "../../icons/added-to-cart.png";
 import emptyHeartIcon from "../../icons/emptyHeart.png";
 import filledHeartIcon from "../../icons/filledHeart.png";
 import Slider from "react-slick";
-
+import Swal from 'sweetalert2';
 function Productcard({
   id,
   name,
@@ -49,79 +49,100 @@ function Productcard({
     (usersGoogle && usersGoogle.id) ||
     (userGoogleSession && userGoogleSession.id);
 
-  const handleAddToCart = async () => {
-    try {
-      setLoading(true);
-
-      if (!userId) {
-        // Si userId es null, muestra un mensaje de alerta y redirige si el usuario elige iniciar sesión
-        const choice = window.confirm(
-          "Para continuar, por favor inicia sesión o regístrate. ¿Quieres iniciar sesión?"
-        );
-
-        if (choice) {
-          window.location.href = "/userlogin";
-          return;
-        } else {
-          return;
-        }
+    const handleAddToCart = async () => {
+      try {
+          if (!userId) {
+              // Si userId es null, muestra un mensaje de alerta y redirige si el usuario elige iniciar sesión
+              const choice = await Swal.fire({
+                  title: 'Error',
+                  text: 'Para agregar productos al carrito, por favor inicia sesión o regístrate. ¿Quieres iniciar sesión?',
+                  icon: 'error',
+                  showCancelButton: true,
+                  confirmButtonText: 'Continuar',
+                  cancelButtonText: 'Cancelar',
+                  confirmButtonColor: '#e62f05', // Color del botón de confirmación
+                  cancelButtonColor: '#404145' // Color del botón de cancelar
+              });
+  
+              if (choice.isConfirmed) {
+                  window.location.href = "/userlogin";
+                  return;
+              } else {
+                  // Puedes agregar más lógica aquí si es necesario
+                  return;
+              }
+          }
+  
+          setLoading(true);
+  
+          console.log("datos enviados al servidor:", {
+              productId: id,
+              userId,
+              quantity: 1,
+          });
+  
+          const response = await axios.post(
+              "https://drewili-pf-back.onrender.com/salesCart/addToSalesCart",
+              {
+                  productId: id,
+                  userId,
+                  quantity: 1,
+              }
+          );
+  
+          console.log("Respuesta del servidor:", response.data);
+  
+          setAddedToCart(true);
+      } catch (error) {
+          console.error("Error en la solicitud:", error);
+      } finally {
+          setLoading(false);
       }
-
-      // Realiza la solicitud para agregar al carrito
-      const response = await axios.post(
-        "https://drewili-pf-back.onrender.com/salesCart/addToSalesCart",
-        {
-          productId: id,
-          userId,
-          quantity: 1,
-        }
-      );
-
-      console.log("Respuesta del servidor:", response.data);
-
-      setAddedToCart(true);
-    } catch (error) {
-      console.error("Error en la solicitud:", error);
-    } finally {
-      setLoading(false);
-    }
   };
-
   const handleAddToFavorites = async () => {
     try {
-      setLoadingFavorites(true);
+        setLoadingFavorites(true);
 
-      if (!userId) {
-        // Si userId es null, muestra un mensaje de alerta y redirige si el usuario elige iniciar sesión
-        const choice = window.confirm(
-          "Para continuar, por favor inicia sesión o regístrate. ¿Quieres iniciar sesión?"
+        if (!userId) {
+            // Si userId es null, muestra un mensaje de alerta y redirige si el usuario elige iniciar sesión
+            const choice = await Swal.fire({
+                title: 'Error',
+                text: 'Para continuar, por favor inicia sesión o regístrate. ¿Quieres iniciar sesión?',
+                icon: 'error',
+                showCancelButton: true,
+                confirmButtonText: 'Continuar',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#e62f05', // Color del botón de confirmación
+                cancelButtonColor: '#404145'  // Color del botón de cancelar
+            });
+
+            if (choice.isConfirmed) {
+                // Redirige directamente si el usuario confirma la alerta
+                window.location.href = "/userlogin";
+                return;
+            } else {
+                // Puedes agregar más lógica aquí si es necesario
+                return;
+            }
+        }
+
+        const response = await axios.post(
+            "https://drewili-pf-back.onrender.com/favorites",
+            {
+                product_id: id,
+                user_id: userId,
+            }
         );
 
-        if (choice) {
-          window.location.href = "/userlogin";
-          return;
-        } else {
-          return;
-        }
-      }
+        console.log("Respuesta del servidor (favoritos):", response.data);
 
-      const response = await axios.post(
-        "https://drewili-pf-back.onrender.com/favorites",
-        {
-          product_id: id,
-          user_id: userId,
-        }
-      );
-
-      console.log("Respuesta del servidor (favoritos):", response.data);
-
-      setAddedToFavorites(true);
+        setAddedToFavorites(true);
     } catch (error) {
-      console.error("Error en la solicitud de favoritos:", error);
+        console.error("Error en la solicitud de favoritos:", error);
     } finally {
-      setLoadingFavorites(false);
+        setLoadingFavorites(false);
     }
-  };
+};
 
   const MAX_NAME_LENGTH = 25;
 
