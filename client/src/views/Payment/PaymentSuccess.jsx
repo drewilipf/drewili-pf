@@ -1,10 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import generatePDF from "../Shoppingcart/createPdfEnvio";
 import Cookies from "js-cookie";
 
 const PaymentSuccess = () => {
+  const location = useLocation();
+  const emailData = location.state;
+  useEffect(() => {
+    console.log(emailData);
+    if (emailData) {
+      setUsermaildata({
+        name: emailData.name || "",
+        email: emailData.email || "",
+        products: emailData.product?.map((item) => ({
+          name: item.name,
+          quantity: item.quantity,
+          price: item.price,
+        })),
+        total: emailData.totalprice || 0,
+      });
+    }
+    mixpanel.track("CompraCompletada", {
+      productos: [
+        {
+          products: emailData.product?.map((item) => ({
+            name: item.name,
+            quantity: item.quantity,
+            price: item.price,
+          })),
+        },
+      ],
+      total: emailData.totalprice, // Agrega el total de la compra
+    });
+  }, []);
   useEffect(() => {
     const queryString = window.location.search;
 

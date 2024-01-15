@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { NavLink, useLocation, useParams } from "react-router-dom";
 import { postNotificationUserConfirmBuy } from "../../reduxToolkit/Notification/notificationThunks";
 import { postNotificationAdminConfirmBuy } from "../../reduxToolkit/Notification/notificationThunks";
+import mixpanel from "mixpanel-browser";
 
 const Payment = () => {
   const dispatch = useDispatch();
@@ -75,6 +76,21 @@ const Payment = () => {
       dispatch(postNotificationAdminConfirmBuy(adminmaildata));
     }
   }, [usermaildata, adminmaildata, dispatch]);
+  useEffect(() => {
+    // Registra un evento de compra completada en Mixpanel
+    mixpanel.track("CompraCompletada", {
+      productos: [
+        {
+          products: emailData.product?.map((item) => ({
+            name: item.name,
+            quantity: item.quantity,
+            price: item.price,
+          })),
+        },
+      ],
+      total: emailData.totalprice, // Agrega el total de la compra
+    });
+  }, []);
 
   return (
     <div className="h-90vh bg-whiteSmoke flex justify-center items-center flex-col">

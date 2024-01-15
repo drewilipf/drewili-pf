@@ -12,7 +12,7 @@ import Dashboard from "./views/Dashboard/Dashboard";
 import NavBar from "./Components/Navbar/Navbar";
 import { useEffect, useState } from "react";
 import { getProducts } from "./reduxToolkit/Product/productThunks";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CreateProduct from "./Components/DashboardComponents/CreateProduct/CreateProduct";
 import RegisteredUser from "./Components/DashboardComponents/RegisteredUser/RegisteredUser";
 import { getColor } from "./reduxToolkit/Color/colorThunks";
@@ -31,9 +31,32 @@ import Creators from "./Components/Footer/Desarrolladores";
 import ForgetPassword from "./Components/PasswordRecoveryComponents/ForgetPassword";
 import OtpInput from "./Components/PasswordRecoveryComponents/OtpInput";
 import VerificationSuccess from "./Components/PasswordRecoveryComponents/VerificationSuccess";
+import Cookies from "js-cookie";
 
 function App() {
   const dispacth = useDispatch();
+  const { login } = useSelector((state) => state.login);
+  const { usersGoogle } = useSelector((state) => state.users);
+  const userSessionFromCookies = Cookies.get("userSession");
+  const userGoogleFromCookies = Cookies.get("userGoogle");
+  const userSession = userSessionFromCookies
+    ? JSON.parse(userSessionFromCookies)
+    : null;
+  const userGoogleSession = userGoogleFromCookies
+    ? JSON.parse(userGoogleFromCookies)
+    : null;
+
+  const combinedUserSession =
+    userSession && userSession.role
+      ? userSession.role
+      : login && login.userSession
+      ? login.userSession.role
+      : usersGoogle && usersGoogle.role
+      ? user.role
+      : userGoogleSession && userGoogleSession.role
+      ? userGoogleSession.role
+      : null;
+  const isAdmin = combinedUserSession === "admin";
 
   useEffect(() => {
     dispacth(getProducts());
@@ -48,18 +71,16 @@ function App() {
     setActualPage(newPage);
   };
 
-
   return (
     <div className="contents">
       {!isDashboardRoute && (
-        <NavBar 
+        <NavBar
           handlePageChange={handlePageChange}
           actualPage={actualPage}
           setActualPage={(num) => setActualPage(num)}
         />
       )}
       <div className=" bg-whiteSmoke min-h-screen dark:bg-onyx">
-       
         <Routes>
           <Route
             path="/"
@@ -83,21 +104,42 @@ function App() {
           <Route path="/userlogin" element={<UserLogin />} />
           <Route path="/forgetpassword" element={<ForgetPassword />} />
           <Route path="/otpinput" element={<OtpInput />} />
-          <Route path="/verificationsuccess" element={<VerificationSuccess />} />
+          <Route
+            path="/verificationsuccess"
+            element={<VerificationSuccess />}
+          />
           <Route path="/about" element={<About />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/createProduct" element={<CreateProduct />} />
-          <Route path="/dashboard/productList" element={<ProductList />} />
-          <Route path="/dashboard/editProduct/:id" element={<EditProduct />} />
-          <Route
-            path="/dashboard/shoppingHistory"
-            element={<ShoppingHistory />}
-          />
-          <Route
-            path="/dashboard/registeredUser"
-            element={<RegisteredUser />}
-          />
-          <Route path="/dashboard/productList" element={<ProductList />} />
+          {isAdmin && <Route path="/dashboard" element={<Dashboard />} />}
+          {isAdmin && (
+            <Route
+              path="/dashboard/createProduct"
+              element={<CreateProduct />}
+            />
+          )}
+          {isAdmin && (
+            <Route path="/dashboard/productList" element={<ProductList />} />
+          )}
+          {isAdmin && (
+            <Route
+              path="/dashboard/editProduct/:id"
+              element={<EditProduct />}
+            />
+          )}
+          {isAdmin && (
+            <Route
+              path="/dashboard/shoppingHistory"
+              element={<ShoppingHistory />}
+            />
+          )}
+          {isAdmin && (
+            <Route
+              path="/dashboard/registeredUser"
+              element={<RegisteredUser />}
+            />
+          )}
+          {isAdmin && (
+            <Route path="/dashboard/productList" element={<ProductList />} />
+          )}
           <Route path="/payment/success" element={<PaymentSuccess />} />
           <Route path="/payment/:userId" element={<Payment />} />
           <Route
