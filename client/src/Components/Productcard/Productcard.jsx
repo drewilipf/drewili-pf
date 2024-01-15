@@ -11,7 +11,7 @@ import addedToCartIcon from "../../icons/added-to-cart.png";
 import emptyHeartIcon from "../../icons/emptyHeart.png";
 import filledHeartIcon from "../../icons/filledHeart.png";
 import Slider from "react-slick";
-
+import Swal from 'sweetalert2';
 function Productcard({
   id,
   name,
