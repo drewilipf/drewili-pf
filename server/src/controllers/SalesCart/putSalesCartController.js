@@ -15,7 +15,7 @@ const salesCartController = async(id, quantity, userId) => {
         where: { user_id: userId },
         include: {
             model: Product,
-            attributes: ['id', 'name', 'imageArray', 'price', 'stock'],
+            attributes: ['id', 'name', 'imageArray', 'price', 'stock', 'discount'],
             include: [
                 {
                   model: Category,
@@ -36,19 +36,22 @@ const salesCartController = async(id, quantity, userId) => {
         return allSalesCarts
     }
 
-    const formattedSalesCart = allSalesCarts.map((product)=>({
-        salesCartId: product.id,
-        id: product.product.id,
-        stock: product.product.stock,
-        name: product.product.name,
-        images: product.product.imageArray[0],
-        price: product.product.price,
-        quantity: product.quantity,
-        totalPrice: product.product.price*product.quantity,
-        brand: product.product.Brand.brand
-    }))
-
-    const totalCartPrice = formattedSalesCart.reduce((total, product)=> total + product.totalPrice, 0)
+    const formattedSalesCart = allSalesCarts.map((product)=>{
+        const finalPrice = product.product.finalPrice;
+        return{
+            salesCartId: product.id,
+            id: product.product.id,
+            stock: product.product.stock,
+            name: product.product.name,
+            images: product.product.imageArray[0],
+            price: finalPrice,
+            quantity: product.quantity,
+            totalPrice: finalPrice*product.quantity,
+            brand: product.product.Brand.brand
+        }
+    })
+    
+    const totalCartPrice = formattedSalesCart.reduce((total, product) => total + parseFloat(product.totalPrice), 0).toFixed(2);
 
     return {
         products: formattedSalesCart,

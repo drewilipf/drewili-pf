@@ -13,6 +13,7 @@ function Productcards({ products }) {
             name={product.name}
             description={product.description}
             price={product.price}
+            realPrice={product.realPrice}
             color={product.color}
             specifications={product.specifications}
             stock={product.stock}
