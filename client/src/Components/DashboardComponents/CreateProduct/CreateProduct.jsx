@@ -9,6 +9,8 @@ import { getBrand, postBrand } from "../../../reduxToolkit/Brand/brandThunks";
 import { getColor, postColor } from "../../../reduxToolkit/Color/colorThunks";
 import { postProducts } from "../../../reduxToolkit/Product/productThunks";
 import NavbarAdmin from "../NavbarAdmin/NavbarAdmin";
+import Swal from 'sweetalert2';
+
 
 function CreateProduct() {
   const [input, setInput] = useState({
@@ -74,68 +76,76 @@ function CreateProduct() {
   async function handleSumit(event) {
     event.preventDefault();
     try {
-      let arrayUrls = [];
+        let arrayUrls = [];
 
-      if (imageFile) {
-        await Promise.all(
-          imageFile.map(async (img) => {
-            const formData = new FormData();
-            formData.append("file", img);
-            formData.append("upload_preset", "wagnbv9p");
-  
-            const response = await fetch(
-              "https://api.cloudinary.com/v1_1/dpj4n40t6/image/upload",
-              {
-                method: "POST",
-                body: formData,
-              }
+        if (imageFile) {
+            await Promise.all(
+                imageFile.map(async (img) => {
+                    const formData = new FormData();
+                    formData.append("file", img);
+                    formData.append("upload_preset", "wagnbv9p");
+
+                    const response = await fetch(
+                        "https://api.cloudinary.com/v1_1/dpj4n40t6/image/upload",
+                        {
+                            method: "POST",
+                            body: formData,
+                        }
+                    );
+
+                    const data = await response.json();
+                    const imageUrl = data.secure_url;
+                    arrayUrls.push(imageUrl);
+                })
             );
-  
-            const data = await response.json();
-            const imageUrl = data.secure_url;
-            arrayUrls.push(imageUrl);
-          })
-        );
-      }
-  
-     
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+        }
 
-      const productData = {
-        name: input.name,
-        description: input.description,
-        price: parseFloat(input.price),
-        specifications: input.specifications,
-        stock: parseInt(input.stock),
-        image: arrayUrls,
-        color_id: parseInt(input.color),
-        category_id: parseInt(input.category) || 0,
-        brand_id: parseInt(input.brand),
-      };
-      await dispatch(postProducts(productData));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      alert("producto creado con éxito");
+        const productData = {
+            name: input.name,
+            description: input.description,
+            price: parseFloat(input.price),
+            specifications: input.specifications,
+            stock: parseInt(input.stock),
+            image: arrayUrls,
+            color_id: parseInt(input.color),
+            category_id: parseInt(input.category) || 0,
+            brand_id: parseInt(input.brand),
+        };
 
-      setInput({
-        name: "",
-        description: "",
-        price: 0.0,
-        specifications: [],
-        stock: 0,
-        image: "",
-        color_id: 0,
-        category_id: 0,
-        brand_id: 0,
-        deleted: false,
-        relevance: 0,
-      });
+        await Swal.fire({
+            title: "Producto creado con éxito",
+            text: "¡El producto se ha creado exitosamente!",
+            icon: "success",
+            confirmButtonColor: '#e62f05', // Color del botón de confirmación
+        });
 
-      navigate("/dashboard");
+        setInput({
+            name: "",
+            description: "",
+            price: 0.0,
+            specifications: [],
+            stock: 0,
+            image: "",
+            color_id: 0,
+            category_id: 0,
+            brand_id: 0,
+            deleted: false,
+            relevance: 0,
+        });
+
+        navigate("/dashboard");
     } catch (error) {
-      alert("Error creating product");
+        // Reemplazo de 'alert' con SweetAlert2
+        await Swal.fire({
+            title: "Error",
+            text: "Hubo un error al crear el producto",
+            icon: "error",
+            confirmButtonColor: '#e62f05', // Color del botón de confirmación
+        });
     }
-  }
-
+}
   const addColor = async (e) => {
     e.preventDefault();
     if (newColorInput) {
