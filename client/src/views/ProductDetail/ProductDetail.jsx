@@ -316,7 +316,14 @@ const settings = {
 
         <div className=" tablet:ml-8 p-8 flex flex-col border-grey border-[1px] rounded-xl tablet:w-[500px] sm:w-[60%] mx-auto">
           <h1 className="text-xl font-bold text-center">{product?.name}</h1>
-          <h2>S/ {product?.price}</h2>
+          {
+            product.realPrice ? <>
+            <h2 className=" line-through">S/ {product.realPrice}</h2>
+            <h2>S/ {product?.price}</h2>
+            <h3 className=" font-bold">Descuento del {product.discount}%</h3>
+            </>:
+            <h2>S/ {product?.price}</h2>
+          }
           <span>
 
             <h2 className="text-xl text-chiliRed block">Disponibles:</h2>
