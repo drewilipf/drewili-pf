@@ -95,10 +95,21 @@ function UserLogin() {
        
       } catch (error) {
         console.error("Error al obtener el usuario por nombre de usuario:", error)
-        window.alert(error.response.data.error);;
+        Swal.fire({
+          title: '¡Error!',
+          text: "Usuario no encontrado.",
+          icon: 'error',
+          confirmButtonColor: "#E62F05",
+          confirmButtonText: 'Ok'});
       }
     } else {
-      alert("Por favor, ingrese su nombre de usuario");
+      Swal.fire({
+        title: 'Atención',
+        text: "Por favor, ingrese su nombre de usuario.",
+        icon: 'warning',
+        confirmButtonColor: "#E62F05",
+        confirmButtonText: 'Ok'});
+      
     }
   };
   
