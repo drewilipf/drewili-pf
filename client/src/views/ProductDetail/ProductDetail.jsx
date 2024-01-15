@@ -92,8 +92,7 @@ function ProductDetail() {
                 cancelButtonText: 'Cancelar',
                 confirmButtonColor: '#e62f05', 
                 cancelButtonColor: '#404145', 
-                confirmButtonColor: '#e62f05', 
-                cancelButtonColor: '#404145'
+                
                 
             });
 

@@ -11,6 +11,7 @@ import { getCategory } from "../../../reduxToolkit/Category/categoryThunks";
 import { getBrand } from "../../../reduxToolkit/Brand/brandThunks";
 import { getColor } from "../../../reduxToolkit/Color/colorThunks";
 import Spinner from "../../../icons/Spinner";
+import Swal from "sweetalert2";
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -142,7 +143,14 @@ const EditProduct = () => {
 
       await dispatch(putProduct(id, productData));
 
-      alert("Producto actualizado con éxito");
+       Swal.fire({
+        title: '¡Éxito!',
+        text: 'Producto actualizado exitosamente.',
+        icon: 'success',
+        confirmButtonText: 'Continuar',        
+        confirmButtonColor: '#e62f05', 
+       });
+        
 
       setInput({
         name: product.name,
