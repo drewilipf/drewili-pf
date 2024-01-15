@@ -275,7 +275,7 @@ const ShippingForm = () => {
         <div className="mt-4">
           <div className="flex justify-between">
             <span className="font-semibold">Total:</span>
-            <span className="text-xl">{`S/${priceTotal.toFixed(2)}`}</span>
+            <span className="text-xl">{priceTotal}</span>
           </div>
         </div>
       <div className="">

@@ -17,8 +17,13 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     price: {
+      type: DataTypes.DECIMAL(10,2),
+      allowNull: true,
+    },
+    realPrice:{
       type: DataTypes.DECIMAL,
       allowNull: true,
+
     },
     specifications: {
       type: DataTypes.TEXT,
@@ -74,6 +79,23 @@ module.exports = (sequelize) => {
         max: 2,
       },  
     },
-  });
+    discount: {
+      type: DataTypes.DECIMAL,
+      allowNull: true
+    },
+  },{
+    getterMethods: {
+      finalPrice() {
+        // Verifica si hay un descuento y calcula el precio final
+        if (this.discount && this.price) {
+          const discountAmount = this.price * (this.discount / 100);
+          return (this.price - discountAmount).toFixed(2);
+        }
+        // Si no hay descuento, devuelve el precio original
+        return this.price;
+      },
+    },
+  }
+  );
   return Product;
 };
