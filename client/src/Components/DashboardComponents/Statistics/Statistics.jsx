@@ -1,8 +1,10 @@
 import NavbarAdmin from "../NavbarAdmin/NavbarAdmin";
 
 const handleClick = () => {
-  window.location.href =
-    "https://mixpanel.com/project/3195533/view/3706589/app/boards/#id=6359945";
+  window.open(
+    "https://mixpanel.com/project/3195533/view/3706589/app/boards/#id=6359945",
+    "_blank"
+  );
 };
 
 function Statistics() {
