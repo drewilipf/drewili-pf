@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import NavbarAdmin from "../NavbarAdmin/NavbarAdmin";
 import { useDispatch, useSelector } from "react-redux";
-import { deletedUser, getUser } from "../../../reduxToolkit/User/userThunks";
+import { deletedUser, getUser, putUser } from "../../../reduxToolkit/User/userThunks";
 import { IoMdCreate } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
+import { FaRegCheckCircle } from "react-icons/fa";
+
 import { NavLink, useNavigate } from "react-router-dom";
+import { ImBlocked } from "react-icons/im";
 
 function RegisteredUser() {
   const { users } = useSelector((state) => state.users);
@@ -31,6 +34,22 @@ function RegisteredUser() {
       }
     }
   };
+  const onClick2 = (id) => {
+    const userData = { deleted: false }
+    const deleted = window.confirm("¿Estás seguro de activar el usuario?");
+
+    if (deleted) {
+      try {
+        dispatch(putUser(id, userData));
+        setShowSuccessMessage(true);
+        setTimeout(() => {
+          setShowSuccessMessage(false);
+        }, 3000); // Ocultar el mensaje después de 3 segundos
+      } catch (error) {
+        console.error("Error al activar el usuario", error);
+      }
+    }
+  }
 
   return (
     <div>
@@ -76,10 +95,16 @@ function RegisteredUser() {
                         <IoMdCreate />
                       </NavLink>
                     </td>
-                    <td className="py-2 px-4 border-b cursor-pointer">
-                      <div onClick={() => onClick(user.id)}>
-                        <MdDelete />
-                      </div>
+                    <td className="py-2 px-4 border-b">
+                      {
+                        user.deleted === false ?
+                          <button onClick={() => onClick(user.id)}>
+                            <FaRegCheckCircle />
+                          </button> :
+                          <button onClick={() => onClick2(user.id)}>
+                            <ImBlocked />
+                          </button>
+                      }
                     </td>
                   </tr>
                 ))}
@@ -116,9 +141,15 @@ function RegisteredUser() {
                           </NavLink>
                         </div>
                         <div className=" cursor-pointer">
-                          <div onClick={() => onClick(user.id)}>
-                            <MdDelete />
-                          </div>
+                          {
+                            user.deleted === false ?
+                              <button onClick={() => onClick(user.id)}>
+                                <FaRegCheckCircle />
+                              </button> :
+                              <button onClick={() => onClick2(user.id)}>
+                                <ImBlocked />
+                              </button>
+                          }
                         </div>
                       </div>
                     </div>
