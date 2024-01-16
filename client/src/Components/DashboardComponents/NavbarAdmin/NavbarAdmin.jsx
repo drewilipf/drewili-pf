@@ -45,7 +45,7 @@ const NavbarAdmin = () => {
       confirmButtonColor: "#E62F05",
       cancelButtonColor: "#404145",
       confirmButtonText: "Salir",
-      cancelButtonText: "Cancelar"
+      cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
         if (login && login.userSession) {
@@ -60,16 +60,11 @@ const NavbarAdmin = () => {
           Cookies.remove("userSession");
           navigate("/");
         }
-        
-          navigate("/");
-        
+
+        navigate("/");
       }
     });
-  }
-    
-     
-    
- 
+  };
 
   return (
     <div
@@ -141,6 +136,15 @@ const NavbarAdmin = () => {
               className="text-whiteSmoke hover:underline text-xl"
             >
               Historias de Ventas
+            </NavLink>
+          </div>
+          <div className="flex items-center">
+            <IoMdCreate className="mr-2" />
+            <NavLink
+              to="/dashboard/statistics"
+              className="text-whiteSmoke hover:underline text-xl"
+            >
+              Estadísticas
             </NavLink>
           </div>
         </nav>

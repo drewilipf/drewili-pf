@@ -12,7 +12,8 @@ import axios from "axios";
 
 const API_URL = "https://drewili-pf-back.onrender.com/product";
 const SEARCH_API_URL = "https://drewili-pf-back.onrender.com/product/product/";
-const CATEGORY_FILTER_API_URL = "https://drewili-pf-back.onrender.com/filterby/category";
+const CATEGORY_FILTER_API_URL =
+  "https://drewili-pf-back.onrender.com/filterby/category";
 
 export const getProducts = () => {
   return async (dispatch) => {
@@ -61,6 +62,7 @@ export const getProductsById = (id) => {
 export const postProducts = (productData) => {
   return async (dispatch) => {
     try {
+      console.log(productData);
       const response = await axios.post(API_URL, productData);
       console.log(response);
       const products = response.data;
@@ -127,6 +129,7 @@ export const putProduct = (id, productData) => {
     try {
       const response = await axios.put(`${API_URL}/${id}`, productData);
       const productId = response.data;
+      console.log("thunk", productId);
       dispatch(putProductSlice({ productId }));
     } catch (error) {
       console.error("Error fetching product:", error);
