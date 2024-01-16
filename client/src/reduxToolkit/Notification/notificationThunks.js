@@ -2,6 +2,7 @@ import {
     postNotificationStart,
     postNotificationSuccess,
     postNotificationFailure,
+    putEmaildata,
   } from "./notificationSlice";
   import axios from "axios";
   

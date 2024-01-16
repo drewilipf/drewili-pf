@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector  } from "react-redux";
 import { NavLink, useLocation, useParams } from "react-router-dom";
+import { putEmaildata } from "../../reduxToolkit/Notification/notificationSlice";
 import { postNotificationUserConfirmBuy } from "../../reduxToolkit/Notification/notificationThunks";
 import { postNotificationAdminConfirmBuy } from "../../reduxToolkit/Notification/notificationThunks";
 import mixpanel from "mixpanel-browser";
@@ -8,7 +9,9 @@ import mixpanel from "mixpanel-browser";
 const Payment = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const emailData = location.state;
+  const {emailData} = useSelector((state) => state.notification);
+
+  console.log("emaildata estado global", emailData)
 
   const [usermaildata, setUsermaildata] = useState({
     name: "",
@@ -76,6 +79,7 @@ const Payment = () => {
       dispatch(postNotificationAdminConfirmBuy(adminmaildata));
     }
   }, [usermaildata, adminmaildata, dispatch]);
+
   useEffect(() => {
     // Registra un evento de compra completada en Mixpanel
     mixpanel.track("CompraCompletada", {

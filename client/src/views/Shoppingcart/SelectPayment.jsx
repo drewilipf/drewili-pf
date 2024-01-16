@@ -14,6 +14,7 @@ import {
   setRucSlice,
 } from "../../reduxToolkit/ShippingInfo/shippingInfoSlice";
 import { allDelete } from "../../reduxToolkit/SalesCarts/salesCartThunk";
+import { putEmaildata } from "../../reduxToolkit/Notification/notificationSlice";
 
 const SelectPayment = () => {
   const dispatch = useDispatch();
@@ -46,6 +47,9 @@ const SelectPayment = () => {
   const { opciontipoComprobante } = useSelector((state) => state.shipping);
   const { razonSocialFactura } = useSelector((state) => state.shipping);
   const { rucFactura } = useSelector((state) => state.shipping);
+  let  {emailData}= useSelector((state) => state.notification);
+
+  console.log("New email data antes del cambio", emailData)
 
   const opcionR = opcionQuienRecibe;
   const opcionC = opciontipoComprobante;
@@ -126,7 +130,7 @@ const SelectPayment = () => {
     }
   };
 
-  const emailData = {
+ const NewEmailData = {
     name: dropshippingInfo.name
       ? `${dropshippingInfo.name} `
       : `${shippingInfo.name} ${shippingInfo.lastname}`,
@@ -144,7 +148,10 @@ const SelectPayment = () => {
   };
 
   const handlePdf = async () => {
-    navigate("/payment/payment", { state: emailData });
+    console.log(NewEmailData)
+    dispatch(putEmaildata(NewEmailData));
+    console.log("emaildata enviado", emailData)
+    navigate("/payment/payment");
 
     console.log(pdfBlob);
 
