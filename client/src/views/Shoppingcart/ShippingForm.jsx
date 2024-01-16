@@ -78,8 +78,8 @@ const ShippingForm = () => {
     navigate("/validateaddress");
   };
   return (
-    <div className="flex flex-auto">
-      <div className=" bg-opacity-10 p-6 text-eerieBlack rounded-lg shadow-md w-full  max-w-screen-md mx-auto flex flex-col mr-[-1rem] mb-2 bt-2 ">
+    <div className="tablet:flex flex-auto">
+      <div className=" bg-opacity-10 p-6 text-eerieBlack rounded-lg shadow-md w-full  max-w-screen-md mx-auto flex flex-col tablet:mr-[-1rem] mb-2 bt-2 ">
         <h1 className="font-bold text-2xl text-center mt-2 mb-6 ">
           Confirmación de Datos de Envío
         </h1>
@@ -245,8 +245,8 @@ const ShippingForm = () => {
         ) : null}
       </div>
       <div
-        className="bg-opacity-10 text-eerieBlack rounded-lg shadow-md w-[30%] max-w-screen-md 
-               h-full  mx-auto flex flex-col ml-[1.5rem] p-4">
+        className="bg-opacity-10 text-eerieBlack rounded-lg shadow-md tablet:w-[30%] max-w-screen-md 
+               h-full  mx-auto flex flex-col tablet:ml-[1.5rem] p-4">
         <h2 className="font-bold text-xl text-center mt-4 mb-6 ">
           Resumen de compra
         </h2>

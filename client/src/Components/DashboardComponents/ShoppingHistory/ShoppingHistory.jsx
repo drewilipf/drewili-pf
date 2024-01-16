@@ -99,12 +99,17 @@ const ShoppingHistory = () => {
                   >
                     {group[0].paymentStatus.toUpperCase()}
                   </span>
+                  {
+                    group[0].paymentStatus === 'aprobado' || group[0].paymentStatus === 'rechazado' ? 
+                   ""
+                  :
                   <span
                     className="text-2xl ml-3 cursor-pointer"
                     onClick={() => handleEditClick(group)}
                   >
                     <IoMdCreate />
                   </span>
+                  }
                 </p>
                 <p className="font-bold flex ml-2">
                   <span>Informacion de envio:</span>
