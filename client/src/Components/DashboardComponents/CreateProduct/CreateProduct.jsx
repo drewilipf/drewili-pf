@@ -9,14 +9,14 @@ import { getBrand, postBrand } from "../../../reduxToolkit/Brand/brandThunks";
 import { getColor, postColor } from "../../../reduxToolkit/Color/colorThunks";
 import { postProducts } from "../../../reduxToolkit/Product/productThunks";
 import NavbarAdmin from "../NavbarAdmin/NavbarAdmin";
-import Swal from 'sweetalert2';
-
+import Swal from "sweetalert2";
 
 function CreateProduct() {
   const [input, setInput] = useState({
     name: "",
     description: "",
     price: 0.0,
+    discount: 0,
     specifications: [],
     stock: 0,
     image: "",
@@ -72,80 +72,86 @@ function CreateProduct() {
   function handleNewBrandClick() {
     setShowNewBrandInput((prev) => !prev);
   }
-
+  console.log(input);
   async function handleSumit(event) {
     event.preventDefault();
     try {
-        let arrayUrls = [];
+      let arrayUrls = [];
 
-        if (imageFile) {
-            await Promise.all(
-                imageFile.map(async (img) => {
-                    const formData = new FormData();
-                    formData.append("file", img);
-                    formData.append("upload_preset", "wagnbv9p");
+      if (imageFile) {
+        await Promise.all(
+          imageFile.map(async (img) => {
+            const formData = new FormData();
+            formData.append("file", img);
+            formData.append("upload_preset", "wagnbv9p");
 
-                    const response = await fetch(
-                        "https://api.cloudinary.com/v1_1/dpj4n40t6/image/upload",
-                        {
-                            method: "POST",
-                            body: formData,
-                        }
-                    );
-
-                    const data = await response.json();
-                    const imageUrl = data.secure_url;
-                    arrayUrls.push(imageUrl);
-                })
+            const response = await fetch(
+              "https://api.cloudinary.com/v1_1/dpj4n40t6/image/upload",
+              {
+                method: "POST",
+                body: formData,
+              }
             );
-        }
 
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+            const data = await response.json();
+            const imageUrl = data.secure_url;
+            arrayUrls.push(imageUrl);
+          })
+        );
+      }
 
-        const productData = {
-            name: input.name,
-            description: input.description,
-            price: parseFloat(input.price),
-            specifications: input.specifications,
-            stock: parseInt(input.stock),
-            image: arrayUrls,
-            color_id: parseInt(input.color),
-            category_id: parseInt(input.category) || 0,
-            brand_id: parseInt(input.brand),
-        };
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      console.log(input);
+      const productData = {
+        name: input.name,
+        description: input.description,
+        price: parseFloat(input.price),
+        discount: parseFloat(input.discount) || 0,
+        specifications: input.specifications,
+        stock: parseInt(input.stock),
+        image: arrayUrls,
+        color_id: parseInt(input.color),
+        category_id: parseInt(input.category) || 0,
+        brand_id: parseInt(input.brand),
+        deleted: false,
+        relevance: 0,
+      };
+      console.log(productData);
+      await dispatch(postProducts(productData));
 
-        await Swal.fire({
-            title: "Producto creado con éxito",
-            text: "¡El producto se ha creado exitosamente!",
-            icon: "success",
-            confirmButtonColor: '#e62f05', // Color del botón de confirmación
-        });
+      Swal.fire({
+        title: "Producto creado con éxito",
+        text: "¡El producto se ha creado exitosamente!",
+        icon: "success",
+        confirmButtonColor: "#E62F05", // Color del botón de confirmación
+      });
 
-        setInput({
-            name: "",
-            description: "",
-            price: 0.0,
-            specifications: [],
-            stock: 0,
-            image: "",
-            color_id: 0,
-            category_id: 0,
-            brand_id: 0,
-            deleted: false,
-            relevance: 0,
-        });
+      setInput({
+        name: "",
+        description: "",
+        price: 0.0,
+        discount: 0.0,
+        specifications: [],
+        stock: 0,
+        image: "",
+        color_id: 0,
+        category_id: 0,
+        brand_id: 0,
+        deleted: false,
+        relevance: 0,
+      });
 
-        navigate("/dashboard");
+      navigate("/dashboard");
     } catch (error) {
-        // Reemplazo de 'alert' con SweetAlert2
-        await Swal.fire({
-            title: "Error",
-            text: "Hubo un error al crear el producto",
-            icon: "error",
-            confirmButtonColor: '#e62f05', // Color del botón de confirmación
-        });
+      // Reemplazo de 'alert' con SweetAlert2
+      await Swal.fire({
+        title: "Error",
+        text: "Hubo un error al crear el producto",
+        icon: "error",
+        confirmButtonColor: "#e62f05", // Color del botón de confirmación
+      });
     }
-}
+  }
   const addColor = async (e) => {
     e.preventDefault();
     if (newColorInput) {
@@ -217,6 +223,22 @@ function CreateProduct() {
               onChange={handleChange}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
+          </div>
+          <div>
+            <label className="block text-chiliRed mb-2">Descuento:</label>
+            <div className="flex items-center mt-2 mb-2">
+              <input
+                type="number"
+                name="discount"
+                placeholder="Ingrese el descuento"
+                value={input.discount}
+                onChange={handleChange}
+                className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
+                min="0"
+                max="100"
+              />
+              <span className="ml-2">%</span>
+            </div>
           </div>
           <div>
             <label className="block text-chiliRed mb-2">
