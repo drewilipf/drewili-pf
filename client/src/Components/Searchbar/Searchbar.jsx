@@ -56,7 +56,20 @@ function Searchbar({ setActualPage }) {
       
       return;
     }
-    dispatch(searchProduct(searchKeyword));
+    
+       dispatch(searchProduct(searchKeyword));
+      
+    
+    
+    
+  };
+
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleSearchEnter = (e) => {
+    if (e.key === 'Enter') {
+      handleSearchClick();
+         }
   };
 
   const handleFilterCategory = async (category) => {
@@ -70,10 +83,18 @@ function Searchbar({ setActualPage }) {
   return (
     <div className="tablet:flex h-full">
       <input
+      type="search"
         className="border border-chiliRed rounded p-2  focus:outline-none focus:border-chiliRed mr-4"
         placeholder="Buscar producto..."
         value={searchKeyword}
-        onChange={handleSearchInputChange}
+        onChange={(e) => {
+          handleSearchInputChange(e);
+          
+        }}
+        onKeyPress={(e) => {
+          if (e.key === 'Enter') {
+            handleSearchEnter(e);
+          }}}
       />
       {location.pathname !== "/dashboard/productList" && (
         <select

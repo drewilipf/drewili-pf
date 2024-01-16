@@ -18,6 +18,7 @@ import LogoutButton from "../../Components/LogoutButton";
 import { CiMenuBurger } from "react-icons/ci";
 import { FaTimes } from "react-icons/fa";
 import DarkModeToggle from "../DarkMode/DarkMode";
+import Swal from "sweetalert2";
 
 
 function Navbar({ setActualPage }) {
@@ -97,10 +98,23 @@ function Navbar({ setActualPage }) {
             : null;
 
   const handleclickClosed = () => {
+     Swal.fire({
+      title: "Cerrar sesión",
+      text: "¿Está seguro de querer salir?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#E62F05",
+      cancelButtonColor: "#404145",
+      confirmButtonText: "Aceptar",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        
     dispatch(postLogout());
     Cookies.remove("userSession");
     Cookies.remove("userGoogle");
     navigate("/");
+  }})
   };
 
   const id =
