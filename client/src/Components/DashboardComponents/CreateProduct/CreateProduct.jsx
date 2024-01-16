@@ -75,6 +75,21 @@ function CreateProduct() {
   console.log(input);
   async function handleSumit(event) {
     event.preventDefault();
+  
+    // Validación específica para campos de tipo input
+    const inputFields = ["name", "description", "price", "stock"];
+    const invalidFields = inputFields.filter((field) => !input[field]);
+  
+    if (invalidFields.length > 0) {
+      await Swal.fire({
+        title: "Error",
+        text: `Por favor, complete todos los campos obligatorios: ${invalidFields.join(", ")}.`,
+        icon: "error",
+        confirmButtonColor: "#e62f05",
+      });
+      return;
+    }
+  
     try {
       let arrayUrls = [];
 
@@ -101,7 +116,7 @@ function CreateProduct() {
       }
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log(input);
+
       const productData = {
         name: input.name,
         description: input.description,
@@ -116,16 +131,16 @@ function CreateProduct() {
         deleted: false,
         relevance: 0,
       };
-      console.log(productData);
+  
       await dispatch(postProducts(productData));
-
-      Swal.fire({
+  
+      await Swal.fire({
         title: "Producto creado con éxito",
         text: "¡El producto se ha creado exitosamente!",
         icon: "success",
-        confirmButtonColor: "#E62F05", // Color del botón de confirmación
+        confirmButtonColor: "#E62F05",
       });
-
+  
       setInput({
         name: "",
         description: "",
@@ -140,18 +155,20 @@ function CreateProduct() {
         deleted: false,
         relevance: 0,
       });
-
+  
       navigate("/dashboard");
     } catch (error) {
-      // Reemplazo de 'alert' con SweetAlert2
+      console.error("Error during product creation:", error);
+  
       await Swal.fire({
         title: "Error",
         text: "Hubo un error al crear el producto",
         icon: "error",
-        confirmButtonColor: "#e62f05", // Color del botón de confirmación
+        confirmButtonColor: "#e62f05",
       });
     }
   }
+
   const addColor = async (e) => {
     e.preventDefault();
     if (newColorInput) {
