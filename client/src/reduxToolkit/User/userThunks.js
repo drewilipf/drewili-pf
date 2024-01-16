@@ -106,7 +106,7 @@ export const postGoogle = (userData) => {
 export const putPassRecovery = (passrecoverydata) => {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`${API_URL}/password/update`, passrecoverydata);
+      const response = await axios.put(`${API_URL}/password/update`, {userName: passrecoverydata.username, password: passrecoverydata.password});
       console.log(response.status)
         dispatch(putPassRecoverySlice(response.status));
      
