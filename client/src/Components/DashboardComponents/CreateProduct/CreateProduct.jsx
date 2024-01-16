@@ -76,9 +76,16 @@ function CreateProduct() {
   async function handleSumit(event) {
     event.preventDefault();
   
-    // Validación específica para campos de tipo input
-    const inputFields = ["name", "description", "price", "stock"];
-    const invalidFields = inputFields.filter((field) => !input[field]);
+    
+    const inputFields = ["name", "description", "price", "stock", "specifications", "category", "brand", "color"];
+    
+  
+    const invalidFields = inputFields.filter((field) => {
+      if (field === "image" && (!imageFile || imageFile.length === 0)) {
+        return true;
+      }
+      return !input[field];
+    });
   
     if (invalidFields.length > 0) {
       await Swal.fire({
@@ -92,7 +99,7 @@ function CreateProduct() {
   
     try {
       let arrayUrls = [];
-
+  
       if (imageFile) {
         await Promise.all(
           imageFile.map(async (img) => {
@@ -208,7 +215,7 @@ function CreateProduct() {
         <div>
           <div>
             <label className="block text-chiliRed mb-2">
-              Nombre del producto:
+              Nombre del producto: <span classname ="text-red">*</span>
             </label>
             <input
               type="text"
@@ -220,7 +227,7 @@ function CreateProduct() {
             />
           </div>
           <div>
-            <label className="block text-chiliRed mb-2">Descripción:</label>
+            <label className="block text-chiliRed mb-2">Descripción:<span classname ="text-red">*</span> </label>
             <input
               type="text"
               name="description"
@@ -231,7 +238,7 @@ function CreateProduct() {
             />
           </div>
           <div>
-            <label className="block text-chiliRed mb-2">Precio:</label>
+            <label className="block text-chiliRed mb-2">Precio: <span classname ="text-red">*</span></label>
             <input
               type="number"
               name="price"
@@ -242,7 +249,7 @@ function CreateProduct() {
             />
           </div>
           <div>
-            <label className="block text-chiliRed mb-2">Descuento:</label>
+            <label className="block text-chiliRed mb-2">Descuento: <span classname ="text-red">*</span></label>
             <div className="flex items-center mt-2 mb-2">
               <input
                 type="number"
@@ -259,7 +266,7 @@ function CreateProduct() {
           </div>
           <div>
             <label className="block text-chiliRed mb-2">
-              Especificaciones:
+              Especificaciones: <span classname ="text-red">*</span>
             </label>
             <input
               type="text"
@@ -271,7 +278,7 @@ function CreateProduct() {
             />
           </div>
           <div>
-            <label className="block text-chiliRed mb-2">Stock:</label>
+            <label className="block text-chiliRed mb-2">Stock: <span classname ="text-red">*</span></label>
             <input
               type="number"
               name="stock"
@@ -282,7 +289,7 @@ function CreateProduct() {
             />
           </div>
           <div>
-            <label className="block text-chiliRed mb-2">Imagen:</label>
+            <label className="block text-chiliRed mb-2">Imagen: <span classname ="text-red">*</span></label>
             <input
               type="file"
               accept="image/*"
@@ -300,7 +307,7 @@ function CreateProduct() {
             <p>{imageFile?.length}</p>
           </div>
           <div>
-            <label className="block text-chiliRed mb-2">Color:</label>
+            <label className="block text-chiliRed mb-2">Color: <span classname ="text-red">*</span></label>
             <div className="flex items-center mb-2">
               <select
                 name="color"
@@ -343,7 +350,7 @@ function CreateProduct() {
             )}
           </div>
           <div>
-            <label className="block text-chiliRed mb-2">Marca:</label>
+            <label className="block text-chiliRed mb-2">Marca: <span classname ="text-red">*</span></label>
             <div className="flex items-center mb-2">
               <select
                 name="brand"
@@ -387,7 +394,7 @@ function CreateProduct() {
             )}
           </div>
           <div>
-            <label className="block text-chiliRed mb-2">Categoria:</label>
+            <label className="block text-chiliRed mb-2">Categoria: <span classname ="text-red">*</span></label>
             <div className="flex items-center mb-2">
               <select
                 name="category"
