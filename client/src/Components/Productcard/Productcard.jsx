@@ -18,6 +18,7 @@ function Productcard({
   description,
   price,
   realPrice,
+  discount,
   specifications,
   stock,
   category,
@@ -167,7 +168,7 @@ function Productcard({
           <h2 className="text-lg font-semibold">{TruncateText({ text: name.toUpperCase(), maxLength: MAX_NAME_LENGTH })}</h2>
           <div className="flex justify-between items-center mt-2 flex-col">
             {
-              realPrice ?
+              realPrice && discount > 0 ? 
                 <>
                   <h3 className="line-through">S/ {realPrice}</h3>
                   <h3 className="text-gray-600 font-bold">S/ {price}</h3>
