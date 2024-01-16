@@ -166,185 +166,197 @@ const SelectPayment = () => {
   const PriceContraentrega = ((priceTotal * 30) / 100).toFixed(2);
 
   return (
-    <div className="h-screen ml-5">
-      <div className=" flex justify-center  ">
-        <label className="mr-16 font-bold">¿Quién recibirá el pedido?</label>
-        <div>
-          <input
-            type="radio"
-            id="yo"
-            name="pedido"
-            checked={opcionSeleccionadaPedido === "yo"}
-            onChange={() => handlePedidoOptionChange("yo")}
-          />
-          <label className="mr-12 ml-2">Yo</label>
-
-          <input
-            type="radio"
-            id="OtraPersona"
-            name="pedido"
-            checked={opcionSeleccionadaPedido === "OtraPersona"}
-            onChange={() => handlePedidoOptionChange("OtraPersona")}
-          />
-          <label className="mr-2 ml-2">Otra persona</label>
+    <div className="tablet:h-full">
+      <div className=" flex justify-center  items-center">
+        <label className=" font-bold mr-2">¿Quién recibirá el pedido?</label>
+        <div className="">
+          <div>
+            <input
+              type="radio"
+              id="yo"
+              name="pedido"
+              checked={opcionSeleccionadaPedido === "yo"}
+              onChange={() => handlePedidoOptionChange("yo")}
+            />
+            <label className="p-2 hover:cursor-pointer" htmlFor="yo">Yo</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="OtraPersona"
+              name="pedido"
+              checked={opcionSeleccionadaPedido === "OtraPersona"}
+              onChange={() => handlePedidoOptionChange("OtraPersona")}
+            />
+            <label className="p-2 hover:cursor-pointer" htmlFor="OtraPersona">Otra persona</label>
+          </div>
         </div>
       </div>
-      <div className="flex justify-center ">
-        <label className="mr-8 font-bold">
-          ¿Qué tipo de comprobante desea?
-        </label>
-        <div>
-          <input
-            type="radio"
-            id="boleta"
-            name="comprobante"
-            checked={opcionSeleccionadaComprobante === "boleta"}
-            onChange={() => handleComprobanteOptionChange("boleta")}
-          />
-          <label className="mr-8 ml-2">Boleta</label>
-
-          <input
-            type="radio"
-            id="factura"
-            name="comprobante"
-            checked={opcionSeleccionadaComprobante === "factura"}
-            onChange={() => handleComprobanteOptionChange("factura")}
-          />
-          <label className="mr-2 ml-2">Factura</label>
+      <div className="flex justify-center items-center ">
+        <label className="font-bold mr-2 p-2">¿Qué tipo de comprobante desea?</label>
+        <div className="">
+          <div>
+            <input
+              type="radio"
+              id="boleta"
+              name="comprobante"
+              checked={opcionSeleccionadaComprobante === "boleta"}
+              onChange={() => handleComprobanteOptionChange("boleta")}
+            />
+            <label className="p-2 hover:cursor-pointer" htmlFor="boleta">Boleta</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="factura"
+              name="comprobante"
+              checked={opcionSeleccionadaComprobante === "factura"}
+              onChange={() => handleComprobanteOptionChange("factura")}
+            />
+            <label className="p-2 hover:cursor-pointer" htmlFor="factura">Factura</label>
+          </div>
         </div>
       </div>
       {opcionSeleccionadaComprobante === "factura" && (
-        <div className=" flex items-center justify-around mt-8 max-w-4xl mx-auto ">
-          <label className="block">Razón social:</label>
-          <input
-            type="text"
-            value={razonSocial}
-            onChange={(e) => setRazonSocial(e.target.value)}
-            className="border p-2 rounded-md shadow-xl"
-            placeholder="Razón social"
-          />
-
-          <label className="block ml-20">RUC:</label>
-          <input
-            type="text"
-            value={ruc}
-            onChange={(e) => setRuc(e.target.value)}
-            className="border p-2 rounded-md shadow-xl"
-            placeholder="RUC"
-          />
-          <button
-            className=" bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded ml-8 shadow-xl"
-            onClick={handleClik}
-          >
-            Aceptar datos
-          </button>
+        <div className=" tablet:flex items-center justify-around mt-8 max-w-4xl p-2 mx-auto ">
+          <div className="justify-center tablet:items-center tablet:flex">
+            <div className=" mb-4">
+              <label className="p-2">Razón social:</label>
+              <input
+                type="text"
+                value={razonSocial}
+                onChange={(e) => setRazonSocial(e.target.value)}
+                className="border p-2 rounded-md shadow-xl"
+                placeholder="Razón social"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="p-2">RUC:</label>
+              <input
+                type="text"
+                value={ruc}
+                onChange={(e) => setRuc(e.target.value)}
+                className="border p-2 rounded-md shadow-xl"
+                placeholder="RUC"
+              />
+              <button
+                className=" bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded m-2 shadow-xl"
+                onClick={handleClik}
+              >
+                Aceptar datos
+              </button>
+            </div>
+          </div>
         </div>
       )}
-      <div className=" items-center mt-8 ">
-        <label className=" mr-4 font-bold flex justify-center text-2xl ml-16">
+      <div className="items-center mt-8 bg-white tablet:w-40vw mx-auto rounded border-grey border-[1px]">
+        <label className="font-bold justify-center text-2xl items-center flex">
           Modalidad de pago
         </label>
-        <div className="text-xl mt-4 flex justify-center">
-          <input
-            type="radio"
-            id="modalidadTransferencia"
-            name="modalidadPago"
-            checked={modalidadPago === "transferenciaBancaria"}
-            onChange={() => handleModalidadPagoChange("transferenciaBancaria")}
-          />
-          <label className="mr-8 ml-2">Transferencia Bancaria</label>
-
-          <input
-            type="radio"
-            id="modalidadTarjeta"
-            name="modalidadPago"
-            checked={modalidadPago === "tarjetaCreditoDebito"}
-            onChange={() => handleModalidadPagoChange("tarjetaCreditoDebito")}
-          />
-          <label className="mr-8 ml-2">Tarjeta de Crédito o Débito</label>
-
-          <input
-            type="radio"
-            id="modalidadYape"
-            name="modalidadPago"
-            checked={modalidadPago === "yape"}
-            onChange={() => handleModalidadPagoChange("yape")}
-          />
-          <label className="mr-8 ml-2">Yape o Plin</label>
-
-          <input
-            type="radio"
-            id="modalidadContraentrega"
-            name="modalidadPago"
-            checked={modalidadPago === "contraentrega"}
-            onChange={() => handleModalidadPagoChange("contraentrega")}
-          />
-          <label className="mr-8 ml-2">Contraentrega</label>
+        <div className="text-xl mt-4 tablet:flex flex-col items-center ">
+          <div className="w-40vw m-[1px] flex hover:shadow-xl rounded hover:bg-whiteSmoke pl-2">
+            <input
+              type="radio"
+              id="modalidadTransferencia"
+              name="modalidadPago"
+              checked={modalidadPago === "transferenciaBancaria"}
+              onChange={() => handleModalidadPagoChange("transferenciaBancaria")}
+            />
+            <label className="p-2 hover:cursor-pointer" htmlFor="modalidadTransferencia">Transferencia Bancaria</label>
+          </div>
+          <div className="w-40vw m-[1px] flex hover:shadow-xl rounded hover:bg-whiteSmoke pl-2">
+            <input
+              type="radio"
+              id="modalidadTarjeta"
+              name="modalidadPago"
+              checked={modalidadPago === "tarjetaCreditoDebito"}
+              onChange={() => handleModalidadPagoChange("tarjetaCreditoDebito")}
+            />
+            <label className="p-2 hover:cursor-pointer" htmlFor="modalidadTarjeta">Tarjeta de Crédito o Débito</label>
+          </div>
+          <div className="w-40vw m-[1px] flex hover:shadow-xl rounded hover:bg-whiteSmoke pl-2">
+            <input
+              type="radio"
+              id="modalidadYape"
+              name="modalidadPago"
+              checked={modalidadPago === "yape"}
+              onChange={() => handleModalidadPagoChange("yape")}
+            />
+            <label className="p-2 hover:cursor-pointer" htmlFor="modalidadYape">Yape o Plin</label>
+          </div>
+          <div className="w-40vw m-[1px] flex hover:shadow-xl rounded hover:bg-whiteSmoke pl-2">
+            <input
+              type="radio"
+              id="modalidadContraentrega"
+              name="modalidadPago"
+              checked={modalidadPago === "contraentrega"}
+              onChange={() => handleModalidadPagoChange("contraentrega")}
+            />
+            <label className="p-2 hover:cursor-pointer" htmlFor="modalidadContraentrega">Contraentrega</label>
+          </div>
         </div>
       </div>
       {modalidadPago === "transferenciaBancaria" && (
-        <div>
-          <div className="flex justify-center space-x-8  mt-4">
-            <span className="shadow-xl bg-whiteSmoke rounded-xl   ">
+        <div className="tablet:flex tablet:flex-col flex-none">
+          <div className="justify-center tablet:flex tablet:flex-wrap mt-4 p-2">
+            <span className="shadow-xl rounded flex flex-col items-center justify-center m-2 border-grey border-[1px]">
               <img
                 src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/bbva_pyb84a.png"
                 alt="BBVA"
-                className="w-40 h-20 ml-16 shadow-xl rounded-xl  "
+                className="w-40 h-20 mx-auto shadow-xl rounded-xl m-2  "
               />
-              <div className="">
-                <div className="font-bold p-2">Nombre del banco:"BBVA"</div>
+              <div className="p-2">
+                <div className="font-bold">Nombre del banco:"BBVA"</div>
                 <div>Titular: DREWILI</div>
                 <div>Cta. corriente: 555-566-555-555</div>
                 <div>CCI: 20.000.000</div>
               </div>
             </span>
-            <span className="shadow-xl bg-whiteSmoke rounded-xl  ">
+            <span className="shadow-xl rounded flex flex-col items-center justify-center m-2 border-grey border-[1px]">
               <img
                 src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/diners_Club_zfcjlt.png"
                 alt="Diners Club"
-                className="w-40 h-20  ml-16 shadow-xl rounded-xl"
+                className="w-40 h-20 shadow-xl rounded-xl m-2"
               />
-              <div className="">
-                <div className="font-bold p-2">
-                  Nombre del banco:"Diners Club"
-                </div>
+              <div className="p-2">
+                <div className="font-bold">Nombre del banco:"Diners Club"</div>
                 <div>Titular: DREWILI</div>
                 <div>Cta. corriente: 555-566-555-555</div>
                 <div>CCI: 20.000.000</div>
               </div>
             </span>
-            <span className="shadow-xl bg-whiteSmoke rounded-xl ">
+            <span className="shadow-xl rounded flex flex-col items-center justify-center m-2 border-grey border-[1px]">
               <img
                 src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/bcp_gm0nfk.png"
                 alt="BCP"
-                className="w-40 h-20 ml-8 shadow-xl rounded-xl "
+                className="w-40 h-20 shadow-xl rounded-xl m-2"
               />
-              <div className="">
-                <div className="font-bold p-2">Nombre del banco:"BCP" </div>
+              <div className="p-2">
+                <div className="font-bold">Nombre del banco:"BCP" </div>
                 <div>Titular: DREWILI</div>
                 <div>Cta. corriente: 555-566-555-555</div>
                 <div>CCI: 20.000.000</div>
               </div>
             </span>
-            <span className="shadow-xl bg-whiteSmoke rounded-xl ">
+            <span className="shadow-xl rounded flex flex-col items-center justify-center m-2 border-grey border-[1px]">
               <img
                 src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/dividelo_interbank_iq253n.png"
                 alt="Dividelo Interbanck"
-                className="w-40 h-20 ml-16 shadow-xl rounded-xl "
+                className="w-40 h-20  shadow-xl rounded-xl m-2 "
               />
-              <div className="">
-                <div className="font-bold ">
-                  Nombre del banco:"Dividelo Interbanck"
-                </div>
+              <div className="p-2">
+                <div className="font-bold">Nombre del banco:"Dividelo Interbanck"</div>
                 <div>Titular: DREWILI</div>
                 <div>cta. corriente: 555-566-555-555</div>
                 <div>CCI: 20.000.000</div>
               </div>
             </span>
           </div>
-          <div className="max-w-xl mx-auto mt-8 shadow-xl rounded-xl ">
-            <span className="font-bold ml-2">
-              RECUERDA ENVIAR EL COMPROBANTE DE PAGO AL SIGUIENTE WHATSAPP
+          <div className="max-w-xl tablet:mx-auto shadow-xl rounded border-grey border-[1px] m-2 ">
+            <span className="font-bold">
+              <h2 className="p-2 text-center">
+                RECUERDA ENVIAR EL COMPROBANTE DE PAGO AL SIGUIENTE WHATSAPP
+              </h2>
             </span>
             <div className="flex justify-center text-2xl  ">
               <SiWhatsapp className="mt-1 mr-4" />
@@ -377,7 +389,7 @@ const SelectPayment = () => {
         </div>
       )}
       {modalidadPago === "yape" && (
-        <div className="mt-8  ">
+        <div className="mt-8 p-2 ">
           <span className="flex justify-center ">
             Con esta opción podrás pagar a través de Yape o Plin, registra
             nuestro número de teléfono, usuando el QR, en tus contactos y
@@ -387,7 +399,7 @@ const SelectPayment = () => {
             <BsQrCode />
           </div>
           <div className="max-w-xl mx-auto mt-8 shadow-xl rounded-xl ">
-            <span className="font-bold ml-2">
+            <span className="font-bold tablet:ml-2 p-2">
               RECUERDA ENVIAR EL COMPROBANTE DE PAGO AL SIGUIENTE WHATSAPP
             </span>
             <div className="flex justify-center text-2xl  ">
@@ -407,87 +419,82 @@ const SelectPayment = () => {
               onClick={handlePdf}
             >
               Ir a pagar
-            </button>
-          </div>
+            </button></div>
         </div>
       )}
       {modalidadPago === "contraentrega" && (
-        <div className="mt-6 ">
-          <span className="font-bold flex justify-center">
-            Anticipo del 30% del pago.
-          </span>
-          <div className="flex justify-center">
+        <div className="tablet:flex tablet:flex-col flex-none ">
+          <span className="font-bold flex justify-center p-2">Anticipo del 30% del pago.</span>
+          <div className="flex justify-center p-2">
             Se confirmará el pedido por los medios de contacto suministrado.
           </div>
-          <span className="flex justify-center">
+          <span className="flex justify-center p-2">
             En caso el comprador no conteste, DREWILI no procederá con el envío
             del pedido.
           </span>
-          <div className="font-bold flex justify-center">
+          <div className="font-bold flex justify-center p-2">
             Realiza la transferencia del siguiente monto S/{PriceContraentrega}{" "}
             y envia el comprobante para proceder con el envío.
           </div>
-          <div className="flex justify-center space-x-8  mt-4">
-            <span className="shadow-xl bg-whiteSmoke rounded-xl   ">
+          <div className="justify-center tablet:flex tablet:flex-wrap mt-4 p-2">
+            <span className="shadow rounded flex flex-col items-center justify-center m-2 border-grey border-[1px]">
               <img
                 src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/bbva_pyb84a.png"
                 alt="BBVA"
-                className="w-40 h-20 ml-16 shadow-xl rounded-xl  "
+                className="w-40 h-20 mx-auto shadow-xl rounded-xl m-2 "
               />
-              <div className="">
-                <div className="font-bold p-2">Nombre del banco:"BBVA"</div>
+              <div className="p-2 text-center">
+                <div className="font-bold">Nombre del banco:"BBVA"</div>
                 <div>Titular: DREWILI</div>
                 <div>Cta. corriente: 555-566-555-555</div>
                 <div>CCI: 20.000.000</div>
               </div>
             </span>
-            <span className="shadow-xl bg-whiteSmoke rounded-xl  ">
+            <span className="shadow-xl rounded flex flex-col items-center justify-center m-2 border-grey border-[1px]">
               <img
                 src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/diners_Club_zfcjlt.png"
                 alt="Diners Club"
-                className="w-40 h-20  ml-16 shadow-xl rounded-xl"
+                className="w-40 h-20 mx-auto shadow-xl rounded-xl m-2"
               />
-              <div className="">
-                <div className="font-bold p-2">
-                  Nombre del banco:"Diners Club"
-                </div>
+              <div className="p-2 text-center">
+                <div className="font-bold">Nombre del banco:"Diners Club"</div>
                 <div>Titular: DREWILI</div>
                 <div>Cta. corriente: 555-566-555-555</div>
                 <div>CCI: 20.000.000</div>
               </div>
             </span>
-            <span className="shadow-xl bg-whiteSmoke rounded-xl ">
+            <span className="shadow-xl rounded flex flex-col items-center justify-center m-2 border-grey border-[1px]">
               <img
                 src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/bcp_gm0nfk.png"
                 alt="BCP"
-                className="w-40 h-20 ml-8 shadow-xl rounded-xl "
+                className="w-40 h-20 mx-auto shadow-xl rounded-xl m-2"
               />
-              <div className="">
-                <div className="font-bold p-2">Nombre del banco:"BCP" </div>
+              <div className="p-2 text-center">
+                <div className="font-bold">Nombre del banco:"BCP" </div>
                 <div>Titular: DREWILI</div>
                 <div>Cta. corriente: 555-566-555-555</div>
                 <div>CCI: 20.000.000</div>
               </div>
             </span>
-            <span className="shadow-xl bg-whiteSmoke rounded-xl ">
+            <span className="shadow-xl rounded flex flex-col items-center justify-center m-2 border-grey border-[1px]">
               <img
                 src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/dividelo_interbank_iq253n.png"
                 alt="Dividelo Interbanck"
-                className="w-40 h-20 ml-16 shadow-xl rounded-xl "
+                className="w-40 h-20 mx-auto shadow-xl rounded-xl m-2"
               />
-              <div className="">
-                <div className="font-bold ">
-                  Nombre del banco:"Dividelo Interbanck"
-                </div>
+              <div className="p-2 text-center">
+                <div className="font-bold">Nombre del banco:"Dividelo Interbanck"</div>
                 <div>Titular: DREWILI</div>
                 <div>cta. corriente: 555-566-555-555</div>
                 <div>CCI: 20.000.000</div>
               </div>
             </span>
           </div>
-          <div className="max-w-xl mx-auto mt-8 shadow-xl rounded-xl ">
-            <span className="font-bold ml-2">
-              RECUERDA ENVIAR EL COMPROBANTE DE PAGO AL SIGUIENTE WHATSAPP
+          <div className="max-w-xl mx-auto mt-8 shadow-xl rounded border-grey border-[1px] ">
+          <span className="font-bold">
+              <h2 className="p-2 text-center">
+                RECUERDA ENVIAR EL COMPROBANTE DE PAGO AL SIGUIENTE WHATSAPP
+              </h2>
             </span>
             <div className="flex justify-center text-2xl  ">
               <SiWhatsapp className="mt-1 mr-4" />
@@ -507,8 +514,8 @@ const SelectPayment = () => {
               onClick={handlePdf}
             >
               Ir a pagar
-            </button>
-          </div>
+            </button></div>
+
         </div>
       )}
 
