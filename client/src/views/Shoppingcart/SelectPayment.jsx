@@ -178,7 +178,7 @@ const SelectPayment = () => {
               checked={opcionSeleccionadaPedido === "yo"}
               onChange={() => handlePedidoOptionChange("yo")}
             />
-            <label className="p-2">Yo</label>
+            <label className="p-2 hover:cursor-pointer" htmlFor="yo">Yo</label>
           </div>
           <div>
             <input
@@ -188,7 +188,7 @@ const SelectPayment = () => {
               checked={opcionSeleccionadaPedido === "OtraPersona"}
               onChange={() => handlePedidoOptionChange("OtraPersona")}
             />
-            <label className="p-2">Otra persona</label>
+            <label className="p-2 hover:cursor-pointer" htmlFor="OtraPersona">Otra persona</label>
           </div>
         </div>
       </div>
@@ -203,7 +203,7 @@ const SelectPayment = () => {
               checked={opcionSeleccionadaComprobante === "boleta"}
               onChange={() => handleComprobanteOptionChange("boleta")}
             />
-            <label className="p-2">Boleta</label>
+            <label className="p-2 hover:cursor-pointer" htmlFor="boleta">Boleta</label>
           </div>
           <div>
             <input
@@ -213,7 +213,7 @@ const SelectPayment = () => {
               checked={opcionSeleccionadaComprobante === "factura"}
               onChange={() => handleComprobanteOptionChange("factura")}
             />
-            <label className="p-2">Factura</label>
+            <label className="p-2 hover:cursor-pointer" htmlFor="factura">Factura</label>
           </div>
         </div>
       </div>
@@ -239,22 +239,22 @@ const SelectPayment = () => {
                 className="border p-2 rounded-md shadow-xl"
                 placeholder="RUC"
               />
-            <button
-              className=" bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded m-2 shadow-xl"
-              onClick={handleClik}
-            >
-              Aceptar datos
-            </button>
+              <button
+                className=" bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded m-2 shadow-xl"
+                onClick={handleClik}
+              >
+                Aceptar datos
+              </button>
             </div>
           </div>
         </div>
       )}
-      <div className="items-center mt-8 bg-white tablet:w-60vw mx-auto rounded border-grey border-[1px]">
-        <label className="font-bold justify-center text-2xl tablet:ml-[45%] underline">
+      <div className="items-center mt-8 bg-white tablet:w-40vw mx-auto rounded border-grey border-[1px]">
+        <label className="font-bold justify-center text-2xl items-center flex">
           Modalidad de pago
         </label>
-        <div className="text-xl mt-4 tablet:flex flex flex-col justify-center items-center">
-          <div className="w-40vw m-[1px] flex hover:shadow-xl rounded hover:bg-whiteSmoke">
+        <div className="text-xl mt-4 tablet:flex flex-col items-center ">
+          <div className="w-40vw m-[1px] flex hover:shadow-xl rounded hover:bg-whiteSmoke pl-2">
             <input
               type="radio"
               id="modalidadTransferencia"
@@ -264,7 +264,7 @@ const SelectPayment = () => {
             />
             <label className="p-2 hover:cursor-pointer" htmlFor="modalidadTransferencia">Transferencia Bancaria</label>
           </div>
-          <div className="w-40vw m-[1px] flex hover:shadow-xl rounded hover:bg-whiteSmoke">
+          <div className="w-40vw m-[1px] flex hover:shadow-xl rounded hover:bg-whiteSmoke pl-2">
             <input
               type="radio"
               id="modalidadTarjeta"
@@ -274,7 +274,7 @@ const SelectPayment = () => {
             />
             <label className="p-2 hover:cursor-pointer" htmlFor="modalidadTarjeta">Tarjeta de Crédito o Débito</label>
           </div>
-          <div className="w-40vw m-[1px] flex hover:shadow-xl rounded hover:bg-whiteSmoke">
+          <div className="w-40vw m-[1px] flex hover:shadow-xl rounded hover:bg-whiteSmoke pl-2">
             <input
               type="radio"
               id="modalidadYape"
@@ -284,7 +284,7 @@ const SelectPayment = () => {
             />
             <label className="p-2 hover:cursor-pointer" htmlFor="modalidadYape">Yape o Plin</label>
           </div>
-          <div className="w-40vw m-[1px] flex hover:shadow-xl rounded hover:bg-whiteSmoke">
+          <div className="w-40vw m-[1px] flex hover:shadow-xl rounded hover:bg-whiteSmoke pl-2">
             <input
               type="radio"
               id="modalidadContraentrega"
@@ -299,7 +299,7 @@ const SelectPayment = () => {
       {modalidadPago === "transferenciaBancaria" && (
         <div className="tablet:flex tablet:flex-col flex-none">
           <div className="justify-center tablet:flex tablet:flex-wrap mt-4 p-2">
-            <span className="shadow-xl rounded-xl flex flex-col items-center justify-center m-2 border-grey border-[1px]">
+            <span className="shadow-xl rounded flex flex-col items-center justify-center m-2 border-grey border-[1px]">
               <img
                 src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/bbva_pyb84a.png"
                 alt="BBVA"
@@ -312,7 +312,7 @@ const SelectPayment = () => {
                 <div>CCI: 20.000.000</div>
               </div>
             </span>
-            <span className="shadow-xl rounded-xl flex flex-col items-center justify-center m-2 border-grey border-[1px]">
+            <span className="shadow-xl rounded flex flex-col items-center justify-center m-2 border-grey border-[1px]">
               <img
                 src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/diners_Club_zfcjlt.png"
                 alt="Diners Club"
@@ -325,7 +325,7 @@ const SelectPayment = () => {
                 <div>CCI: 20.000.000</div>
               </div>
             </span>
-            <span className="shadow-xl rounded-xl flex flex-col items-center justify-center m-2 border-grey border-[1px]">
+            <span className="shadow-xl rounded flex flex-col items-center justify-center m-2 border-grey border-[1px]">
               <img
                 src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/bcp_gm0nfk.png"
                 alt="BCP"
@@ -338,7 +338,7 @@ const SelectPayment = () => {
                 <div>CCI: 20.000.000</div>
               </div>
             </span>
-            <span className="shadow-xl rounded-xl flex flex-col items-center justify-center m-2 border-grey border-[1px]">
+            <span className="shadow-xl rounded flex flex-col items-center justify-center m-2 border-grey border-[1px]">
               <img
                 src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/dividelo_interbank_iq253n.png"
                 alt="Dividelo Interbanck"
@@ -352,9 +352,11 @@ const SelectPayment = () => {
               </div>
             </span>
           </div>
-          <div className="max-w-xl tablet:mx-auto shadow-xl rounded-xl m-2 ">
-            <span className="font-bold m-2">
-              RECUERDA ENVIAR EL COMPROBANTE DE PAGO AL SIGUIENTE WHATSAPP
+          <div className="max-w-xl tablet:mx-auto shadow-xl rounded border-grey border-[1px] m-2 ">
+            <span className="font-bold">
+              <h2 className="p-2 text-center">
+                RECUERDA ENVIAR EL COMPROBANTE DE PAGO AL SIGUIENTE WHATSAPP
+              </h2>
             </span>
             <div className="flex justify-center text-2xl  ">
               <SiWhatsapp className="mt-1 mr-4" />
@@ -435,7 +437,7 @@ const SelectPayment = () => {
             y envia el comprobante para proceder con el envío.
           </div>
           <div className="justify-center tablet:flex tablet:flex-wrap mt-4 p-2">
-            <span className="shadow-xl rounded-xl flex flex-col items-center justify-center m-2 border-grey border-[1px]">
+            <span className="shadow rounded flex flex-col items-center justify-center m-2 border-grey border-[1px]">
               <img
                 src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/bbva_pyb84a.png"
                 alt="BBVA"
@@ -448,7 +450,7 @@ const SelectPayment = () => {
                 <div>CCI: 20.000.000</div>
               </div>
             </span>
-            <span className="shadow-xl rounded-xl flex flex-col items-center justify-center m-2 border-grey border-[1px]">
+            <span className="shadow-xl rounded flex flex-col items-center justify-center m-2 border-grey border-[1px]">
               <img
                 src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/diners_Club_zfcjlt.png"
                 alt="Diners Club"
@@ -461,7 +463,7 @@ const SelectPayment = () => {
                 <div>CCI: 20.000.000</div>
               </div>
             </span>
-            <span className="shadow-xl rounded-xl flex flex-col items-center justify-center m-2 border-grey border-[1px]">
+            <span className="shadow-xl rounded flex flex-col items-center justify-center m-2 border-grey border-[1px]">
               <img
                 src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/bcp_gm0nfk.png"
                 alt="BCP"
@@ -474,7 +476,7 @@ const SelectPayment = () => {
                 <div>CCI: 20.000.000</div>
               </div>
             </span>
-            <span className="shadow-xl rounded-xl flex flex-col items-center justify-center m-2 border-grey border-[1px]">
+            <span className="shadow-xl rounded flex flex-col items-center justify-center m-2 border-grey border-[1px]">
               <img
                 src="https://res.cloudinary.com/dpj4n40t6/image/upload/c_thumb,w_200,g_face/v1704394742/dividelo_interbank_iq253n.png"
                 alt="Dividelo Interbanck"
@@ -488,9 +490,11 @@ const SelectPayment = () => {
               </div>
             </span>
           </div>
-          <div className="max-w-xl mx-auto mt-8 shadow-xl rounded-xl ">
-            <span className="font-bold ml-2">
-              RECUERDA ENVIAR EL COMPROBANTE DE PAGO AL SIGUIENTE WHATSAPP
+          <div className="max-w-xl mx-auto mt-8 shadow-xl rounded border-grey border-[1px] ">
+          <span className="font-bold">
+              <h2 className="p-2 text-center">
+                RECUERDA ENVIAR EL COMPROBANTE DE PAGO AL SIGUIENTE WHATSAPP
+              </h2>
             </span>
             <div className="flex justify-center text-2xl  ">
               <SiWhatsapp className="mt-1 mr-4" />
