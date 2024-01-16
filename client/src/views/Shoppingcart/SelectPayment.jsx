@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -67,6 +67,9 @@ const SelectPayment = () => {
     RUC: rucFactura,
     "modalidad de pago": modalidadPago,
   };
+  useEffect(() => {
+    Cookies.set("combinedData", JSON.stringify(combinedData));
+  }, [combinedData]);
 
   const userId =
     (userSession && userSession.userId) ||
@@ -333,7 +336,6 @@ const SelectPayment = () => {
                 <div>Titular: DREWILI</div>
                 <div>Cta. corriente: 555-566-555-555</div>
                 <div>CCI: 20.000.000</div>
-
               </div>
             </span>
             <span className="shadow-xl rounded-xl flex flex-col items-center justify-center m-2 border-grey border-[1px]">
@@ -366,7 +368,6 @@ const SelectPayment = () => {
             </div>
           </div>
 
-
           <button
             className="flex mx-auto mt-8 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded"
             onClick={handlePdf}
@@ -392,8 +393,7 @@ const SelectPayment = () => {
             nuestro número de teléfono, usuando el QR, en tus contactos y
             realiza el pago.
           </span>
-          <div
-            className="flex justify-center mt-8 ml-9 text-9xl">
+          <div className="flex justify-center mt-8 ml-9 text-9xl">
             <BsQrCode />
           </div>
           <div className="max-w-xl mx-auto mt-8 shadow-xl rounded-xl ">
@@ -472,7 +472,6 @@ const SelectPayment = () => {
                 <div>Titular: DREWILI</div>
                 <div>Cta. corriente: 555-566-555-555</div>
                 <div>CCI: 20.000.000</div>
-
               </div>
             </span>
             <span className="shadow-xl rounded-xl flex flex-col items-center justify-center m-2 border-grey border-[1px]">
