@@ -11,10 +11,10 @@ const successHandler = async (req, res) => {
     // Comprobación del entorno y construcción de la URL de redirección
     const baseRedirectUrl =
       process.env.NODE_ENV === "production"
-        ? "https://drewilifront.vercel.app"
-        : "http://localhost:5173"; // Cambia el puerto según tu configuración local
+        ? "https://drewilifront.vercel.app/"
+        : "http://localhost:5173/dd"; // Cambia el puerto según tu configuración local
 
-    const redirectUrl = `${baseRedirectUrl}/payment/success?id=${id}`;
+    const redirectUrl = `${baseRedirectUrl}payment/success?id=${id}`;
 
     res.redirect(redirectUrl);
   } catch (error) {
