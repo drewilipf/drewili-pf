@@ -75,9 +75,31 @@ function CreateProduct() {
   console.log(input);
   async function handleSumit(event) {
     event.preventDefault();
+  
+    
+    const inputFields = ["name", "description", "price", "stock", "specifications", "category", "brand", "color"];
+    
+  
+    const invalidFields = inputFields.filter((field) => {
+      if (field === "image" && (!imageFile || imageFile.length === 0)) {
+        return true;
+      }
+      return !input[field];
+    });
+  
+    if (invalidFields.length > 0) {
+      await Swal.fire({
+        title: "Error",
+        text: `Por favor, complete todos los campos obligatorios: ${invalidFields.join(", ")}.`,
+        icon: "error",
+        confirmButtonColor: "#e62f05",
+      });
+      return;
+    }
+  
     try {
       let arrayUrls = [];
-
+  
       if (imageFile) {
         await Promise.all(
           imageFile.map(async (img) => {
@@ -101,7 +123,7 @@ function CreateProduct() {
       }
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log(input);
+
       const productData = {
         name: input.name,
         description: input.description,
@@ -116,16 +138,16 @@ function CreateProduct() {
         deleted: false,
         relevance: 0,
       };
-      console.log(productData);
+  
       await dispatch(postProducts(productData));
-
-      Swal.fire({
+  
+      await Swal.fire({
         title: "Producto creado con éxito",
         text: "¡El producto se ha creado exitosamente!",
         icon: "success",
-        confirmButtonColor: "#E62F05", // Color del botón de confirmación
+        confirmButtonColor: "#E62F05",
       });
-
+  
       setInput({
         name: "",
         description: "",
@@ -140,18 +162,20 @@ function CreateProduct() {
         deleted: false,
         relevance: 0,
       });
-
+  
       navigate("/dashboard");
     } catch (error) {
-      // Reemplazo de 'alert' con SweetAlert2
+      console.error("Error during product creation:", error);
+  
       await Swal.fire({
         title: "Error",
         text: "Hubo un error al crear el producto",
         icon: "error",
-        confirmButtonColor: "#e62f05", // Color del botón de confirmación
+        confirmButtonColor: "#e62f05",
       });
     }
   }
+
   const addColor = async (e) => {
     e.preventDefault();
     if (newColorInput) {
@@ -191,7 +215,7 @@ function CreateProduct() {
         <div>
           <div>
             <label className="block text-chiliRed mb-2">
-              Nombre del producto:
+              Nombre del producto: <span classname ="text-red">*</span>
             </label>
             <input
               type="text"
@@ -203,7 +227,7 @@ function CreateProduct() {
             />
           </div>
           <div>
-            <label className="block text-chiliRed mb-2">Descripción:</label>
+            <label className="block text-chiliRed mb-2">Descripción:<span classname ="text-red">*</span> </label>
             <input
               type="text"
               name="description"
@@ -214,7 +238,7 @@ function CreateProduct() {
             />
           </div>
           <div>
-            <label className="block text-chiliRed mb-2">Precio:</label>
+            <label className="block text-chiliRed mb-2">Precio: <span classname ="text-red">*</span></label>
             <input
               type="number"
               name="price"
@@ -225,7 +249,7 @@ function CreateProduct() {
             />
           </div>
           <div>
-            <label className="block text-chiliRed mb-2">Descuento:</label>
+            <label className="block text-chiliRed mb-2">Descuento: <span classname ="text-red">*</span></label>
             <div className="flex items-center mt-2 mb-2">
               <input
                 type="number"
@@ -242,7 +266,7 @@ function CreateProduct() {
           </div>
           <div>
             <label className="block text-chiliRed mb-2">
-              Especificaciones:
+              Especificaciones: <span classname ="text-red">*</span>
             </label>
             <input
               type="text"
@@ -254,7 +278,7 @@ function CreateProduct() {
             />
           </div>
           <div>
-            <label className="block text-chiliRed mb-2">Stock:</label>
+            <label className="block text-chiliRed mb-2">Stock: <span classname ="text-red">*</span></label>
             <input
               type="number"
               name="stock"
@@ -265,7 +289,7 @@ function CreateProduct() {
             />
           </div>
           <div>
-            <label className="block text-chiliRed mb-2">Imagen:</label>
+            <label className="block text-chiliRed mb-2">Imagen: <span classname ="text-red">*</span></label>
             <input
               type="file"
               accept="image/*"
@@ -283,7 +307,7 @@ function CreateProduct() {
             <p>{imageFile?.length}</p>
           </div>
           <div>
-            <label className="block text-chiliRed mb-2">Color:</label>
+            <label className="block text-chiliRed mb-2">Color: <span classname ="text-red">*</span></label>
             <div className="flex items-center mb-2">
               <select
                 name="color"
@@ -326,7 +350,7 @@ function CreateProduct() {
             )}
           </div>
           <div>
-            <label className="block text-chiliRed mb-2">Marca:</label>
+            <label className="block text-chiliRed mb-2">Marca: <span classname ="text-red">*</span></label>
             <div className="flex items-center mb-2">
               <select
                 name="brand"
@@ -370,7 +394,7 @@ function CreateProduct() {
             )}
           </div>
           <div>
-            <label className="block text-chiliRed mb-2">Categoria:</label>
+            <label className="block text-chiliRed mb-2">Categoria: <span classname ="text-red">*</span></label>
             <div className="flex items-center mb-2">
               <select
                 name="category"
