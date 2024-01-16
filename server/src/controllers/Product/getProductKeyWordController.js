@@ -39,14 +39,16 @@ const getProductKeyWordController = async (keyWord) => {
       description: product.description,
       price: product.price,
       specifications: product.specifications,
-      color: product.Colors.color,  // Accede a la propiedad 'color' dentro de 'Colors'
+      color: product.Colors.color, // Accede a la propiedad 'color' dentro de 'Colors'
       stock: product.stock,
       image: product.image,
-      brand: product.Brand.brand,  // Accede a la propiedad 'brand' dentro de 'Brand'
-      category: product.Category.category,  // Accede a la propiedad 'category' dentro de 'Category'
+      brand: product.Brand.brand, // Accede a la propiedad 'brand' dentro de 'Brand'
+      category: product.Category.category, // Accede a la propiedad 'category' dentro de 'Category'
       deleted: product.deleted,
       relevance: product.relevance,
+      images: product.imageArray,
       date: product.createdAt,
+      discount: product.discount,
     };
   });
 
