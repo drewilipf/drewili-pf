@@ -28,6 +28,7 @@ const EditProduct = () => {
     name: "",
     description: "",
     price: 0.0,
+    discount: 0.0,
     specifications: [],
     stock: 0,
     imageArray: "",
@@ -58,11 +59,13 @@ const EditProduct = () => {
         name: product.name,
         description: product.description,
         price: parseFloat(product.price),
+        discount: parseFloat(product.discount) || 0,
         specifications: product.specifications,
         stock: parseInt(product.stock),
         imageArray: product.imageArray[0],
         color_id: color.find((c) => c.color === product.color)?.id || 0,
-        category_id: categories.find((cat) => cat.category === product.category)?.id || 0,
+        category_id:
+          categories.find((cat) => cat.category === product.category)?.id || 0,
         brand_id: brands.find((b) => b.brand === product.brand)?.id || 0,
         deleted: product.deleted || false,
       });
@@ -132,6 +135,7 @@ const EditProduct = () => {
         name: input.name,
         description: input.description,
         price: parseFloat(input.price),
+        discount: parseFloat(input.discount),
         specifications: input.specifications,
         stock: parseInt(input.stock),
         imageArray: arrayUrls.length > 0 ? arrayUrls : product.imageArray,
@@ -143,19 +147,19 @@ const EditProduct = () => {
 
       await dispatch(putProduct(id, productData));
 
-       Swal.fire({
-        title: '¡Éxito!',
-        text: 'Producto actualizado exitosamente.',
-        icon: 'success',
-        confirmButtonText: 'Continuar',        
-        confirmButtonColor: '#e62f05', 
-       });
-        
+      Swal.fire({
+        title: "¡Éxito!",
+        text: "Producto actualizado exitosamente.",
+        icon: "success",
+        confirmButtonText: "Continuar",
+        confirmButtonColor: "#e62f05",
+      });
 
       setInput({
         name: product.name,
         description: product.description,
         price: parseFloat(product.price),
+        discount: parseFloat(product.discount),
         specifications: product.specifications,
         stock: parseInt(product.stock),
         imageArray: product.imageArray,
@@ -172,19 +176,18 @@ const EditProduct = () => {
   };
 
   if (!product || !color || !brands || !categories) {
-    return (<div className="mx-auto flex justify-center items-center w-screen h-screen">
-      <Spinner />
-
-    </div>
-    )
+    return (
+      <div className="mx-auto flex justify-center items-center w-screen h-screen">
+        <Spinner />
+      </div>
+    );
   }
-
 
   return (
     <div className="max-w-md mx-auto mt-30 mr-50">
       <NavbarAdmin />
       <h1 className="text-2xl font-bold mb-4 flex items-center justify-center">
-        Crear Producto
+        Editar Producto
       </h1>
       <form
         className="border border-chiliRed rounded p- text-arial text-base flex-col flex items-center justify-center "
@@ -204,27 +207,43 @@ const EditProduct = () => {
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
           </div>
-          <div>
-            <label className="block text-chiliRed mb-2">Descripción:</label>
-            <input
-              type="text"
-              name="description"
-              placeholder="Ingrese la descripción"
-              value={input.description}
-              onChange={handleChange}
-              className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
-            />
-          </div>
-          <div>
-            <label className="block text-chiliRed mb-2">Precio:</label>
+        </div>
+        <div>
+          <label className="block text-chiliRed mb-2">Descripción:</label>
+          <input
+            type="text"
+            name="description"
+            placeholder="Ingrese la descripción"
+            value={input.description}
+            onChange={handleChange}
+            className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
+          />
+        </div>
+        <div>
+          <label className="block text-chiliRed mb-2">Precio:</label>
+          <input
+            type="number"
+            name="price"
+            placeholder="Ingrese el precio"
+            value={input.price}
+            onChange={handleChange}
+            className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
+          />
+        </div>
+        <div>
+          <label className="block text-chiliRed mb-2">Descuento:</label>
+          <div className="flex items-center mt-2 mb-2">
             <input
               type="number"
-              name="price"
-              placeholder="Ingrese el precio"
-              value={input.price}
+              name="discount"
+              placeholder="Ingrese el descuento"
+              value={input.discount}
               onChange={handleChange}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
+              min="0"
+              max="100"
             />
+            <span className="ml-2">%</span>
           </div>
           <div>
             <label className="block text-chiliRed mb-2">

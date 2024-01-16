@@ -12,6 +12,7 @@ import activeFiltersReducer from "./Product/activeFiltersSlice";
 import cartSliceReducer from "./SalesCarts/salesCartsSlice";
 import shippingReducer from "./ShippingInfo/shippingInfoSlice";
 import purchaseHistoryReducer from "./PurchaseHistory/purchaseHistorySlice";
+import notificationSliceReducer from "./Notification/notificationSlice"
 
 export const store = configureStore({
   reducer: {
@@ -28,5 +29,6 @@ export const store = configureStore({
     salesCart: cartSliceReducer,
     shipping: shippingReducer,
     purchaseHistory: purchaseHistoryReducer,
+    notification: notificationSliceReducer,
   },
 });

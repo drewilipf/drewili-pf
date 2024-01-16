@@ -7,8 +7,7 @@ const filterProductCategory = async (category) => {
   const products = await Product.findAll({
     where: { category_id: selectedCategory.id },
     include: [
-      { model: Colors, 
-        attributtes: ["color"] },
+      { model: Colors, attributtes: ["color"] },
       {
         model: Brand,
         attributtes: ["brand"],

@@ -18,8 +18,8 @@ import LogoutButton from "../../Components/LogoutButton";
 import { CiMenuBurger } from "react-icons/ci";
 import { FaTimes } from "react-icons/fa";
 import DarkModeToggle from "../DarkMode/DarkMode";
+import { getUserId } from "../../reduxToolkit/User/userThunks";
 import Swal from "sweetalert2";
-
 
 function Navbar({ setActualPage }) {
   const location = useLocation();
@@ -28,6 +28,8 @@ function Navbar({ setActualPage }) {
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
   const { login } = useSelector((state) => state.login);
+  const usuario = useSelector((state) => state.users.user);
+  console.log(usuario);
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useAuth0();
 
@@ -90,12 +92,12 @@ function Navbar({ setActualPage }) {
     userSession && userSession.username
       ? userSession.username
       : login && login.userSession
-        ? login.userSession.username
-        : isAuthenticated && user.name
-          ? user.name
-          : userGoogleSession
-            ? userGoogleSession.userName
-            : null;
+      ? login.userSession.username
+      : isAuthenticated && user.name
+      ? user.name
+      : userGoogleSession
+      ? userGoogleSession.userName
+      : null;
 
   const handleclickClosed = () => {
      Swal.fire({
@@ -122,6 +124,28 @@ function Navbar({ setActualPage }) {
     (login && login.userSession.userId) ||
     (usersGoogle && usersGoogle.id) ||
     (userGoogleSession && userGoogleSession.id);
+  console.log(id);
+  useEffect(() => {
+    dispatch(getUserId(id));
+  }, [id, dispatch]);
+
+  useEffect(() => {
+    if (usuario && usuario.deleted === true) {
+      dispatch(postLogout());
+      Cookies.remove("userSession");
+      Cookies.remove("userGoogle");
+      Swal.fire({
+        title: "Error",
+        text: "Usuario deshabilitado",
+        icon: "error",
+        showCancelButton: true,
+        confirmButtonColor: "#E62F05",
+        confirmButtonText: "Aceptar",
+      });
+      navigate("/");
+    }
+  }, []);
+
   const role =
     (userSession && userSession.role) ||
     (login && login.userSession.role) ||
@@ -137,7 +161,6 @@ function Navbar({ setActualPage }) {
         <div className="flex flex-col items-center shadow-xl">
           <div className="bg-whiteSmoke ">
             <div className="right-0 mt-2 w-screen flex flex-col pl-2">
-
               <div className="flex items-center space-x-4">
                 <h1 className="transition duration-300 text-chiliRed   cursor-pointer">
                   Bienvenido, {combinedUserSession}!
@@ -228,7 +251,6 @@ function Navbar({ setActualPage }) {
     </div>
   );
 
-
   return (
     <nav className="shadow-xl bg-whiteSmoke mb-2 dark:bg-onyx">
       <div className="lg:h-20 sm:h-20 h-20 flex justify-between z-50 lg:py-5 px-4 sm:px-8 items-center">
@@ -254,7 +276,11 @@ function Navbar({ setActualPage }) {
         {/* {location.pathname === "/" && <DarkModeToggle />} */}
 
         {combinedUserSession ? (
-          <div className={`tablet:flex space-x-3 text-chiliRed items-center pr-4 ${location.pathname !== "/" ? 'ml-auto' : ''} hidden`}>
+          <div
+            className={`tablet:flex space-x-3 text-chiliRed items-center pr-4 ${
+              location.pathname !== "/" ? "ml-auto" : ""
+            } hidden`}
+          >
             <div className="relative group:flex items-center space-x-4 ml-auto">
               <div className="flex items-center space-x-4">
                 <img
@@ -332,7 +358,11 @@ function Navbar({ setActualPage }) {
             </div>
           </div>
         ) : (
-          <div className={`tablet:flex space-x-3 text-chiliRed items-center pr-4 ${location.pathname !== "/" ? 'ml-auto' : ''} hidden`}>
+          <div
+            className={`tablet:flex space-x-3 text-chiliRed items-center pr-4 ${
+              location.pathname !== "/" ? "ml-auto" : ""
+            } hidden`}
+          >
             <h1 className="transition duration-300 hover:text-onyx cursor-pointer">
               <NavLink to="/userform" className="text-chiliRed hover:text-onyx">
                 Regístrate
@@ -363,4 +393,3 @@ function Navbar({ setActualPage }) {
 }
 
 export default Navbar;
-

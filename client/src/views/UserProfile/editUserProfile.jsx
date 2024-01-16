@@ -100,9 +100,9 @@ const EditUserProfile = () => {
         title: "¡Éxito!",
         text: "Datos actualizados correctamente",
         icon: "success",
-        confirmButtonColor: "#E62F05"
-      })
-      
+        confirmButtonColor: "#E62F05",
+      });
+
       if (combinedUserSession !== "admin") {
         navigate(`/userprofile/${id}`);
       } else {
@@ -124,9 +124,8 @@ const EditUserProfile = () => {
         title: "¡Error!",
         text: "Error al actualizar los datos",
         icon: "error",
-        confirmButtonColor: "#E62F05"
-      })
-      
+        confirmButtonColor: "#E62F05",
+      });
     }
   };
 

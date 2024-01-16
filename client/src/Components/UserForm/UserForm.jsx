@@ -18,14 +18,12 @@ function UserForm() {
     role: "cliente",
     username: "",
   });
-  const [isRecaptcha, setIsRecaptcha] = useState(false)
+  const [isRecaptcha, setIsRecaptcha] = useState(false);
 
-  const [maildata, setMaildata] = useState(
-    {
-      name: "",
-      email: ""
-    }
-  );
+  const [maildata, setMaildata] = useState({
+    name: "",
+    email: "",
+  });
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({
@@ -42,7 +40,6 @@ function UserForm() {
       [name]: value,
     }));
 
-
     if (name === "name" || name === "email") {
       setMaildata((prevMail) => ({
         ...prevMail,
@@ -50,7 +47,6 @@ function UserForm() {
       }));
     }
   };
-
 
   const handleBlur = (e) => {
     const { name, value } = e.target;
@@ -61,9 +57,9 @@ function UserForm() {
     }));
   };
   const handleIsCaptcha = (value) => {
-    console.log("captcha verificado: ", value)
-    setIsRecaptcha(true)
-  }
+    console.log("captcha verificado: ", value);
+    setIsRecaptcha(true);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -73,7 +69,10 @@ function UserForm() {
     setErrors(validationErrors);
 
     // Comprobar si hay algún error antes de enviar la solicitud
-    if (Object.values(validationErrors).every((error) => error === "") && isRecaptcha) {
+    if (
+      Object.values(validationErrors).every((error) => error === "") &&
+      isRecaptcha
+    ) {
       try {
         dispatch(postUser(input));
 
@@ -98,7 +97,7 @@ function UserForm() {
           title: "¡Éxito!",
           text: "Usuario creado con éxito",
           icon: "success",
-          confirmButtonColor: "#E62F05"
+          confirmButtonColor: "#E62F05",
         });
         navigate("/userlogin");
       } catch (error) {
@@ -106,17 +105,18 @@ function UserForm() {
           title: "¡Error!",
           text: "Error al enviar el formulario",
           icon: "error",
-          confirmButtonColor: "#E62F05"
-        })
+          confirmButtonColor: "#E62F05",
+        });
       }
     } else {
-      Swal.fire({
-        title: "¡Error!",
-        text: "Corrige los errores antes de enviar el formulario",
-        icon: "error",
-        confirmButtonColor: "#E62F05"
-
-      })
+      setTimeout(() => {
+        Swal.fire({
+          title: "¡Error!",
+          text: "Corrige los errores antes de enviar el formulario",
+          icon: "error",
+          confirmButtonColor: "#E62F05",
+        });
+      }, 1000);
     }
   };
   return (
@@ -129,6 +129,10 @@ function UserForm() {
           className="border border-chiliRed rounded p-6 text-arial text-base shadow-lg "
           onSubmit={handleSubmit}
         >
+          <div className="  flex items-center justify-center text-center mt-4 h-12 border rounded-full bg-chiliRed  text-white">
+            <LoginButton />
+          </div>
+          <div className="text-center mt-4">---------- o ---------- </div>
           <div className="mb-4">
             <label className="block text-chiliRed mb-2">
               Nombre de Usuario:
@@ -216,11 +220,21 @@ function UserForm() {
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
             <ul className="list-disc text-onyx pl-6 mt-2 border rounded-md p-4">
-              <li className="rounded-md text-sm">Debe tener una longitud mínima de 8 caracteres</li>
-              <li className="rounded-md text-sm">Debe contener al menos una minúscula</li>
-              <li className="rounded-md text-sm">Debe contener al menos una mayúscula</li>
-              <li className="rounded-md text-sm">Debe contener al menos un dígito</li>
-            <li className="rounded-md text-sm">Debe contener al menos un símbolo</li>
+              <li className="rounded-md text-sm">
+                Debe tener una longitud mínima de 8 caracteres
+              </li>
+              <li className="rounded-md text-sm">
+                Debe contener al menos una minúscula
+              </li>
+              <li className="rounded-md text-sm">
+                Debe contener al menos una mayúscula
+              </li>
+              <li className="rounded-md text-sm">
+                Debe contener al menos un dígito
+              </li>
+              <li className="rounded-md text-sm">
+                Debe contener al menos un símbolo
+              </li>
             </ul>
 
             <div className="h-4">
@@ -256,10 +270,6 @@ function UserForm() {
             >
               Regístrate
             </button>
-          </div>
-          <div className="text-center mt-4">---------- o ---------- </div>
-          <div className="  flex items-center justify-center text-center mt-4 h-12 border rounded-full bg-chiliRed  text-white">
-            <LoginButton />
           </div>
         </form>
       </div>
