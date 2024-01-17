@@ -71,8 +71,10 @@ const SelectPayment = () => {
     RUC: rucFactura,
     "modalidad de pago": modalidadPago,
   };
+
   useEffect(() => {
     Cookies.set("combinedData", JSON.stringify(combinedData));
+    
   }, [combinedData]);
 
   const userId =
@@ -116,28 +118,14 @@ const SelectPayment = () => {
     quantity: item.quantity,
   }));
 
-  const handlePayment = async () => {
-    try {
-      const response = await axios.post(
-        "https://drewili-pf-back.onrender.com/payment/create-checkout-session",
-        { cartItems: listItems, id: userId }
-      );
-      const { data } = response;
-
-      window.location.href = data.urlPayment;
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
- const NewEmailData = {
+  const NewEmailData = {
     name: dropshippingInfo.name
       ? `${dropshippingInfo.name} `
       : `${shippingInfo.name} ${shippingInfo.lastname}`,
     email: shippingInfo.email,
-    adress: dropshippingInfo.adress
-      ? `${dropshippingInfo.adress} `
-      : shippingInfo.adress,
+    adress: dropshippingInfo.address
+      ? `${dropshippingInfo.address} `
+      : shippingInfo.address,
     product: listItems,
     totalprice: priceTotal,
     phone: dropshippingInfo.phone
@@ -171,6 +159,24 @@ const SelectPayment = () => {
   };
 
   const PriceContraentrega = ((priceTotal * 30) / 100).toFixed(2);
+  const handlePayment = async () => {
+    try {
+
+      dispatch(putEmaildata(NewEmailData));
+      Cookies.set("emailData", JSON.stringify(NewEmailData));
+    
+      const response = await axios.post(
+        `https://drewili-pf-back.onrender.com/payment/create-checkout-session`,
+        { cartItems: listItems, id: userId }
+      );
+      const { data } = response;
+
+      window.location.href = data.urlPayment;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
   return (
     <div className="tablet:h-full">

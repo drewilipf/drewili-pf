@@ -28,7 +28,7 @@ import {
         dispatch(postNotificationStart());
   
         const response = await axios.post(`${API_URL}userCormirmBuy`, usermaildata);
-  
+        
         dispatch(postNotificationSuccess({ notification: response.data }));
       } catch (error) {
         dispatch(postNotificationFailure({ error: error.message }));
