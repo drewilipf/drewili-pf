@@ -121,12 +121,12 @@ function UserForm() {
   };
   return (
     <>
-      <div className="w-96 mr-auto ml-auto ">
+      <div className="tablet:w-96 mr-auto ml-auto pb-2">
         <h1 className="text-2xl font-bold mb-4 flex items-center justify-center">
           Regístrate
         </h1>
         <form
-          className="border border-chiliRed rounded p-6 text-arial text-base shadow-lg "
+          className="border border-chiliRed rounded tablet:p-6 p-2 m-[1px] text-arial text-base shadow-lg "
           onSubmit={handleSubmit}
         >
           <div className="  flex items-center justify-center text-center mt-4 h-12 border rounded-full bg-chiliRed  text-white">
@@ -256,7 +256,7 @@ function UserForm() {
               className="border rounded p-3 bg-whiteSmoke focus:outline-none w-full"
             />
           </div>
-          <div>
+          <div className="mx-auto">
             <ReCAPTCHA
               sitekey="6Lee-E0pAAAAABEFRPClDMwRwWlf5dJXyhfeVwDr"
               onChange={handleIsCaptcha}

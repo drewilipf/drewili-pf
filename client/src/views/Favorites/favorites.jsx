@@ -55,8 +55,14 @@ const Favorites = () => {
     }
   };
 
+  const MAX_NAME_LENGTH = 25;
+
+  const TruncateText = (text, maxLength) => {
+    return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
+  };
+
   return (
-    <div className="text-black p-8 rounded-lg shadow-sm md:w-60vw mx-auto shadow-onyx mt-2 mb-2">
+    <div className="text-black p-2 sm:p-8 rounded-lg shadow-sm md:w-40vw mx-auto shadow-onyx mt-2 mb-2">
       <h2 className="text-3xl font-semibold mb-6">Tus Productos Favoritos</h2>
       {favoriteProducts?.map((item) => (
         <div
@@ -70,16 +76,16 @@ const Favorites = () => {
             <img
               src={item.image}
               alt={item.name}
-              className="w-36 h-36 rounded-md object-contain"
+              className="sm:w-36 sm:h-36 w-24 h-24 rounded-md object-contain"
             />
-            <span className="text-lg">{item.name}</span>
+            <span className="text-lg">{TruncateText(item.name, MAX_NAME_LENGTH)}</span>
           </NavLink>
 
           <button
             onClick={() => handleRemoveFromFavorites(item.favorited)}
-            className="text-red-500 hover:text-chiliRed transition duration-300"
+            className="hover:text-chiliRed transition duration-300"
           >
-            <img src={binIcon} alt="quitar" className="w-6 h-6" />
+            <img src={binIcon} alt="quitar" className="md:w-6 md:h-6 h-4 w-4" />
           </button>
         </div>
       ))}
