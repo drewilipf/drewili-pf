@@ -1,7 +1,7 @@
 const validation = (input) => {
     let errors = {};
 
-    // validaciones del userName
+    
 
     if (!input.username) {
         errors.username = "Por favor ingrese su nombre de usuario"
@@ -10,7 +10,7 @@ const validation = (input) => {
     if (!userNameRegex.test(input.username)) {
         errors.username = "Por favor ingrese un nombre de usuario válido";
     }
-    // validaciones del nombre
+    
 
     if (!input.name) {
         errors.name = "Por favor ingrese su nombre"
@@ -20,7 +20,7 @@ const validation = (input) => {
         errors.name = "Por favor ingrese un nombre válido";
     }
 
-    // validaciones del apellido
+    
     if (!input.lastname) {
         errors.lastname = "Por favor ingrese su apellido"
     }
@@ -29,7 +29,7 @@ const validation = (input) => {
         errors.lastname = "Por favor ingrese un apellido válido";
     }
 
-    // validaciones del email
+    
     if (!input.email) {
         errors.email = "Por favor ingrese su email"
     }
@@ -39,7 +39,7 @@ const validation = (input) => {
         errors.email = "Por favor ingrese un email válido";
     }
 
-    // validaciones de la constraseña
+    
     if (!input.password) {
         errors.password = "Por favor ingrese una constraseña"
     }

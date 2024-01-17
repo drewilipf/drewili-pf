@@ -6,7 +6,7 @@ const putPasswordHandler = async (req, res) => {
         const newPassword = await putPasswordController(userName, password)
         res.status(200).json(newPassword)
     } catch (error) {
-        console.log(error);
+        
     }
 
 }

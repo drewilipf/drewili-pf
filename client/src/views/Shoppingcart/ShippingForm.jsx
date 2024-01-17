@@ -100,25 +100,24 @@ const ShippingForm = () => {
     const validationErrorsDrop = dropshippingValidation(dropshipping);
     setErrorsDrop(validationErrorsDrop);
 
-    // Comprobar si hay algún error antes de enviar la solicitud
+    
     if (Object.values(validationErrors).every((error) => error === "") && isOn== false) {
-      // Envía los datos y navega a la siguiente página
+      
       dispatch(setShippingInfo(editable));
       dispatch(setDropshippingInfo(dropshipping));
       navigate("/validateaddress");
     } 
     if (Object.values(validationErrorsDrop).every((error) => error === "") && isOn== true) {
-      // Envía los datos y navega a la siguiente página
+      
       dispatch(setShippingInfo(editable));
       dispatch(setDropshippingInfo(dropshipping));
       navigate("/validateaddress");
     }else {
-      // Muestra un mensaje de error o realiza la acción adecuada si hay errores
-      console.log("Corrige los errores antes de enviar el formulario");
+      
     }
   };
-  console.log(errors)
-  console.log(errorsDrop)
+  
+  
   return (
     <div className="tablet:flex flex-auto">
       <div className=" bg-opacity-10 p-6 text-eerieBlack rounded-lg shadow-md w-full  max-w-screen-md mx-auto flex flex-col tablet:mr-[-1rem] mb-2 bt-2 ">

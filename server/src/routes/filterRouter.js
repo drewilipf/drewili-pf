@@ -7,8 +7,7 @@ const filterHandler = require('../handlers/filterHandler')
 const router = Router()
 
 router.use((req, res, next) => {
-    // Aquí puedes agregar lógica común para la validación, autenticación, etc.
-    console.log('Middleware general');
+    
     next();
   });
 router.get('/category', filterCategoryHandler)

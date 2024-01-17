@@ -51,7 +51,7 @@ const PurchaseHistoryComponent = () => {
 
   const handleCommentPosted = (rating) => {
     closeModal();
-    console.log("Rating from CommentInput:", rating);
+    
     dispatch(getPurchaseHistory(userId));
   };
 
@@ -71,14 +71,14 @@ const PurchaseHistoryComponent = () => {
     const blob = new Blob([uint8Array], { type: "application/pdf" });
     const url = URL.createObjectURL(blob);
 
-    // Crear un enlace temporal para descargar el archivo
+    
     const a = document.createElement("a");
     a.href = url;
     a.download = "documento.pdf";
     document.body.appendChild(a);
     a.click();
 
-    // Limpiar el enlace temporal
+    
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };

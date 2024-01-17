@@ -4,7 +4,7 @@ const salesCartDeleteController = require("../../controllers/SalesCart/deleteSal
 const salesCartDeleteHandler = async(req, res) => {
     try {
         const { id, userId } = req.query;
-        console.log(id, userId,'datos por query ');
+        
         const salesCart = await salesCartDeleteController(id, userId);
 
         if (!salesCart) {

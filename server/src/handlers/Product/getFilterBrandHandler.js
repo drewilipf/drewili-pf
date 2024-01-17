@@ -4,7 +4,7 @@ const getFilterBrandController = require ('../../controllers/Product/getFilterBr
 const getFilterBrandHandler = async(req, res) =>{
 
     const {brand} = req.query
-    console.log(brand)
+    
 
     try {
 

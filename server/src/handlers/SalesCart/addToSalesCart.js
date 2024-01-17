@@ -8,7 +8,7 @@ const addToSalesCartHandler = async (req, res) => {
 
     return res.status(201).json(addedCartItem);
   } catch (error) {
-    console.log(error);
+    
     return res.status(500).json({ error: error.message });
   }
 };

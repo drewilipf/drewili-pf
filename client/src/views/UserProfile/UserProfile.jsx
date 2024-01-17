@@ -18,7 +18,7 @@ const UserProfile = () => {
     fetchData();
   }, [dispatch, id]);
   if (!user) {
-    console.log("Rendering loading...");
+    
     return <p>Cargando...</p>;
   }
   return (

@@ -36,7 +36,7 @@ function CreateProduct() {
   const { brands } = useSelector((state) => state.brands);
   const { color } = useSelector((state) => state.color);
   const [imageFile, setImageFile] = useState([]);
-  console.log(imageFile);
+ 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
@@ -72,7 +72,7 @@ function CreateProduct() {
   function handleNewBrandClick() {
     setShowNewBrandInput((prev) => !prev);
   }
-  console.log(input);
+
   async function handleSumit(event) {
     event.preventDefault();
   

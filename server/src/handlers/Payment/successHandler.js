@@ -8,11 +8,11 @@ const successHandler = async (req, res) => {
     const data = await successController(userId, updateProduct);
     const id = data.length > 0 ? data[0].id : null;
 
-    // Comprobación del entorno y construcción de la URL de redirección
+    
     const baseRedirectUrl =
       process.env.NODE_ENV === "production"
         ? "https://drewilifront.vercel.app/"
-        : "http://localhost:5173/dd"; // Cambia el puerto según tu configuración local
+        : "http://localhost:5173/dd"; 
 
     const redirectUrl = `${baseRedirectUrl}payment/success?id=${id}`;
 

@@ -148,7 +148,7 @@ const ValidateAddress = () => {
         <div
           id="map"
           className="flex items-center mx-auto h-[250px] w-[250px] tablet:w-[400px] tablet:h-[400px]"
-          // style={{ height: "350px", width: "350px" }}
+          
         ></div>
         <div className=" flex flex-col items-center">
           <button

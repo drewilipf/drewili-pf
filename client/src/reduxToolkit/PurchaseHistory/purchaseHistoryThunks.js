@@ -11,9 +11,9 @@ export const getPurchaseHistory = (userId) => {
       const response = await axios.get(
         `https://drewili-pf-back.onrender.com/history/${userId}`
       );
-      console.log(userId);
+      
       const purchaseHistory = response.data;
-      console.log(purchaseHistory);
+      
       dispatch(fetchPurchaseHistorySuccess(purchaseHistory));
     } catch (error) {
       console.error("Error fetching purchase history:", error);
