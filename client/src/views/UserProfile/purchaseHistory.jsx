@@ -13,6 +13,10 @@ const PurchaseHistoryComponent = () => {
   const purchaseHistory = useSelector((state) => state.purchaseHistory.data);
   const loading = useSelector((state) => state.purchaseHistory.loading);
   const error = useSelector((state) => state.purchaseHistory.error);
+  const comments = useSelector((state) => state.comments.comments);
+  console.log(comments);
+  const commentsState = useSelector((state) => state.comments);
+  console.log(commentsState);
 
   const [showModal, setShowModal] = useState(false);
   const [selectedPurchase, setSelectedPurchase] = useState(null);

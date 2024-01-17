@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import StarRating from "./RatingComponent";  // Asegúrate de proporcionar la ruta correcta
+import StarRating from "./RatingComponent"; // Asegúrate de proporcionar la ruta correcta
 import { postComment } from "../../reduxToolkit/Comment/commentThunks";
 
 const CommentInput = ({ user_id, product_id, onCommentPosted }) => {
   const dispatch = useDispatch();
   const [comment, setComment] = useState("");
-  const [rating, setRating] = useState(0);  
+  const [rating, setRating] = useState(0);
   const [commentPosted, setCommentPosted] = useState(false);
+  const comments = useSelector((state) => state.comments.comments);
+  console.log(comments);
+  const commentsState = useSelector((state) => state.comments);
+  console.log(commentsState);
 
   const handleCommentChange = (e) => {
     setComment(e.target.value);
@@ -43,7 +47,7 @@ const CommentInput = ({ user_id, product_id, onCommentPosted }) => {
       <br />
       <button
         className={`bg-chiliRed text-whiteSmoke rounded-md w-1/5 p-2 mt-2 hover:shadow-lg ${
-          commentPosted && 'opacity-50 cursor-not-allowed'
+          commentPosted && "opacity-50 cursor-not-allowed"
         }`}
         onClick={handlePostComment}
         disabled={commentPosted}
