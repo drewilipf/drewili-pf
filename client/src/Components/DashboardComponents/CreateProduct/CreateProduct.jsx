@@ -244,6 +244,7 @@ function CreateProduct() {
               name="price"
               placeholder="Ingrese el precio"
               value={input.price}
+              min={0}
               onChange={handleChange}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
@@ -284,6 +285,7 @@ function CreateProduct() {
               name="stock"
               placeholder="Ingrese la cantidad de productos"
               value={input.stock}
+              min={0}
               onChange={handleChange}
               className="border rounded p-3 w-full bg-whiteSmoke focus:outline-none"
             />
