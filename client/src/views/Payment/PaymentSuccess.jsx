@@ -13,7 +13,7 @@ const PaymentSuccess = () => {
 
   const {emailData} = useSelector((state) => state.notification);
 
-  console.log("emaildata estado global", emailData)
+  
 
   const [usermaildata, setUsermaildata] = useState({
     name: "",
@@ -37,7 +37,7 @@ const PaymentSuccess = () => {
   });
   
   useEffect(() => {
-    console.log("emailData", emailData);
+    
     if (emailData) {
       setUsermaildata({
         name: emailData.name || "",
@@ -63,7 +63,7 @@ const PaymentSuccess = () => {
         total: emailData.totalprice || 0,
         dropshipping: emailData.dropshipping || "",
         status: "default",
-        //status: emailData.status
+        
       });
     }
     
@@ -77,39 +77,39 @@ const PaymentSuccess = () => {
           })),
         },
       ],
-      total: emailData.totalprice, // Agrega el total de la compra
+      total: emailData.totalprice, 
     });
   }, [emailData]);
 
   useEffect(() => {
     const queryString = window.location.search;
 
-    // Crea un nuevo objeto URLSearchParams y pásale la cadena de consulta
+    
     const urlParams = new URLSearchParams(queryString);
 
-    // Obtén el valor del parámetro "id"
+    
     const purchaseId = urlParams.get("id");
 
-    // Ahora 'purchaseId' contiene el valor del parámetro "id"
-    console.log(purchaseId);
-    console.log("emaildata estado global", emailData)
+    
+    
+    
 
     const combinedDataFromCookie = Cookies.get("combinedData");
     const combinedData = combinedDataFromCookie
       ? JSON.parse(combinedDataFromCookie)
       : null;
-    console.log("combined data",combinedData);
+    
     generatePDF(combinedData, purchaseId);
   }, []);
 
 
   useEffect(() => {
     if (usermaildata && usermaildata.name) {
-      console.log("Datos email usuario:", usermaildata);
+      
       dispatch(postNotificationUserConfirmBuy(usermaildata));
     }
     if (adminmaildata && adminmaildata.name) {
-      console.log("Datos email administrador:", adminmaildata);
+      
       dispatch(postNotificationAdminConfirmBuy(adminmaildata));
     }
   }, [usermaildata, adminmaildata, dispatch]);

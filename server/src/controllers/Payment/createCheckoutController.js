@@ -8,7 +8,7 @@ const checkoutController = async (carItems, id) => {
     cantidad: item.quantity,
     idProd: item.idProduct,
   }));
-  console.log(updateProduct, "productos pasados al success");
+  
   const lineItems = carItems.map((item) => ({
     price_data: {
       product_data: {

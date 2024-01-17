@@ -17,8 +17,9 @@ import {
 const ShoppingCart = () => {
   const dispatch = useDispatch();
   const { salesCart } = useSelector((state) => state.salesCart);
+  
   const { priceTotal } = useSelector((state) => state.salesCart);
-  console.log(salesCart, "este el sales cart de shoping cart");
+  
   const userSessionFromCookies = Cookies.get("userSession");
   const userGoogleFromCookies = Cookies.get("userGoogle");
   const userSession = userSessionFromCookies
@@ -65,13 +66,15 @@ const ShoppingCart = () => {
               className="flex items-center justify-between py-2 space-y-2"
             >
               <span className="flex items-center flex-1">
-                <img
-                  src={item.images}
-                  alt={item.name}
-                  className="mr-2"
-                  style={{ maxWidth: "50px", maxHeight: "50px" }}
-                />
-                {item.name}
+                <NavLink to={`/detail/${item.id}`} className="flex">
+                  <img
+                    src={item.images}
+                    alt={item.name}
+                    className="mr-2"
+                    style={{ maxWidth: "50px", maxHeight: "50px" }}
+                  />
+                  {item.name}
+                </NavLink>
               </span>
               <span className="w-16 text-right">{`S/${parseFloat(
                 item.price
@@ -85,27 +88,23 @@ const ShoppingCart = () => {
                 <IoIosRemoveCircleOutline />
               </button>
               <span className="w-16 text-center">{item.quantity}</span>
-              {
-                item.stock <= item.quantity ?
-                  <button
-                    className="mr-4 text-xl relative group"
-                    disabled
-                  >
-                    <IoIosAddCircleOutline />
-                    <h5 className="hidden group-hover:block  absolute top-0 left-0 bg-chiliRed text-white p-2 rounded-md z-10">
-                      No hay mas stock
-                    </h5>
-                  </button>
-                  :
-                  <button
-                    className="mr-4 text-xl"
-                    onClick={() =>
-                      handleQuantity(item.salesCartId, item.quantity + 1, userId)
-                    }
-                  >
-                    <IoIosAddCircleOutline />
-                  </button>
-              }
+              {item.stock <= item.quantity ? (
+                <button className="mr-4 text-xl relative group" disabled>
+                  <IoIosAddCircleOutline />
+                  <h5 className="hidden group-hover:block  absolute top-0 left-0 bg-chiliRed text-white p-2 rounded-md z-10">
+                    No hay mas stock
+                  </h5>
+                </button>
+              ) : (
+                <button
+                  className="mr-4 text-xl"
+                  onClick={() =>
+                    handleQuantity(item.salesCartId, item.quantity + 1, userId)
+                  }
+                >
+                  <IoIosAddCircleOutline />
+                </button>
+              )}
               <button
                 onClick={() => handleRemoveFromCart(item.salesCartId, userId)}
                 className="ml-2"

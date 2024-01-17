@@ -1,5 +1,4 @@
 const successController = require("../../controllers/Payment/successControler");
-
  
   
   const successHandler = async (req, res) => {
@@ -16,3 +15,4 @@ const successController = require("../../controllers/Payment/successControler");
   };
   
   module.exports = successHandler
+

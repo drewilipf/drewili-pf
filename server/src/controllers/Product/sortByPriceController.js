@@ -7,20 +7,20 @@ const sortByPriceController = async (order) => {
         {
           model: Category,
           attributes: ["category"],
-          as: "Category", // Agrega un alias para la tabla Category
+          as: "Category", 
         },
         {
           model: Brand,
           attributes: ["brand"],
-          as: "Brand", // Agrega un alias para la tabla Brand
+          as: "Brand", 
         },
         {
           model: Colors,
           attributes: ["color"],
-          as: "Colors", // Agrega un alias para la tabla Colors
+          as: "Colors", 
         },
       ],
-      order: [["price", order.toLowerCase()]], // por default el orden sera ascendente
+      order: [["price", order.toLowerCase()]], 
     });
 
     const formattedProducts = products.map((product) => {
@@ -30,11 +30,11 @@ const sortByPriceController = async (order) => {
         description: product.description,
         price: product.price,
         specifications: product.specifications,
-        color: product.Colors.color, // Accede a la propiedad 'color' dentro de 'Colors'
+        color: product.Colors.color, 
         stock: product.stock,
         image: product.image,
-        brand: product.Brand.brand, // Accede a la propiedad 'brand' dentro de 'Brand'
-        category: product.Category.category, // Accede a la propiedad 'category' dentro de 'Category'
+        brand: product.Brand.brand, 
+        category: product.Category.category, 
         deleted: product.deleted,
         relevance: product.relevance,
         date: product.createdAt,

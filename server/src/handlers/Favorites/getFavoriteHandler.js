@@ -6,7 +6,7 @@ const getFavoriteHandler = async(req, res)=> {
         const {userId} = req.query
         const favorite = await getFavoriteController(userId)
 
-        // if(!id)  return res.status(401).send('Faltan datos')   
+          
         
         return res.status(200).json(favorite)
 

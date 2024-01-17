@@ -49,7 +49,7 @@ const SelectPayment = () => {
   const { rucFactura } = useSelector((state) => state.shipping);
   let  {emailData}= useSelector((state) => state.notification);
 
-  console.log("New email data antes del cambio", emailData)
+  
 
   const opcionR = opcionQuienRecibe;
   const opcionC = opciontipoComprobante;
@@ -148,12 +148,12 @@ const SelectPayment = () => {
   };
 
   const handlePdf = async () => {
-    console.log(NewEmailData)
+    
     dispatch(putEmaildata(NewEmailData));
-    console.log("emaildata enviado", emailData)
+    
     navigate("/payment/payment");
 
-    console.log(pdfBlob);
+    
 
     const Historial = await axios.post(
       `https://drewili-pf-back.onrender.com/history/${userId}`,
@@ -163,7 +163,7 @@ const SelectPayment = () => {
     );
 
     const purchaseId = Historial.data[0].id;
-    console.log(purchaseId);
+    
     const generatedBlob = generatePDF(combinedData, purchaseId);
     setPdfBlob(generatedBlob);
 

@@ -89,12 +89,12 @@ module.exports = (sequelize) => {
     {
       getterMethods: {
         finalPrice() {
-          // Verifica si hay un descuento y calcula el precio final
+          
           if (this.discount && this.price) {
             const discountAmount = this.price * (this.discount / 100);
             return (this.price - discountAmount).toFixed(2);
           }
-          // Si no hay descuento, devuelve el precio original
+          
           return this.price;
         },
       },

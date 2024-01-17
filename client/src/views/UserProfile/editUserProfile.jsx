@@ -52,7 +52,7 @@ const EditUserProfile = () => {
     dispatch(getUserId(id));
   }, [id, dispatch]);
 
-  // Actualizar el estado editable cuando cambien los datos del usuario
+  
   useEffect(() => {
     if (user) {
       setEditable({
@@ -80,7 +80,7 @@ const EditUserProfile = () => {
   const handleSaveChanges = async (event) => {
     event.preventDefault();
     try {
-      // Check if the user is changing the password
+      
       const isChangingPassword = editable.newPassword !== "";
 
       const userData = {
@@ -88,8 +88,8 @@ const EditUserProfile = () => {
         name: editable.name,
         lastname: editable.lastname,
         email: editable.email,
-        password: isChangingPassword ? editable.password : undefined, // Pass undefined if not changing password
-        newPassword: isChangingPassword ? editable.newPassword : undefined, // Pass undefined if not changing password
+        password: isChangingPassword ? editable.password : undefined, 
+        newPassword: isChangingPassword ? editable.newPassword : undefined, 
         address: editable.address,
         role: editable.role,
         deleted: editable.deleted,
@@ -100,9 +100,9 @@ const EditUserProfile = () => {
         title: "¡Éxito!",
         text: "Datos actualizados correctamente",
         icon: "success",
-        confirmButtonColor: "#E62F05"
-      })
-      
+        confirmButtonColor: "#E62F05",
+      });
+
       if (combinedUserSession !== "admin") {
         navigate(`/userprofile/${id}`);
       } else {
@@ -124,9 +124,8 @@ const EditUserProfile = () => {
         title: "¡Error!",
         text: "Error al actualizar los datos",
         icon: "error",
-        confirmButtonColor: "#E62F05"
-      })
-      
+        confirmButtonColor: "#E62F05",
+      });
     }
   };
 

@@ -21,6 +21,7 @@ function Productcards({ products }) {
             brand={product.brand}
             deleted={product.deleted}
             images={product.images}
+            discount={product.discount}
           />
         ))
       ) : (

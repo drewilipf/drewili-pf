@@ -2,7 +2,7 @@ const filterPriceController = require("../../controllers/Product/filterPriceCont
 
 const filterPriceHandler = async (req, res) => {
     try {
-        const { minPrice, maxPrice } = req.query; // Cambiado de req.body a req.query
+        const { minPrice, maxPrice } = req.query; 
         if (!minPrice || !maxPrice) {
             return res.status(400).json({ error: "Debe proporcionar minPrice y maxPrice en la consulta" });
         }
