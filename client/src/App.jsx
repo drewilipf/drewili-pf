@@ -53,6 +53,10 @@ function App() {
       ? userSession.role
       : login && login.userSession
       ? login.userSession.role
+      : usersGoogle && usersGoogle.role
+      ? usersGoogle.role
+      : userGoogleSession && userGoogleSession.role
+      ? userGoogleSession.role
       : null;
   const isAdmin = combinedUserSession === "admin";
 
@@ -91,21 +95,25 @@ function App() {
             }
           />
           <Route path="/detail/:id" element={<ProductDetail />} />
-
-          <Route path="/shoppingcart" element={<Shoppingcart />} />
-
-          <Route path="/shippingform" element={<ShippingForm />} />
-
-          <Route path="/validateaddress" element={<ValidateAddress />} />
-
-          <Route path="/selectpayment" element={<SelectPayment />} />
-
+          {combinedUserSession && (
+            <Route path="/shoppingcart" element={<Shoppingcart />} />
+          )}
+          {combinedUserSession && (
+            <Route path="/shippingform" element={<ShippingForm />} />
+          )}
+          {combinedUserSession && (
+            <Route path="/validateaddress" element={<ValidateAddress />} />
+          )}
+          {combinedUserSession && (
+            <Route path="/selectpayment" element={<SelectPayment />} />
+          )}
           <Route path="/favorites" element={<Favorites />} />
-
-          <Route path="/userprofile/:id" element={<UserProfile />} />
-
-          <Route path="/edituserprofile/:id" element={<EditUserProfile />} />
-
+          {combinedUserSession && (
+            <Route path="/userprofile/:id" element={<UserProfile />} />
+          )}
+          {combinedUserSession && (
+            <Route path="/edituserprofile/:id" element={<EditUserProfile />} />
+          )}
           <Route path="/userform" element={<UserForm />} />
           <Route path="/userlogin" element={<UserLogin />} />
           <Route path="/forgetpassword" element={<ForgetPassword />} />
@@ -149,11 +157,12 @@ function App() {
           {isAdmin && (
             <Route path="/dashboard/statistics" element={<Statistics />} />
           )}
-
-          <Route path="/payment/success" element={<PaymentSuccess />} />
-
-          <Route path="/payment/:userId" element={<Payment />} />
-
+          {combinedUserSession && (
+            <Route path="/payment/success" element={<PaymentSuccess />} />
+          )}
+          {combinedUserSession && (
+            <Route path="/payment/:userId" element={<Payment />} />
+          )}
           <Route
             path="/history/:userId"
             element={<PurchaseHistoryComponent />}
