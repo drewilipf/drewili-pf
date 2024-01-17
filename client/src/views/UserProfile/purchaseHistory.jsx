@@ -16,7 +16,7 @@ const PurchaseHistoryComponent = () => {
   const comments = useSelector((state) => state.comments.comments);
   console.log(comments);
   const commentsState = useSelector((state) => state.comments);
-  console.log(commentsState);
+  console.log(commentsState.comments);
 
   const [showModal, setShowModal] = useState(false);
   const [selectedPurchase, setSelectedPurchase] = useState(null);
