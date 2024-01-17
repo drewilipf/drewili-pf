@@ -6,7 +6,7 @@ const updatePurchaseHistory = async (req, res) => {
 
     const { newPaymentStatus } = req.body;
 
-    // Verifica si se proporcionó un archivo PDF en la solicitud
+    
     const paymentPdf = req.file ? req.file.buffer : null;
 
     const result = await updatePurchaseHistoryController(

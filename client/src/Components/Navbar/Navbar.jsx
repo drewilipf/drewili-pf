@@ -29,7 +29,7 @@ function Navbar({ setActualPage }) {
   const navigate = useNavigate();
   const { login } = useSelector((state) => state.login);
   const usuario = useSelector((state) => state.users.user);
-  console.log(usuario);
+  
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useAuth0();
 
@@ -76,7 +76,7 @@ function Navbar({ setActualPage }) {
     setIsDropdownOpen((prev) => !prev);
   };
 
-  // Obtener la información de sesión desde las cookies
+  
   const userSessionFromCookies = Cookies.get("userSession");
   const userGoogleFromCookies = Cookies.get("userGoogle");
 
@@ -87,7 +87,7 @@ function Navbar({ setActualPage }) {
     ? JSON.parse(userGoogleFromCookies)
     : null;
 
-  // Combina la información del estado Redux y las cookies
+  
   const combinedUserSession =
     userSession && userSession.username
       ? userSession.username
@@ -100,10 +100,23 @@ function Navbar({ setActualPage }) {
       : null;
 
   const handleclickClosed = () => {
+     Swal.fire({
+      title: "Cerrar sesión",
+      text: "¿Está seguro de querer salir?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#E62F05",
+      cancelButtonColor: "#404145",
+      confirmButtonText: "Aceptar",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        
     dispatch(postLogout());
     Cookies.remove("userSession");
     Cookies.remove("userGoogle");
     navigate("/");
+  }})
   };
 
   const id =
@@ -111,7 +124,7 @@ function Navbar({ setActualPage }) {
     (login && login.userSession.userId) ||
     (usersGoogle && usersGoogle.id) ||
     (userGoogleSession && userGoogleSession.id);
-  console.log(id);
+  
   useEffect(() => {
     dispatch(getUserId(id));
   }, [id, dispatch]);

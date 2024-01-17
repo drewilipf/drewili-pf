@@ -11,7 +11,7 @@ const filterHandler = async(req, res) =>{
           };
       
           const filteredProducts = await filterController(filters);
-          console.log(filteredProducts);
+          
           res.json({ success: true, products: filteredProducts });
     } 
     catch (error) {

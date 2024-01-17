@@ -6,7 +6,7 @@ const updateRelevanceController = async (productId, newRelevance) => {
       throw new Error("La relevancia debe estar entre 0 y 2");
     }
 
-    // Actualizar la relevancia del producto
+    
     const updatedProduct = await Product.update(
       { relevance: newRelevance },
       {

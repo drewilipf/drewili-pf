@@ -13,10 +13,10 @@ export const filterAll = (category, brand, color, minPrice, maxPrice) => {
       if (minPrice !== undefined) queryParams.minPrice = minPrice;
       if (maxPrice !== undefined) queryParams.maxPrice = maxPrice;
 
-      // Construir la cadena de consulta
+     
       const queryString = new URLSearchParams(queryParams).toString();
 
-      // Concatenar la cadena de consulta a la URL base
+      
       const urlWithParams = `${API_URL}?${queryString}`;
 
       const response = await axios.get(urlWithParams);

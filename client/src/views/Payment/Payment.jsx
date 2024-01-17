@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch,useSelector  } from "react-redux";
 import { NavLink, useLocation, useParams } from "react-router-dom";
-import { putEmaildata } from "../../reduxToolkit/Notification/notificationSlice";
 import { postNotificationUserConfirmBuy } from "../../reduxToolkit/Notification/notificationThunks";
 import { postNotificationAdminConfirmBuy } from "../../reduxToolkit/Notification/notificationThunks";
 import mixpanel from "mixpanel-browser";
@@ -11,15 +10,13 @@ const Payment = () => {
   const location = useLocation();
   const {emailData} = useSelector((state) => state.notification);
 
-  console.log("emaildata estado global", emailData)
-
   const [usermaildata, setUsermaildata] = useState({
     name: "",
     email: "",
     products: [],
     total: 0,
     adress: "",
-    status: "default",
+    status: "Pendiente",
   });
 
   const [adminmaildata, setAdminmaildata] = useState({
@@ -31,11 +28,11 @@ const Payment = () => {
     adress: "",
     dropshiping: "",
     payment: "",
-    status: "default",
+    status: "Pendiente",
   });
 
   useEffect(() => {
-    console.log(emailData);
+    
     if (emailData) {
       setUsermaildata({
         name: emailData.name || "",
@@ -46,10 +43,12 @@ const Payment = () => {
           price: item.price,
         })),
         total: emailData.totalprice || 0,
-        adress: emailData.adress || "",
-        status: "default",
-        //status: emailData.status
+        adress: emailData.adress || "Dirección pentiente",
+        status: "Pendiente",
+        
       });
+
+      
       setAdminmaildata({
         name: emailData.name || "",
         email: emailData.email || "",
@@ -59,29 +58,27 @@ const Payment = () => {
           quantity: item.quantity,
           price: item.price,
         })),
-        adress: emailData.adress || "",
-
         total: emailData.totalprice || 0,
-        dropshipping: emailData.dropshipping || "",
-        status: "default",
-        //status: emailData.status
+        adress: emailData.adress || "Dirección pendiente",
+        dropshipping: emailData.dropshipping || "Drop pendiente",
+        status: "Pendiente",
+        
       });
+      
     }
   }, [emailData]);
 
   useEffect(() => {
     if (usermaildata && usermaildata.name) {
-      console.log("Datos email usuario:", usermaildata);
       dispatch(postNotificationUserConfirmBuy(usermaildata));
     }
     if (adminmaildata && adminmaildata.name) {
-      console.log("Datos email administrador:", adminmaildata);
       dispatch(postNotificationAdminConfirmBuy(adminmaildata));
     }
-  }, [usermaildata, adminmaildata, dispatch]);
+  }, [usermaildata, adminmaildata]);
 
   useEffect(() => {
-    // Registra un evento de compra completada en Mixpanel
+    
     mixpanel.track("CompraCompletada", {
       productos: [
         {
@@ -92,7 +89,7 @@ const Payment = () => {
           })),
         },
       ],
-      total: emailData.totalprice, // Agrega el total de la compra
+      total: emailData.totalprice, 
     });
   }, []);
 

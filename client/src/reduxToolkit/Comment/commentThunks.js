@@ -41,16 +41,16 @@ export const getComments = () => {
 export const postComment = (user_id, product_id, comment, rating) => {
   return async (dispatch, getState) => {
     try {
-      console.log(rating,'este es el rating recibido');
+      
       dispatch(postCommentStart());
       const response = await axios.post(API_URL, { user_id, product_id, comment, rating });
       dispatch(postCommentSuccess({ newComment: response.data }));
 
       const updatedComments = [...getState().comments, response.data];
-      console.log("Updated Comments:", updatedComments);
+     
 
       const averageStars = calculateAverageStarsByProduct(updatedComments, product_id);
-      console.log("Average Stars:", averageStars);
+      
 
       dispatch(setAverageStars({ productId: product_id, averageStars }));
     } catch (error) {
@@ -67,10 +67,10 @@ export const updateComment = (commentId, updatedComment) => {
       dispatch(updateCommentSuccess({ updatedComment: response.data }));
 
       const updatedComments = [...getState().comments, response.data];
-      console.log("Updated Comments:", updatedComments);
+      
 
       const averageStars = calculateAverageStarsByProduct(updatedComments, response.data.productId);
-      console.log("Average Stars:", averageStars);
+      
 
       dispatch(setAverageStars({ productId: response.data.productId, averageStars }));
     } catch (error) {

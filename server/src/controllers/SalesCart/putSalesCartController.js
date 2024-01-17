@@ -20,12 +20,12 @@ const salesCartController = async(id, quantity, userId) => {
                 {
                   model: Category,
                   attributes: ["category"],
-                  as: "Category", // Agrega un alias para la tabla Category
+                  as: "Category", 
                 },
                 {
                   model: Brand,
                   attributes: ["brand"],
-                  as: "Brand", // Agrega un alias para la tabla Brand
+                  as: "Brand", 
                 },
             ],
         },

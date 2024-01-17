@@ -46,7 +46,7 @@ const OtpInput = () => {
   }
   
   useEffect(() => {
-   // para actualizar el estado local con los datos enviados al correo
+   
     if (datasent) {
       setRecoveryData({
         username: datasent.username,
@@ -55,7 +55,7 @@ const OtpInput = () => {
         
       });
     }
-    //para setear el contador del nuevo envío del código
+    
     let interval = setInterval(() => {
         setTimer((lastTimerCount) => {
           lastTimerCount <= 1 && clearInterval(interval);

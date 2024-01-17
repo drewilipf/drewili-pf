@@ -103,12 +103,6 @@ function ProductDetail() {
 
       setLoading(true);
 
-      console.log("datos enviados al servidor:", {
-        productId: id,
-        userId,
-        quantity: 1,
-      });
-
       const response = await axios.post(
         "https://drewili-pf-back.onrender.com/salesCart/addToSalesCart",
         {
@@ -145,6 +139,21 @@ function ProductDetail() {
           cancelButtonColor: "#404145", // Color del botón de cancelar
         });
 
+        const choice = await Swal.fire({
+          title: "Error",
+          text: "Para agregar productos a favoritos, por favor inicia sesión o regístrate. ¿Quieres iniciar sesión?",
+          icon: "error",
+          showCancelButton: true,
+          confirmButtonText: "Continuar",
+          cancelButtonText: "Cancelar",
+          customClass: {
+            confirmButton: "swal-confirm-button",
+            cancelButton: "swal-cancel-button",
+          },
+          confirmButtonColor: "#e62f05",
+          cancelButtonColor: "#404145",
+        });
+
         if (choice.isConfirmed) {
           window.location.href = "/userlogin";
           return;
@@ -167,8 +176,6 @@ function ProductDetail() {
           user_id: userId,
         }
       );
-
-      console.log("Respuesta del servidor (favoritos):", response.data);
 
       setAddedToFavorites(true);
     } catch (error) {
@@ -283,8 +290,6 @@ function ProductDetail() {
     prevArrow: <SamplePrevArrow />,
   };
   const specificationsFormatted = product?.specifications.split(", ");
-
-  console.log(product);
 
   const MAX_NAME_LENGTH = 25;
 

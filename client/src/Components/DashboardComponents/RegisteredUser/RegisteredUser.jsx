@@ -28,7 +28,7 @@ function RegisteredUser() {
         setShowSuccessMessage(true);
         setTimeout(() => {
           setShowSuccessMessage(false);
-        }, 3000); // Ocultar el mensaje después de 3 segundos
+        }, 3000); 
       } catch (error) {
         console.error("Error al eliminar el usuario", error);
       }
@@ -44,7 +44,7 @@ function RegisteredUser() {
         setShowSuccessMessage(true);
         setTimeout(() => {
           setShowSuccessMessage(false);
-        }, 3000); // Ocultar el mensaje después de 3 segundos
+        }, 3000); 
       } catch (error) {
         console.error("Error al activar el usuario", error);
       }

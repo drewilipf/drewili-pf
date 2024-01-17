@@ -15,9 +15,7 @@ function Home({ actualPage, handlePageChange, setActualPage }) {
   const location = useLocation();
 
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(getProducts());
-  // }, [dispatch]);
+  
 
   if (!products) {
     return <div>Cargando...</div>;
@@ -35,7 +33,7 @@ function Home({ actualPage, handlePageChange, setActualPage }) {
   return (
     <>
       <div className="flex flex-col  md:flex-row tablet:flex-row tablet:items-start justify-center w-full pt-2 sm:items-center">
-        {/* searchbar oculta para pantallas grandes */}
+        
         <div className="p-8 tablet:hidden shadow-md">
           {location.pathname === "/" && (
             <>
@@ -46,7 +44,7 @@ function Home({ actualPage, handlePageChange, setActualPage }) {
             </>
           )}
         </div>
-        {/* ---------------------------------------- */}
+        
 
         <div className="mb-2 tablet:mr-2 tablet:w-56 flex flex-col rounded items-center justify-center shadow-md tablet:sticky tablet:top-4 tablet:z-50">
           <ProductFilter setActualPage={(num) => setActualPage(num)} />

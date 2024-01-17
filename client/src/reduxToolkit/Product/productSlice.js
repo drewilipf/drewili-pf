@@ -8,7 +8,7 @@ const initialState = {
   filterBrand: null,
   filterCategory: null,
   productsId: [],
-  status: "idle", // "idle", "loading", "succeeded", "failed"
+  status: "idle", 
   error: null,
   product: null,
 };
@@ -30,7 +30,7 @@ export const productSlice = createSlice({
     postProductsSuccess: (state, action) => {
       state.status = "succeeded";
       state.products = action.payload.products;
-      console.log("State after update:", state.products);
+     
     },
     searchProductSuccess: (state, action) => {
       state.status = "succeeded";
@@ -40,28 +40,28 @@ export const productSlice = createSlice({
       const currentFilterProducts = JSON.parse(JSON.stringify(state.products));
 
       const filteredProduct = action.payload.products;
-      console.log(filteredProduct);
+      
       state.products = currentFilterProducts.filter((product) =>
         filteredProduct.some((product2) => product.id === product2.id)
       );
       state.filterPrice = state.products;
 
-      console.log(state.products);
+      
     },
 
     filterColorSuccess: (state, action) => {
       const currentFilterProducts = JSON.parse(JSON.stringify(state.products));
 
-      console.log(currentFilterProducts);
+      
 
       const filteredProduct = action.payload.products;
-      console.log(filteredProduct);
+      
       state.products = currentFilterProducts.filter((product) =>
         filteredProduct.some((product2) => product.id === product2.id)
       );
       state.filterColor = state.products;
 
-      console.log(state.products);
+      
     },
 
     sortByPriceSuccess: (state, action) => {
@@ -103,17 +103,17 @@ export const productSlice = createSlice({
     filterBrandSuccess: (state, action) => {
       const currentFilterProducts = JSON.parse(JSON.stringify(state.products));
 
-      console.log(currentFilterProducts);
-      console.log(state.filterBrand);
+      
+      
 
       const filteredProduct = action.payload.products;
-      console.log(filteredProduct);
+      
       state.products = currentFilterProducts.filter((product) =>
         filteredProduct.some((product2) => product.id === product2.id)
       );
       state.filterBrand = state.products;
 
-      console.log(state.products);
+      
     },
     deletedProductSlice: (state, action) => {
       state.status = "succeeded";
@@ -127,16 +127,16 @@ export const productSlice = createSlice({
     filterCategorySuccess: (state, action) => {
       const currentFilterProducts = JSON.parse(JSON.stringify(state.products));
 
-      console.log(currentFilterProducts);
+      
 
       const filteredProduct = action.payload.products;
-      console.log(filteredProduct);
+      
       state.products = currentFilterProducts.filter((product) =>
         filteredProduct.some((product2) => product.id === product2.id)
       );
       state.filterCategory = state.products;
 
-      console.log(state.products);
+      
     },
     clearFilterSlice: (state) => {
       state.status = "succeeded";

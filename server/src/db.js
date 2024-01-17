@@ -15,9 +15,9 @@ const { DB_URL } = process.env;
 const sequelize = new Sequelize(
    DB_URL,
    {
-      //comentar esta opcion para usar la DBB local.
-      logging: false, // set to console.log to see the raw SQL queries
-      native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+      
+      logging: false, 
+      native: false, 
       ssl: false,
       dialectOptions: {
          ssl: {
@@ -37,7 +37,7 @@ const Favorite = FavoriteModel(sequelize)
 const Colors = ColorsModel(sequelize)
 const PurchaseHistory = PurchaseModel(sequelize)
 
-// Aca vendrian las relaciones
+
 Product.belongsTo(Category, { foreignKey: 'category_id', as: 'Category' });
 Category.hasMany(Product, { foreignKey: 'category_id', as: 'Category' });
 

@@ -5,29 +5,29 @@ const getProductKeyWordController = async (keyWord) => {
   if (!keyWord || typeof keyWord !== "string" || keyWord === "mierda") {
     throw new Error("La palabra clave es inválida");
   }
-  console.log(keyWord);
+  
 
   const products = await Product.findAll({
     where: {
       name: {
-        [Op.iLike]: `%${keyWord}%`, // Buscar coincidencias parciales sin importar mayúsculas/minúsculas
+        [Op.iLike]: `%${keyWord}%`, 
       },
     },
     include: [
       {
         model: Category,
         attributes: ["category"],
-        as: "Category", // Agrega un alias para la tabla Category
+        as: "Category", 
       },
       {
         model: Brand,
         attributes: ["brand"],
-        as: "Brand", // Agrega un alias para la tabla Brand
+        as: "Brand", 
       },
       {
         model: Colors,
         attributes: ["color"],
-        as: "Colors", // Agrega un alias para la tabla Colors
+        as: "Colors",
       },
     ],
   });
@@ -39,11 +39,11 @@ const getProductKeyWordController = async (keyWord) => {
       description: product.description,
       price: product.price,
       specifications: product.specifications,
-      color: product.Colors.color, // Accede a la propiedad 'color' dentro de 'Colors'
+      color: product.Colors.color, 
       stock: product.stock,
       image: product.image,
-      brand: product.Brand.brand, // Accede a la propiedad 'brand' dentro de 'Brand'
-      category: product.Category.category, // Accede a la propiedad 'category' dentro de 'Category'
+      brand: product.Brand.brand, 
+      category: product.Category.category, 
       deleted: product.deleted,
       relevance: product.relevance,
       images: product.imageArray,
