@@ -24,7 +24,7 @@ const transporter = nodemailer.createTransport({
 
 transporter
   .verify()
-  .then(() => console.log("Email enviado!!"))
+  .then(() => console.log("Nodemailer en linea"))
   .catch((error) => console.error("Error al verificar el transporte:", error));
 
 module.exports = transporter;

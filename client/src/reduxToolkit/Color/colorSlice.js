@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   color: [],
-  status: "idle", // Puedes inicializar el estado status aquí
+  status: "idle", 
   error: null,
 };
 

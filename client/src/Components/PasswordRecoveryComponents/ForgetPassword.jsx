@@ -20,7 +20,7 @@ const [errors, setErrors] =  useState({ email: ""})
 
   useEffect(() => {
     if (userData) {
-      // Genera el OTP una vez cuando userData está presente
+      
       const OTP = Math.floor(Math.random() * 9000 + 1000);
       setEmaildata({
         username: userData.username,
@@ -35,7 +35,7 @@ const [errors, setErrors] =  useState({ email: ""})
   const handleChange = (event) => {
     const { name, value } = event.target;
   
-    // Validación de correo electrónico
+    
     if (name === "email" && !regexemail.test(value)) {
       setErrors({ email: "Por favor ingrese un correo válido" });
     } else {

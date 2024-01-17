@@ -13,6 +13,10 @@ const PurchaseHistoryComponent = () => {
   const purchaseHistory = useSelector((state) => state.purchaseHistory.data);
   const loading = useSelector((state) => state.purchaseHistory.loading);
   const error = useSelector((state) => state.purchaseHistory.error);
+  const comments = useSelector((state) => state.comments.comments);
+  console.log(comments);
+  const commentsState = useSelector((state) => state.comments);
+  console.log(commentsState);
 
   const [showModal, setShowModal] = useState(false);
   const [selectedPurchase, setSelectedPurchase] = useState(null);
@@ -51,7 +55,7 @@ const PurchaseHistoryComponent = () => {
 
   const handleCommentPosted = (rating) => {
     closeModal();
-    console.log("Rating from CommentInput:", rating);
+    
     dispatch(getPurchaseHistory(userId));
   };
 
@@ -71,14 +75,14 @@ const PurchaseHistoryComponent = () => {
     const blob = new Blob([uint8Array], { type: "application/pdf" });
     const url = URL.createObjectURL(blob);
 
-    // Crear un enlace temporal para descargar el archivo
+    
     const a = document.createElement("a");
     a.href = url;
     a.download = "documento.pdf";
     document.body.appendChild(a);
     a.click();
 
-    // Limpiar el enlace temporal
+    
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };

@@ -26,7 +26,7 @@ function UserLogin() {
   };
 
   const handleSuccessfulLogin = (userSession) => {
-    // Guardar información de sesión en una cookie
+    
     Cookies.set("userSession", JSON.stringify(userSession), { expires: 7 });
   };
 
@@ -87,10 +87,10 @@ function UserLogin() {
         
         //const actionResult = await dispatch(getUserByUsername(input.username));
         const response = await axios.get(`https://drewili-pf-back.onrender.com/user/username?username=${input.username}`)
-        console.log("user by username result", response.status)
+        
        
         response.status && response.status === 200
-        // verificar el bug de cuando la gente usa el mismo componente dos veces
+        
           navigate('/forgetpassword', { state: input })
        
       } catch (error) {
@@ -114,7 +114,7 @@ function UserLogin() {
   };
   
   return (
-    <div className="w-96  mr-auto ml-auto h-90vh pt-16">
+    <div className="tablet:w-96  mr-auto ml-auto tablet:h-90vh pt-16 p-2">
       <h1 className="text-2xl font-bold mb-4 flex items-center justify-center">
         Iniciar Sesión
       </h1>

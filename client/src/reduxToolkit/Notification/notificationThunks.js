@@ -2,6 +2,7 @@ import {
     postNotificationStart,
     postNotificationSuccess,
     postNotificationFailure,
+    putEmaildata,
   } from "./notificationSlice";
   import axios from "axios";
   
@@ -27,7 +28,7 @@ import {
         dispatch(postNotificationStart());
   
         const response = await axios.post(`${API_URL}userCormirmBuy`, usermaildata);
-  
+        
         dispatch(postNotificationSuccess({ notification: response.data }));
       } catch (error) {
         dispatch(postNotificationFailure({ error: error.message }));
@@ -52,7 +53,7 @@ import {
     return async (dispatch) => {
       try {
         dispatch(postNotificationStart());
-        console.log("estos son los datos que recibe el thunk del recovery", emailData)
+        
         const response = await axios.post(`${API_URL}recoverPass`, emailData);
   
         dispatch(postNotificationSuccess({ notification: response.data }));

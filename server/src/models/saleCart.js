@@ -39,7 +39,7 @@ module.exports = (sequelize) =>{
                     user_id: userId
                 }
             })
-            console.log(`Carrito del usuario ${userId} vaciado con exito`);
+            
         }
         catch (error) {
             console.error('Error al vaciar el carrito', error)

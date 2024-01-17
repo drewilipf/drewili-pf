@@ -23,7 +23,7 @@ const ProductFilter = ({ setActualPage }) => {
   }
 
   const [filterMenuOpen, setFilterMenuOpen] = useState(false);
-  // Estado local para los filtros y control del menú desplegable
+  
   const [filterState, setFilterState] = useState({
     selectedCategory: cat,
     selectedBrand: "",

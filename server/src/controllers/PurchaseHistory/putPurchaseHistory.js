@@ -12,13 +12,12 @@ const updatePurchaseHistory = async (
       throw new Error("Compra no encontrada");
     }
 
-    console.log("Compra encontrada:", purchase);
-    console.log("status back", newPaymentStatus);
+    
+    
     if (newPaymentStatus) {
       purchase.paymentStatus = newPaymentStatus;
     }
-    // Verifica si se proporcionó un archivo PDF antes de intentar guardarlo
-    console.log("paymentPdf back", paymentPdf);
+    
     if (paymentPdf) {
       purchase.paymentPdf = paymentPdf;
     }

@@ -127,14 +127,14 @@ const ValidateAddress = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center">
-      <div className="shadow-md  w-40vw  flex flex-col items-center justify-center">
+    <div className="tablet:h-screen flex flex-col items-center justify-center">
+      <div className="shadow-md  tablet:w-40vw  flex flex-col items-center justify-center">
         <h2 className="font-bold text-2xl text-center mt-2 mb-4">
           Validación de dirección
         </h2>
 
-        <div className=" mb-4 mx-auto">
-          <label className="mr-2 font-bold">Dirección</label>
+        <div className="p-2 mb-4 mx-auto flex flex-col justify-center items-center">
+          <label className="tablet:mr-2 font-bold">Dirección</label>
           <input
             className="w-auto px-8 py-1.5 text-lg text-eerieBlack leading-tight border rounded focus:outline-none focus:shadow-outline mt-5 ml-2"
             id="address"
@@ -147,8 +147,8 @@ const ValidateAddress = () => {
         </div>
         <div
           id="map"
-          className="flex items-center mx-auto"
-          style={{ height: "400px", width: "400px" }}
+          className="flex items-center mx-auto h-[250px] w-[250px] tablet:w-[400px] tablet:h-[400px]"
+          
         ></div>
         <div className=" flex flex-col items-center">
           <button

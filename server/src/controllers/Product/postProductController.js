@@ -19,16 +19,15 @@ const postProductsController = async (
   brand_id,
   category_id,
   color_id,
-  relevance
+  discount
 ) => {
-
   const uploadImages = image.map(async (img) => {
     const cloudinaryUpload = await cloudinary.uploader.upload(img);
     return cloudinaryUpload.secure_url;
   });
-  
+
   const imagesUrls = await Promise.all(uploadImages);
-  console.log(imagesUrls, 'este es el array');
+  
 
   const newProduct = await Product.create({
     name,
@@ -36,11 +35,11 @@ const postProductsController = async (
     price,
     specifications,
     stock,
-    imageArray: imagesUrls.map((image)=>image),
+    imageArray: imagesUrls.map((image) => image),
     color_id,
     brand_id,
     category_id,
-    relevance,
+    discount,
   });
 
   return newProduct;

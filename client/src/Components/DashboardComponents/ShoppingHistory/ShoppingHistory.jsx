@@ -9,7 +9,7 @@ import { FaFilePdf } from "react-icons/fa6";
 const ShoppingHistory = () => {
   const dispatch = useDispatch();
   const purchaseHistory = useSelector((state) => state.purchaseHistory.history);
-  console.log(purchaseHistory);
+  
   const [isEditing, setIsEditing] = useState(false);
   const [selectedPurchaseId, setSelectedPurchaseId] = useState(null);
 
@@ -54,14 +54,14 @@ const ShoppingHistory = () => {
     const blob = new Blob([uint8Array], { type: "application/pdf" });
     const url = URL.createObjectURL(blob);
 
-    // Crear un enlace temporal para descargar el archivo
+    
     const a = document.createElement("a");
     a.href = url;
     a.download = "documento.pdf";
     document.body.appendChild(a);
     a.click();
 
-    // Limpiar el enlace temporal
+    
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
@@ -99,12 +99,17 @@ const ShoppingHistory = () => {
                   >
                     {group[0].paymentStatus.toUpperCase()}
                   </span>
+                  {
+                    group[0].paymentStatus === 'aprobado' || group[0].paymentStatus === 'rechazado' ? 
+                   ""
+                  :
                   <span
                     className="text-2xl ml-3 cursor-pointer"
                     onClick={() => handleEditClick(group)}
                   >
                     <IoMdCreate />
                   </span>
+                  }
                 </p>
                 <p className="font-bold flex ml-2">
                   <span>Informacion de envio:</span>
