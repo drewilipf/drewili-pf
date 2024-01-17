@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 
 const Favorites = () => {
   const [favoriteProducts, setFavoriteProducts] = useState([]);
-  console.log(favoriteProducts);
+  
   const userSessionFromCookies = Cookies.get("userSession");
   const userGoogleFromCookies = Cookies.get("userGoogle");
   const userSession = userSessionFromCookies

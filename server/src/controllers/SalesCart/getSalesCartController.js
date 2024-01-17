@@ -5,7 +5,7 @@ const getSalesCartController = async (userId) => {
         where: { user_id: userId },
         include: {
             model: Product,
-            attributes: ['id', 'name', 'imageArray', 'price', 'stock', 'discount'], // Agregamos 'discount' para calcular 'finalPrice'
+            attributes: ['id', 'name', 'imageArray', 'price', 'stock', 'discount'], 
             include: [
                 {
                     model: Category,
@@ -27,7 +27,7 @@ const getSalesCartController = async (userId) => {
     }
 
     const formattedSalesCart = salesCarts.map((product) => {
-        const finalPrice = product.product.finalPrice; // Acceder al getter 'finalPrice'
+        const finalPrice = product.product.finalPrice; 
         const totalPrice = parseFloat(finalPrice) * product.quantity;
 
         return {

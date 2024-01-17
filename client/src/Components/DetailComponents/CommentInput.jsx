@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import StarRating from "./RatingComponent";  // Asegúrate de proporcionar la ruta correcta
+import StarRating from "./RatingComponent";  
 import { postComment } from "../../reduxToolkit/Comment/commentThunks";
 
 const CommentInput = ({ user_id, product_id, onCommentPosted }) => {

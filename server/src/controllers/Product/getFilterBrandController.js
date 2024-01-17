@@ -39,7 +39,7 @@ const getFilterBrandController = async(brand) => {
         stock: product.stock,
         image: product.image,
         brand: product.brand.brand,
-        category: product.category.category // Extrae solo el atributo 'category'
+        category: product.category.category 
     }));
     return formattedProducts
 }

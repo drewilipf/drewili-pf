@@ -31,7 +31,7 @@ const sortProductsByRatingController = async (order = 'DESC') => {
                 ],
               },
           ],
-          raw: true, // Obtén resultados directos de la base de datos
+          raw: true, 
       });
 
       const formattedProducts = productsByRating.map((product) => {

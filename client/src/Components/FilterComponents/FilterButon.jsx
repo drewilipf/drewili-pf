@@ -9,14 +9,12 @@ const FilterButton = ({ setActualPage }) => {
   const dispatch = useDispatch();
 
   const handleFilterClick = () => {
-    // Puedes realizar operaciones adicionales aquí si es necesario
-
-    // Ejecutar las acciones de filtrado para cada componente
+    
     dispatch(filterColor());
     dispatch(filterBrand());
     dispatch(filterPrice());
 
-    // Establecer la página actual después del filtrado
+    
     setActualPage(1);
   };
   const handleClearFilter = async () => {

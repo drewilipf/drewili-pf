@@ -18,7 +18,7 @@ export const filterBrand = (brand) => {
 
       const products = response.data;
 
-      console.log("Productos filtrados por marca:", products);
+      
 
       dispatch(filterBrandSuccess({ products }));
     } catch (error) {
