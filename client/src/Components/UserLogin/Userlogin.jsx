@@ -114,7 +114,7 @@ function UserLogin() {
   };
   
   return (
-    <div className="w-96  mr-auto ml-auto h-90vh pt-16">
+    <div className="tablet:w-96  mr-auto ml-auto tablet:h-90vh pt-16 p-2">
       <h1 className="text-2xl font-bold mb-4 flex items-center justify-center">
         Iniciar Sesión
       </h1>
