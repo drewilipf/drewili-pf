@@ -57,18 +57,18 @@ function UserForm() {
     }));
   };
   const handleIsCaptcha = (value) => {
-    console.log("captcha verificado: ", value);
+    
     setIsRecaptcha(true);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Verificar si hay errores en los campos
+    
     const validationErrors = validation(input);
     setErrors(validationErrors);
 
-    // Comprobar si hay algún error antes de enviar la solicitud
+    
     if (
       Object.values(validationErrors).every((error) => error === "") &&
       isRecaptcha

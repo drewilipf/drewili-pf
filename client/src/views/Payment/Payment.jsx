@@ -11,7 +11,7 @@ const Payment = () => {
   const location = useLocation();
   const {emailData} = useSelector((state) => state.notification);
 
-  console.log("emaildata estado global", emailData)
+  
 
   const [usermaildata, setUsermaildata] = useState({
     name: "",
@@ -35,7 +35,7 @@ const Payment = () => {
   });
 
   useEffect(() => {
-    console.log(emailData);
+    
     if (emailData) {
       setUsermaildata({
         name: emailData.name || "",
@@ -48,7 +48,7 @@ const Payment = () => {
         total: emailData.totalprice || 0,
         adress: emailData.adress || "",
         status: "default",
-        //status: emailData.status
+        
       });
       setAdminmaildata({
         name: emailData.name || "",
@@ -64,24 +64,24 @@ const Payment = () => {
         total: emailData.totalprice || 0,
         dropshipping: emailData.dropshipping || "",
         status: "default",
-        //status: emailData.status
+        
       });
     }
   }, [emailData]);
 
   useEffect(() => {
     if (usermaildata && usermaildata.name) {
-      console.log("Datos email usuario:", usermaildata);
+      
       dispatch(postNotificationUserConfirmBuy(usermaildata));
     }
     if (adminmaildata && adminmaildata.name) {
-      console.log("Datos email administrador:", adminmaildata);
+      
       dispatch(postNotificationAdminConfirmBuy(adminmaildata));
     }
   }, [usermaildata, adminmaildata, dispatch]);
 
   useEffect(() => {
-    // Registra un evento de compra completada en Mixpanel
+    
     mixpanel.track("CompraCompletada", {
       productos: [
         {
@@ -92,7 +92,7 @@ const Payment = () => {
           })),
         },
       ],
-      total: emailData.totalprice, // Agrega el total de la compra
+      total: emailData.totalprice, 
     });
   }, []);
 

@@ -27,7 +27,7 @@ const postProductsController = async (
   });
 
   const imagesUrls = await Promise.all(uploadImages);
-  console.log(imagesUrls, "este es el array");
+  
 
   const newProduct = await Product.create({
     name,

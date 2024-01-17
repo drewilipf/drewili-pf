@@ -10,7 +10,7 @@ const postNodemailerAdminConfirmBuyController = async (name, email, phone, produ
     htmlContent = htmlContent.replace(/\{phone\}/g, phone);
     htmlContent = htmlContent.replace(/\{dropshiping\}/g, dropshiping);
     htmlContent = htmlContent.replace(/\{status\}/g, status);
-    console.log(products)
+    
 
     const productHtml = products?.map(product => {
         return `

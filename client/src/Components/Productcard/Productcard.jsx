@@ -5,7 +5,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
 
-//iconos
+
 import addToCartIcon from "../../icons/add-to-cart.png";
 import addedToCartIcon from "../../icons/added-to-cart.png";
 import emptyHeartIcon from "../../icons/emptyHeart.png";
@@ -54,7 +54,7 @@ function Productcard({
   const handleAddToCart = async () => {
     try {
       if (!userId) {
-        // Si userId es null, muestra un mensaje de alerta y redirige si el usuario elige iniciar sesión
+       
         const choice = await Swal.fire({
           title: 'Error',
           text: 'Para agregar productos al carrito, por favor inicia sesión o regístrate. ¿Quieres iniciar sesión?',
@@ -62,26 +62,22 @@ function Productcard({
           showCancelButton: true,
           confirmButtonText: 'Continuar',
           cancelButtonText: 'Cancelar',
-          confirmButtonColor: '#e62f05', // Color del botón de confirmación
-          cancelButtonColor: '#404145' // Color del botón de cancelar
+          confirmButtonColor: '#e62f05', 
+          cancelButtonColor: '#404145' 
         });
 
         if (choice.isConfirmed) {
           window.location.href = "/userlogin";
           return;
         } else {
-          // Puedes agregar más lógica aquí si es necesario
+          
           return;
         }
       }
 
       setLoading(true);
 
-      console.log("datos enviados al servidor:", {
-        productId: id,
-        userId,
-        quantity: 1,
-      });
+      
 
       const response = await axios.post(
         "https://drewili-pf-back.onrender.com/salesCart/addToSalesCart",
@@ -92,7 +88,7 @@ function Productcard({
         }
       );
 
-      console.log("Respuesta del servidor:", response.data);
+      
 
       setAddedToCart(true);
     } catch (error) {
@@ -106,7 +102,7 @@ function Productcard({
       setLoadingFavorites(true);
 
       if (!userId) {
-        // Si userId es null, muestra un mensaje de alerta y redirige si el usuario elige iniciar sesión
+        
         const choice = await Swal.fire({
           title: 'Error',
           text: 'Para continuar, por favor inicia sesión o regístrate. ¿Quieres iniciar sesión?',
@@ -114,16 +110,16 @@ function Productcard({
           showCancelButton: true,
           confirmButtonText: 'Continuar',
           cancelButtonText: 'Cancelar',
-          confirmButtonColor: '#e62f05', // Color del botón de confirmación
-          cancelButtonColor: '#404145'  // Color del botón de cancelar
+          confirmButtonColor: '#e62f05', 
+          cancelButtonColor: '#404145'  
         });
 
         if (choice.isConfirmed) {
-          // Redirige directamente si el usuario confirma la alerta
+         
           window.location.href = "/userlogin";
           return;
         } else {
-          // Puedes agregar más lógica aquí si es necesario
+          
           return;
         }
       }
@@ -136,7 +132,7 @@ function Productcard({
         }
       );
 
-      console.log("Respuesta del servidor (favoritos):", response.data);
+      
 
       setAddedToFavorites(true);
     } catch (error) {

@@ -16,12 +16,12 @@ const salesCartDeleteController = async(id, userId) =>{
                     {
                       model: Category,
                       attributes: ["category"],
-                      as: "Category", // Agrega un alias para la tabla Category
+                      as: "Category", 
                     },
                     {
                       model: Brand,
                       attributes: ["brand"],
-                      as: "Brand", // Agrega un alias para la tabla Brand
+                      as: "Brand", 
                     },
                 ],
             },

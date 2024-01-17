@@ -107,11 +107,7 @@ function ProductDetail() {
 
         setLoading(true);
 
-        console.log("datos enviados al servidor:", {
-            productId: id,
-            userId,
-            quantity: 1,
-        });
+        
 
         const response = await axios.post(
             "https://drewili-pf-back.onrender.com/salesCart/addToSalesCart",
@@ -122,7 +118,7 @@ function ProductDetail() {
             }
         );
 
-        console.log("Respuesta del servidor:", response.data);
+        
 
         setAddedToCart(true);
     } catch (error) {
@@ -146,8 +142,8 @@ const handleAddToFavorite = async () => {
                   confirmButton: 'swal-confirm-button',  
                   cancelButton: 'swal-cancel-button',    
                 },
-                confirmButtonColor: '#e62f05',  // Color del botón de confirmación
-                cancelButtonColor: '#404145'   // Color del botón de cancelar
+                confirmButtonColor: '#e62f05',  
+                cancelButtonColor: '#404145'   
             });
 
           if (choice.isConfirmed) {
@@ -162,10 +158,7 @@ const handleAddToFavorite = async () => {
       setLoadingFav(true);
 
      
-      console.log("Datos enviados en la solicitud de favoritos:", {
-          product_id: id,
-          user_id: userId,
-      });
+      
 
       const response = await axios.post(
           "https://drewili-pf-back.onrender.com/favorites",
@@ -175,7 +168,7 @@ const handleAddToFavorite = async () => {
           }
       );
 
-      console.log("Respuesta del servidor (favoritos):", response.data);
+      
 
       setAddedToFavorites(true);
   } catch (error) {
@@ -289,7 +282,7 @@ const settings = {
       };
       const specificationsFormatted = product?.specifications.split(', ')
 
-  console.log(product);
+  
 
   const MAX_NAME_LENGTH = 25;
 

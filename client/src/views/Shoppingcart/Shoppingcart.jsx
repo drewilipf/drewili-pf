@@ -17,9 +17,9 @@ import {
 const ShoppingCart = () => {
   const dispatch = useDispatch();
   const { salesCart } = useSelector((state) => state.salesCart);
-  console.log(salesCart);
+  
   const { priceTotal } = useSelector((state) => state.salesCart);
-  console.log(salesCart, "este el sales cart de shoping cart");
+  
   const userSessionFromCookies = Cookies.get("userSession");
   const userGoogleFromCookies = Cookies.get("userGoogle");
   const userSession = userSessionFromCookies

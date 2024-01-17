@@ -9,7 +9,7 @@ const regularValidation = (input) => {
         errors.name = "Por favor ingrese un nombre válido";
     }
 
-    // validaciones del apellido
+    
     if (!input.lastname) {
         errors.lastname = "Por favor ingrese su apellido"
     }
@@ -18,7 +18,7 @@ const regularValidation = (input) => {
         errors.lastname = "Por favor ingrese un apellido válido";
     }
 
-    // validaciones del email
+    
     if (!input.email) {
         errors.email = "Por favor ingrese su email"
     }

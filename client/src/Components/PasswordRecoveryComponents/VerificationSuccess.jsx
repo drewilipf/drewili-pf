@@ -17,7 +17,7 @@ function VerificationSuccess() {
   const datasent = location.state;
   const userputResult = useSelector((state) => state.users.userModificationResult);
 
-  console.log("estos son los datos que recibe del componente anterior", datasent);
+  
 
   const [input, setInput] = useState({
     newpassword: "",
@@ -39,7 +39,7 @@ function VerificationSuccess() {
         password: input.newpassword,
       });
     }
-    console.log("data para el put actual", putdata);
+    
   }, [datasent, input]);
 const regexpassword= /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}|<>?]).{8,}$/;
 
@@ -49,7 +49,7 @@ const regexpassword= /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}|<>?]).
     let errors = {
       newpassword : ""
     }
-   // validaciones de la constraseña
+   
    if (!input.newpassword) {
     errors.newpassword = "Por favor ingrese una constraseña"
 }
@@ -85,7 +85,7 @@ if (errors.newpassword != "") {
       ...input,
       [event.target.name]: event.target.value,
     });
-    console.log(input);
+    
   };
 
   const handleSubmit = async (event) => {
@@ -95,10 +95,10 @@ if (errors.newpassword != "") {
       if ( !errors.newpassword && input.newpasswordconfirmation && input.newpassword === input.newpasswordconfirmation) {
         const action = putPassRecovery(putdata);
         const actionResult = await dispatch(action);
-        console.log("Datos del componente enviados al thunk", putdata);
-        console.log("user put result", userputResult)
+        
+        
         if(userputResult == "200"){
-          console.log("cambio correcto")
+          
           Swal.fire({
             title: '¡Éxito!',
             text: "Actualización de contraseña correcta.",
@@ -113,7 +113,7 @@ if (errors.newpassword != "") {
       }
     } catch (error) {
       console.error("Error al enviar datos:", error.message);
-      // Mostrar mensaje de error al usuario
+      
       Swal.fire({
         title: '¡Error!',
         text: "Procedimiento incorrecto. Por favor, verifique los datos ingresados.",

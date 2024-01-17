@@ -14,7 +14,7 @@ const postProductsHandler = async (req, res) => {
       color_id,
       discount,
     } = req.body;
-    console.log(image, "este es el array");
+    
     const newProduct = await postProductsController(
       name,
       description,
@@ -27,7 +27,7 @@ const postProductsHandler = async (req, res) => {
       color_id,
       discount
     );
-    console.log(newProduct, "este el nuevo prod");
+    
     res.status(200).send("Producto creado con éxito");
   } catch (error) {
     console.error(error);

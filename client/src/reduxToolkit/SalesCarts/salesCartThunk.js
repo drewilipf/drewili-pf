@@ -2,7 +2,7 @@ import { allDeleteSlice, getSalesCartSlice } from "./salesCartsSlice";
 import axios from "axios";
 
 export const getSalesCart = (userId) => {
-  console.log(userId);
+  
   return async (dispatch) => {
     try {
       const response = await axios.get(
@@ -35,7 +35,7 @@ export const updateSalesCart = (salesCartId, updatedQuantity, userId) => {
         `https://drewili-pf-back.onrender.com/salescart/update`,
         { id: salesCartId, quantity: updatedQuantity, userId: userId }
       );
-      console.log(response, "esta es la respuesta de la cantidad");
+      
       const { products, totalCartPrice } = response.data;
       dispatch(getSalesCartSlice({ products, totalCartPrice }));
     } catch (error) {}
