@@ -9,6 +9,7 @@ import mixpanel from "mixpanel-browser";
 
 const PaymentSuccess = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const {emailData} = useSelector((state) => state.notification);
 
