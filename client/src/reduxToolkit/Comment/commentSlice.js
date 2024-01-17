@@ -1,9 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const calculateAverageStarsByProduct = (comments, productId) => {
-  const productComments = comments.filter(comment => comment.productId === productId);
-  const totalStars = productComments.reduce((sum, comment) => sum + comment.rating, 0);
-  const average = productComments.length > 0 ? totalStars / productComments.length : null;
+  const productComments = comments.filter(
+    (comment) => comment.productId === productId
+  );
+  const totalStars = productComments.reduce(
+    (sum, comment) => sum + comment.rating,
+    0
+  );
+  const average =
+    productComments.length > 0 ? totalStars / productComments.length : null;
   return Number.isFinite(average) ? average : null;
 };
 
@@ -23,8 +29,11 @@ const commentSlice = createSlice({
       state.status = "succeeded";
       state.comments = action.payload.comments;
 
-      state.comments.forEach(comment => {
-        state.averageStars[comment.productId] = calculateAverageStarsByProduct(state.comments, comment.productId);
+      state.comments.forEach((comment) => {
+        state.averageStars[comment.productId] = calculateAverageStarsByProduct(
+          state.comments,
+          comment.productId
+        );
       });
     },
     getCommentsFailure: (state, action) => {
@@ -37,7 +46,7 @@ const commentSlice = createSlice({
     postCommentSuccess: (state, action) => {
       state.status = "succeeded";
       state.comments.push(action.payload.newComment);
-      state.averageStars = calculateAverageStars(state.comments); 
+      state.averageStars = calculateAverageStars(state.comments);
     },
     postCommentFailure: (state, action) => {
       state.status = "failed";
@@ -49,7 +58,9 @@ const commentSlice = createSlice({
     updateCommentSuccess: (state, action) => {
       state.status = "succeeded";
       const updatedComment = action.payload.updatedComment;
-      const index = state.comments.findIndex((comment) => comment.id === updatedComment.id);
+      const index = state.comments.findIndex(
+        (comment) => comment.id === updatedComment.id
+      );
       if (index !== -1) {
         state.comments[index] = updatedComment;
         state.averageStars = calculateAverageStars(state.comments);
