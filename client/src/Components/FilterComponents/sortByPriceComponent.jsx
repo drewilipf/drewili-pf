@@ -7,9 +7,9 @@ const SortByPriceDropdown = () => {
   const dispatch = useDispatch();
 
   const handleSortChange = (order) => {
-    if (order === 'rating') {
-      dispatch(filterRating());
-    }
+    // if (order === 'rating') {
+    //   dispatch(filterRating());
+    // }
     dispatch(filterPrice({ order }));
   };
 
@@ -29,7 +29,7 @@ const SortByPriceDropdown = () => {
       >
         <option value="asc">Precio Asc</option>
         <option value="desc">Precio Desc</option>
-        <option value='rating'>Mejor puntuado</option>
+        {/* <option value='rating'>Mejor puntuado</option> */}
       </select>
     </div>
   );

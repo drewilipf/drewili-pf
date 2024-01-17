@@ -92,11 +92,8 @@ const ShoppingCart = () => {
                     </button>
                     {item.quantity}
                     {item.stock <= item.quantity ? (
-                      <button className="sm:mr-4 text-xl relative group" disabled>
+                      <button className="sm:p-2 text-grey " disabled>
                         <IoIosAddCircleOutline />
-                        <h5 className="hidden group-hover:block  absolute top-0 left-0 bg-chiliRed text-white p-2 rounded-md z-10">
-                          No hay mas stock
-                        </h5>
                       </button>
                     ) : (
                       <button

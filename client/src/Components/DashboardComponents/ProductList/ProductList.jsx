@@ -80,7 +80,13 @@ function ProductList() {
                     <td className="py-2 px-4 border-b">
                       {product.description}
                     </td>
-                    <td className="py-2 px-4 border-b">{product.price}</td>
+                    <td className="py-2 px-4 border-b text-center">
+                      S/ {product.price}
+                      <br />
+                      {
+                        product.discount > 0 ? <h6 className="text-center">-{product.discount}% descuento</h6>: ""
+                      }
+                      </td>
                     <td className="py-2 px-4 border-b">
                       {product.specifications}
                     </td>
