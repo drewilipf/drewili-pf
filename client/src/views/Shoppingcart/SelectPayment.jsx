@@ -137,7 +137,7 @@ const SelectPayment = () => {
 
   const handlePdf = async () => {
     
-    dispatch(putEmaildata(NewEmailData));
+    // dispatch(putEmaildata(NewEmailData));
     
     navigate("/payment/payment");
 
@@ -162,7 +162,7 @@ const SelectPayment = () => {
   const handlePayment = async () => {
     try {
 
-      dispatch(putEmaildata(NewEmailData));
+      // dispatch(putEmaildata(NewEmailData));
       Cookies.set("emailData", JSON.stringify(NewEmailData));
     
       const response = await axios.post(
