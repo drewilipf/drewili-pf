@@ -41,90 +41,90 @@ const ValidateAddress = () => {
     }
   };
 
-  const initMap = () => {
-    const mapInstance = new window.google.maps.Map(
-      document.getElementById("map"),
-      {
-        center: { lat: -12.04318, lng: -77.02824 },
-        zoom: 12,
-      }
-    );
+  // const initMap = () => {
+  //   const mapInstance = new window.google.maps.Map(
+  //     document.getElementById("map"),
+  //     {
+  //       center: { lat: -12.04318, lng: -77.02824 },
+  //       zoom: 12,
+  //     }
+  //   );
 
-    const markerInstance = new window.google.maps.Marker({
-      map: mapInstance,
-      draggable: true,
-      animation: window.google.maps.Animation.DROP,
-      position: { lat: -12.04318, lng: -77.02824 },
-    });
+  //   const markerInstance = new window.google.maps.Marker({
+  //     map: mapInstance,
+  //     draggable: true,
+  //     animation: window.google.maps.Animation.DROP,
+  //     position: { lat: -12.04318, lng: -77.02824 },
+  //   });
 
-    window.google.maps.event.addListener(
-      markerInstance,
-      "dragend",
-      function () {
-        actualizarDireccionDesdeMarker(markerInstance);
-      }
-    );
+  //   window.google.maps.event.addListener(
+  //     markerInstance,
+  //     "dragend",
+  //     function () {
+  //       actualizarDireccionDesdeMarker(markerInstance);
+  //     }
+  //   );
 
-    setMap(mapInstance);
-    setMarker(markerInstance);
-  };
+  //   setMap(mapInstance);
+  //   setMarker(markerInstance);
+  // };
 
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDVAaVadUSfwbDSCN7RiTB45P0ESVDfAdA&libraries=places&callback=initMap`;
-    script.async = true;
-    script.defer = true;
-    document.body.appendChild(script);
+  // useEffect(() => {
+  //   const script = document.createElement("script");
+  //   script.src = `Escribe aqui tu api-key de google maps`;
+  //   script.async = true;
+  //   script.defer = true;
+  //   document.body.appendChild(script);
 
-    script.onload = () => {
-      initMap();
-    };
+  //   script.onload = () => {
+  //     initMap();
+  //   };
 
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
+  //   return () => {
+  //     document.body.removeChild(script);
+  //   };
+  // }, []);
 
-  const actualizarDireccionDesdeMarker = (marker) => {
-    const ubicacion = marker.getPosition();
-    const geocoder = new window.google.maps.Geocoder();
+  // const actualizarDireccionDesdeMarker = (marker) => {
+  //   const ubicacion = marker.getPosition();
+  //   const geocoder = new window.google.maps.Geocoder();
 
-    geocoder.geocode({ location: ubicacion }, function (results, status) {
-      if (status === "OK") {
-        const direccion = results[0].formatted_address;
-        setEditable((prevEditable) => ({
-          ...prevEditable,
-          address: direccion,
-        }));
+  //   geocoder.geocode({ location: ubicacion }, function (results, status) {
+  //     if (status === "OK") {
+  //       const direccion = results[0].formatted_address;
+  //       setEditable((prevEditable) => ({
+  //         ...prevEditable,
+  //         address: direccion,
+  //       }));
 
-        if (dropshippingInfo && dropshippingInfo.address) {
-          dispatch(updateDropshippingAddress(direccion));
-        } else if (shippingInfo && shippingInfo.address) {
-          dispatch(updateShippingAddress(direccion));
-        }
-      } else {
-        console.error(
-          "Error al obtener la dirección desde la ubicación:",
-          status
-        );
-      }
-    });
-  };
+  //       if (dropshippingInfo && dropshippingInfo.address) {
+  //         dispatch(updateDropshippingAddress(direccion));
+  //       } else if (shippingInfo && shippingInfo.address) {
+  //         dispatch(updateShippingAddress(direccion));
+  //       }
+  //     } else {
+  //       console.error(
+  //         "Error al obtener la dirección desde la ubicación:",
+  //         status
+  //       );
+  //     }
+  //   });
+  // };
 
-  const validation = () => {
-    const { address } = editable;
-    const geocoder = new window.google.maps.Geocoder();
+  // const validation = () => {
+  //   const { address } = editable;
+  //   const geocoder = new window.google.maps.Geocoder();
 
-    geocoder.geocode({ address }, function (results, status) {
-      if (status === "OK") {
-        const ubicacion = results[0].geometry.location;
-        map.setCenter(ubicacion);
-        marker.setPosition(ubicacion);
-      } else {
-        console.error("Error al validar la dirección:", status);
-      }
-    });
-  };
+  //   geocoder.geocode({ address }, function (results, status) {
+  //     if (status === "OK") {
+  //       const ubicacion = results[0].geometry.location;
+  //       map.setCenter(ubicacion);
+  //       marker.setPosition(ubicacion);
+  //     } else {
+  //       console.error("Error al validar la dirección:", status);
+  //     }
+  //   });
+  // };
 
   return (
     <div className="tablet:h-screen flex flex-col items-center justify-center">
@@ -145,7 +145,7 @@ const ValidateAddress = () => {
             placeholder="Dirección"
           />
         </div>
-        <div
+        {/* <div
           id="map"
           className="flex items-center mx-auto h-[250px] w-[250px] tablet:w-[400px] tablet:h-[400px]"
           
@@ -157,7 +157,7 @@ const ValidateAddress = () => {
           >
             Validar Dirección
           </button>
-        </div>
+        </div> */}
         <div>
           <NavLink to={"/selectpayment"}>
             <button className="mt-4 bg-chiliRed text-white hover:bg-onyx font-bold py-2 px-4 rounded">
